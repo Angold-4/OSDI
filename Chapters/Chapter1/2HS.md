@@ -68,7 +68,7 @@
 
 **Developing, maintaining, and marketing two completely different product lines was an expensive proposition for the computer manufacturers. In addition, many new computer customers initially needed a small machine but later outgrew it and wanted a bigger machine that had the same architectures as their current one so it could run all their old programs, but faster.**<br>
 
-#####The advent of System/360 means that computers in the world have a common way of interacting. They all share the operating system codenamed OS/360, and not all other products have replaced the customized operating system. Applying a single operating system to the entire series of products is the key to System/360's success. And because of that: Application-level compatibility (with some restrictions) for System/360 software is maintained to the present day with the System z mainframe servers.
+##### The advent of System/360 means that computers in the world have a common way of interacting. They all share the operating system codenamed OS/360, and not all other products have replaced the customized operating system. Applying a single operating system to the entire series of products is the key to System/360's success. And because of that: Application-level compatibility (with some restrictions) for System/360 software is maintained to the present day with the System z mainframe servers.
 <br>
 
 
