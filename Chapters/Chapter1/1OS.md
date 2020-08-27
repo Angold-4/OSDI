@@ -1,6 +1,6 @@
 ## Operating Systerms Design and Implementation Notes
 
-#### 1. Introduce to Operating Systerm
+### 1. Introduce to Operating Systerm
 ##### By Jiawei Wang
 <br>
 
