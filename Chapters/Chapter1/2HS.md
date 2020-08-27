@@ -21,8 +21,8 @@
 
 
 #### 2. The Second Generation (1955–65) Transistors and Batch Systems
-<center>![IBM7094](Sources/IBM7094.jpg)</center>
-<center>[IBM7094 from colunbia.edu](http://www.columbia.edu/cu/computinghistory/7094.html)</center>
+![IBM7094](Sources/IBM7094.jpg)
+[IBM7094 from colunbia.edu](http://www.columbia.edu/cu/computinghistory/7094.html)
 **The introduction of the transistor in the mid-1950s changed the picture radically.**<br>
 **At that time Computers became reliable enough that they could be manufactured and sold to paying customers with the expectation that they would continue to function long enough to get some useful work done.**<br>
 **And that is the first time, there was a clear separation between designers, builders, operators, programmers, and maintenance personnel.**<br>
@@ -73,7 +73,7 @@
 
 
 ![IBMSYS360M65.jpg](Sources/IBMSYS360M65.jpg)
-<center>[IBM Systerm 360 Model 65 upload by Michael J.Ross](http://www.corestore.org)</center>
+[IBM Systerm 360 Model 65 upload by Michael J.Ross](http://www.corestore.org)
 
 > **The development process of System/360 is regarded as the biggest gamble in the history of computer development. In order to develop System/360, a large computer, IBM decided to recruit more than 60,000 new employees and establish five new factories.**
 
