@@ -83,3 +83,6 @@
 
 <br>
 **The 360 was the first major computer line to use (small-scale) Integrated Circuits (ICs), thus providing a major price/performance advantage over the second- generation machines, which were built up from individual transistors. It was an immediate success, and the idea of a family of compatible computers was soon adopted by all the other major manufacturers.**
+
+
+###### 20200827 by Jiawei Wang(Angold-4)
