@@ -3,8 +3,17 @@
 ### 1. Introduce to Operating Systerm
 ##### By Jiawei Wang
 <br>
+<!-- vim-markdown-toc GFM -->
 
+* [The most fundamental system program is the operating system](#the-most-fundamental-system-program-is-the-operating-system)
+* [1. Program](#1-program)
+* [2. Machine](#2-machine)
+    * [1).The Oprating Systerm as an Extend Machine](#1the-oprating-systerm-as-an-extend-machine)
+    * [2).The Operating System as a Resource Manager](#2the-operating-system-as-a-resource-manager)
 
+<!-- vim-markdown-toc -->
+
+<br>
 **As We all know that: A modern Computer can be divided into two pieces: <br> -- Hardware and Software**<br>
 **And Software also can be divided into two kinds: <br> -- Systerm programs and Application Programs**<br>
 
@@ -47,4 +56,3 @@ Application programs, which perform the actual work the user wants.**
 <br>
 **Resource management includes multiplexing (sharing) resources in two ways: in time and in space, which will be Introduced in the future notes**
 <br><br><br>
-###### 20200814 by Jiawei Wang(Angold-4)

@@ -4,6 +4,14 @@
 ##### By Jiawei Wang
 <br>
 
+<!-- vim-markdown-toc GFM -->
+
+* [1. The First Generation (1945–55) Vacuum Tubes and Plugboards](#1-the-first-generation-194555-vacuum-tubes-and-plugboards)
+* [2. The Second Generation (1955–65) Transistors and Batch Systems](#2-the-second-generation-195565-transistors-and-batch-systems)
+* [3. The Third Generation (1965–1980) ICs and Multiprogramming](#3-the-third-generation-19651980-ics-and-multiprogramming)
+
+<!-- vim-markdown-toc -->
+
 ![Charles Babbage](Sources/bbg.jpeg)<br>
 **Operating systems have been evolving through the years.**<br>
 **The first true digital computer was designed by the English mathematician Charles Babbage (1792–1871).<br> Although Babbage spent most of his life and for trying to build his ‘‘analytical engine,’’ he never got it working properly because it was purely mechanical, and the technology of his day could not produce the required wheels, gears, and cogs to the high precision that he needed.<br>Needless to say, the analytical engine did not have an operating system.**<br>
@@ -56,7 +64,7 @@
 **These primitive control cards were the forerunners of modern job control languages and com- mand interpreters.**<br>
 <br>
 
-##### Large second-generation computers were used mostly for scientific and engineering calculations, such as solving the partial differential equations that often occur in physics and engineering. They were largely programmed in FORTRAN and assembly language. Typical operating systems were FMS (the Fortran Monitor System) and IBSYS, IBM’s operating system for the 7094.
+**Large second-generation computers were used mostly for scientific and engineering calculations, such as solving the partial differential equations that often occur in physics and engineering. They were largely programmed in FORTRAN and assembly language. Typical operating systems were FMS (the Fortran Monitor System) and IBSYS, IBM’s operating system for the 7094.**
 <br>
 
 
@@ -68,7 +76,7 @@
 
 **Developing, maintaining, and marketing two completely different product lines was an expensive proposition for the computer manufacturers. In addition, many new computer customers initially needed a small machine but later outgrew it and wanted a bigger machine that had the same architectures as their current one so it could run all their old programs, but faster.**<br>
 
-##### The advent of System/360 means that computers in the world have a common way of interacting. They all share the operating system codenamed OS/360, and not all other products have replaced the customized operating system. Applying a single operating system to the entire series of products is the key to System/360's success. And because of that: Application-level compatibility (with some restrictions) for System/360 software is maintained to the present day with the System z mainframe servers.
+**The advent of System/360 means that computers in the world have a common way of interacting. They all share the operating system codenamed OS/360, and not all other products have replaced the customized operating system. Applying a single operating system to the entire series of products is the key to System/360's success. And because of that: Application-level compatibility (with some restrictions) for System/360 software is maintained to the present day with the System z mainframe servers.**
 <br>
 
 
@@ -83,7 +91,5 @@
 
 <br>
 
-##### The 360 was the first major computer line to use (small-scale) Integrated Circuits (ICs), thus providing a major price/performance advantage over the second generation machines, which were built up from individual transistors. It was an immediate success, and the idea of a family of compatible computers was soon adopted by all the other major manufacturers.**
+**The 360 was the first major computer line to use (small-scale) Integrated Circuits (ICs), thus providing a major price/performance advantage over the second generation machines, which were built up from individual transistors. It was an immediate success, and the idea of a family of compatible computers was soon adopted by all the other major manufacturers.**
 
-
-###### 20200827 by Jiawei Wang(Angold-4)
