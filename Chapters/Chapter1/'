@@ -1,0 +1,28 @@
+## Operating Systerms Design and Implementation Notes
+
+### 3. MINIX3
+##### By Jiawei Wang
+<br>
+
+![s360](Sources/s360.png)
+
+> **In 1964, IBM announced the launch of a total of six specifications of the System 360 series of computers (the price ranges from the lowest 130,000 dollars to the top version asking for 5.5 million dollars)**
+
+**The Greatness of System 360 is not that it has any superior design or performance (although it did excel in this field at the time), but that it completely reversed people's overall understanding of computer systems. Starting with the System 360 series, compatibility between different hosts and different models has become the fundamental value of the information industry, and each "computer" has since become a set of "computer systems" with fixed specifications.<br>**
+
+**That also means the development of peripherals such as watch machines, software, and memory finally has profitable value (there are fixed specifications between computers, so that peripherals can be universally compatible with them), and IBM has created the entire industry almost exclusively by hand.**
+<br><br>
+
+#### 1. The Problem of Systerm/360
+
+**The greatest strength of the ‘‘one family’’ idea was simultaneously its greatest weakness. The intention was that all software, including the operating system, OS/360, had to work on all models. It had to run on small systems.<br><br>There was no way that IBM (or anybody else) could write a piece of software to meet all those conflicting requirements. The result was an enormous and extraordinarily complex operating system, probably two to three orders of magnitude larger than FMS. It consisted of millions of lines of assembly language written by thousands of programmers, and contained thousands upon thousands of bugs, which necessitated a continuous stream of new releases in an attempt to correct them. Each new release fixed some bugs and introduced new ones, so the number of bugs probably remained constant in time.**
+<br><br>
+**Although third-generation operating systems were well suited for big scientific calculations and massive commercial data processing runs, they were still basically batch systems.**<br>
+**Many programmers pined for the first-generation days when they had the machine all to themselves for a few hours, so they could debug their programs quickly. With third-generation systems, the time between submitting a job and getting back the output was often hours, so a single misplaced comma could cause a compilation to fail, and the programmer to waste half a day.**
+<br><br>
+
+#### 2. CTSS and MULTICS
+![MULTICS](Sources/MULTICS.png)<br>[multicians.org](https://www.multicians.org/)<br>
+**This desire for quick response time paved the way for timesharing, a variant of multiprogramming, in which each user has an online terminal. In a timesharing system, if 20 users are logged in and 17 of them are thinking or talking or drinking coffee, the CPU can be allocated in turn to the three jobs that want service. Since people debugging programs usually issue short commands (e.g., compile a five page procedure†) rather than long ones (e.g., sort a million-record file), the computer can provide fast, interactive service to a number of users and perhaps also work on big batch jobs in the background when the CPU is otherwise idle. <br><br>
+The first serious timesharing system, CTSS (Compatible Time Sharing System), was developed at M.I.T. on a specially modified 7094 (Corbato ́et al., 1962).**
+<br><br>

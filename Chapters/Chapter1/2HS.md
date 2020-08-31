@@ -61,7 +61,7 @@
 
 ![FMS](Sources/FMS.png)
 
-**These primitive control cards were the forerunners of modern job control languages and com- mand interpreters.**<br>
+**These primitive control cards were the forerunners of modern job control languages and command interpreters.**<br>
 <br>
 
 **Large second-generation computers were used mostly for scientific and engineering calculations, such as solving the partial differential equations that often occur in physics and engineering. They were largely programmed in FORTRAN and assembly language. Typical operating systems were FMS (the Fortran Monitor System) and IBSYS, IBM’s operating system for the 7094.**
@@ -92,4 +92,3 @@
 <br>
 
 **The 360 was the first major computer line to use (small-scale) Integrated Circuits (ICs), thus providing a major price/performance advantage over the second generation machines, which were built up from individual transistors. It was an immediate success, and the idea of a family of compatible computers was soon adopted by all the other major manufacturers.**
-
