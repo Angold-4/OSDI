@@ -4,6 +4,15 @@
 ##### By Jiawei Wang
 <br>
 
+<!-- vim-markdown-toc GFM -->
+
+* [1. The Problem of Systerm/360](#1-the-problem-of-systerm360)
+* [2. CTSS and MULTICS](#2-ctss-and-multics)
+* [3. Unix](#3-unix)
+* [4. Minix](#4-minix)
+
+<!-- vim-markdown-toc -->
+
 ![s360](Sources/s360.png)
 
 > **In 1964, IBM announced the launch of a total of six specifications of the System 360 series of computers (the price ranges from the lowest 130,000 dollars to the top version asking for 5.5 million dollars)**
@@ -80,4 +89,3 @@ It was designed to support hundreds of users on a machine only slightly more pow
 * **UNIX was designed to be efficient. But MINIX was designed to be readable.**
 
 **In the Next Note. We will continue talk about The Development of Computer Oprating Systerm**
-
