@@ -1,6 +1,6 @@
 ## Operating Systerms Design and Implementation Notes
 
-### 2. The History of Oprating Systerm
+### 2. The History of Oprating Systerm(Early)
 ##### By Jiawei Wang
 <br>
 
