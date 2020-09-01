@@ -25,7 +25,9 @@
 > **The minicomputer made it possible for a department in a company or university to have its own computer. The microcomputer made it possible for an individual to have his or her own computer.**
 
 <br>
+
 ##### 2) Intel 8080
+
 **There were several families of microcomputers.<br>In April 1974, Intel came out with the 8080, the first general-purpose 8-bit microprocessor**<br>
 **[intel 8080 By Konstantin Lanzet - CPU collectionCamera: Canon EOS 400D, CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=7028099)<br>**
 ![8080](Sources/8080.jpg)
