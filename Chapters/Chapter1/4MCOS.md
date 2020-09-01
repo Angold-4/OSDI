@@ -48,10 +48,10 @@
 **[A SANCO Computer which runs CP/M at 1982 By Mspecht - Own work, CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=16374059)**<br>
 
 > **A minimal 8-bit CP/M system would contain the following components:<br>**
-* A computer terminal using the ASCII character set<br>
-* An Intel 8080 (and later the 8085) or Zilog Z80 microprocessor<br>
-* At least 16 kilobytes of RAM, beginning at address 0<br>
-* A means to bootstrap the first sector of the diskette<br>
-* At least one floppy disk drive<br>
+> * A computer terminal using the ASCII character set<br>
+> * An Intel 8080 (and later the 8085) or Zilog Z80 microprocessor<br>
+> * At least 16 kilobytes of RAM, beginning at address 0<br>
+> * A means to bootstrap the first sector of the diskette<br>
+> * At least one floppy disk drive<br>
 
 **However, because of a missed opportunity in the conversion to a 16-bit CPU, it lost miserably to Microsoft's MS-DOS in the 16-bit PC market centered on IBM PC/AT and IBM PC compatible machines, and thus disappeared from the market. Although CP/M introduced the "CP/M 86" designed for Intel 8086 and the "CP/M 68k" designed for Motorola 68000, there are almost no users.**
