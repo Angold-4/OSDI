@@ -82,9 +82,10 @@
 > **The 6502's design goal is "a better performance and lower price alternative than the 6800". When the 6502 was launched in the second half of 1975, its price tag was 25 dollars**
 
 > **In response, Motorola drastically reduced the price of the 6800 from 175 to 69 dollars (MOS Technology has also developed a 6501 CPU that can directly replace the 6800 on the circuit board, but due to Motorola's lawsuit, MOS Technology abandoned the 6501 plan and paid Motorola USD200,000).**
-
 <br>
+
 **At the Beginning of this Note. We see three Computers. Because all of them released at 1977. and Two of them use MOS-6502(AppleII and PET) another(TRS-80) using Zilog Z-80. We call them Trinity-1977.**
+
 <br>
 
 ###### Apple-DOS
