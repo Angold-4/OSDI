@@ -1,0 +1,40 @@
+## Operating Systerms Design and Implementation Notes
+
+##### By Jiawei Wang
+<br>
+#### Shell
+**In the First Note. We mentioned that: The operating system is the code that carries out the system calls.<br>
+Editors, compilers, assemblers, linkers, and command interpreters definitely are not part of the operating system, even though they are important and useful.**
+<br>
+**The MINIX 3 command interpreter, called the Shell.**<br>
+**It is also the primary interface between a user sitting at his terminal and the operating system, unless the user is using a graphical user interface.**<br>
+
+![zshell](Sources/zshell.png)
+<br>
+
+**When any user logs in, a shell is started up. The shell has the terminal as standard input and standard output (STDIN STDOUT). It starts out by typing the prompt, a character such as a dollar sign, which tells the user that the shell is waiting to accept a command. If the user now types**<br>
+```
+date
+```
+<br>
+![zshdate](Sources/date.png)<br>
+**for example, the shell creates a child process and runs the date program as the child. While the child process is running, the shell waits for it to terminate. When the child finishes, the shell types the prompt again and tries to read the next input line.**
+
+<br>
+### 5. Systerm Calls
+<br>
+
+**In a sense, making a system call is like making a special kind of procedure call, only system calls enter the kernel or other privileged operating system components and procedure calls do not.**
+<br><br>
+**MINIX 3 has a total of 53 main system calls:**<br>
+![Systermcalls](Sources/Systermcalls.png)<br>
+
+
+#### 1. Systerm Calls For Process Management
+<br>
+##### fork -- create a child process
+**[fork](https://man7.org/linux/man-pages/man2/fork.2.html)( ) creates a new process by duplicating the calling process.<br>
+The new process is referred to as the child process.  The calling process is referred to as the parent process.**
+
+###### Note
+* **After the fork, the original process and the copy (the parent and child) go their separate ways.**
