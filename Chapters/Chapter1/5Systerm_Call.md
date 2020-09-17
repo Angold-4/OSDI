@@ -2,7 +2,9 @@
 
 ##### By Jiawei Wang
 <br>
+
 #### Shell
+
 **In the First Note. We mentioned that: The operating system is the code that carries out the system calls.<br>
 Editors, compilers, assemblers, linkers, and command interpreters definitely are not part of the operating system, even though they are important and useful.**
 <br>
