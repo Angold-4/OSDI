@@ -12,6 +12,7 @@ Editors, compilers, assemblers, linkers, and command interpreters definitely are
 **It is also the primary interface between a user sitting at his terminal and the operating system, unless the user is using a graphical user interface.**<br>
 
 ![zshell](Sources/zshell.png)
+
 <br>
 
 **When any user logs in, a shell is started up. The shell has the terminal as standard input and standard output (STDIN STDOUT). It starts out by typing the prompt, a character such as a dollar sign, which tells the user that the shell is waiting to accept a command. If the user now types**<br>
@@ -19,7 +20,9 @@ Editors, compilers, assemblers, linkers, and command interpreters definitely are
 date
 ```
 <br>
+
 ![zshdate](Sources/date.png)<br>
+
 **for example, the shell creates a child process and runs the date program as the child. While the child process is running, the shell waits for it to terminate. When the child finishes, the shell types the prompt again and tries to read the next input line.**<br>
 
 ##### Example:
@@ -37,7 +40,9 @@ main(argc, argv, envp)
 * **The third parameter of main, envp, is a pointer to the environment, an array of strings containing assignments of the form name=value used to pass information such as the terminal type and home directory name to a program. In Fig. 1-10, no environment is passed to the child, so the third parameter of execve is a zero.**
 
 <br>
+
 ### 5. Systerm Calls
+
 <br>
 
 **In a sense, making a system call is like making a special kind of procedure call, only system calls enter the kernel or other privileged operating system components and procedure calls do not.**
@@ -65,7 +70,9 @@ main(argc, argv, envp)
 
 #### 1. Systerm Calls For Process Management
 <br>
+
 ##### fork -- create a child process
+
 **[fork](https://man7.org/linux/man-pages/man2/fork.2.html)( ) creates a new process by duplicating the calling process.<br>
 The new process is referred to as the child process.  The calling process is referred to as the parent process.**<br>
 * **After the fork, the original process and the copy (the parent and child) go their separate ways.**
