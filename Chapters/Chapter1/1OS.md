@@ -1,6 +1,6 @@
 ### Operating Systerms Design and Implementation Notes
 
-## 1. Introduce to Operating Systerm
+# 1. Introduce to Operating Systerm
 ##### By Jiawei Wang
 <br>
 <!-- vim-markdown-toc GFM -->
@@ -24,12 +24,12 @@
 **System programs, which manage the operation of the computer itself.<br>
 Application programs, which perform the actual work the user wants.**
 
-### The most fundamental system program is the operating system
+## The most fundamental system program is the operating system
 
 **A major function of the operating system is to hide all this complexity and give the programmer a more convenient set of instructions to work with**
 
 **We can try to understand Oprating Systerm from two aspects:**
-### 1. Program
+## 1. Program
 **OS is a Very big program <br>From the previous layer picture we can see found that OS is not equal to Systerm programs but a part of it**<br>
 **So What the difference between OS and Other Systerm Programs?<br>**
 **On top of the operating system is the rest of the system software<br>Here we find the command interpreter (shell), window systems, compilers, editors, GUI, and similar application-independent programs.<br>**
@@ -38,9 +38,9 @@ Application programs, which perform the actual work the user wants.**
 **For Example: Compilers and editors run in user mode. If a user does not like a particular compiler, he is free to write his own if he so chooses; he is not free to write his own clock interrupt handler, which is part of the operating system and is normally protected by hardware against attempts by users to modify it**
 <br><br>
 **In Conclusion: Everything running in kernel mode is clearly part of the operating systerm. Which means can't be easily changed by the user**
-### 2. Machine
+## 2. Machine
 **From the perspective of the machine, we can also understand Oprating Systerm from two aspects:**
-#### 1).The Oprating Systerm as an Extend Machine
+### 1).The Oprating Systerm as an Extend Machine
 **If we try to understand the Machine(computer) with a top-down view, like we metioned before.<br>**
 **It is not hard to get that conclution:<br>**
 <font color=#FF0000>**In each case, the abstraction offered by the operating system is simpler and easier to use than that offered by the underlying hardware.**</font><br><br>
@@ -53,7 +53,7 @@ Application programs, which perform the actual work the user wants.**
 <br><br>
 **In this view, the function of the operating system is to present the user with the equivalent of an <font color=#FF0000>Extended Machine</font> or <font color=#FF0000>Virtual Machine</font> that is easier to program than the underlying hardware**
 
-#### 2).The Operating System as a Resource Manager
+### 2).The Operating System as a Resource Manager
 **An alternative, bottom-up, view holds that the operating system is there to manage all the pieces of a complex system.<br>Modern computers consist of processors, memories, timers, disks, mice, network interfaces, printers, and a wide variety of other devices. In the alternative view, the job of the operating system is to provide for an orderly and controlled allocation of the processors, memories, and I/O devices among the various programs competing for them.**<br>
 <br>
 **Resource management includes multiplexing (sharing) resources in two ways: in time and in space, which will be Introduced in the future notes**

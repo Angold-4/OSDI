@@ -1,6 +1,6 @@
 ### Operating Systerms Design and Implementation Notes
 
-## 4. The Fourth Generation (1980–Present) Personal Computers
+# 4. The Fourth Generation (1980–Present) Personal Computers
 #### By Jiawei Wang
 <br>
 
@@ -17,19 +17,19 @@
         * [Disk Oprating Systerm(DOS)](#disk-oprating-systermdos)
     * [2) MS-DOS](#2-ms-dos)
         * [86-DOS](#86-dos)
-* [3. Modern System](#3-modern-system)
-    * [Apple Macintoch](#apple-macintoch)
-    * [Classic Mac OS (1984 to 2001)](#classic-mac-os-1984-to-2001)
-    * [BSD](#bsd)
-    * [Linux](#linux)
-    * [GNU and GPL](#gnu-and-gpl)
-    * [Microsoft Windows](#microsoft-windows)
+    * [3. Modern System](#3-modern-system)
+        * [Apple Macintoch](#apple-macintoch)
+        * [Classic Mac OS (1984 to 2001)](#classic-mac-os-1984-to-2001)
+        * [BSD](#bsd)
+        * [Linux](#linux)
+        * [GNU and GPL](#gnu-and-gpl)
+        * [Microsoft Windows](#microsoft-windows)
 
 <!-- vim-markdown-toc -->
 
-### 1. 8-bit ages
+## 1. 8-bit ages
 
-#### 1) Microcomputer
+### 1) Microcomputer
 **With the development of LSI (Large Scale Integration) circuits, chips containing thousands of transistors on a square centimeter of silicon, the age of the microprocessor-based personal computer dawned.**
 <br><br>
 **[By Springsgrace - Own work, CC BY-SA 4.0](https://commons.wikimedia.org/w/index.php?curid=79216985)**<br>
@@ -41,7 +41,7 @@
 
 <br>
 
-#### 2) Intel 8080
+### 2) Intel 8080
 
 **There were several families of microcomputers.<br>In April 1974, Intel came out with the 8080, the first general-purpose 8-bit microprocessor**<br>
 **[intel 8080 By Konstantin Lanzet - CPU collectionCamera: Canon EOS 400D, CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=7028099)<br>**
@@ -52,7 +52,7 @@
 ![Arch8080](Sources/Intel_8080_arch.png)
 
 
-#### 3) CP/M
+### 3) CP/M
 ![CPM/AD](Sources/CPM_AD.jpg)<br>
 **[CP/M By Digital Research - Scanned from the November 29, 1982 InfoWorld magazine, Public Domain](https://commons.wikimedia.org/w/index.php?curid=30603370)**<br>
 
@@ -72,16 +72,16 @@
 **However, because of a missed opportunity in the conversion to a 16-bit CPU, it lost miserably to Microsoft's MS-DOS in the 16-bit PC market centered on IBM PC/AT and IBM PC compatible machines, and thus disappeared from the market. Although CP/M introduced the "CP/M 86" designed for Intel 8086 and the "CP/M 68k" designed for Motorola 68000, there are almost no users.**
 
 
-### 2. Apple and Microsoft
+## 2. Apple and Microsoft
 
-#### 1) Apple II
+### 1) Apple II
 **Like Intel Motorola also produced an 8-bit microprocessor, the 6800. A group of Motorola engineers left to form MOS Technology and manufacture the 6502 CPU after Motorola rejected their suggested improvements to the 6800. The 6502 was the CPU of several early systems. One of these, the Apple II, became a major competitor for CP/M systems in the home and educational markets.**
 <br>
 
 **[Apple-II By FozzTexx - Own work, CC BY-SA 4.0](https://commons.wikimedia.org/w/index.php?curid=79580939)**<br>
 ![Apple-II](Sources/appleII.png)
 
-##### MOS Technology
+#### MOS Technology
 > **Like 8080 and Z-80, 6502 is an 8-bit CPU that can address up to 64KB of memory. Just like the Zilog Z-80 is based on the earlier Intel 8080 CPU, the MOS 6502 is based on the Motorola 6800 CPU (released in the same year as the 8080, the price is $360 the same as the 8080).**
 
 ![6502](Sources/6502.png)
@@ -95,11 +95,11 @@
 
 <br>
 
-##### Apple-DOS
+#### Apple-DOS
 > **When Apple Computer introduced the Apple II in April 1977, the new computer had no disk drive or disk operating system (DOS). Although Apple co-founder Steve Wozniak designed the Disk II controller late that year, and believed that he could have written a DOS, his co-founder Steve Jobs decided to outsource the task. The company considered using Digital Research's CP/M, but Wozniak sought an operating system that was easier to use. On 10 April 1978 Apple signed a $13,000 contract with Shepardson Microsystems to write a DOS and deliver it within 35 days.(with Assembly language)**
 <br>
 
-##### Disk Oprating Systerm(DOS)
+#### Disk Oprating Systerm(DOS)
 
 **CP/M. Apple-DOS. and MS-DOS(We will introduce later). All of them were DOS(Disk Oprating Systerm)**
 
@@ -121,7 +121,7 @@
 ![DOSBOX](Sources/DOSBOX.png)
 **[DOSBox is a DOS-emulator that uses the SDL-library which makes DOSBox very easy to port to different platforms. DOSBox has already been ported to many different platforms, such as Windows, BeOS, Linux, MacOS X...](https://www.dosbox.com)**
 
-#### 2) MS-DOS
+### 2) MS-DOS
 
 **In the Beginning of [1) Apple II](#1-apple-ii). We metioned that the Apple II, became a major competitor for CP/M systems in the home and educational markets.**<br>
 
@@ -129,7 +129,7 @@
 <br>
 
 
-##### 86-DOS
+#### 86-DOS
 **The next generation of microprocessors were 16-bit systems. Intel came out with the 8086 at July 1, 1979**<br>
 **[Intel 8086 Photo By Thomas Nguyen - Own work, CC BY-SA 4.0](https://commons.wikimedia.org/w/index.php?curid=46809082)**
 ![8086](Sources/8086.jpg)

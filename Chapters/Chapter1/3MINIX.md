@@ -1,6 +1,6 @@
 ### Operating Systerms Design and Implementation Notes
 
-## 3. MINIX
+# 3. MINIX
 ##### By Jiawei Wang
 <br>
 
