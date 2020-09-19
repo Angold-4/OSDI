@@ -1,6 +1,6 @@
-## Operating Systerms Design and Implementation Notes
+### Operating Systerms Design and Implementation Notes
 
-### 3. MINIX
+## 3. MINIX
 ##### By Jiawei Wang
 <br>
 
@@ -22,7 +22,7 @@
 **That also means the development of peripherals such as watch machines, software, and memory finally has profitable value (there are fixed specifications between computers, so that peripherals can be universally compatible with them), and IBM has created the entire industry almost exclusively by hand.**
 <br><br>
 
-#### 1. The Problem of Systerm/360
+### 1. The Problem of Systerm/360
 
 **The greatest strength of the ‘‘one family’’ idea was simultaneously its greatest weakness. The intention was that all software, including the operating system, OS/360, had to work on all models. It had to run on small systems.<br><br>There was no way that IBM (or anybody else) could write a piece of software to meet all those conflicting requirements. The result was an enormous and extraordinarily complex operating system, probably two to three orders of magnitude larger than FMS. It consisted of millions of lines of assembly language written by thousands of programmers, and contained thousands upon thousands of bugs, which necessitated a continuous stream of new releases in an attempt to correct them. Each new release fixed some bugs and introduced new ones, so the number of bugs probably remained constant in time.**
 <br><br>
@@ -30,7 +30,7 @@
 **Many programmers pined for the first-generation days when they had the machine all to themselves for a few hours, so they could debug their programs quickly. With third-generation systems, the time between submitting a job and getting back the output was often hours, so a single misplaced comma could cause a compilation to fail, and the programmer to waste half a day.**
 <br><br>
 
-#### 2. CTSS and MULTICS
+### 2. CTSS and MULTICS
 **[multicians.org](https://www.multicians.org/)<br>**
 ![MULTICS](Sources/MULTICSIndex.png)<br>
 
@@ -48,7 +48,7 @@ The first serious timesharing system, CTSS (Compatible Time Sharing System), was
 It was designed to support hundreds of users on a machine only slightly more powerful than an Intel 80386-based PC. In addition, MULTICS was enormously ambitious for its time, much like Charles Babbage’s analytical engine in the nineteenth century.**<br>
 
 
-#### 3. Unix
+### 3. Unix
 
 **MULTICS introduced many seminal ideas into the computer literature.<br>But turning it into a serious product and a commercial success was a lot harder than anyone had expected.**<br>
 **In 1969, Bell Labs dropped out of the project. Then General Electric quit the computer business altogether.**<br><br>
@@ -71,7 +71,7 @@ It was designed to support hundreds of users on a machine only slightly more pow
 ![PDP-7](Sources/PDP-7.png)
 
 
-#### 4. Minix
+### 4. Minix
 
 **When UNIX was young (Version 6), the source code was widely available, under AT&T license, and frequently studied. John Lions, of the University of New South Wales in Australia, even wrote a little booklet describing its operation, line by line (Lions, 1996). This booklet was used (with permission of AT&T) as a text in many university operating system courses. [J.lions Unix](https://cs3210.cc.gatech.edu/r/unix6.pdf)**
 <br>

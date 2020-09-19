@@ -1,6 +1,6 @@
-## Operating Systerms Design and Implementation Notes
+### Operating Systerms Design and Implementation Notes
 
-### 2. The History of Oprating Systerm(Early)
+## 2. The History of Oprating Systerm(Early)
 ##### By Jiawei Wang
 <br>
 
@@ -8,7 +8,7 @@
 
 * [1. The First Generation (1945–55) Vacuum Tubes and Plugboards](#1-the-first-generation-194555-vacuum-tubes-and-plugboards)
 * [2. The Second Generation (1955–65) Transistors and Batch Systems](#2-the-second-generation-195565-transistors-and-batch-systems)
-* [3. The Third Generation (1965–1980) ICs and Multiprogramming](#3-the-third-generation-19651980-ics-and-multiprogramming)
+    * [3. The Third Generation (1965–1980) ICs and Multiprogramming](#3-the-third-generation-19651980-ics-and-multiprogramming)
 
 <!-- vim-markdown-toc -->
 
@@ -17,7 +17,7 @@
 **The first true digital computer was designed by the English mathematician Charles Babbage (1792–1871).<br> Although Babbage spent most of his life and for trying to build his ‘‘analytical engine,’’ he never got it working properly because it was purely mechanical, and the technology of his day could not produce the required wheels, gears, and cogs to the high precision that he needed.<br>Needless to say, the analytical engine did not have an operating system.**<br>
 
 
-#### 1. The First Generation (1945–55) Vacuum Tubes and Plugboards
+### 1. The First Generation (1945–55) Vacuum Tubes and Plugboards
 ![VTP](Sources/VTP.jpg)<br>
 **After Babbage’s unsuccessful efforts, little progress was made in constructing digital computers until World War II. Around the mid-1940s, Howard Aiken at Harvard University, John von Neumann at the Institute for Advanced Study in Princeton, J. Presper Eckert and John Mauchley at the University of Pennsylvania, and Konrad Zuse in Germany, among others, all succeeded in building calculating engines.**
 **The Calculating Engines used mechanical relays but were very slow, with cycle times measured in seconds.**<br><br>
@@ -28,7 +28,7 @@
 > The usual mode of operation was for the programmer to sign up for a block of time on the signup sheet on the wall, then come down to the machine room, insert his or her plugboard into the computer, and spend the next few hours hoping that none of the 20,000 or so vacuum tubes would burn out during the run. Virtually all the problems were straightforward numerical calculations, such as grinding out tables of sines, cosines, and logarithms.
 
 
-#### 2. The Second Generation (1955–65) Transistors and Batch Systems
+### 2. The Second Generation (1955–65) Transistors and Batch Systems
 ![IBM7094](Sources/IBM7094.jpg)
 [IBM7094 from colunbia.edu](http://www.columbia.edu/cu/computinghistory/7094.html)<br>
 **The introduction of the transistor in the mid-1950s changed the picture radically.**<br>

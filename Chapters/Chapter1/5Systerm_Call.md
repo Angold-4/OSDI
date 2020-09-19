@@ -1,9 +1,9 @@
-## Operating Systerms Design and Implementation Notes
+### Operating Systerms Design and Implementation Notes
 
 ##### By Jiawei Wang
 <br>
 
-#### Shell
+### Shell
 
 **In the First Note. We mentioned that: The operating system is the code that carries out the system calls.<br>
 Editors, compilers, assemblers, linkers, and command interpreters definitely are not part of the operating system, even though they are important and useful.**
@@ -25,7 +25,7 @@ date
 
 **for example, the shell creates a child process and runs the date program as the child. While the child process is running, the shell waits for it to terminate. When the child finishes, the shell types the prompt again and tries to read the next input line.**<br>
 
-##### Example:
+#### Example:
 **Considering you input that command in shell:**<br>
 ```shell
 cp file1 file2
@@ -41,7 +41,7 @@ main(argc, argv, envp)
 
 <br>
 
-### 5. Systerm Calls
+## 5. Systerm Calls
 
 <br>
 
@@ -64,14 +64,15 @@ main(argc, argv, envp)
     * [getpid -- get process identification](#getpid----get-process-identification)
     * [getpgrp -- get process group id](#getpgrp----get-process-group-id)
     * [ptrace -- process trace](#ptrace----process-trace)
+* [Systerm Calls for Signaling](#systerm-calls-for-signaling)
 
 <!-- vim-markdown-toc -->
 
 
-#### 1. Systerm Calls For Process Management
+### 1. Systerm Calls For Process Management
 <br>
 
-##### fork -- create a child process
+#### fork -- create a child process
 
 **[fork](https://man7.org/linux/man-pages/man2/fork.2.html)( ) creates a new process by duplicating the calling process.<br>
 The new process is referred to as the child process.  The calling process is referred to as the parent process.**<br>
@@ -81,7 +82,7 @@ The new process is referred to as the child process.  The calling process is ref
 * **On failure, -1 is returned in the parent, no child process is created, and errno is set appropriately.**
 <br>
 
-##### waitpid -- wait for process to change state
+#### waitpid -- wait for process to change state
 **[waitpid](https://man7.org/linux/man-pages/man2/waitpid.2.html)(pid_t pid, int wstatus(pointer), int options)**<br>
 **To wait for the child to finish, the parent executes a waitpid system call, which just waits until the child terminates (any child if more than one exists).**
 * **The First argument(pid) default is -1: detail see below:** <br>
@@ -91,12 +92,12 @@ The new process is referred to as the child process.  The calling process is ref
 * **In normal case: returns the process ID of the child whose state has changed or -1**
 <br>
 
-##### wait -- old wait for process to change state
+#### wait -- old wait for process to change state
 **[wait](https://man7.org/linux/man-pages/man2/waitpid.2.html) (wstatus(pointer))**<br>
 **The waitpid call replaces the previous wait call, which is now obsolete but is provided for reasons of backward compatibility.**
 <br>
 
-##### execve -- execute program
+#### execve -- execute program
 **[execve](https://man7.org/linux/man-pages/man3/exec.3.html) (command, parameters, env)**<br>
 **In the most general case, execve has three parameters: the name of the file to be executed, a pointer to the argument array, and a pointer to the environment**<br>
 
@@ -124,12 +125,12 @@ while (TRUE){                            /* repeat forever */
 ```
 <br>
 
-##### exit -- cause normal process termination
+#### exit -- cause normal process termination
 **[exit](https://www.man7.org/linux/man-pages/man3/exit.3.html) (int status)**<br>
 **The exit function causes normal process termination and the least significant byte of status (i.e., status & 0xFF) is returned to the parent (see wait(2)).**
 <br>
 
-##### brk, sbrk - change data segment size
+#### brk, sbrk - change data segment size
 **[brk](https://man7.org/linux/man-pages/man2/brk.2.html) (void addr(pointer))**<br>
 **[sbrk](https://man7.org/linux/man-pages/man2/brk.2.html) (intptr_t increment)**<br>
 **brk and sbrk change the location of the program break, which defines the end of the process's data segment (i.e., the program break is the first location after the end of the uninitialized data segment)**<br>
@@ -141,20 +142,24 @@ while (TRUE){                            /* repeat forever */
 <br>
 
 
-##### getpid -- get process identification
+#### getpid -- get process identification
 **[getpid](https://man7.org/linux/man-pages/man2/getpid.2.html) ( ) returns the process ID (PID) of the calling process.**
 <br>
 
-##### getpgrp -- get process group id
+#### getpgrp -- get process group id
 **[getpgrp](https://man7.org/linux/man-pages/man2/getpgrp.2.html) ( ) returns the process group ID of the calling process**<br>
 **[From Wikipedia](https://en.wikipedia.org/wiki/Process_group): A process group denotes a collection of one or more processes. Among other things, a process group is used to control the distribution of a signal; when a signal is directed to a process group, the signal is delivered to each process that is a member of the group.**
 <br>
 
 
-##### ptrace -- process trace
+#### ptrace -- process trace
 **It is used by debugging programs to control the program being debugged. It allows the debugger to read and write the controlled process’ memory and manage it in other ways.**<br>
 **For more: [man7.org](https://man7.org/linux/man-pages/man2/ptrace.2.html)**
+<br>
 
+
+
+### Systerm Calls for Signaling
 
 
 
