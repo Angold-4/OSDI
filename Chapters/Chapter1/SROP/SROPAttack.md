@@ -18,6 +18,14 @@
         * [The Core of ROP](#the-core-of-rop)
 * [2. Sigreturn Oriented Programming Attack](#2-sigreturn-oriented-programming-attack)
     * [Signal in Unix-like System](#signal-in-unix-like-system)
+    * [Signal Mechanism Defect Utilization](#signal-mechanism-defect-utilization)
+    * [Example: One of the Simplest Attacks](#example-one-of-the-simplest-attacks)
+    * [System Call Chains](#system-call-chains)
+    * [Two Gadgets](#two-gadgets)
+* [3. The Prevention of SROP Attack](#3-the-prevention-of-srop-attack)
+    * [1.Gadgets Prevention](#1gadgets-prevention)
+    * [2.Signal Frame Canaries](#2signal-frame-canaries)
+    * [3.Break Kernel Agnostic](#3break-kernel-agnostic)
 
 <!-- vim-markdown-toc -->
 
@@ -184,11 +192,107 @@ addr3: mov [%ebx]; %eax;            |
 <br>
 
 
-**As shown in the figure below, when the kernel delivers a signal to a process, the process will be temporarily suspended and enter the kernel(1)**<br>
+* **As shown in the figure below, when the kernel delivers a signal to a process, the process will be temporarily suspended and enter the kernel(1)**<br>
 ![deliver](Sources/deliver.png)<br>
+* **Then the kernel saves the corresponding context for the process and jumps to the previously registered signal handler to process the corresponding signal(2)**<br>
+* **When the signal handler returns (3), the kernel restores the previously saved context for the process**<br>
+* **The execution of the final recovery process (4)**<br>
 
+**In the four-step process, the third step is the key:**<br>
+**How to make the signal handler in user mode return to the kernel mode smoothly after execution?**<br>
 
+**In various UNIX-like systems, this process is slightly different, but the general process is the same. Here is an example of Linux:**
+<br>
 
+**In the second step, the kernel will help the user process save its context on the stack of the process**<br>
+**Then fill in an address `rt_sigreturn` at the top of the stack, this address points to a piece of code, in which the `sigreturn` system call will be called.**<br>
+**That means After Step 3 signal hander finished. The Stack Pointer(%rsp) point to `rt_sigreturn` and Execute that code passively**<br>
 
+**The following figure shows the user process context, signal related information, and `rt_sigreturn` saved on the stack:**<br>
+![SignalFrame](Sources/SignalFrame.png)<br>
+**We called this: Signal Frame**<br>
+**In the kernel `sigreturn` system call processing function, the process context will be restored according to the `Signal Frame` pointed to by the current stack pointer, and return to the user state, and resume execution from the suspension point.**<br>
+<br>
 
+### Signal Mechanism Defect Utilization
+**From the Introduction below We can find two Defects:**<br>
+* **`Signal Frame` is stored in the address space of the user process and is readable and writable by the user process**
+* **The kernel does not compare the saving process with the recovery process. The kernel does not judge that the current `Signal Frame` is the `Signal Frame` saved by the kernel for the user process.**
+<br>
+![Unix-Signals](Sources/Unixsignals.png)
 
+**To Some Extent, "kernel agnostic about signal handlers" is both an advantage and disadvantage:**<br>
+**The advantage is that Because the kernel does not need to spend energy to record the signal, and the disadvantage is that Because we can't fake them. A malicious user process can forge it!**
+<br>
+
+### Example: One of the Simplest Attacks
+**Let us first assume that an attacker can control the stack of the user process, then it can forge a `Signal Frame`, as shown in the figure below:**<br>
+
+![FakeSignalFrame](Sources/FakeSignalFrame.png)
+* **In this fake `Signal Frame`, set `%rax` to 59 (the `execve` system call number)**
+* **Set `rdi` to the address of the string `/bin/sh`**
+* **Set `rip` to the memory address of the system call instruction `syscall`**
+* **Set `rt_sigreturn` manually to the memory address of the `sigreturn` system call**
+<br>
+
+**In this example, once `sigreturn` returns, it will execute the `execve` system call and open a shell.**
+<br>
+**This is the simplest attack. In this attack, there are 4 prerequisites:**<br>
+* **Attackers can control the contents of the stack through vulnerabilities such as stack buffer overflow** 
+* **Know the address of the stack (for example, you need to know the address of the string `/bin/sh` you constructed)**
+* **Know the address of the `syscall` instruction in memory**
+* **Know the memory address of the `sigreturn` system call**
+<br>
+
+**Compared with traditional ROP, this simplest SROP attack only needs to find two gadgets. Seems more easier**
+<br>
+
+### System Call Chains
+**The Simple Attack below Worked! But the effect produced by the attacker can only call a syscall. When the syscall returns, the control of the execution flow is lost, which obviously cannot meet most of the requirements.**<br>
+
+**So, how do we use the above mechanism to make system calls continuously? In fact, the method is very simple. In addition to the above steps, you only need to add an additional control to the stack pointer `rsp`, as shown in the following figure:**<br>
+
+![Syscallchain](Sources/Syscallchain.png)
+**In addition, we need to replace the original simple `syscall` gadget with `syscall; ret` gadget so that every time `syscall` returns, the stack pointer will point to the next `Signal Frame`.<br>**
+**Therefore, when the `ret` instruction is executed at this time, the `sigreturn` system call will be called again. In this way, the effect of continuous system calls can be achieved by operating the stack.**
+<br>
+
+### Two Gadgets
+**Another difference with normal ROP is that both of the two gadgets that SROP needed can be found in a specific location in memory:**<br>
+* **```Sigreturn```**<br>
+**Because Normal applications will not actively call it. The kernel fills the corresponding address on the stack, making the application process passively call.**<br>
+**Therefore, there is usually a piece of code in the system dedicated to calling `sigreturn`, The author of the paper found that in different UNIX-like systems, this code will appear in different locations, as shown in the following figure:**<br>
+![sigreturn](Sources/Sigreturn.png)<br>
+> **Among them, in `Linux <3.11 ARM` (the kernel used by most of Android), and `FreeBSB 9.2 x86_64`, this gadget can be found in a fixed memory address, while in other systems, it is generally stored in In the memory of the `libc` library, it seems that it is not so easy to find if it is protected by ASLR.**<br>
+
+* **```syscall; ret```**<br>
+![syscallret](Sources/syscallret.png)
+**If it is Linux <3.3 x86_64 (the default kernel in Debian 7.0, Ubuntu long-term support, CentOS 6 system). You can find this code snippet directly in the fixed address [vsyscall].**<br>
+**In addition to the two gadgets mentioned above that may exist at fixed addresses, in other systems, these two gadgets seem to be not so easy to find, especially in systems with ALSR protection.**<br>
+
+**However, if we compare it with traditional ROP, we can find that it reduces the cost of the entire attack by a notch.**<br>
+> **SROP is among the lowest hanging fruit available to an attacker!**
+
+<br><br>
+
+## 3. The Prevention of SROP Attack
+**Finally, let's mention the prevention of SROP. From three perspectives, the author proposes three methods:**
+<br>
+
+### 1.Gadgets Prevention
+**In the notes above We metioned that The two gadgets `sigreturn` and `syscall; ret` are very easy to find, especially in the presence of a particularly insecure mechanism like `vsyscall`. Therefore, we should try to avoid this mechanism and make the best use of protection mechanisms such as ASLR, making it difficult for attackers to find these gadgets.**<br>
+
+**Of course, this method does not essentially solve the problem of SROP**
+<br>
+
+### 2.Signal Frame Canaries
+**As we metioned that before. Borrowing from [stack canaries](https://en.wikipedia.org/wiki/Buffer_overflow_protection#Canaries) mechanism (Also see [my Note](https://github.com/Angold-4/Angold4-CSAPP/blob/master/ChapterNotes/Chapter3/canary.md))**<br>
+**Insert a randomly generated byte before the `rt_sigreturn` field of the `Signal Frame`. If an overflow occurs, the byte will be destroyed, so that it will be detected before the `sigreturn` occurs.**
+<br>
+**Of course, there are many attacks against stack canaries, which also cannot essentially prevent the occurrence of SROP.**
+<br>
+
+### 3.Break Kernel Agnostic
+**This will go back to the essence of SROP -- Unknowability of the Kernel to Signal**<br>
+<br>
+**If we judge whether the current `Signal Frame` was created before the kernel when the kernel processes the `sigreturn` system call, then this problem can be fundamentally solved. Of course, this involves modifying some of the underlying design of the kernel, and it may also introduce some new problems.**<br>
