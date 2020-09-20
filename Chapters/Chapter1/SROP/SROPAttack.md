@@ -219,6 +219,7 @@ addr3: mov [%ebx]; %eax;            |
 * **`Signal Frame` is stored in the address space of the user process and is readable and writable by the user process**
 * **The kernel does not compare the saving process with the recovery process. The kernel does not judge that the current `Signal Frame` is the `Signal Frame` saved by the kernel for the user process.**
 <br>
+
 ![Unix-Signals](Sources/Unixsignals.png)
 
 **To Some Extent, "kernel agnostic about signal handlers" is both an advantage and disadvantage:**<br>
