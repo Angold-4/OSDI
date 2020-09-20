@@ -64,7 +64,9 @@ main(argc, argv, envp)
     * [getpid -- get process identification](#getpid----get-process-identification)
     * [getpgrp -- get process group id](#getpgrp----get-process-group-id)
     * [ptrace -- process trace](#ptrace----process-trace)
-* [Systerm Calls for Signaling](#systerm-calls-for-signaling)
+* [2. Systerm Calls for Signaling](#2-systerm-calls-for-signaling)
+    * [sigaction -- examine and change a signal action](#sigaction----examine-and-change-a-signal-action)
+    * [sigreturn -- return  from  signal handler and cleanup stack frame](#sigreturn----return--from--signal-handler-and-cleanup-stack-frame)
 
 <!-- vim-markdown-toc -->
 
@@ -155,11 +157,30 @@ while (TRUE){                            /* repeat forever */
 ### ptrace -- process trace
 **It is used by debugging programs to control the program being debugged. It allows the debugger to read and write the controlled process’ memory and manage it in other ways.**<br>
 **For more: [man7.org](https://man7.org/linux/man-pages/man2/ptrace.2.html)**
+<br><br>
+
+## 2. Systerm Calls for Signaling
+
+**Although most forms of interprocess communication are planned, situations exist in which unexpected communication is needed. For example, if a user accidently tells a text editor to list the entire contents of a very long file, and then realizes the error, some way is needed to interrupt the editor. <br><br>In MINIX 3, the user can hit the CTRL-C key on the keyboard, which sends a signal to the editor. The editor catches the signal and stops the print-out. Signals can also be used to report certain traps detected by the hardware, such as illegal instruction or floating point overflow. Timeouts are also implemented as signals.**
 <br>
 
+### sigaction -- examine and change a signal action
+**[sigaction](https://man7.org/linux/man-pages/man2/sigaction.2.html) (int signum, const struct sigaction act(pointer), struct sigaction oldact(pointer) )**<br>
+**The sigaction() system call is used to change the action taken by a process on receipt of a specific signal**<br>
 
+* **When a signal is sent to a process that has not announced its willingness to accept that signal, the process is simply killed without further ado.**
+* **The first argument(int signum) is an integer which direct to a specific signal, detail see below:**<br>
+![signal](Sources/signal.png)
 
-## Systerm Calls for Signaling
+* **signum specifies the signal and can be any valid signal except SIGKILL and SIGSTOP.**
+* **The Second arg act is a pointer which to a signal hander program in the storiage**
+* **The Third arg oldact is also a pointer like act. Which point to the address stored by the original handler.(If is Null means don't need to return previous program)**
+* **If act is non-NULL, the new action for signal signum is installed from act. If oldact is non-NULL, the previous action is saved in oldact.**
+* **After a sigaction call, if a signal of the relevant type is generated (e.g., by pressing CTRL-C), the state of the process is pushed onto its own stack, and then the signal handler is called.**<br>
+<br>
+
+### sigreturn -- return  from  signal handler and cleanup stack frame
+
 
 
 
