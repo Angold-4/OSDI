@@ -69,8 +69,6 @@ main(argc, argv, envp)
     * [sigreturn -- return from signal handler and cleanup stack frame](#sigreturn----return-from-signal-handler-and-cleanup-stack-frame)
     * [signal - ANSI C signal handling](#signal---ansi-c-signal-handling)
     * [kill -- terminate  / send signal to a process](#kill----terminate---send-signal-to-a-process)
-    * [alarm - set an alarm clock for delivery of a signal](#alarm---set-an-alarm-clock-for-delivery-of-a-signal)
-    * [pause - suspended process and wait for a signal](#pause---suspended-process-and-wait-for-a-signal)
 
 <!-- vim-markdown-toc -->
 
@@ -366,7 +364,7 @@ void main(void)
      MyKey   = ftok(".", 's');     /* create a shared memory segment*/
      ShmID   = shmget(MyKey, sizeof(pid_t), IPC_CREAT | 0666);
      ShmPTR  = (pid_t *) shmat(ShmID, NULL, 0);
-     *ShmPTR = pid;                /* save my pid there*/
+     *ShmPTR = pid;                /* save my pid there
 
      for (i = 0; ; i++) {
           printf("From process %d: %d\n", pid, i);
@@ -399,8 +397,8 @@ void  SIGQUIT_handler(int sig)
      printf("From SIGQUIT: just got a %d (SIGQUIT ^\\) signal"
                           " and is about to quit\n", sig);
      shmdt(ShmPTR);
-     shmctl(ShmID, IPC_RMID, NULL);          /*shared memory control*/
-                                             /*quit*/
+     shmctl(ShmID, IPC_RMID, NULL);
+
      exit(3);
 }
 ```
@@ -498,52 +496,14 @@ void  main(void)
 }
 ```
 
-* **This program requests the shared memory segment created by the previous program. Since both programs use ftok() to create the key, they should be in the same directory.**
-* **Then, it retrieves the process ID stored in the shared memory segment and enters an infinite loop asking for a single character input.**
-* **If the input is i, a SIGINT is sent to the other process with kill().**
-* **If the input is k, a SIGQUIT is sent to the other process with kill(). After this is done, this program exits.**
-<br>
-
-**As you can see: With ```kill ( )```, we do not need to actually press a key to generate a particular signal. Moreover, some signals have no corresponding keys.**
-<br>
-
-**Now, let us see how to play with these two programs. The first program is called process-a and the second process-b. Because process-a must create a shared memory segment and save its process ID there, it must run first. So, run this program in one window until some output lines are shown. At this moment, the shared memory has been created and the process ID stored properly.**<br>
-
-**Then, move to another window and run process-b. If you type i, process-b sends a SIGINT to process-a, and if you type k, process-b send a SIGQUIT to process-a.**
-<br>
-**Hitting CTRL-C is not the only way to send a signal. The kill system call allows a process to signal another process (provided they have the same UID— unrelated processes cannot signal each other)**
-<br>
-
-**As you can see : We use ```kill ()``` and C achieve Communication between processes successfully!**<br>
-
-![kill2](Sources/kill2.png)<br>
-![kill](Sources/kill.png)<br>
-<br>
+* **This program requests the shared memory segment created by the previous program. Since both programs use ftok() to create the key, they should be in the same directory.(Because they use the same way to create mykey)**
 
 
-### alarm - set an alarm clock for delivery of a signal
 
-**unsigned int [alarm](https://www.man7.org/linux/man-pages/man2/alarm.2.html) (unsigned int seconds);**<br>
-* **alarm() arranges for a SIGALRM signal to be delivered to the calling process in seconds seconds.**
-* **If seconds is zero, any pending alarm is canceled.**
-* **In any event any previously set alarm() is canceled.**
 
-**For many real-time applications, a process needs to be interrupted after a specific time interval to do something, such as to retransmit a potentially lost packet over an unreliable communication line. To handle this situation, the alarm system call has been provided.**<br>
 
-**The parameter specifies an interval, in seconds, after which a SIGALRM signal is sent to the process. A process may only have one alarm outstanding at any instant.**<br>
 
-**Example:**<br>
 
-> **If an alarm call is made with a parameter of 10 seconds, and then 3 seconds later another alarm call is made with a parameter of 20 seconds, only one signal will be generated, 20 seconds after the second call. The first signal is canceled by the second call to alarm. If the parameter to alarm is zero, any pending alarm signal is canceled. If an alarm signal is not caught, the default action is taken and the signaled process is killed.**
-
-### pause - suspended process and wait for a signal
-```
-#include <unistd.h>
-```
-**[int](https://www.man7.org/linux/man-pages/man2/pause.2.html) pause (void)**
-
-**It sometimes occurs that a process has nothing to do until a signal arrives. For example, consider a computer-aided-instruction program that is testing reading speed and comprehension. It displays some text on the screen and then calls alarm to signal it after 30 seconds. While the student is reading the text, the pro- gram has nothing to do. It could sit in a tight loop doing nothing, but that would waste CPU time that another process or user might need. A better idea is to use pause, which
-tells MINIX 3 to suspend the process until the next signal.**<br>
 
 
 
