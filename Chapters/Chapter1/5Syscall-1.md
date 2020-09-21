@@ -93,8 +93,8 @@ The new process is referred to as the child process.  The calling process is ref
 **To wait for the child to finish, the parent executes a waitpid system call, which just waits until the child terminates (any child if more than one exists).**
 * **The First argument(pid) default is -1: detail see below:** <br>
 ![pid](Sources/getpid_pid.png)<br>
-* **The Second argument(wstatus) is a pointer. which point the exit value of the child process(default is Null)**
-* **The Third argument default is 0. For the detail you can check the [website](https://man7.org/linux/man-pages/man2/waitpid.2.html)**
+* **The Second argument(wstatus) is a pointer. which point to the exit value of the child process(default is Null)**
+* **The Third argument default is 0. For the detail you can check this [website](https://man7.org/linux/man-pages/man2/waitpid.2.html)**
 * **In normal case: returns the process ID of the child whose state has changed or -1**
 <br>
 
@@ -232,6 +232,7 @@ sigaction(SIGQUIT, SIG_IGN, NULL);
 typedef void (*sighandler_t)(int);
 ```
 **sighandler_t [signal](https://man7.org/linux/man-pages/man2/signal.2.html) (int signum, sighandler_t handler)**<br>
+
 ** signal ( ) sets the disposition of the signal signum to handler, which is either SIG_IGN, SIG_DFL, or the address of a programmer-defined function (a "signal handler").**
 
 **Let's see an [example program](https://www.geeksforgeeks.org/signals-c-language/) in C to understand:**<br>
@@ -309,16 +310,16 @@ int main()
 ![killprocess](Sources/killprocess.png)
 <br>
 
-**Another Use of kill Syscall is that kill can send message between Two process:**<br>
+**Another Use of kill syscall is that kill can send message between two processes:**<br>
 **To send a signal to another process, we need to use the Unix system [kill()](https://man7.org/linux/man-pages/man2/kill.2.html). The following is the prototype of kill():<br>**
 ```c
 int  kill(pid_t pid, int sig)
 ```
 <br>
+
 **[Send signal to a process](http://www.csl.mtu.edu/cs4411.ck/www/NOTES/signal/kill.html)**
 * **System call kill() takes two arguments. The first, pid, is the process ID you want to send a signal to, and the second, sig, is the signal you want to send. Therefore, you have to find some way to know the process ID of the other party.**
-* **If the call to kill() is successful, it returns 0; otherwise, the returned value is negative.**
-<br>
+* **If the call to kill() is successful, it returns 0; otherwise, the returned value is negative.<br>**
 
 
 **Here is an Example of kill used in send signal:**<br>
