@@ -24,6 +24,8 @@
     * [write -- write to a file descriptor](#write----write-to-a-file-descriptor)
     * [lseek -- reposition read/write file offset](#lseek----reposition-readwrite-file-offset)
     * [stat, fstat -- get file status](#stat-fstat----get-file-status)
+    * [dup, dup2 -- duplicate a file descriptor](#dup-dup2----duplicate-a-file-descriptor)
+    * [pipe -- create pipe](#pipe----create-pipe)
 
 <!-- vim-markdown-toc -->
 
@@ -320,6 +322,144 @@ struct stat {
 ```
 
 ![stat](Sources/stat.png)
+<br>
+
+### dup, dup2 -- duplicate a file descriptor
+```c
+#include <unistd.h>
+```
+**int [dup](https://man7.org/linux/man-pages/man2/dup.2.html) (int oldfd);**<br>
+**int dup2 (int oldfd, int newfd);**<br>
+<br>
+**The ```dup()``` system call creates a copy of the file descriptor oldfd, using the lowest-numbered unused file descriptor for the new descriptor.**<br>
+**The ```dup2()``` system call performs the same task as ```dup()```, but instead of using the lowest-numbered unused file descriptor, it uses the file descriptor number specified in newfd.  If the file descriptor newfd was previously open, it is silently closed before being reused.**<br>
+**Please notice that after ```dup``` and ```dup2```: two fd were both refer to the same file in the file table.**
+<br>
+
+### pipe -- create pipe
+**int [pipe](https://man7.org/linux/man-pages/man2/pipe.2.html) (int pipefd[2]);**<br>
+**pipe() creates a pipe, a unidirectional data channel that can be used for interprocess communication.  The array pipefd is used to return two file descriptors referring to the ends of the pipe.  pipefd[0] refers to the read end of the pipe.  pipefd[1] refers to the write end of the pipe.  Data written to the write end of the pipe is buffered by the kernel until it is read from the read end of the pipe.**<br>
+
+**pipe system call creates a pipe and returns two file descriptors, one for writing and one for reading.**<br>
+**Where fd is an array of two integers and fd[0] is the file descriptor for reading and fd[1] is the one for writing.**
+<br>
+**Typically, a fork comes next, and the parent closes the file descriptor for reading and the child closes the file descriptor for writing (or vice versa), so when they are done, one process can read the pipe and the other can write on it.**<br>
+
+**Let us see an [example](https://www.geeksforgeeks.org/pipe-system-call/) below:**<br>
+> **Conceptually, a pipe is a connection between two processes, such that the standard output from one process becomes the standard input of the other process. In UNIX Operating System, Pipes are useful for communication between related processes(inter-process communication).**
+
+> **The pipe can be used by the creating process, as well as all its child processes, for reading and writing. One process can write to this “virtual file” or pipe and another related process can read from it.<br>If a process tries to read before something is written to the pipe, the process is suspended until something is written.**
+
+> **Pipe is one-way communication only i.e we can use a pipe such that One process write to the pipe, and the other process reads from the pipe. It opens a pipe, which is an area of main memory that is treated as a “virtual file”.**
+
+![pipe](Sources/pipe.jpg)
+```c
+#include <stdio.h>
+#include <unistd.h>
+#define MSGSIZE 16
+char* msg1 = "hello, world #1";
+char* msg2 = "hello, world #2";
+char* msg3 = "hello, world #3";
+
+int main()
+{
+    char inbuf[MSGSIZE];
+    int p[2], i;
+
+    if (pipe(p) < 0)
+        exit(1);
+
+    /* continued */
+    /* write pipe */
+
+    write(p[1], msg1, MSGSIZE);
+    write(p[1], msg2, MSGSIZE);
+    write(p[1], msg3, MSGSIZE);
+
+    for (i = 0; i < 3; i++) {
+        /* read pipe */
+        read(p[0], inbuf, MSGSIZE);
+        printf("% s\n", inbuf);
+    }
+    return 0;
+}
+```
+**output:**<br>
+```
+hello, world #1
+hello, world #2
+hello, world #3
+```
+**In this figure below:<br>we create a pipe (line 15) and write messages into it, then read them from the pipe and lead them to stdout.**<br>
+**Pipes behave FIFO(First in First out), Pipe behave like a queue data structure.**<br>
+
+```
+#include <stdio.h>
+#include <unistd.h>
+#define MSGSIZE 16
+char* msg1 = "hello, world #1";
+char* msg2 = "hello, world #2";
+char* msg3 = "hello, world #3";
+
+int main()
+{
+    char inbuf[MSGSIZE];  
+    int p[2], pid, nbytes;
+
+    if (pipe(p) < 0)                /* create pipe */
+        exit(1);
+
+    if ((pid = fork()) > 0) {
+        /* parent process */
+
+        write(p[1], msg1, MSGSIZE); /* write into pipe */
+        write(p[1], msg2, MSGSIZE);
+        write(p[1], msg3, MSGSIZE);
+
+        /* close(p[1]);*/
+        wait(NULL);
+    }
+
+    else {
+        /* child process */
+
+        /* close(p[1]) */
+        while ((nbytes = read(p[0], inbuf, MSGSIZE)) > 0)
+            printf("% s\n", inbuf);
+        if (nbytes != 0)
+            exit(2);
+        printf("Finished reading\n");
+    }
+    return 0;
+}
+```
+**output:**<br>
+```
+hello, world #1
+hello, world #2
+hello, world #3
+(hangs)         //program does not terminate but hangs
+```
+
+**Here, In this code After finishing reading/writing, both parent and child block instead of terminating the process and that’s why program hangs.**<br>
+**But if we add two line codes:  two annotated```close(p[1])``` In code block below (line 26 and 33), the output will be:**<br>
+```
+hello, world #1
+hello, world #2
+hello, world #3
+Finished reading
+```
+**In Unix-like System: <br>**
+* **If pipe is empty and we call read system call then Reads on the pipe will return EOF (return value 0) if no process has the write end open.**
+* **If some other process has the pipe open for writing, read will block in anticipation of new data.**<br>
+![sharingpipe](Sources/sharingpipe.jpg)
+
+**In Unix-like system:<br>
+Once a process write something into the pipe finished, remember to close the p[1]. **
+**Samely. Before a process read someting from the pipe, remember to close the p[1].**<br>
+
+
+
 
 
 
