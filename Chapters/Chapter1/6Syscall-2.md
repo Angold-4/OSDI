@@ -15,6 +15,15 @@
         * [The per-process file description table](#the-per-process-file-description-table)
         * [The system-wide table of open file descriptions](#the-system-wide-table-of-open-file-descriptions)
         * [The file system i-node table](#the-file-system-i-node-table)
+* [System Calls for File Management](#system-calls-for-file-management)
+    * [creat -- create a file with name and protection mode](#creat----create-a-file-with-name-and-protection-mode)
+    * [mknod -- create a special or ordinary file](#mknod----create-a-special-or-ordinary-file)
+    * [open -- open file relative to directory file descriptor](#open----open-file-relative-to-directory-file-descriptor)
+    * [close -- close a file descriptor](#close----close-a-file-descriptor)
+    * [read -- read from a file descriptor](#read----read-from-a-file-descriptor)
+    * [write -- write to a file descriptor](#write----write-to-a-file-descriptor)
+    * [lseek -- reposition read/write file offset](#lseek----reposition-readwrite-file-offset)
+    * [stat, fstat -- get file status](#stat-fstat----get-file-status)
 
 <!-- vim-markdown-toc -->
 
@@ -220,3 +229,105 @@ cat     2367 ubuntu    2u   CHR  136,0      0t0      3 /dev/pts/0
 * **This arrangement achieved independence between different processes by making file table<br>**
 * **In this arrangement, users can flexibly choose the mode of opening multiple files with different progress or the same progress.<br>**
 * **Because of the file descripter. The processes just need to pass the fd to the kernel to open files among the massive files. That helps the process more efficient<br>**
+
+<br>
+
+
+## System Calls for File Management
+
+### creat -- create a file with name and protection mode
+**int [creat](https://man7.org/linux/man-pages/man2/creat.2.html) (const char pathname(pointer), mode_t mode);**<br>
+```
+fd = creat("abc", 0751)
+```
+
+**creates a file called abc with mode 0751 octal (in C, a leading zero means that a constant is in octal). The low-order 9 bits of 0751 specify the rwx bits for the owner (7 means read-write-execute permission), his group (5 means read- execute), and others (1 means execute only).<br>**
+**Creat not only creates a new file but also opens it for writing, regardless of the file’s mode. The file descriptor returned, fd, can be used to write the file. If a creat is done on an existing file, that file is truncated to length 0, provided, of course, that the permissions are all right. The creat call is obsolete, as open can now create new files, but it has been included for backward compatibility.**
+<br>
+
+### mknod -- create a special or ordinary file
+**int [mknod](https://man7.org/linux/man-pages/man2/mknod.2.html) (const char pathname (pointer), mode_t mode, dev_t dev);**<br>
+**The system call mknod() creates a filesystem node (file, device special file, or named pipe) named pathname, with attributes specified by mode and dev.**<br>
+
+**Special files are created using mknod rather than creat. A typical call is:**
+```
+fd = mknod(′′/dev/ttyc2′′, 020744, 0x0402);
+```
+
+**which creates a file named /dev/ttyc2 (the usual name for console 2) and gives it mode 020744 octal (a character special file with protection bits rwxr--r--). The third parameter contains the major device (4) in the high-order byte and the minor device (2) in the low-order byte. The major device could have been anything, but a file named ```/dev/ttyc2``` ought to be minor device 2. Calls to mknod fail unless the caller is the superuser.**
+<br>
+
+### open -- open file relative to directory file descriptor
+**int [open](https://man7.org/linux/man-pages/man3/open.3p.html) (const char path (pointer), int oflag, ...);**<br>
+**The```open()``` function shall establish the connection between a file and a file descriptor. It shall create an open file description that refers to a file and a file descriptor that refers to that open file description. The file descriptor is used by other I/O functions to refer to that file. The path argument points to a pathname naming the file.**<br>
+
+**To read or write an existing file, the file must first be opened using ```open```. This call specifies the file name to be opened, either as an absolute path name or relative to the working directory, and a code of ORDONLY, OWRONLY, or ORDWR, meaning open for reading, writing, or both. The file descriptor returned can then be used for reading or writing.**
+<br>
+
+### close -- close a file descriptor
+**int [close](https://www.man7.org/linux/man-pages/man2/close.2.html) (int fd);**<br>
+**```close()``` closes a file descriptor, so that it no longer refers to any file and may be reused.**<br>
+**After open a file, the file can be closed by close, which makes the file descriptor available for reuse on a subsequent creat or open.**
+<br>
+
+### read -- read from a file descriptor
+**ssize_t [read](https://man7.org/linux/man-pages//man2/read.2.html) (int fd, void buf (pointer), size_t count);**<br>
+**```read()``` attempts to read up to count bytes from file descriptor fd into the buffer starting at buf.**
+<br>
+
+### write -- write to a file descriptor
+**ssize_t [write](https://www.man7.org/linux/man-pages/man2/write.2.html) (int fd, const void buf (pointer), size_t count);**<br>
+**```write()``` writes up to count bytes from the buffer starting at buf to the file referred to by the file descriptor fd.**<br>
+**On success, the number of bytes written is returned.  On error, -1 is returned, and errno is set to indicate the cause of the error.**
+<br>
+
+### lseek -- reposition read/write file offset
+**off_t [lseek](https://www.man7.org/linux/man-pages/man2/lseek.2.html) (int fd, off_t offset, int whence);**<br>
+**```lseek``` has three parameters: the first is the file descriptor for the file, the second is a file position, and the third tells whether the file position is relative to the beginning of the file, the current position, or the end of the file. The value returned by lseek is the absolute position in the file after changing the pointer.**
+
+### stat, fstat -- get file status
+**int [stat](https://man7.org/linux/man-pages/man2/fstat.2.html) (const char pathname (pointer), struct stat statbuf (pointer));**<br>
+**int fstat (int fd, struct stat statbuf(pointer));**<br>
+**```stat()``` retrieves information about the file pointed to by pathname;```fstat()``` is identical to ```stat()```, except that the file about which information is to be retrieved is specified by the file descriptor fd.**<br>
+
+**The stat structure<br> All of these system calls return a stat structure, which contains the following fields:**<br>
+
+```c
+struct stat {
+       dev_t     st_dev;         /* ID of device containing file */
+       ino_t     st_ino;         /* Inode number */
+       mode_t    st_mode;        /* File type and mode */
+       nlink_t   st_nlink;       /* Number of hard links */
+       uid_t     st_uid;         /* User ID of owner */
+       gid_t     st_gid;         /* Group ID of owner */
+       dev_t     st_rdev;        /* Device ID (if special file) */
+       off_t     st_size;        /* Total size, in bytes */
+       blksize_t st_blksize;     /* Block size for filesystem I/O */
+       blkcnt_t  st_blocks;      /* Number of 512B blocks allocated */
+
+       /* Since Linux 2.6, the kernel supports nanosecond
+          precision for the following timestamp fields.
+          For the details before Linux 2.6, see NOTES. */
+
+       struct timespec st_atim;  /* Time of last access */
+       struct timespec st_mtim;  /* Time of last modification */
+       struct timespec st_ctim;  /* Time of last status change */
+
+   #define st_atime st_atim.tv_sec      /* Backward compatibility */
+   #define st_mtime st_mtim.tv_sec
+   #define st_ctime st_ctim.tv_sec
+   };
+```
+
+![stat](Sources/stat.png)
+
+
+
+
+
+
+
+
+
+
+
