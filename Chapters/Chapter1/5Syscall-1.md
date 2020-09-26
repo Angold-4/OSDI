@@ -101,6 +101,44 @@ The new process is referred to as the child process.  The calling process is ref
 ### wait -- old wait for process to change state
 **[wait](https://man7.org/linux/man-pages/man2/waitpid.2.html) (wstatus(pointer))**<br>
 **The waitpid call replaces the previous wait call, which is now obsolete but is provided for reasons of backward compatibility.**
+```c
+/* example */
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+main()
+{
+    pid_t pid;
+    int status, i;
+    if(fork() == 0)
+    {
+        printf("This is the child process. pid =%d\n", getpid());
+        exit(5);
+     }
+    else
+    {
+        sleep(1);
+        printf("This is the parent process, wait for child...\n");
+        pid = wait(&status);
+        i = WEXITSTATUS(status);
+        printf("child's pid =%d . exit status=^d\n", pid, i);
+    }
+}
+```
+**output:**<br>
+```
+This is the child process. pid =67313
+This is the parent process, wait for child...
+child's pid =67313 . exit status=^d
+```
+**If we remove the sleep(1) in the parent process, the output will be:**
+```
+This is the parent process, wait for child...
+This is the child process. pid =67672
+child's pid =67672 . exit status=^d
+```
+**```wait()``` will temporarily stop the execution of the current process until a signal comes or the child process ends.**
 <br>
 
 ### execve -- execute program

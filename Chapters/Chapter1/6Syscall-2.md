@@ -26,6 +26,7 @@
     * [stat, fstat -- get file status](#stat-fstat----get-file-status)
     * [dup, dup2 -- duplicate a file descriptor](#dup-dup2----duplicate-a-file-descriptor)
     * [pipe -- create pipe](#pipe----create-pipe)
+    * [ioctl - control device](#ioctl---control-device)
 
 <!-- vim-markdown-toc -->
 
@@ -393,7 +394,7 @@ hello, world #3
 **In this figure below:<br>we create a pipe (line 15) and write messages into it, then read them from the pipe and lead them to stdout.**<br>
 **Pipes behave FIFO(First in First out), Pipe behave like a queue data structure.**<br>
 
-```
+```c
 #include <stdio.h>
 #include <unistd.h>
 #define MSGSIZE 16
@@ -417,7 +418,8 @@ int main()
         write(p[1], msg3, MSGSIZE);
 
         /* close(p[1]);*/
-        wait(NULL);
+        wait(NULL);                 /* hang the current process and wait the child process finish */
+                                    /* if finished 
     }
 
     else {
@@ -454,9 +456,12 @@ Finished reading
 * **If some other process has the pipe open for writing, read will block in anticipation of new data.**<br>
 ![sharingpipe](Sources/sharingpipe.jpg)
 
-**In Unix-like system:<br>
-Once a process write something into the pipe finished, remember to close the p[1]. **
-**Samely. Before a process read someting from the pipe, remember to close the p[1].**<br>
+* **Once a process write something into the pipe finished, remember to close the p[1].**
+* **Samely. Before a process read someting from the pipe, remember to close the p[1].**
+<br>
+
+### ioctl - control device 
+**[ioctl](https://en.wikipedia.org/wiki/Ioctl) (fd, TCSETS, &termios);**<br>
 
 
 
