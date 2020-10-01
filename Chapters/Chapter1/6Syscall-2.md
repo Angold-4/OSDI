@@ -27,6 +27,11 @@
     * [dup, dup2 -- duplicate a file descriptor](#dup-dup2----duplicate-a-file-descriptor)
     * [pipe -- create pipe](#pipe----create-pipe)
     * [ioctl - control device](#ioctl---control-device)
+        * [cmd](#cmd)
+        * [the usage of ioctl](#the-usage-of-ioctl)
+    * [fcntl -- manipulate file descriptor](#fcntl----manipulate-file-descriptor)
+    * [access -- check user's permissions for a file](#access----check-users-permissions-for-a-file)
+    * [rename -- change the name or location of a file](#rename----change-the-name-or-location-of-a-file)
 
 <!-- vim-markdown-toc -->
 
@@ -472,187 +477,188 @@ Finished reading
 * **The third variable parameter is a pointer type, pointing to a custom structure struct msg.**
 
 **Let us see an example to understand this system call:**<br>
-**This example assumes a device with registers, and an ioctl interface is designed to implement device initialization, read and write registers, etc.**<br>
-
-**```ioctl-test.h```The header file shared by user space and kernel space, including ioctl command and related macro definitions, can be understood as a "protocol" file**
 
 ```c
-// ioctl-test.h
-
-#ifndef __IOCTL_TEST_H__
-#define __IOCTL_TEST_H__
-
-#include <linux/ioctl.h>    // Kernel Space
-// #include <sys/ioctl.h>   // User Space
-
-/* define the type of device */
-#define IOC_MAGIC  'c'
-
-/* inticial device */
-#define IOCINIT    _IO(IOC_MAGIC, 0)
-
-/* read from regster */
-#define IOCGREG    _IOW(IOC_MAGIC, 1, int)
-
-/* write to regster */
-#define IOCWREG    _IOR(IOC_MAGIC, 2, int)
-
-#define IOC_MAXNR  3
-
-struct msg {
-    int addr;
-    unsigned int data;
-};
-
-#endif
+/* test_cmd.h  */
+1 #ifndef _TEST_CMD_H
+2 #define _TEST_CMD_H
+3
+4 #define TEST_MAGIC 'x' //define magic number
+5 #define TEST_MAX_NR 2 //define maximum arg ordinal
+6
+7 #define TEST_CLEAR _IO(TEST_MAGIC, 1)   // a cmd switch case
+8 #define TEST_OFFSET _IO(TEST_MAGIC, 2)  // another cmd switch case
+9
+10 #endif /*_TEST_CMD_H*/
 ```
 
-
-**```ioctl-test-driver.c```The character device driver implements the unlocked_ioctl interface, and executes the corresponding operations (initialize the device, read the register, write the register) according to the cmd of the upper user. Before receiving the upper cmd, it should be fully checked. The process and specific code implementation are as follows:**
+**The meaning of magic number and these marco above I will metioned later**<br>
 
 ```c
-// ioctl-test-driver.c
-......
-
-static const struct file_operations fops = {
-    .owner = THIS_MODULE,
-    .open = test_open,
-    .release = test_close,
-    .read = test_read,
-    .write = etst_write,
-    .unlocked_ioctl = test_ioctl,
-};
-
-......
-
-static long test_ioctl(struct file *file, unsigned int cmd, \
-                        unsigned long arg)
+/* the device program */
+/* test_ioctl.c */
+int test_ioctl (struct inode *node, struct file *filp, unsigned int cmd, uns igned long arg)
 {
-    //printk("[%s]\n", __func__);
+int ret = 0;
+struct _test_t *dev = filp->private_data;
 
-    int ret;
-    struct msg my_msg;
+if(_IOC_TYPE(cmd) != TEST_MAGIC) return - EINVAL;
+if(_IOC_NR(cmd) > TEST_MAX_NR) return - EINVAL;
 
-    /* check the type of device */
-    if (_IOC_TYPE(cmd) != IOC_MAGIC) {
-        pr_err("[%s] command type [%c] error!\n", \
-            __func__, _IOC_TYPE(cmd));
-        return -ENOTTY;
-    }
+switch(cmd){
+case TEST_CLEAR:
+memset(dev->kbuf, 0, DEV_SIZE);
+dev->cur_size = 0;
+filp->f_pos = 0;
+ret = 0;
+break;
+case TEST_OFFSET:
+filp->f_pos += (int)arg;   // change buffset with size(int arg)
+P_DEBUG("change offset!\n");
+ret = 0;
+break;
+default: /*when error*/
+P_DEBUG("error cmd!\n");
+ret = - EINVAL;
+break;
+}
 
-    /* check the number */
-    if (_IOC_NR(cmd) > IOC_MAXNR) {
-        pr_err("[%s] command numer [%d] exceeded!\n",
-            __func__, _IOC_NR(cmd));
-        return -ENOTTY;
-    }
-
-    /* check the access mode */
-    if (_IOC_DIR(cmd) & _IOC_READ)
-        ret= !access_ok(VERIFY_WRITE, (void __user *)arg, \
-                _IOC_SIZE(cmd));
-    else if (_IOC_DIR(cmd) & _IOC_WRITE)
-        ret= !access_ok(VERIFY_READ, (void __user *)arg, \
-                _IOC_SIZE(cmd));
-    if (ret)
-        return -EFAULT;
-
-    switch(cmd) {
-    /* inticial device */
-    case IOCINIT:
-        init();
-        break;
-
-    /* read from register */
-    case IOCGREG:
-        ret = copy_from_user(&msg, \
-            (struct msg __user *)arg, sizeof(my_msg));
-        if (ret)
-            return -EFAULT;
-        msg->data = read_reg(msg->addr);
-        ret = copy_to_user((struct msg __user *)arg, \
-                &msg, sizeof(my_msg));
-        if (ret)
-            return -EFAULT;
-        break;
-
-    /* write to register */
-    case IOCWREG:
-        ret = copy_from_user(&msg, \
-            (struct msg __user *)arg, sizeof(my_msg));
-        if (ret)
-            return -EFAULT;
-        write_reg(msg->addr, msg->data);
-        break;
-
-    default:
-        return -ENOTTY;
-    }
-
-    return 0;
+return ret;
 }
 ```
 
-**```ioctl-test.c```, a test program running in user space:**
+
+```c
+/* Application program */
+1 #include <stdio.h>
+2 #include <sys/types.h>
+3 #include <sys/stat.h>
+4 #include <fcntl.h>
+5 #include <sys/ioctl.h>
+6
+7 #include "test_cmd.h"
+8
+9 int main(void)
+10 {
+11 char buf[20];
+12 int fd;
+13 int ret;
+14
+15 fd = open("/dev/test", O_RDWR);
+16 if(fd < 0)
+17 {
+18 perror("open");
+19 return -1;
+20 }
+21
+22 write(fd, "test", 10); //write first
+23
+24 ioctl(fd, TEST_OFFSET, -10); //change the offset
+25
+26 ret = read(fd, buf, 10); //read data
+27 printf("<app> buf is [%s]\n", buf);
+28 if(ret < 0)
+29 {
+30 perror("read");
+31 }
+32
+33 close(fd);
+34 return 0;
+```
+<br>
+
+#### cmd
+**Please consider that: If there are two different devices, but the cmd of their ```ioctl``` is the same, someone accidentally opens the wrong device and calls ioctl, and it's done. Because this file also has cmd corresponding implementation.**<br>
+**In order to prevent this from happening, the kernel has a new definition of cmd, which stipulates that cmd should be different**<br>
+**A cmd is divided into 4 segments, each of which has its own meaning:**<br>
 
 ```
-// ioctl-test.c
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-
-#include "ioctl-test.h"
-
-int main(int argc, char **argv)
-{
-
-    int fd;
-    int ret;
-    struct msg my_msg;
-
-    fd = open("/dev/ioctl-test", O_RDWR);
-    /* the files inside /dev/ are device file */
-    if (fd < 0) {
-        perror("open");
-        exit(-2);
-    }
-
-    /* inticial */
-    ret = ioctl(fd, IOCINIT);
-    if (ret) {
-        perror("ioctl init:");
-        exit(-3);
-    }
-
-    /* write 0xef to the 0x01 addr register */
-    memset(&my_msg, 0, sizeof(my_msg));
-    my_msg.addr = 0x01;
-    my_msg.data = 0xef;
-    ret = ioctl(fd, IOCWREG, &my_msg);
-    if (ret) {
-        perror("ioctl write");
-        exit(-4);
-    }
-
-    /* read the 0x01 addr form register */
-    memset(&my_msg, 0, sizeof(my_msg));
-    my_msg.addr = 0x01;
-    ret = ioctl(fd, IOCGREG, &my_msg);
-    if (ret) {
-        perror("ioctl read");
-        exit(-5);
-    }
-    printf("read: %#x\n", my_msg.data);
-
-    return 0;
-}
-
+----------------------------------------------------
+|   type   |   number   |   direction   |   size   |
+----------------------------------------------------
+|   8bit   |   8bit     |     2bit      |   14bit  |
+----------------------------------------------------
+```
+```
+1. A Magic number - 8 bits
+2. A sequence number - 8 bits
+3. Argument type (typically 14 bits), if any.
+4. Direction of data transfer (2 bits).
 ```
 
+**1. type ( magic number )**
+
+**The magic number is a number between 0x00 to 0xff, This number is used to distinguish between different drivers. Like the device number application, the kernel has a document that gives some recommended or used magic numbers:**<br>
+
+```
+/*Documentation/ioctl/ioctl-number.txt*/
+'w' all CERN SCI driver
+'y' 00-1F packet based user level communications
+'z' 00-3F CAN bus card
+'z' 40-7F CAN bus card
+```
+
+**In this example. We use 'x' to define our test device magic number**
+```
+/* test_cmd.h  */
+4 #define TEST_MAGIC 'x' //define magic number
+```
+<br>
+
+**2. number**<br>
+**Use this number to give your own command number, which occupies 8bit (IOC_NRBITS).**
+<br>
+
+**3. direction -- data transmission direction**<br>
+**2bit(IOC_DIRBITS). If it involves passing parameters, the kernel requires a description of the direction of transmission, which is described from the perspective of the application layer.**
+
+```
+1) _IOC_NONE: The value is 0, no data transmission.
+2) _IOC_READ: Value is 1, read data from the device driver.
+3) _IOC_WRITE: The value is 2, write data to the device driver.
+4)_IOC_READ|_IOC_WRITE: Two-way data transmission.
+```
+<br>
+
+**4. Data size:**<br>
+**It is related to the architecture. ARM occupies 14bit (IOC_SIZEBITS). If the data is int, the value assigned by the kernel is sizeof(int).**
+<br>
+<br>
+
+
+#### the usage of ioctl
+> **from [stackoverflow](https://stackoverflow.com/questions/15807846/ioctl-linux-device-driver):<br>
+An ioctl, which means "input-output control" is a kind of device-specific system call. There are only a few system calls in Linux (300-400), which are not enough to express all the unique functions devices may have.**<br>
+
+> ** e.g. a printer that has configuration options to check and set the font family, font size etc. ioctl could be used to get the current font as well as set the font to a new one. A user application uses ioctl to send a code to a printer telling it to return the current font or to set the font to a new one.**
+
+
+**In these program below: <br>We archieve a communication among User Space, Kernel Space and External Device Space by using ```ioctl```**<br>
+![3layers](Sources/3layers.png)
+**As we can see that: After User call ```ioctl```, the kenel just do these things:**<br>
+* **find the correspound ```inode``` and ```file``` of the ```fd```**
+* **process the cmd by divide them (4 parts)**
+* **take the argument**
+* **Passing all of them to the specific location of the device space**
+<br>
+
+### fcntl -- manipulate file descriptor
+**The [fcntl](https://man7.org/linux/man-pages/man2/fcntl.2.html) is pretty same like ```ioctl```, further difference we will metioned when I learn more details of it in further study**<br>
+
+### access -- check user's permissions for a file
+**int [access](https://man7.org/linux/man-pages/man2/access.2.html) (const char pathname(pointer), int mode);**<br>
+**The access system call is used to determine whether a certain file access is permitted by the protection system,```access()``` checks whether the calling process can access the file pathname.**<br>
+
+**The mode specifies the accessibility check(s) to be performed, and is either the value ```F_OK```, or a mask consisting of the bitwise OR of one or more of ```R_OK```, ```W_OK```, and ```X_OK```.  ```F_OK``` tests for the existence of the file.  ```R_OK```, ```W_OK```, and ```X_OK``` test whether the file exists and grants read, write, and execute permissions, respectively.**<br>
+
+** On success (all requested permissions granted, or mode is F_OK and the file exists), zero is returned.  On error (at least one bit in mode asked for a permission that is denied, or mode is F_OK and the file does not exist, or some other error occurred), -1 is returned, and errno is set appropriately.**
+<br>
+
+### rename -- change the name or location of a file
+**int [rename](https://man7.org/linux/man-pages/man2/rename.2.html) (const char oldpath(pointer), const char newpath(pointer));**
+
+**```rename()``` renames a file, moving it between directories if required.  Any other hard links to the file (as created using link()) are unaffected.  Open file descriptors for oldpath are also unaffected.**
+
+**Here are some things need to be noticed (from [man7.org](https://man7.org/linux/man-pages/man2/rename.2.html))**<br>
+![rename](Sources/rename.png)
 
