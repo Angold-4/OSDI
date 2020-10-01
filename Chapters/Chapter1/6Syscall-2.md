@@ -78,6 +78,7 @@
 > **from wikipedia:<br>```lsof``` is a command meaning "list open files", which is used in many Unix-like systems to report a list of all open files and the processes that opened them.**
 
 <br>
+
 **Check out this code:**
 
 ```
@@ -630,7 +631,8 @@ return ret;
 > **from [stackoverflow](https://stackoverflow.com/questions/15807846/ioctl-linux-device-driver):<br>
 An ioctl, which means "input-output control" is a kind of device-specific system call. There are only a few system calls in Linux (300-400), which are not enough to express all the unique functions devices may have.**<br>
 
-> ** e.g. a printer that has configuration options to check and set the font family, font size etc. ioctl could be used to get the current font as well as set the font to a new one. A user application uses ioctl to send a code to a printer telling it to return the current font or to set the font to a new one.**
+
+> ** e.g. a printer that has configuration options to check and set the font family, font size etc. ioctl could be used to get the current font as well as set the font to a new one. A user application uses ioctl to send a code to a printer telling it to return the current font or to set the font to a new one.**<br>
 
 
 **In these program below: <br>We archieve a communication among User Space, Kernel Space and External Device Space by using ```ioctl```**<br>
