@@ -632,7 +632,7 @@ return ret;
 An ioctl, which means "input-output control" is a kind of device-specific system call. There are only a few system calls in Linux (300-400), which are not enough to express all the unique functions devices may have.**<br>
 
 
-> ** e.g. a printer that has configuration options to check and set the font family, font size etc. ioctl could be used to get the current font as well as set the font to a new one. A user application uses ioctl to send a code to a printer telling it to return the current font or to set the font to a new one.**<br>
+> **e.g. a printer that has configuration options to check and set the font family, font size etc. ioctl could be used to get the current font as well as set the font to a new one. A user application uses ioctl to send a code to a printer telling it to return the current font or to set the font to a new one.**<br>
 
 
 **In these program below: <br>We archieve a communication among User Space, Kernel Space and External Device Space by using ```ioctl```**<br>
@@ -653,7 +653,8 @@ An ioctl, which means "input-output control" is a kind of device-specific system
 
 **The mode specifies the accessibility check(s) to be performed, and is either the value ```F_OK```, or a mask consisting of the bitwise OR of one or more of ```R_OK```, ```W_OK```, and ```X_OK```.  ```F_OK``` tests for the existence of the file.  ```R_OK```, ```W_OK```, and ```X_OK``` test whether the file exists and grants read, write, and execute permissions, respectively.**<br>
 
-** On success (all requested permissions granted, or mode is F_OK and the file exists), zero is returned.  On error (at least one bit in mode asked for a permission that is denied, or mode is F_OK and the file does not exist, or some other error occurred), -1 is returned, and errno is set appropriately.**
+**On success (all requested permissions granted, or mode is F_OK and the file exists), zero is returned.  On error (at least one bit in mode asked for a permission that is denied, or mode is F_OK and the file does not exist, or some other error occurred), -1 is returned, and errno is set appropriately.**
+
 <br>
 
 ### rename -- change the name or location of a file
