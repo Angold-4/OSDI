@@ -461,18 +461,198 @@ Finished reading
 <br>
 
 ### ioctl - control device 
+```c
+#include <sys/ioctl.h>
+```
 **[ioctl](https://en.wikipedia.org/wiki/Ioctl) (fd, TCSETS, &termios);**<br>
+**```Ioctl``` is the device control interface function in the device driver. A character device driver usually implements functions such as device opening, closing, reading, and writing. In some situations that need to be segmented, if you need to expand new functions, you usually add ```ioctl()``` Implementation of the command.**<br>
+
+* **The first argument ```fd``` represent to a file**
+* **The second argument ```TCSETS``` indicates the protocol used for the opration**
+* **The third variable parameter is a pointer type, pointing to a custom structure struct msg.**
+
+**Let us see an example to understand this system call:**<br>
+**This example assumes a device with registers, and an ioctl interface is designed to implement device initialization, read and write registers, etc.**<br>
+
+**```ioctl-test.h```The header file shared by user space and kernel space, including ioctl command and related macro definitions, can be understood as a "protocol" file**
+
+```c
+// ioctl-test.h
+
+#ifndef __IOCTL_TEST_H__
+#define __IOCTL_TEST_H__
+
+#include <linux/ioctl.h>    // Kernel Space
+// #include <sys/ioctl.h>   // User Space
+
+/* define the type of device */
+#define IOC_MAGIC  'c'
+
+/* inticial device */
+#define IOCINIT    _IO(IOC_MAGIC, 0)
+
+/* read from regster */
+#define IOCGREG    _IOW(IOC_MAGIC, 1, int)
+
+/* write to regster */
+#define IOCWREG    _IOR(IOC_MAGIC, 2, int)
+
+#define IOC_MAXNR  3
+
+struct msg {
+    int addr;
+    unsigned int data;
+};
+
+#endif
+```
 
 
+**```ioctl-test-driver.c```The character device driver implements the unlocked_ioctl interface, and executes the corresponding operations (initialize the device, read the register, write the register) according to the cmd of the upper user. Before receiving the upper cmd, it should be fully checked. The process and specific code implementation are as follows:**
 
+```c
+// ioctl-test-driver.c
+......
 
+static const struct file_operations fops = {
+    .owner = THIS_MODULE,
+    .open = test_open,
+    .release = test_close,
+    .read = test_read,
+    .write = etst_write,
+    .unlocked_ioctl = test_ioctl,
+};
 
+......
 
+static long test_ioctl(struct file *file, unsigned int cmd, \
+                        unsigned long arg)
+{
+    //printk("[%s]\n", __func__);
 
+    int ret;
+    struct msg my_msg;
 
+    /* check the type of device */
+    if (_IOC_TYPE(cmd) != IOC_MAGIC) {
+        pr_err("[%s] command type [%c] error!\n", \
+            __func__, _IOC_TYPE(cmd));
+        return -ENOTTY;
+    }
 
+    /* check the number */
+    if (_IOC_NR(cmd) > IOC_MAXNR) {
+        pr_err("[%s] command numer [%d] exceeded!\n",
+            __func__, _IOC_NR(cmd));
+        return -ENOTTY;
+    }
 
+    /* check the access mode */
+    if (_IOC_DIR(cmd) & _IOC_READ)
+        ret= !access_ok(VERIFY_WRITE, (void __user *)arg, \
+                _IOC_SIZE(cmd));
+    else if (_IOC_DIR(cmd) & _IOC_WRITE)
+        ret= !access_ok(VERIFY_READ, (void __user *)arg, \
+                _IOC_SIZE(cmd));
+    if (ret)
+        return -EFAULT;
 
+    switch(cmd) {
+    /* inticial device */
+    case IOCINIT:
+        init();
+        break;
 
+    /* read from register */
+    case IOCGREG:
+        ret = copy_from_user(&msg, \
+            (struct msg __user *)arg, sizeof(my_msg));
+        if (ret)
+            return -EFAULT;
+        msg->data = read_reg(msg->addr);
+        ret = copy_to_user((struct msg __user *)arg, \
+                &msg, sizeof(my_msg));
+        if (ret)
+            return -EFAULT;
+        break;
+
+    /* write to register */
+    case IOCWREG:
+        ret = copy_from_user(&msg, \
+            (struct msg __user *)arg, sizeof(my_msg));
+        if (ret)
+            return -EFAULT;
+        write_reg(msg->addr, msg->data);
+        break;
+
+    default:
+        return -ENOTTY;
+    }
+
+    return 0;
+}
+```
+
+**```ioctl-test.c```, a test program running in user space:**
+
+```
+// ioctl-test.c
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+
+#include "ioctl-test.h"
+
+int main(int argc, char **argv)
+{
+
+    int fd;
+    int ret;
+    struct msg my_msg;
+
+    fd = open("/dev/ioctl-test", O_RDWR);
+    /* the files inside /dev/ are device file */
+    if (fd < 0) {
+        perror("open");
+        exit(-2);
+    }
+
+    /* inticial */
+    ret = ioctl(fd, IOCINIT);
+    if (ret) {
+        perror("ioctl init:");
+        exit(-3);
+    }
+
+    /* write 0xef to the 0x01 addr register */
+    memset(&my_msg, 0, sizeof(my_msg));
+    my_msg.addr = 0x01;
+    my_msg.data = 0xef;
+    ret = ioctl(fd, IOCWREG, &my_msg);
+    if (ret) {
+        perror("ioctl write");
+        exit(-4);
+    }
+
+    /* read the 0x01 addr form register */
+    memset(&my_msg, 0, sizeof(my_msg));
+    my_msg.addr = 0x01;
+    ret = ioctl(fd, IOCGREG, &my_msg);
+    if (ret) {
+        perror("ioctl read");
+        exit(-5);
+    }
+    printf("read: %#x\n", my_msg.data);
+
+    return 0;
+}
+
+```
 
 
