@@ -2,7 +2,7 @@
 
 ##### By Jiawei Wang
 
-# 5. Systerm Calls (2)
+# 6. Systerm Calls (2)
 <br>
 
 ![Systermcalls](Sources/Systermcalls.png)<br>
@@ -654,7 +654,6 @@ An ioctl, which means "input-output control" is a kind of device-specific system
 **The mode specifies the accessibility check(s) to be performed, and is either the value ```F_OK```, or a mask consisting of the bitwise OR of one or more of ```R_OK```, ```W_OK```, and ```X_OK```.  ```F_OK``` tests for the existence of the file.  ```R_OK```, ```W_OK```, and ```X_OK``` test whether the file exists and grants read, write, and execute permissions, respectively.**<br>
 
 **On success (all requested permissions granted, or mode is F_OK and the file exists), zero is returned.  On error (at least one bit in mode asked for a permission that is denied, or mode is F_OK and the file does not exist, or some other error occurred), -1 is returned, and errno is set appropriately.**
-
 <br>
 
 ### rename -- change the name or location of a file
