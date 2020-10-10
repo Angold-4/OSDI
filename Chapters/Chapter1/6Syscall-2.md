@@ -2,7 +2,7 @@
 
 ##### By Jiawei Wang
 
-# 6. Systerm Calls (2)
+# 6. System Calls (2)
 <br>
 
 ![Systermcalls](Sources/Systermcalls.png)<br>

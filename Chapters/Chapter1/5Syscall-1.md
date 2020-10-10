@@ -41,7 +41,7 @@ main(argc, argv, envp)
 
 <br>
 
-# 5. Systerm Calls (1)
+# 5. System Calls (1)
 
 <br>
 
