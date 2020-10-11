@@ -15,11 +15,16 @@
     * [chdir -- change working directory](#chdir----change-working-directory)
 * [System Calls for Protection](#system-calls-for-protection)
     * [chmod -- change permissions for a file](#chmod----change-permissions-for-a-file)
+    * [getuid getgid -- get the real user/group identity](#getuid-getgid----get-the-real-user/group-identity)
+    * [geteuid getegid -- get the effective uid/gid](#geteuid-getegid----get-the-effective-uid/gid)
+    * [umask -- set file mode creation mask](#umask----set-file-mode-creation-mask)
+    * [access -- check user's permissions for a file](#access----check-user's-permissions-for-a-file)
 * [System calls for Time Management](#system-calls-for-time-management)
     * [time -- get time in seconds](#time----get-time-in-seconds)
     * [stime -- set time](#stime----set-time)
     * [utime -- change file last access and modification times](#utime----change-file-last-access-and-modification-times)
     * [times -- get process times](#times----get-process-times)
+
 
 
 
@@ -227,7 +232,7 @@ creat("file", 0666)
 **clock_t [times](https://man7.org/linux/man-pages/man2/times.2.html) (struct tms buf(pointer));**<br>
 
 **```times()``` stores the current process times in the struct tms that buf points to.  the struct tms is as defined in ```<sys/times.h>```:<br>**
-```
+```c
 struct tms {
        clock_t tms_utime;  /* user time */
        clock_t tms_stime;  /* system time */
