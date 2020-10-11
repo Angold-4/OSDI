@@ -18,8 +18,8 @@
 * [System calls for Time Management](#system-calls-for-time-management)
     * [time -- get time in seconds](#time----get-time-in-seconds)
     * [stime -- set time](#stime----set-time)
-    * [utime -- change file last access and modification times](#utime----change file last access and modification times)
-    * [times -- get process times](#times----get process times)
+    * [utime -- change file last access and modification times](#utime----change-file-last-access-and-modification-times)
+    * [times -- get process times](#times----get-process-times)
 
 
 
