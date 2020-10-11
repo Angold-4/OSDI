@@ -18,6 +18,9 @@
 * [System calls for Time Management](#system-calls-for-time-management)
     * [time -- get time in seconds](#time----get-time-in-seconds)
     * [stime -- set time](#stime----set-time)
+    * [utime -- change file last access and modification times](#utime----change file last access and modification times)
+    * [times -- get process times](#times----get process times)
+
 
 
 ## System Calls for Directory Management
@@ -37,7 +40,7 @@
 <br>
 
 **Understanding how link works will probably make it clearer what it does. Let's see an exmple:**<br>
-![link1](sources/link1.png)<br>
+![link1](Sources/link1.png)<br>
 **consider the situation of fig.(a). here are two users, ast and jim, each having their own directories with some files. if ast now executes a program containing the system call:**
 
 ```c
@@ -51,7 +54,7 @@ link("/usr/jim/memo", ""/usr/ast/note");
 > **a directory is simply a file containing a set of (i-number, ascii name) pairs. in the first versions of unix, each directory entry was 16 bytes—2 bytes for the i-number and 14 bytes for the name. a more complicated structure is needed to support long file names, but conceptually a directory is still a set of (i-number, ascii name) pairs.**
 
 **in this example. after the ```link()``` system call, it will be like fig.(b):<br>**
-![link2](sources/link2.png)<br>
+![link2](Sources/link2.png)<br>
 
 **in fig.(b), two entries have the same i-number (70) and thus refer to the same file.<br>if either one is later removed, using the unlink system call, the other one remains. if both are removed, unix sees that no entries to the file exist (a field in the i-node keeps track of the number of directory entries pointing to the file), so the file is removed from the disk.**
 <br>
