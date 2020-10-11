@@ -8,23 +8,16 @@
 ![Systermcalls](Sources/Systermcalls.png)<br>
 
 
-<!-- vim-markdown-toc GFM -->
-
-    * [System Calls for Directory Management](#system-calls-for-directory-management)
-        * [mkdir, rmdir -- make, remove a dir](#mkdir-rmdir----make-remove-a-dir)
-        * [link -- make a new name for a file](#link----make-a-new-name-for-a-file)
-        * [mount -- mount filesystem](#mount----mount-filesystem)
-        * [chdir -- change working directory](#chdir----change-working-directory)
-    * [System Calls for Protection](#system-calls-for-protection)
-        * [chmod -- change permissions for a file](#chmod----change-permissions-for-a-file)
-    * [System calls for Time Management](#system-calls-for-time-management)
-        * [time -- get time in seconds](#time----get-time-in-seconds)
-        * [stime -- set time](#stime----set-time)
-* [include <sys/types.h>](#include-systypesh)
-* [include <utime.h>](#include-utimeh)
-* [include <sys/times.h>](#include-systimesh)
-
-<!-- vim-markdown-toc -->
+* [System Calls for Directory Management](#system-calls-for-directory-management)
+    * [mkdir, rmdir -- make, remove a dir](#mkdir-rmdir----make-remove-a-dir)
+    * [link -- make a new name for a file](#link----make-a-new-name-for-a-file)
+    * [mount -- mount filesystem](#mount----mount-filesystem)
+    * [chdir -- change working directory](#chdir----change-working-directory)
+* [System Calls for Protection](#system-calls-for-protection)
+    * [chmod -- change permissions for a file](#chmod----change-permissions-for-a-file)
+* [System calls for Time Management](#system-calls-for-time-management)
+    * [time -- get time in seconds](#time----get-time-in-seconds)
+    * [stime -- set time](#stime----set-time)
 
 
 ## System Calls for Directory Management
@@ -208,6 +201,7 @@ creat("file", 0666)
 <br>
 
 ### utime -- change file last access and modification times
+
 ```
 #include <sys/types.h>
 #include <utime.h>
@@ -222,6 +216,7 @@ creat("file", 0666)
 
 
 ### times -- get process times
+
 ```
 #include <sys/times.h>
 ```
@@ -245,53 +240,6 @@ The ```tms_utime``` field contains the CPU time spent executing instructions of 
 > **Times for terminated children (and their descendants) are added in at the moment ```wait(2)``` or ```waitpid(2)``` returns their process ID.  In particular, times of grandchildren that the children did not wait for are never seen.**
 
 > **All times reported are in clock ticks.**
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
