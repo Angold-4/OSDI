@@ -52,8 +52,8 @@ count = read(fd, &buffer, nbytes);
 1. **This procedure then returns to the user program(The program called ```read``` system call) in the usual way procedure calls return**
 1. **To finish the job, the user program has to clean up the stack, as it does after any procedure call.**
 > **Assuming the stack grows downward, as it often does, the compiled code increments the stack pointer exactly enough to remove the parameters pushed before the call to read. The program is now free to do whatever it wants to do next.**
-
 <br>
+
 **This organization suggests a basic structure for the operating system:**
 
 1. **A main program that invokes the requested service procedure.<br><u>i.e: The user program which called the system call</u>**
@@ -87,6 +87,7 @@ count = read(fd, &buffer, nbytes);
 > **The initial releases of OS/360 were strictly batch systems. Nevertheless, many 360 users wanted to have timesharing, so various groups, both inside and outside IBM decided to write timesharing systems for it. The official IBM timesharing system, TSS/360, was delivered late, and when it finally arrived it was so big and slow that few sites converted over to it. It was eventually abandoned after its development had consumed some $50 million (Graham, 1970). But a group at IBM’s Scientific Center in Cambridge, Massachusetts, produced a radically dif- ferent system that IBM eventually accepted as a product, and which is now widely used on its mainframes.**
 
 <br>
+
 **This system, originally called CP/CMS and later renamed VM/370, was based on a very astute observation:<br>A timesharing system provides:<br>(1) multiprogramming and (2) an extended machine with a more convenient interface than the bare hardware.**<br>
 
 **The heart of the system, known as the <u>virtual machine monitor</u>, runs on the bare hardware and does the multiprogramming, providing not one, but several <u>virtual machines</u> to the next layer up, as shown in Fig. 1-19.**<br>
