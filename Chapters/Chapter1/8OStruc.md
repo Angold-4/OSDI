@@ -55,9 +55,11 @@ count = read(fd, &buffer, nbytes);
 
 <br>
 **This organization suggests a basic structure for the operating system:**
+
 1. **A main program that invokes the requested service procedure.<br><u>i.e: The user program which called the system call</u>**
 2. **A set of service procedures that carry out the system calls.<br><u>i.e: The system call handler inside the kernel (8)</u>**
 3. **A set of utility procedures that help the service procedures.<br><u>i.e: Specific operation. Such as fetching data from user programs or clean up the stack</u>**
+
 <br>
 
 ![monolithicmodel](Sources/monolithicmodel.png)
@@ -85,9 +87,7 @@ count = read(fd, &buffer, nbytes);
 > **The initial releases of OS/360 were strictly batch systems. Nevertheless, many 360 users wanted to have timesharing, so various groups, both inside and outside IBM decided to write timesharing systems for it. The official IBM timesharing system, TSS/360, was delivered late, and when it finally arrived it was so big and slow that few sites converted over to it. It was eventually abandoned after its development had consumed some $50 million (Graham, 1970). But a group at IBM’s Scientific Center in Cambridge, Massachusetts, produced a radically dif- ferent system that IBM eventually accepted as a product, and which is now widely used on its mainframes.**
 
 <br>
-**This system, originally called CP/CMS and later renamed VM/370, was based on a very astute observation:<br>
-A timesharing system provides:<br>
-(1) multiprogramming and (2) an extended machine with a more convenient interface than the bare hardware.**<br>
+**This system, originally called CP/CMS and later renamed VM/370, was based on a very astute observation:<br>A timesharing system provides:<br>(1) multiprogramming and (2) an extended machine with a more convenient interface than the bare hardware.**<br>
 
 **The heart of the system, known as the <u>virtual machine monitor</u>, runs on the bare hardware and does the multiprogramming, providing not one, but several <u>virtual machines</u> to the next layer up, as shown in Fig. 1-19.**<br>
 
@@ -98,8 +98,8 @@ A timesharing system provides:<br>
 **When a CMS program executes a system call, the call is trapped to the operating system in its own virtual machine, not to VM/370, just as it would if it were running on a real machine instead of a virtual one. CMS then issues the normal hardware I/O instructions for reading its virtual disk or whatever is needed to carry out the call. <u>These I/O instructions are trapped by VM/370</u>, which then performs them as part of its simulation of the real hardware.**<br>
 
 **In this example above, we can find that the OS is the manager of all virtual machine at this time. By making a complete separation of the functions of multiprogramming and providing an extended machine, each of the pieces can be much simpler, more flexible, and easier to maintain.**
-
 <br>
+
 **Several virtual machine implementations are marketed commercially. For example, today it is very convinent to run Linux on Windows through [Virtual PC](https://www.microsoft.com/en-hk/download/details.aspx?id=3702) or other virture machine software. The nature of them were all provide a <u>virtual machine monitor</u> layer between Two systems and handle all system calls just like below.**<br>
 
 ![virtualbox](Sources/virtualbox.png)<br>
@@ -118,7 +118,7 @@ A timesharing system provides:<br>
 **At the bottom layer, running in kernel mode, is a program called the [exokernel](https://en.wikipedia.org/wiki/Exokernel). Its job is to allocate resources to virtual machines and then check attempts to use them to make sure no machine is trying to use somebody else’s resources. Each user-level virtual machine can run its own operating system, as on VM/370, except that each one is restricted to using only the resources it has asked for and been allocated.**
 <br>
 
-![exokernel](Sources/exokernel.png)<br>
+![Exokernel](Sources/Exokernel.png)<br>
 **[Provided by Thorben Bochenek, CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=25131239)**<br>
 
 **The advantage of the exokernel scheme is that it saves a layer of mapping. In the other designs, each virtual machine thinks it has its own disk, with blocks running from 0 to some maximum, so the virtual machine monitor must maintain tables to remap disk addresses (and all other resources).**<br>
