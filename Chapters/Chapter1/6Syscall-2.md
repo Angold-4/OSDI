@@ -464,7 +464,25 @@ Finished reading
 
 * **Once a process write something into the pipe finished, remember to close the p[1].**
 * **Samely. Before a process read someting from the pipe, remember to close the p[1].**
+
 <br>
+
+**About the difference between Pipe and File:<br>**
+**In Question12 this Chapter: there is an interesting question**
+> **If there is no pipe in linux. Can two processes communicate?**
+<br>
+
+**The answer absolutely is Yes. Because we can Let two processes I/O with a file to achieve inter-process communication, but it seems not efficient.<br>**
+
+
+**The Pipe we talked about is called Unnamed Pipe. There really excist many common grounds between Pipe and file, such as Both of them are the storiage in memory, and both of them can communicate with processes.**<br>
+**The difference between pipe and file:<br>**
+* **A pipe is a special file. The purpose of inter-process communication is achieved by sharing the page pointed to by the same inode. The pipe(file) does not exist in the real file system.**
+
+* **The commonality of pipelines is exclusivity, and only one process has the right to use the pipeline at the moment.**
+
+<br>
+
 
 ### ioctl - control device 
 ```c

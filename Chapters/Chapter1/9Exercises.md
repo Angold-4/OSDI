@@ -115,21 +115,50 @@
 
 
 
+### Question11
+> **In MINIX 3 if user 2 links to a file owned by user 1, then user 1 removes the file, what happens when user 2 tries to read the file?**
+
+
+**The read works normally. User 2’s directory entry contains a pointer (fd) to the i-node of the file, and the reference count in the i-node was incremented when user 2 linked to it. So the reference count will be nonzero and the file itself will not be removed when user 1 removes his directory entry for it. Only when all directory entries for a file have been removed will its i-node and data actually vanish.**
+
+
+
+### Question12
+> **Are pipes an essential facility? Would major functionality be lost if they were not available?**
+
+
+**No, they are not so essential. In the absence of pipes, program 1 could write its output to a file and program 2 could read the file. While this is less efficient than using a pipe between them, and uses unnecessary disk space, in most circumstances it would work adequately.**<br>
+**If you want to see the difference between pipe and file. Please check this [Note](https://github.com/Angold-4/OSDI/blob/master/Chapters/Chapter1/6Syscall-2.md#pipe----create-pipe).**
+
+
+
+### Question13
+> **Windows does not have a ```fork()``` system call, yet it is able to create new processes. Make an educated guess about the semantics of the system call Windows uses to create new processes.**
+
+
+**Windows has a call ```spawn()``` that creates a new process and starts a specific program in it. It is effectively a combination of ```fork()``` and ```exec()```.**
+
+
+
+### Question14
+> **Why is the chroot system call limited to the superuser?**
+
+
+**If an ordinary user could set the root directory anywhere in the tree, he could create a file etc/passwd in his home directory, and then make that the root directory. He could then execute some command, such as su or login that reads the password file, and trick the system into using his password file, instead of the real one.**
+
+
+
+### Question15
+> **Why does MINIX 3 have the program update running in the background all the time?**
+
+
+**When a user program writes on a file, the data does not really go to the disk. It goes to the buffer cache(not fast enough). The update program issues SYNC calls every 30 seconds to force the dirty blocks in the cache onto the disk, in order to limit the potential damage that a system crash could cause.**
 
 
 
 
+### Question16
+> **In this Chapter1, we learned many System Calls in Minix3. Which call do you think is likely to execute most quickly. Explain your answer.**
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+**The getpid, getuid, getgid, and getpgrp, calls just extract a word from the pro- cess table and return it. They will execute very quickly. They are all equally fast.**

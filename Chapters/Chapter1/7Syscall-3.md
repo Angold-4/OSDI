@@ -13,6 +13,7 @@
     * [link -- make a new name for a file](#link----make-a-new-name-for-a-file)
     * [mount -- mount filesystem](#mount----mount-filesystem)
     * [chdir -- change working directory](#chdir----change-working-directory)
+    * [chroot -- change root directory](#chroot----change-root-directory)
 * [System Calls for Protection](#system-calls-for-protection)
     * [chmod -- change permissions for a file](#chmod----change-permissions-for-a-file)
     * [getuid getgid -- get the real user/group identity](#getuid-getgid----get-the-real-user/group-identity)
@@ -108,7 +109,7 @@ chdir("/usr/ast/test");
 **an open on the file xyz will open ```/usr/ast/test/xyz```.**
 <br>
 
-### chroot - change root directory
+### chroot -- change root directory
 ```#include <unistd.h>```<br>
 **int [chroot](https://man7.org/linux/man-pages/man2/chroot.2.html) (const char path(pointer));**<br>
 **```chroot()``` changes the root directory of the calling process to that specified in path.  This directory will be used for pathnames beginning with /.  The root directory is inherited by all children of the calling process.**
