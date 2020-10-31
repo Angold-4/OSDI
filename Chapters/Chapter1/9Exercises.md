@@ -101,7 +101,17 @@
 
 
 
+### Question10
+> **What is the essential difference between a block special file and a character special file?** 
 
+
+**Block special files consist of numbered blocks, each of which can be read or written independently of all the other ones. It is possible to seek to any block and start reading or writing. This is not possible with character special files.**
+
+**The name “block device” comes from the fact that the corresponding hardware typically reads and writes a whole block at a time**<br>
+
+**The name “character device” comes from the fact that each character is handled individually. Writing a byte to a character device might cause it to be displayed on screen, output on a serial port, converted into a sound, ...<br>**
+
+**For more, see [Unix.stackexchange.com](https://unix.stackexchange.com/questions/60034/what-are-character-special-and-block-special-files-in-a-unix-system):<br>**
 
 
 
