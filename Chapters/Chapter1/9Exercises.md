@@ -6,7 +6,7 @@
 
 <br>
 
-### Question1
+## Question1
 > **What are the two main functions of an operating system?**<br>
 
 
@@ -15,7 +15,7 @@
 
 
 
-### Question2
+## Question2
 > **What is the difference between kernel mode and user mode? <br>Why is the difference important to an operating system?**
 
 
@@ -24,7 +24,7 @@
 
 
 
-### Question3
+## Question3
 > **What is multiprogramming?**
 
 
@@ -32,7 +32,7 @@
 
 
 
-### Question4
+## Question4
 > **What is spooling? Do you think that advanced personal computers will have spooling as a standard feature in the future?**
 
 
@@ -47,7 +47,7 @@
 
 
 
-### Question5
+## Question5
 > **On early computers, every byte of data read or written was directly handled by the CPU (i.e., there was no DMA—Direct Memory Access). What implications does this organization have for multiprogramming?**
 
 
@@ -61,7 +61,7 @@
 
 
 
-### Question6
+## Question6
 > **List some differences between personal computer operating systems and mainframe operating systems.**
 
 
@@ -71,7 +71,7 @@
 
 
 
-### Question7
+## Question7
 > **Give one reason why a closed-source proprietary operating system like Windows should have better quality than an open-source operating system like Linux. Now give one reason why an open-source operating system like Linux should have better quality than a closed-source proprietary operating system like Windows.**
 
 
@@ -83,7 +83,7 @@
 
 
 
-### Question8
+## Question8
 > **In view of the fact that the mere existence of a superuser can lead to all kinds of security problems, why does such a concept exist?**
 
 
@@ -92,7 +92,7 @@
 
 
 
-### Question9
+## Question9
 > **Why is the process table needed in a timesharing system? Is it also needed in personal computer systems in which only one process exists, that process taking over the entire machine until it is finished?**
 
 
@@ -101,7 +101,7 @@
 
 
 
-### Question10
+## Question10
 > **What is the essential difference between a block special file and a character special file?** 
 
 
@@ -115,7 +115,7 @@
 
 
 
-### Question11
+## Question11
 > **In MINIX 3 if user 2 links to a file owned by user 1, then user 1 removes the file, what happens when user 2 tries to read the file?**
 
 
@@ -123,7 +123,7 @@
 
 
 
-### Question12
+## Question12
 > **Are pipes an essential facility? Would major functionality be lost if they were not available?**
 
 
@@ -132,7 +132,7 @@
 
 
 
-### Question13
+## Question13
 > **Windows does not have a ```fork()``` system call, yet it is able to create new processes. Make an educated guess about the semantics of the system call Windows uses to create new processes.**
 
 
@@ -140,7 +140,7 @@
 
 
 
-### Question14
+## Question14
 > **Why is the chroot system call limited to the superuser?**
 
 
@@ -148,7 +148,7 @@
 
 
 
-### Question15
+## Question15
 > **Why does MINIX 3 have the program update running in the background all the time?**
 
 
@@ -157,7 +157,7 @@
 
 
 
-### Question16
+## Question16
 > **In this Chapter1, we learned many System Calls in Minix3. Which call do you think is likely to execute most quickly. Explain your answer.**
 
 

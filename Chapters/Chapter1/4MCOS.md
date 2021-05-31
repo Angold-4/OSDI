@@ -4,29 +4,6 @@
 #### By Jiawei Wang
 <br>
 
-<!-- vim-markdown-toc GFM -->
-
-* [1. 8-bit ages](#1-8-bit-ages)
-    * [1) Microcomputer](#1-microcomputer)
-    * [2) Intel 8080](#2-intel-8080)
-    * [3) CP/M](#3-cpm)
-* [2. Apple and Microsoft](#2-apple-and-microsoft)
-    * [1) Apple II](#1-apple-ii)
-        * [MOS Technology](#mos-technology)
-        * [Apple-DOS](#apple-dos)
-        * [Disk Oprating Systerm(DOS)](#disk-oprating-systermdos)
-    * [2) MS-DOS](#2-ms-dos)
-        * [86-DOS](#86-dos)
-    * [3. Modern System](#3-modern-system)
-        * [Apple Macintoch](#apple-macintoch)
-        * [Classic Mac OS (1984 to 2001)](#classic-mac-os-1984-to-2001)
-        * [BSD](#bsd)
-        * [Linux](#linux)
-        * [GNU and GPL](#gnu-and-gpl)
-        * [Microsoft Windows](#microsoft-windows)
-
-<!-- vim-markdown-toc -->
-
 ## 1. 8-bit ages
 
 ### 1) Microcomputer
