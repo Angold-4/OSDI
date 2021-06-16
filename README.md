@@ -1,4 +1,4 @@
-# OSDI Notes
+# <Operating System Design and Implementation> Notes
 <img src="Chapter/Sources/TitleOSDI.png" align="right" weight="300" height="400"/>
 
 > **Notes since Aug 27, 2020**<br>
