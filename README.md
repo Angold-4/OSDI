@@ -1,13 +1,14 @@
 # OSDI Notes
 <img src="Chapter/Sources/TitleOSDI.png" align="right" weight="300" height="400"/>
 
-> **Notes since Aug 27, 2020**
-> **Still on progress** 
-> **I have no copyright**
-> **[Pdf Book download](https://github.com/Angold-4/OSDI/raw/master/Operating%20Systems%20Design%20and%20Implementation%2C%203rd%20Edition.pdf)** Just for learning
+> **Notes since Aug 27, 2020**<br>
+> **Still on progress** <br>
+> **I have no copyright**<br>
+> **[Pdf Book download](https://github.com/Angold-4/OSDI/raw/master/Operating%20Systems%20Design%20and%20Implementation%2C%203rd%20Edition.pdf)** Just for learning<br>
 
 ## Contents
 ### 1. Introduction
+
     1.[Introduce to Operating Systerm](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/1OS.md)<br>
     2.[The History of Oprating Systerm(Early)](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/2HSE.md)<br>
     3.[Minix](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/3MINIX.md)<br>
