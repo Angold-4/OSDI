@@ -13,9 +13,9 @@
     **3. [Minix](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/3MINIX.md)<br>**
     **4. [The Fourth Generation (1980–Present) Personal Computers](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/4MCOS.md)<br>**
     **5. [System Calls (1)](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/5Syscall-1.md)<br>**
-    *6. [System Calls (2)](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/6Syscall-2.md)<br>**
+    **6. [System Calls (2)](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/6Syscall-2.md)<br>**
     **7. [System Calls (3)](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/7Syscall-3.md)<br>**
     **8. [Operating System Structure](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/8OStruc.md)<br>**
-    *9. [Exercises for Chapter 1](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/9Exercises.md)<br>**
+    **9. [Exercises for Chapter 1](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/9Exercises.md)<br>**
 
-### 2. Processes
+2. Processes<br>
