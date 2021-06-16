@@ -6,7 +6,11 @@
 #include <time.h>
 #include <dispatch/dispatch.h> // use dispatch intead of semaphore on MacOSX (deprecated)
 
+
 /* Dinning Philosophers
+ *
+ * The dining philosophers problem is useful for modeling processes that are competing 
+ * for exclusive access to a limited number of resources, such as I/O devices.
  *
  * Five philosophers are seated around a circular table.
  * Each philosopher has a plate of spaghetti. The spaghetti is so slippery that a philosopher needs two forks to eat it.
