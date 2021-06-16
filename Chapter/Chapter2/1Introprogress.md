@@ -1,6 +1,6 @@
 ### Operating Systerms Design and Implementation Notes
 
-# 1. Introduction to Progresses
+# 1. Introduction to Processes
 ##### By Jiawei Wang
 
 While, strictly speaking, at any instant of time, the CPU is running only one program, in the course of 1 second, it may work on several programs, thus giving the users the illusion of parallelism. called **pseudoparallelism**.<br>
