@@ -2,7 +2,7 @@
 
 ##### By Jiawei Wang
 
-# 8. Oprating System Structure
+# 8. Operating System Structure
 
 **Now that we have seen what operating systems look like on the outside (i.e, the programmer’s interface), it is time to take a look inside.**<br>
 **In the Following sections, We will introduce Oprating System briefly in 5 point of views:**<br>
