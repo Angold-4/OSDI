@@ -52,7 +52,7 @@ int main(int argc, char* argv[]) {
                 perror("Failed to create thread");
             }
         } else {
-            if (pthread_create(&th[i], NULL, &car, NULL) != 0) {
+            if (pthread_create(&th[i], NULL, &car, NULL) != 1) {
                 perror("Failed to create thread");
             }
         }

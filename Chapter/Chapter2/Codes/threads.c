@@ -8,13 +8,13 @@ int x = 2;
 // threads shared memory
 void* routine() {
     x++;
-    printf("Test from threads\n");
+    printf("Test from threads %d\n", getpid());
     sleep(3);
     printf("The value of x is %d\n", x);
 }
 
 void* routine2() {
-    printf("Test from threads\n");
+    printf("Test from threads %d\n", getpid());
     sleep(3);
     printf("The value of x is %d\n", x);
 }
