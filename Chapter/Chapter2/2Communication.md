@@ -244,7 +244,7 @@ int main(int argc, char* argv[]) {
 ```
 
 ## 4. Condition Variable
-**Let's now focus on the 3rd question we metioned in the begining:<br> **
+**Let's now focus on the 3rd question we metioned in the begining:**<br>
 
 > **How to make sure the sequence of related processes?**
 <br>
