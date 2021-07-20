@@ -12,8 +12,8 @@
 #define THREAD_NUM 8
 
 
-dispatch_semaphore_t semEmpty; // Empty slots
-dispatch_semaphore_t semFull;  // Full slots
+dispatch_semaphore_t semEmpty; // Empty slots initial 10
+dispatch_semaphore_t semFull;  // Full slots  initial 0
 
 pthread_mutex_t mutexBuffer;
 
@@ -62,6 +62,7 @@ int main(int argc, char* argv[]) {
     semFull = dispatch_semaphore_create(0);
     int i;
     for (i = 0; i < THREAD_NUM; i++) {
+	// One Comsumer, Seven Producer
         if (i > 0) {
             if (pthread_create(&th[i], NULL, &producer, NULL) != 0) {
                 perror("Failed to create thread");
@@ -73,7 +74,7 @@ int main(int argc, char* argv[]) {
         }
     }
     for (i = 0; i < THREAD_NUM; i++) {
-        if (pthread_join(th[i], NULL) != 0) {
+        if (pthread_join(th[i], NULL) != 0) {  // executed the threads
             perror("Failed to join thread");
         }
     }
