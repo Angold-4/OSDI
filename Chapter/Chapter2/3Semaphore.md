@@ -82,7 +82,7 @@ If you want to practice one more example of semaphore, you can check [Codes/sema
 ## 2. Classical IPC Problems
 
 ### 1. The Dining Philosophers Problem
-![philosophers](Sources/philosophers.png)
+![philosophers](Sources/Philosophers.png)
 ```
 Dinning Philosophers
 Five philosophers are seated around a circular table.
