@@ -4,7 +4,7 @@
 
 > **Notes since Aug 27, 2020**<br>
 > **Still on progress** <br>
-> **I have no copyright**<br>
+> **I don't have copyright**<br>
 > **[Pdf Book download](https://github.com/Angold-4/OSDI/raw/master/Operating%20Systems%20Design%20and%20Implementation%2C%203rd%20Edition.pdf)** Just for learning<br>
 
 ## Contents
