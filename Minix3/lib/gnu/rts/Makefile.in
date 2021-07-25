@@ -1,0 +1,8 @@
+
+LIBRARIES=libc
+
+libc_FILES=" \
+	__setjmp.gs \
+	longjmp.gs"
+
+TYPE=gnu

@@ -1,0 +1,54 @@
+.TH MOUNT 1
+.SH NAME
+mount \- mount a file system
+.SH SYNOPSIS
+\fBmount [\fB\-r\fR] [\fB\-t \fItype\fR] [\fB\-o \fIoptions\fR] \fIspecial \fIfile\fR
+.br
+\fBmount [\fB\-s\fR] \fIswapfile\fR
+.br
+.de FL
+.TP
+\\fB\\$1\\fR
+\\$2
+..
+.de EX
+.TP 20
+\\fB\\$1\\fR
+# \\$2
+..
+.SH OPTIONS
+.FL "\-r" "File system is mounted read-only"
+.FL "\-t" "File system type"
+.FL "\-o" "Options passed to FS server"
+.FL "\-s" "Mount swap space"
+.SH EXAMPLES
+.EX "mount /dev/fd1 /user" "Mount diskette 1 on \fI/user\fP"
+.SH DESCRIPTION
+.PP
+The file system contained on the special file is mounted on \fIfile\fP.
+In the example above, the root directory of the file system in drive 1
+can be accessed as
+.B /user
+after the mount.
+When the file system is no longer needed, it must be unmounted before being
+removed from the drive.
+.PP
+The
+.B \-t
+parameter may be used to mount a file system of a type other than the default.
+The
+.B \-o
+flag may be used to pass options to the file system server.
+The interpretation of these options is up to the server.
+.PP
+With the
+.B \-s
+flag a device or file is mounted as swap space.
+.SH "SEE ALSO"
+.BR df (1),
+.BR mkfs (1),
+.BR fsck (1),
+.BR mkswap (8),
+.BR umount (1),
+.BR mount (2),
+.BR fstab (5).

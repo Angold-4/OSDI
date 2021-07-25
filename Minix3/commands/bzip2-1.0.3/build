@@ -1,0 +1,6 @@
+#!/bin/sh
+make clean
+make all
+if [ "$1" != build ]
+then make install
+fi

@@ -1,0 +1,7 @@
+make depend  - find dependencies of ack libraries
+make all     - compile ack libraries
+make install - compile and install ack libraries
+
+make depend-gnu  - find dependencies of gnu libraries
+make all-gnu     - compile gnu libraries
+make install-gnu - compile and install gnu libraries

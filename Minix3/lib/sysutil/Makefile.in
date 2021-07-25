@@ -1,0 +1,32 @@
+# Makefile for lib/sysutil.
+
+CFLAGS="-O -D_MINIX -D_POSIX_SOURCE"
+
+LIBRARIES=libsys
+
+libsys_FILES=" \
+	asynsend.c \
+	kprintf.c \
+	kputc.c \
+	tickdelay.c \
+	get_randomness.c \
+	getuptime.c \
+	getuptime2.c \
+	env_get_prm.c \
+	env_parse.c \
+	env_panic.c \
+	env_prefix.c \
+	fkey_ctl.c \
+	micro_delay.c \
+	report.c \
+	taskcall.c \
+	read_tsc.s \
+	read_tsc_64.c \
+	ser_putc.c \
+	stacktrace.c \
+	sys_hz.c \
+	timing.c \
+	profile_extern.c \
+	profile.c"
+
+TYPE=both

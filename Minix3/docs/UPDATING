@@ -1,0 +1,43 @@
+
+20060818:
+	You need flex in your $PATH, which has become part of the base
+	system. This needs bigger binaries.
+	If you don't have flex yet, you can compile it first by doing:
+	# cp /usr/src/etc/binary_sizes* /etc
+	# binsizes big
+	# cd /usr/src/commands/flex-2.5.4 
+	# sh build
+20061222:
+	Install binaries in the right order because the new readdir
+	implementation and the new mount program are incompatible
+	with older kernels and the new kernels require the new mount.
+	# cd /usr/src
+	# make includes
+	# make libraries
+	# make cmds
+	# make depend
+	# cd /usr/src/tools
+	# make hdboot
+	# make install
+	# cd ..
+	# make install
+	Installing fails for boot. Reboot the system
+	# reboot -x 'unset image; boot'
+	Now install everything
+	# cd /usr/src
+	# make install
+20061222:
+	The archictecture-dependent/-independent split needs ARCH=<arch>
+	in /etc/make.conf, included by some Makefiles and sourced by
+	some shell scripts. To install it, type 'make install' in
+	src/etc, or simply copy the file over.
+20070118:
+	drivers.conf has been updated to include an ACL for mfs. it has
+	to be installed before rebooting after an update of the mount command.
+20070212 (r2751):
+	mkfs needs more memory to make an image; chmem it or do
+	# touch mkfs.c ; make /usr/bin/mkfs
+	in /usr/src/commands/simple.
+20091006 (r5422):
+	OSS requires an improved make to be compiled; run "make install"
+	in /usr/src/commands/make before running "make world".

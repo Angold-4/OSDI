@@ -1,0 +1,49 @@
+#!/bin/sh
+set -e
+
+exec >/dev/log
+exec 2>/dev/log
+exec </dev/null
+
+/bin/service up /bin/pci -config /etc/drivers.conf
+/bin/service -c up /bin/floppy -config /etc/drivers.conf -dev /dev/fd0
+if [ X`/bin/sysenv bios_wini` = Xyes ]
+then
+	echo Using bios_wini.
+	/bin/service -c up /bin/bios_wini -dev /dev/c0d0
+else
+	/bin/service -c up /bin/at_wini -dev /dev/c0d0 -config /etc/drivers.conf -label at_wini_0
+	/bin/service -c up /bin/at_wini -dev /dev/c1d0 -config /etc/drivers.conf -label at_wini_1 -args ata_instance=1
+fi
+
+rootdev=`sysenv rootdev` || echo 'No rootdev?'
+rootdevname=`/bin/dev2name "$rootdev"` ||
+	{ echo 'No device name for root device'; exit 1; }
+
+if [ "`sysenv bin_img`" = 1 ]
+then
+    bin_img="-i "
+fi
+
+if sysenv cdproberoot >/dev/null
+then
+	echo 
+	echo 'Looking for boot CD. This may take a minute.'
+	echo 'Please ignore any error messages.'
+	echo
+	cddev=`cdprobe` || { echo 'No CD found'; exit 1; }
+	export cddev
+	echo "Loading ramdisk from ${cddev}p1"
+	loadramdisk "$cddev"p1
+elif [ "$rootdevname" = "/dev/ram" ]
+then
+	ramimagedev=`sysenv ramimagedev` ||
+		{ echo 'ramimagedev not found'; exit 1; }
+	ramimagename=`/bin/dev2name "$ramimagedev"` ||
+		{ echo 'No device name for ramimagedev'; exit 1; }
+	echo "Loading ramdisk from $ramimagename"
+	loadramdisk "$ramimagename"
+fi
+echo "Root device name is $rootdevname"
+/bin/newroot $bin_img"$rootdevname"
+exec /bin/sh /etc/rc "$@"
