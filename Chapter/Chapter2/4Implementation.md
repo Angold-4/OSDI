@@ -1,12 +1,13 @@
 ## Operating Systerms Design and Implementation Notes
 
-# 4. Implementation of Processes in Minix3
+# 4. Inside a Clock Tick
 ##### By Jiawei Wang
 
 We are now moving closer to looking at the actual **code of Minix3**.<br>
-Unlike the introduction sequence in the original book. I divide the implementation into two parts:<br>
-* **Process Implementation** ([Note1](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/1Introprogress.md))
-* **Interprocess Communication** ([Note2](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/2Communication.md) and [Note3](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/3Semaphore.md))
+Unlike the introduction sequence in the original book. I divide the implementation into three parts:<br>
+* **Inside a Clock Tick** (Clock Server)
+* **Process Scheduler**
+* **Interprocess Commnuication**
 
 One useful website for learning minix3: **[elixir.ortiz.sh](https://elixir.ortiz.sh/minix/v3.1.8/C/ident/)**<br>
 Minix3 Source code used in this note: **[https://github.com/Angold-4/OSDI/tree/master/Minix3](https://github.com/Angold-4/OSDI/tree/master/Minix3)** (folked from [jncraton](https://github.com/jncraton/minix3))<br>
@@ -376,5 +377,5 @@ The full code of **`do_clocktick()`** is in **[kernel/clock.c](https://github.co
 ```
 The **`dequeue()`** and **`enqueue()`** function is a part of the System Components called **System Scheduler**.<br>Which will be introduced in the next note. The only thing you need to know is that it will schedule a new process to run by updating the **`next_ptr`** so that after the **`clock_hander()`** finished and return to **`hwint_master(0)`**, when it return, it will call the **`restart()`** function(stack), a process which pc is **`next_ptr`** will be called.
 
-**And that is what happend in 16.67 milliseconds of a CPU**.
+**And that is what happend in 16.67 milliseconds of a CPU - A Clock Tick**.
 
