@@ -375,7 +375,7 @@ The full code of **`do_clocktick()`** is in **[kernel/clock.c](https://github.co
         enqueue(prev_ptr);		/* and reinsert it again */ 
   }
 ```
-The **`dequeue()`** and **`enqueue()`** function is a part of the System Components called **System Scheduler**.<br>Which will be introduced in the next note. The only thing you need to know is that it will schedule a new process to run by updating the **`next_ptr`** so that after the **`clock_hander()`** finished and return to **`hwint_master(0)`**, when it return, it will call the **`restart()`** function(stack), a process which pc is **`next_ptr`** will be called.
+The **`dequeue()`** and **`enqueue()`** function is a part of the System Components called **System Scheduler**.<br>Which will be introduced in the next note. The only thing you need to know is that it will schedule a new process to run by updating the **`next_ptr`** so that after the **`clock_hander()`** finished and return to **`hwint_master(0)`**, when `hwint_master(0)` return, it will call the **`restart()`** function(stack), a process which pc is **`next_ptr`** will be called.
 
 **And that is what happend in 16.67 milliseconds of a CPU - A Clock Tick**.
 
