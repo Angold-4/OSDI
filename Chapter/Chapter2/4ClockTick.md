@@ -287,7 +287,7 @@ set_restart1:
 On line 389: **`mov %esp, %eax  /* prepare to return */`**<br>
 It move the value of return address (the addr that push into stack when call **`save()`** inside **`hwint_master()`** function to register **`%eax`.** so that it can return back to the **`hwint_master()`**after executing the **`jmp`** at the end of **`save()`**.
 
-line 393 **`push    $restart `**Is a brilliant idea. It make sure that after the **`hwint_master()`** return, it will call the **`restart()`** to execute the process which pc is **`next_ptr`**.
+line 393 **`push    $restart`** Is a brilliant idea. It make sure that after the **`hwint_master()`** return, it will call the **`restart()`** to execute the process which pc is **`next_ptr`**.
 
 After **`save()`** return and back to **`hwint_master(0)`**, It will execute **`call    irq_handle`** to call the function **`irq_handle(irq)`**, which scans a linked list of structures that hold, among other things, addresses of functions to be called to handle an interrupt for a device, and the process numbers of the device drivers. It is a linked list because a single IRQ line may be shared with several devices. The handler for each device is supposed to test whether its device actually needs service.
 ```c
