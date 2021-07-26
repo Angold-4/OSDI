@@ -293,88 +293,38 @@ After **`save()`** return and back to **`hwint_master(0)`**, It will execute **`
 PUBLIC void intr_handle(hook)
 irq_hook_t *hook;
 {
-/* Call the interrupt handlers for an interrupt with the given hook list.
- * The assembly part of the handler has already masked the IRQ, reenabled the
- * controller(s) and enabled interrupts.
- */
-
-  /* Call list of handlers for an IRQ. */
-  while (hook != NULL) {
-      /* For each handler in the list, mark it active by setting its ID bit,
-       * call the function, and unmark it if the function returns true.
+    /* Call the interrupt handlers for an interrupt with the given hook list.
+     * The assembly part of the handler has already masked the IRQ, reenabled the
+      * controller(s) and enabled interrupts.
        */
-      irq_actids[hook->irq] |= hook->id;
-      if ((*hook->handler)(hook)) irq_actids[hook->irq] &= ~hook->id;  // execute the handler function
-      hook = hook->next;
-  }
 
-  /* The assembly code will now disable interrupts, unmask the IRQ if and only
-   * if all active ID bits are cleared, and restart a process.
-   */
-}
+         /* Call list of handlers for an IRQ. */
+           while (hook != NULL) {
+                     /* For each handler in the list, mark it active by setting its ID bit,
+                            * call the function, and unmark it if the function returns true.
+                                   */
+                                         irq_actids[hook->irq] |= hook->id;
+                                               if ((*hook->handler)(hook)) irq_actids[hook->irq] &= ~hook->id;
+                                                     hook = hook->next;
+                                                       }
+
+                                                         /* The assembly code will now disable interrupts, unmask the IRQ if and only
+                                                            * if all active ID bits are cleared, and restart a process.
+                                                               */
+                                                               }
 
 #if _WORD_SIZE == 2
 ```
 
-As I metioned before, the **IRQ0** is only used for **Clock Interrupt**, so after execute **`put_irq_handler(&clock_hook, CLOCK_IRQ, clock_handler);`** in **`init_clock()`**. Every 16.67 milliseconds when clock sent a **`Clock IRQ`** to the **`hwint_master(0)`**, it will call **`intr_handle(CLOCK)`**, which will call **`clock_handler()`** function -- **which probably runs more frequently than any other part of the MINIX 3 system**.<br>
 
-#### `clock_handler()` 
-**To improve the reading experience, I just list two key points of this function, if you want to read the full code. Please check [kernel/clock.c](https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/clock.c#L179) from line 179 to 265**.<br>
 
-* **Update the ticks of running process**<br>
-Update counters that register how much of the quantum of the current process has been used and how much total time the current process has used.
 
-```c
-/* Get number of ticks and update realtime. */
-  ticks = lost_ticks + 1;
-  lost_ticks = 0;
-  realtime += ticks;
 
-  /* Update user and system accounting times. Charge the current process for
-   * user time. If the current process is not billable, that is, if a non-user
-   * process is running, charge the billable process for system time as well.
-   * Thus the unbillable process' user time is the billable user's system time.
-   */
-  
-  proc_ptr->p_user_time += ticks;
-  if (priv(proc_ptr)->s_flags & PREEMPTIBLE) {
-      proc_ptr->p_ticks_left -= ticks;
-  }
-  if (! (priv(proc_ptr)->s_flags & BILLABLE)) {
-      bill_ptr->p_sys_time += ticks;
-      bill_ptr->p_ticks_left -= ticks;
-  }
+## 4. Scheduling in Minix3
 
-```
 
-* **If the interrupt handler detects that a process has used its quantum or that a timer has expired.**<br>
-It send a message to the **Clock Driver** which waiting for this **HARD_INT** message.  (**`clock_task()`**)
 
-```c
- if ((next_timeout <= realtime) || (proc_ptr->p_ticks_left <= 0) || expired) {
-      prev_ptr = proc_ptr;			/* store running process */
-      mini_notify(proc_addr(HARDWARE), CLOCK);		/* send notification */
-  } 
-```
 
-#### `do_clocktick()`
-When the **Clock Driver** (**`clock_task()`**) recieve the messeage from **`mini_notify()`**, it will call **`do_clocktick()`** to pick a process to run next.<br>
-The full code of **`do_clocktick()`** is in **[kernel/clock.c](https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/clock.c#L101)** from line 101 to 154. Also, I only pick a piece of code segment.
+ 
 
-```c
-/* A process used up a full quantum. The interrupt handler stored this
-   * process in 'prev_ptr'.  First make sure that the process is not on the 
-   * scheduling queues.  Then announce the process ready again. Since it has 
-   * no more time left, it gets a new quantum and is inserted at the right 
-   * place in the queues.  As a side-effect a new process will be scheduled.
-   */ 
-  if (prev_ptr->p_ticks_left <= 0 && priv(prev_ptr)->s_flags & PREEMPTIBLE) {
-
-        dequeue(prev_ptr);		/* take it off the queues */
-        enqueue(prev_ptr);		/* and reinsert it again */ 
-  }
-```
-The **`dequeue()`** and **`enqueue()`** function is a part of the System Components called **System Scheduler**.<br>Which will be introduced in the next note. The only thing you need to know is that it will schedule a new process to run by updating the **`next_ptr`** so that after the **`clock_hander()`** finished and return to **`hwint_master(0)`**, when it return, it will call the **`restart()`** function(stack), a process which pc is **`next_ptr`** will be called.
-
-**And that is what happend in 16.67 milliseconds of a CPU**.
 
