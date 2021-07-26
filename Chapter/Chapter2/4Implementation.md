@@ -1,11 +1,11 @@
 ## Operating Systerms Design and Implementation Notes
 
-# 4. Inside a Clock Tick
+# 4. Inside a Hole Clock Tick
 ##### By Jiawei Wang
 
 We are now moving closer to looking at the actual **code of Minix3**.<br>
 Unlike the introduction sequence in the original book. I divide the implementation into three parts:<br>
-* **Inside a Clock Tick** (Clock Server)
+* **Inside a Hole Clock Tick** (Clock Server)
 * **Process Scheduler**
 * **Interprocess Commnuication**
 
@@ -128,7 +128,7 @@ From the boot image table:
 The **`CLOCK`** process has the highest piority `(0)`, and it will be executed after the  **`restart()`**. <br>
 The kernel will run it by calling the **`clock_task()`** function.
 
-```
+```c
 /*===========================================================================*
  *				clock_task				     *
  *===========================================================================*/
