@@ -1,4 +1,4 @@
-## Operating Systerms Design and Implementation Notes
+## Operating Systems Design and Implementation Notes
 
 # 4. Inside a Hole Clock Tick
 ##### By Jiawei Wang

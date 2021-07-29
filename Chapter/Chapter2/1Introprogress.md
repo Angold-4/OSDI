@@ -1,4 +1,4 @@
-### Operating Systerms Design and Implementation Notes
+### Operating Systems Design and Implementation Notes
 
 # 1. Introduction to Processes
 ##### By Jiawei Wang
