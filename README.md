@@ -25,3 +25,4 @@
     **2. [Interprocess Communication](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/2Communication.md)<br>**
     **3. [Semaphore and IPC Problems](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/3Semaphore.md)<br>**
     **4. [Inside a Hole Clock Tick](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md)<br>**
+    **5. [Process Scheduler](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/5Scheduler.md)<br>**
