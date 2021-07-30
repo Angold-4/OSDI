@@ -133,4 +133,143 @@ int *front;					/* return: front or back */
 ![status](Sources/status.png)
 
 Most of these transitions can be done by two functions: **`enqueue()`** and **`dequeue()`**:
-1. **Running -> Blocked**
+1. **Running -> Blocked**:  **`enqueue(next_proc)`** (`sys_call`)<br>
+
+2. **Running -> Ready**:  **`dequeue(proc_ptr)`** + **`enqueue(proc_ptr)`** (`do_clocktick`)<br>
+
+3. **Ready -> Running**: **`enqueue(proc_ptr)`** (`do_clocktick` `sys_call` `do_exec`)<br>
+
+4. **Block -> Ready**: return from **`1. enqueue(next_proc)`**<br>
+<br>
+
+**These two functions are also simple but useful**, both of them were in **[kernel/proc.c](https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/proc.c#L1142):**<br>
+### `enqueue(proc_ptr)`
+* Call **`sched(proc_ptr)`** to add this process to one of the queue of runnable processes.
+* Call **`pick_proc()`** to determine which process to run next by assigning the **`next_ptr`**.
+
+```c
+PUBLIC void enqueue(rp)
+register struct proc *rp;	/* this process is now runnable */
+{
+/* Add 'rp' to one of the queues of runnable processes.  This function is 
+ * responsible for inserting a process into one of the scheduling queues. 
+ * The mechanism is implemented here.   The actual scheduling policy is
+ * defined in sched() and pick_proc().
+ */
+  int q;	 				/* scheduling queue to use */
+  int front;					/* add to front or back */
+
+  NOREC_ENTER(enqueuefunc);
+
+#if DEBUG_SCHED_CHECK
+  if(!intr_disabled()) { minix_panic("enqueue with interrupts enabled", NO_NUM); }
+  if (rp->p_ready) minix_panic("enqueue already ready process", NO_NUM);
+#endif
+
+  /* Determine where to insert to process. */
+  sched(rp, &q, &front);
+
+  vmassert(q >= 0);
+  vmassert(q < IDLE_Q || rp->p_endpoint == IDLE);
+
+  /* Now add the process to the queue. */
+  if (rdy_head[q] == NIL_PROC) {		/* add to empty queue */
+      rdy_head[q] = rdy_tail[q] = rp; 		/* create a new queue */
+      rp->p_nextready = NIL_PROC;		/* mark new end */
+  } 
+  else if (front) {				/* add to head of queue */
+      rp->p_nextready = rdy_head[q];		/* chain head of queue */
+      rdy_head[q] = rp;				/* set new queue head */
+  } 
+  else {					/* add to tail of queue */
+      rdy_tail[q]->p_nextready = rp;		/* chain tail of queue */	
+      rdy_tail[q] = rp;				/* set new queue tail */
+      rp->p_nextready = NIL_PROC;		/* mark new end */
+  }
+
+#if DEBUG_SCHED_CHECK
+  rp->p_ready = 1;
+  CHECK_RUNQUEUES;
+#endif
+
+  /* Now select the next process to run, if there isn't a current
+   * process yet or current process isn't ready any more, or
+   * it's PREEMPTIBLE.
+   */
+	vmassert(proc_ptr);
+  if((proc_ptr->p_priority > rp->p_priority) &&
+   (priv(proc_ptr)->s_flags & PREEMPTIBLE)) 
+     pick_proc();
+
+#if DEBUG_SCHED_CHECK
+  CHECK_RUNQUEUES;
+#endif
+
+  NOREC_RETURN(enqueuefunc, );
+}
+
+```
+
+### `dequeue(proc_ptr)`
+```c
+PUBLIC void dequeue(rp)
+register struct proc *rp;	/* this process is no longer runnable */
+{
+/* A process must be removed from the scheduling queues, for example, because
+ * it has blocked.  If the currently active process is removed, a new process
+ * is picked to run by calling pick_proc().
+ */
+  register int q = rp->p_priority;		/* queue to use */
+  register struct proc **xpp;			/* iterate over queue */
+  register struct proc *prev_xp;
+
+  NOREC_ENTER(dequeuefunc);
+
+#if DEBUG_STACK_CHECK
+  /* Side-effect for kernel: check if the task's stack still is ok? */
+  if (iskernelp(rp)) { 				
+	if (*priv(rp)->s_stack_guard != STACK_GUARD)
+		minix_panic("stack overrun by task", proc_nr(rp));
+  }
+#endif
+
+#if DEBUG_SCHED_CHECK
+  if(!intr_disabled()) { minix_panic("dequeue with interrupts enabled", NO_NUM); }
+  if (! rp->p_ready) minix_panic("dequeue() already unready process", NO_NUM);
+#endif
+
+  /* Now make sure that the process is not in its ready queue. Remove the 
+   * process if it is found. A process can be made unready even if it is not 
+   * running by being sent a signal that kills it.
+   */
+  prev_xp = NIL_PROC;				
+  for (xpp = &rdy_head[q]; *xpp != NIL_PROC; xpp = &(*xpp)->p_nextready) {
+
+      if (*xpp == rp) {				/* found process to remove */
+          *xpp = (*xpp)->p_nextready;		/* replace with next chain */
+          if (rp == rdy_tail[q])		/* queue tail removed */
+              rdy_tail[q] = prev_xp;		/* set new tail */
+
+#if DEBUG_SCHED_CHECK
+  		rp->p_ready = 0;
+		  CHECK_RUNQUEUES;
+#endif
+          if (rp == proc_ptr || rp == next_ptr)	/* active process removed */
+              pick_proc();		/* pick new process to run */
+          break;
+      }
+      prev_xp = *xpp;				/* save previous in chain */
+  }
+
+#if DEBUG_SCHED_CHECK
+  CHECK_RUNQUEUES;
+#endif
+
+  NOREC_RETURN(dequeuefunc, );
+}
+
+```
+
+In the next note, we will further study the implementation of process in Minix3, with considering more **situations** when a process is running.
+Like **interruption** and **race conditions** that we talked about the concepts earlier at of this chapter.
+
