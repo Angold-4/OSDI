@@ -182,61 +182,20 @@ Processes in MINIX 3 communicate by **messages**, using the **rendezvous** princ
 The high-level code for **interprocess communication** is found in **[proc.c](https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/proc.c#L220)**<br>
 
 **The kernel’s job is to translate either a hardware interrupt or a software interrupt into a message.**<br>
-* **Hardware Interrupt:** Ask the **interrupt controller** to put data on the system data bus and telling the processor which service routine to execute **(interrupt handler) (drivers)**.
-* **Software Interrupt:** The **`sys_call(call_nr, src_dst, m_ptr)`** function in **`s_call`** converts a software interrupt into a message. After all the tests have been passed, one of the functions **`mini_send()`**, **`mini receive()`**, or **`mini notify()`** is called to do the real work.
-
-```c
-  /* Now check if the call is known and try to perform the request. The only
-   * system calls that exist in MINIX are sending and receiving messages.
-   *   - SENDREC: combines SEND and RECEIVE in a single system call
-   *   - SEND:    sender blocks until its message has been delivered
-   *   - RECEIVE: receiver blocks until an acceptable message has arrived
-   *   - NOTIFY:  asynchronous call; deliver notification or mark pending
-   *   - SENDA:   list of asynchronous send requests
-   */
-  switch(call_nr) {
-  case SENDREC:
-	/* A flag is set so that notifications cannot interrupt SENDREC. */
-	caller_ptr->p_misc_flags |= MF_REPLY_PEND;
-	/* fall through */
-  case SEND:			
-	result = mini_send(caller_ptr, src_dst_e, m_ptr, 0);
-	if (call_nr == SEND || result != OK)
-		break;				/* done, or SEND failed */
-	/* fall through for SENDREC */
-  case RECEIVE:			
-	if (call_nr == RECEIVE)
-		caller_ptr->p_misc_flags &= ~MF_REPLY_PEND;
-	result = mini_receive(caller_ptr, src_dst_e, m_ptr, 0);
-	break;
-  case NOTIFY:
-	result = mini_notify(caller_ptr, src_dst_e);
-	break;
-  case SENDNB:
-        result = mini_send(caller_ptr, src_dst_e, m_ptr, NON_BLOCKING);
-        break;
-  case SENDA:
-	result = mini_senda(caller_ptr, (asynmsg_t *)m_ptr, (size_t)src_dst_e);
-	break;
-  default:
-	result = EBADCALL;			/* illegal system call */
-  }
-
-```
-
-The functions **`mini_send()`**, **`mini_rec()`**, and **`mini_notify()`** are the heart of the normal message passing mechanism of MINIX 3 and deserve careful study.
+* **Hardware Interrupt:** 
+* **Software Interrupt:** After calling **`sys_call(call_nr, src_dst, m_ptr)`** in 
 
 
 ### `send`
-When a process does a **`send`**, the lowest layer of the kernel checks to see if the destination is waiting for a message from the sender (or from ANY sender). 
-* If so, the message is copied from the sender’s buffer to the receiver’s buffer, **and both processes are marked as runnable**. 
-* If the destination is not waiting for a message from the sender, the sender is marked as blocked and put onto a queue of processes waiting to send to the receiver.
+* When a process does a **`send`**, the lowest layer of the kernel checks to see if the destination is waiting for a message from the sender (or from ANY sender). 
+  * If so, the message is copied from the sender’s buffer to the receiver’s buffer, **and both processes are marked as runnable**. 
+  * If the destination is not waiting for a message from the sender, the sender is marked as blocked and put onto a queue of processes waiting to send to the receiver.
 
 
 ### `recieve`
-When a process does a **`receive`**, the kernel checks to see if any process is queued trying to send to it. 
-* If so, the message is copied from the blocked sender to the receiver, **and both are marked as runnable**. 
-* If no process is queued trying to send to it, the receiver blocks until a message arrives.
+* When a process does a **`receive`**, the kernel checks to see if any process is queued trying to send to it. 
+  * If so, the message is copied from the blocked sender to the receiver, **and both are marked as runnable**. 
+  * If no process is queued trying to send to it, the receiver blocks until a message arrives.
 
 
 ## 3. System Task
