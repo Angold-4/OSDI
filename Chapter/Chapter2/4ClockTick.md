@@ -4,10 +4,11 @@
 ##### By Jiawei Wang
 
 We are now moving closer to looking at the actual **code of Minix3**.<br>
-Unlike the introduction sequence in the original book. I divide the implementation into three parts:<br>
-* **Inside a Hole Clock Tick** (Clock Server)
-* **Process Scheduler**
+Unlike the introduction sequence in the original book. I divide the implementation into four parts:<br>
+* **Clock Server** (Inside a Hole Clock Tick)
+* **Process Scheduler** 
 * **Interprocess Commnuication**
+* **System Task**
 
 One useful website for learning minix3: **[elixir.ortiz.sh](https://elixir.ortiz.sh/minix/v3.1.8/C/ident/)**<br>
 Minix3 Source code used in this note: **[https://github.com/Angold-4/OSDI/tree/master/Minix3](https://github.com/Angold-4/OSDI/tree/master/Minix3)** (folked from [jncraton](https://github.com/jncraton/minix3))<br>

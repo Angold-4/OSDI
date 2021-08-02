@@ -14,6 +14,8 @@ Unlike in a modern UNIX-like operating system the POSIX standard describes the s
 
 ![layer](Sources/layer.png)
 
+
+## 1. Calls in Minx3
 Generally speaking. There are three kinds of **"Calls"** in Minix3:
 
 ### System Call
@@ -23,3 +25,5 @@ Generally speaking. There are three kinds of **"Calls"** in Minix3:
 
 ### IPC primitive (Trap)
 
+
+## 2. Implementation of System Task
