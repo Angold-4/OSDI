@@ -317,7 +317,7 @@ int dst;				/* which process to notify */
 ```
 
 If the target is also waiting for this message, then like **`mini_send()`**, it will build the message and then call **`enqueue()`** to change the **`next_ptr`** and then return to run it.
-```
+```c
   /* Check to see if target is blocked waiting for this message. A process 
    * can be both sending and receiving during a SENDREC system call.
    */
