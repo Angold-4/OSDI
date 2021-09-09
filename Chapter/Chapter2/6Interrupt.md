@@ -426,7 +426,8 @@ Check whether **there are any pending process waiting for its reply**<br>If yes,
   }
 ```
 If there **don't have any message or notification.**<br>
-Call **`dequeue(caller_ptr)`** to block the caller, and set the **`p_rts_flags = RECEIVCING`**. Waiting for the message and notifications.
+Call **`dequeue(caller_ptr)`** to block the caller, and set the **`p_rts_flags = RECEIVCING`**. Waiting for the message and notifications. <br>
+( waiting for a **`enqueue(dst_ptr)`** to wake it )
 
 ```c
   /* No suitable message is available or the caller couldn't send in SENDREC. 
