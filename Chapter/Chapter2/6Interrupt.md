@@ -21,7 +21,7 @@ When user input something at the connected devices like keyboard **`(IRQ1)`**, i
 
 It will call the corresponding **`irq_handler(hook)`** which be placed into the interrupt table at initialization **`put_irq_handler(hook)`** is called for each process(driver) that must respond to an interrupt(`sys_irqctl`).
 ```c
-PUBLIC void intr_handle(hook)
+PUBLIC void irq_handle(irq)
 irq_hook_t *hook;
 {
 /* Call the interrupt handlers for an interrupt with the given hook list.
