@@ -1,6 +1,6 @@
 ## Operating Systems Design and Implementation Notes
 
-# 8. Problems of Chapter 2
+# 9. Problems of Chapter 2
 ##### By Jiawei Wang
 
 

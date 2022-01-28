@@ -60,6 +60,40 @@ These two threads shares the same address location and belong to the same proces
 ### Thread vs Process
 ![threads](Sources/threads.png)
 
+When several processes each have multiple threads, we have **two levels of parallelism** present:
+
+#### 1. Process level
+
+* **Process Scheduler** (Inside kernel)
+    * Please refer **[OSDI 5. Process Scheduler](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/5Scheduler.md)**
+* **Scheduling is absolutely required on two occasions:**
+    1. When a process exits. (**`dequeue()`**)
+    2. When a process block(waiting) on I/O, or a semaphore. (**`enqueue()`**)
+* **Scheduling is not necessary but usually at these times:**
+    1. When a new process is created. (**`enqueue()`**)
+    2. When an I/O interrupt occurs.  (**`hwint() -> dequeue() enqueue()`**)
+    3. When a clock interrupt occurs. (**`dequeue() + enqueue()`**)
+
+#### 2. Threads level
+
+* **Thread Scheduler** ("Inside" each process)
+
+* For the **user-level** threads:
+    * The kernel is **not aware of the existence of threads**, It operates as it always does.
+    * Picking a process e.g, A, and giving A control for its quantum. 
+    * The **thread scheduler** inside A decides which thread to run, say A1. 
+    * Since there are no clock interrupts to multiprogram threads, this thread may continue running as long as it wants to. If it uses up the process’ entire quantum, the kernel will select another process to run.
+
+* For the **kernel-level** threads:
+    * Unlike user-level, the kernel can pick a particular thread to run.
+    * Like process, the thread is given a quantum and is forceably suspended if it exceeds the quantum.
+
+* The major difference between user-level and kernel-level threads is the **Performance**
+    * Doing a thread switch with user-level threads takes a handful of machine instructions. since all threads will inside one address space.
+    * Switching kernel-level threads requires a full context switch. (changing the memory map, invalidating the cache)
+
+
+
 **Note that in order to facilitate implementation in C language,<br>I will use threads instead of processes to introduce some interprocess examples.<br>**
 Below we will discuss the problem in the context of **threads**.<br>But please keep in mind that the same problems and solutions also apply to **processes**.<br>
 
@@ -303,5 +337,4 @@ void* car(void* arg) {
     }
 }
 ```
-
 

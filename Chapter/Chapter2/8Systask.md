@@ -1,6 +1,6 @@
 ## Operating Systems Design and Implementation Notes
 
-# 7. System Task
+# 8. System Task
 ##### By Jiawei Wang
 
 Back to Chapter1, we use three notes to introduce 53 **system calls** of POSIX.<br>

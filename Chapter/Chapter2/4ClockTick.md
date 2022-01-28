@@ -10,6 +10,9 @@ Unlike the introduction sequence in the original book. I divide the implementati
 * **Interprocess Commnuication**
 * **System Task**
 
+
+**Process management**, **Interprocess communication**, and **Scheduling**
+
 One useful website for learning minix3: **[elixir.ortiz.sh](https://elixir.ortiz.sh/minix/v3.1.8/C/ident/)**<br>
 Minix3 Source code used in this note: **[https://github.com/Angold-4/OSDI/tree/master/Minix3](https://github.com/Angold-4/OSDI/tree/master/Minix3)** (folked from [jncraton](https://github.com/jncraton/minix3))<br>
 <br>
