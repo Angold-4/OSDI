@@ -71,7 +71,7 @@ When several processes each have multiple threads, we have **two levels of paral
     2. When a process block(waiting) on I/O, or a semaphore. (**`enqueue()`**)
 * **Scheduling is not necessary but usually at these times:**
     1. When a new process is created. (**`enqueue()`**)
-    2. When an I/O interrupt occurs.  (**`hwint() -> dequeue() enqueue()`**)
+    2. When an I/O **(hardware)** interrupt occurs.  (**`hwint() -> dequeue() enqueue()`**)
     3. When a clock interrupt occurs. (**`dequeue() + enqueue()`**)
 
 #### 2. Threads level
