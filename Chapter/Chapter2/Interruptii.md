@@ -1,6 +1,6 @@
 ## Operating Systems Design and Implementation Notes
 
-# 7. Interrupt ii
+# Interrupt Inplementation in Minix3
 
 ##### By Jiawei Wang
 
