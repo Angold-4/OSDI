@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Angold-4 Organization</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href=".">
+        <meta name="author" content="Angold Wang" />
+
+    <meta property="og:site_name" content="Angold-4" />
+<!--     <meta property="og:type" content="article"/> -->
+    <meta property="og:title" content="Angold-4 Organization"/>
+    <meta property="og:url" content="."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+<!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"> -->
+
+    <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://angold4.org" class="navbar-brand">
+<img src="../../../images/logo.png" width="32"/> Angold4            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+			    <li><a href="../../../about.html">About</a>
+                            <li><a href="../../../blogs.html">Blogs</a>
+                            <li><a href="../../../projects.html">Projects</a>
+
+	    </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a title="Youtube" href="https://www.youtube.com/channel/UC3ZAjh2LHhm-FrgxgBtgMzQ" target="_new"><i class="fa fa-youtube"></i> Youtube</a>
+		</li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+	<section id="content" class="body">
+
+
+<h3>Operating Systerms Design and Implementation Notes</h3>
+<h5>By Jiawei Wang</h5>
+<h1>9. Exercises for Chapter 1</h1>
+<!-- raw HTML omitted -->
+<h3>Question1</h3>
+<blockquote>
+<p><strong>What are the two main functions of an operating system?</strong><!-- raw HTML omitted --></p>
+</blockquote>
+<ol>
+<li><strong>Provide the users with an extended (i.e., virtual) machine</strong></li>
+<li><strong>Manage the I/O devices and other system resources.</strong></li>
+</ol>
+<h3>Question2</h3>
+<blockquote>
+<p><strong>What is the difference between kernel mode and user mode? <!-- raw HTML omitted -->Why is the difference important to an operating system?</strong></p>
+</blockquote>
+<p><strong>In kernel mode, every machine instruction is allowed, as is access to all the I/O devices. In user mode, many sensitive instructions are prohibited.</strong><!-- raw HTML omitted -->
+<strong>Operating systems use these two modes to encapsulate user programs. Running user programs in user mode keeps them from doing I/O and prevents them from interfering with each other and with the kernel.</strong></p>
+<h3>Question3</h3>
+<blockquote>
+<p><strong>What is multiprogramming?</strong></p>
+</blockquote>
+<p><strong>Multiprogramming is the rapid switching of the CPU between multiple processes in memory. It is commonly used to keep the CPU busy while one or more processes are doing I/O.</strong></p>
+<h3>Question4</h3>
+<blockquote>
+<p><strong>What is spooling? Do you think that advanced personal computers will have spooling as a standard feature in the future?</strong></p>
+</blockquote>
+<p><strong>First Please check the <a href="https://en.wikipedia.org/wiki/Spooling">Spooling</a>.it is to use software to simulate offline technology</strong><!-- raw HTML omitted -->
+<strong>the &quot;Spool&quot; stands for Simultaneous Peripheral Operations On-Line, which I've be metioned in the history of OS.</strong><!-- raw HTML omitted --></p>
+<ul>
+<li><strong><!-- raw HTML omitted -->Input spooling<!-- raw HTML omitted --> is the technique of reading in jobs, for example, from cards, onto the disk, so that when the currently executing processes are finished, there will be work waiting for the CPU.</strong></li>
+<li><strong><!-- raw HTML omitted -->Output spooling<!-- raw HTML omitted --> consists of first copying printable files to disk before printing them, rather than printing directly as the output is generated</strong>
+<!-- raw HTML omitted --></li>
+</ul>
+<p><strong>Input spooling on a personal computer is not very likely, but output spooling is widely used in nowadays computers.</strong></p>
+<h3>Question5</h3>
+<blockquote>
+<p><strong>On early computers, every byte of data read or written was directly handled by the CPU (i.e., there was no DMA—Direct Memory Access). What implications does this organization have for multiprogramming?</strong></p>
+</blockquote>
+<p><strong>The DMA(Direct Memory Access):<!-- raw HTML omitted -->First, In early CPU, when data from I/O wants to access the memory, it need to go through the CPU then to the Memory.</strong><!-- raw HTML omitted -->
+<strong>This bring these actions not very effecient. By using DMA, which means add a DMA Controller between I/O and Memory and the CPU don't need to wait while sending the data:<!-- raw HTML omitted --></strong></p>
+<p><img src="Sources/DMA.png" alt="DMA">
+<!-- raw HTML omitted --></p>
+<p><strong>The prime reason for multiprogramming is to give the CPU something to do while waiting for I/O to complete. If there is no DMA, the CPU is fully occupied doing I/O, so there is nothing to be gained (at least in terms of CPU utilization) by multiprogramming.</strong></p>
+<h3>Question6</h3>
+<blockquote>
+<p><strong>List some differences between personal computer operating systems and mainframe operating systems.</strong></p>
+</blockquote>
+<ul>
+<li><strong>Personal computer systems are always interactive, often with only a single user.</strong></li>
+<li><strong>Mainframe systems nearly always emphasize batch or timesharing with many users</strong></li>
+<li><strong>On Mainframe systems: Protection is much more a issue as well as the efficient use of all resources</strong></li>
+</ul>
+<h3>Question7</h3>
+<blockquote>
+<p><strong>Give one reason why a closed-source proprietary operating system like Windows should have better quality than an open-source operating system like Linux. Now give one reason why an open-source operating system like Linux should have better quality than a closed-source proprietary operating system like Windows.</strong></p>
+</blockquote>
+<ul>
+<li>
+<p><strong>Closed Source: Company can vet the programmers, establish programming standards, and enforce a development and testing methodology, also the Closed Source means can help to protect the core technology for big company</strong></p>
+</li>
+<li>
+<p><strong>Open Source: more people look at the code, so there is a form of peer review and the odds of a bug slipping in are much smaller with so much more inspection.</strong></p>
+</li>
+</ul>
+<h3>Question8</h3>
+<blockquote>
+<p><strong>In view of the fact that the mere existence of a superuser can lead to all kinds of security problems, why does such a concept exist?</strong></p>
+</blockquote>
+<p><strong>It is often essential to have someone who can do things that are normally forbidden. For example, a user starts up a job that generates an infinite amount of output. The user then logs out and goes on a three-week vacation to London. Sooner or later the disk will fill up, and the superuser will have to manu- ally kill the process and remove the output file. Many other such examples exist.</strong></p>
+<h3>Question9</h3>
+<blockquote>
+<p><strong>Why is the process table needed in a timesharing system? Is it also needed in personal computer systems in which only one process exists, that process taking over the entire machine until it is finished?</strong></p>
+</blockquote>
+<p><strong>The process table is needed to store the state of a process that is currently suspended, either ready or blocked. It is not needed in a single process system because the single process is never suspended.</strong></p>
+<h3>Question10</h3>
+<blockquote>
+<p><strong>What is the essential difference between a block special file and a character special file?</strong></p>
+</blockquote>
+<p><strong>Block special files consist of numbered blocks, each of which can be read or written independently of all the other ones. It is possible to seek to any block and start reading or writing. This is not possible with character special files.</strong></p>
+<p><strong>The name “block device” comes from the fact that the corresponding hardware typically reads and writes a whole block at a time</strong><!-- raw HTML omitted --></p>
+<p><strong>The name “character device” comes from the fact that each character is handled individually. Writing a byte to a character device might cause it to be displayed on screen, output on a serial port, converted into a sound, ...<!-- raw HTML omitted --></strong></p>
+<p><strong>For more, see <a href="https://unix.stackexchange.com/questions/60034/what-are-character-special-and-block-special-files-in-a-unix-system">Unix.stackexchange.com</a>:<!-- raw HTML omitted --></strong></p>
+<h3>Question11</h3>
+<blockquote>
+<p><strong>In MINIX 3 if user 2 links to a file owned by user 1, then user 1 removes the file, what happens when user 2 tries to read the file?</strong></p>
+</blockquote>
+<p><strong>The read works normally. User 2’s directory entry contains a pointer (fd) to the i-node of the file, and the reference count in the i-node was incremented when user 2 linked to it. So the reference count will be nonzero and the file itself will not be removed when user 1 removes his directory entry for it. Only when all directory entries for a file have been removed will its i-node and data actually vanish.</strong></p>
+<h3>Question12</h3>
+<blockquote>
+<p><strong>Are pipes an essential facility? Would major functionality be lost if they were not available?</strong></p>
+</blockquote>
+<p><strong>No, they are not so essential. In the absence of pipes, program 1 could write its output to a file and program 2 could read the file. While this is less efficient than using a pipe between them, and uses unnecessary disk space, in most circumstances it would work adequately.</strong><!-- raw HTML omitted -->
+<strong>If you want to see the difference between pipe and file. Please check this <a href="https://github.com/Angold-4/OSDI/blob/master/Chapters/Chapter1/6Syscall-2.md#pipe----create-pipe">Note</a>.</strong></p>
+<h3>Question13</h3>
+<blockquote>
+<p><strong>Windows does not have a <code>fork()</code> system call, yet it is able to create new processes. Make an educated guess about the semantics of the system call Windows uses to create new processes.</strong></p>
+</blockquote>
+<p><strong>Windows has a call <code>spawn()</code> that creates a new process and starts a specific program in it. It is effectively a combination of <code>fork()</code> and <code>exec()</code>.</strong></p>
+<h3>Question14</h3>
+<blockquote>
+<p><strong>Why is the chroot system call limited to the superuser?</strong></p>
+</blockquote>
+<p><strong>If an ordinary user could set the root directory anywhere in the tree, he could create a file etc/passwd in his home directory, and then make that the root directory. He could then execute some command, such as su or login that reads the password file, and trick the system into using his password file, instead of the real one.</strong></p>
+<h3>Question15</h3>
+<blockquote>
+<p><strong>Why does MINIX 3 have the program update running in the background all the time?</strong></p>
+</blockquote>
+<p><strong>When a user program writes on a file, the data does not really go to the disk. It goes to the buffer cache(not fast enough). The update program issues SYNC calls every 30 seconds to force the dirty blocks in the cache onto the disk, in order to limit the potential damage that a system crash could cause.</strong></p>
+<h3>Question16</h3>
+<blockquote>
+<p><strong>In this Chapter1, we learned many System Calls in Minix3. Which call do you think is likely to execute most quickly. Explain your answer.</strong></p>
+</blockquote>
+<p><strong>The getpid, getuid, getgid, and getpgrp, calls just extract a word from the pro- cess table and return it. They will execute very quickly. They are all equally fast.</strong></p>
+	</section>
+	</div>
+    </div>
+</div>
+<footer>
+   <div class="well well-lg" id="footer-well">
+      <div class="container">
+
+
+      <div class="row">
+         <div class="col-xs-6">
+            <a href="https://angold4.org" title="Angold-4 Organization" class="image-link"><img src="../../../images/logo.png" class="cmudb-logo" /></a>
+         </div>
+         <div class="col-xs-6">
+            <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+        </div>
+      </div>
+   </div>
+   </div>
+</footer>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<!-- Fix scrolling issues to internal HREFs that get positioned behind navbar -->
+<!-- http://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header -->
+<script src="../../../theme/js/href_scroll.js"></script>
+
+<!-- You know what this is and you know what he did to me... -->
+<script src="../../../theme/js/tim-kraska-betrayed-me.js"></script>
+</body>
+</html>

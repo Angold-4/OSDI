@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Angold-4 Organization</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href=".">
+        <meta name="author" content="Angold Wang" />
+
+    <meta property="og:site_name" content="Angold-4" />
+<!--     <meta property="og:type" content="article"/> -->
+    <meta property="og:title" content="Angold-4 Organization"/>
+    <meta property="og:url" content="."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+<!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"> -->
+
+    <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://angold4.org" class="navbar-brand">
+<img src="../../../images/logo.png" width="32"/> Angold4            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+			    <li><a href="../../../about.html">About</a>
+                            <li><a href="../../../blogs.html">Blogs</a>
+                            <li><a href="../../../projects.html">Projects</a>
+
+	    </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a title="Youtube" href="https://www.youtube.com/channel/UC3ZAjh2LHhm-FrgxgBtgMzQ" target="_new"><i class="fa fa-youtube"></i> Youtube</a>
+		</li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+	<section id="content" class="body">
+
+
+<h2>Operating Systems Design and Implementation Notes</h2>
+<h1>3. Semaphore and IPC Problems</h1>
+<h5>By Jiawei Wang</h5>
+<p>Before we take a further step into <strong>Semaphore</strong>, let's make a conclusion of the <a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/2Communication.md">Prev Note</a>:<!-- raw HTML omitted --></p>
+<ol>
+<li>
+<p>The main difference between normal <strong>strict alternation</strong> and <strong>condition variables</strong> to avoid race conditions is that:<!-- raw HTML omitted -->
+<strong>Condition variables make the waiting process blocked rather than busy waiting.</strong><!-- raw HTML omitted -->Which makes the code more efficient and also can prevent more unknown errors.<!-- raw HTML omitted --></p>
+</li>
+<li>
+<p>In the <a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/2Communication.md">prev note</a>. We use <strong>Mutex</strong> to prevent chaos, and using <strong>Condition Variable</strong> to guarantee sequences.</p>
+</li>
+</ol>
+<p>In this note. First we will introduce <strong>Semaphore</strong>. Then we will use this new technique to solve two classical <strong>IPC problems</strong>.<!-- raw HTML omitted -->
+<!-- raw HTML omitted --></p>
+<h2>1. Semaphore</h2>
+<p>This was the situation until E. W. Dtra (1965) suggested <strong>using an integer variable to count the number of wakeups saved for future use</strong>. In his proposal, a new variable type, called a <strong>semaphore</strong>, was introduced.</p>
+<p>In my opinion: <strong>Semaphore</strong> is a combination of both <strong>Mutex</strong> and <strong>Condition Variables</strong>:<!-- raw HTML omitted --></p>
+<ul>
+<li>
+<p>A semaphore could have the value 0, indicating that no wakeups were saved, or some positive value if one or more wakeups were <strong>pending</strong>.<!-- raw HTML omitted --></p>
+</li>
+<li>
+<p>We can do both <strong>up</strong> and <strong>down</strong> operations with semaphore.<!-- raw HTML omitted --></p>
+<ol>
+<li>
+<p>The <strong>down operation</strong> on a semaphore checks to see if the value is greater than 0. If so, it decrements the value and just continues. If the value is 0, the process is put to sleep without completing the down for the moment.</p>
+</li>
+<li>
+<p>The <strong>up operation</strong> increments the value of the semaphore addressed. If one or more processes were sleeping on that semaphore, unable to complete an earlier down operation, one of them is chosen by the system and is allowed to complete its down.</p>
+</li>
+<li>
+<p>One important thing to notice is that: <strong>Both operations of incrementing the semaphore and waking up one process is indivisible, so as decreasing and sleep a process</strong></p>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>Example: <a href="Codes/semaphore.c">Codes/semaphore.c</a></strong></p>
+<pre><code class="language-c">#include &lt;dispatch/dispatch.h&gt; // use dispatch intead of semaphore on MacOSX (deprecated)
+
+#define THREAD_NUM 4
+
+dispatch_semaphore_t semaphore;
+
+void* routine(void* args) {
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);    // down
+    sleep(1);
+    printf(&quot;Hello from thread %d\n&quot;, *(int*)args);
+    dispatch_semaphore_signal(semaphore);    // up
+    free(args);
+}
+
+int main(int argc, char *argv[]) {
+    pthread_t th[THREAD_NUM];
+    semaphore = dispatch_semaphore_create(2); // only allow two threads execute at the same time
+    int i;
+    for (i = 0; i &lt; THREAD_NUM; i++) {
+        int* a = malloc(sizeof(int));
+        *a = i;
+        if (pthread_create(&amp;th[i], NULL, &amp;routine, a) != 0) {
+            perror(&quot;Failed to create thread&quot;);
+        }
+    }
+
+    for (i = 0; i &lt; THREAD_NUM; i++) {
+        if (pthread_join(th[i], NULL) != 0) {
+            perror(&quot;Failed to join thread&quot;);
+        }
+    }
+    dispatch_release(semaphore);
+    return 0;
+}
+</code></pre>
+<p><strong>Output:</strong><!-- raw HTML omitted --></p>
+<pre><code>❯ ./a.out
+Hello from thread 0
+Hello from thread 2
+(sleep one sec)
+Hello from thread 1
+Hello from thread 3
+</code></pre>
+<p>In this example: <!-- raw HTML omitted -->we assign two to the <code>semaphore</code> variable -- Only two threads are allowed to execute at any moments.</p>
+<p>If you want to practice one more example of semaphore, you can check <a href="Codes/semaphores.c">Codes/semaphores.c</a>.<!-- raw HTML omitted -->Which gives us a <strong>Log In Model</strong> in real life. and the server can only deal with 4 users at the same time.</p>
+<!-- raw HTML omitted -->
+<h2>2. Classical IPC Problems</h2>
+<h3>1. The Dining Philosophers Problem</h3>
+<p><img src="Sources/Philosophers.png" alt="philosophers"></p>
+<pre><code>Dinning Philosophers
+Five philosophers are seated around a circular table.
+Each philosopher has a plate of spaghetti. The spaghetti is so slippery that a philosopher needs two forks to eat it.
+The life of a philosopher consists of alternate periods of eating and thinking.
+When a philosopher gets hungry, she tries to acquire her left and right fork, one at a time, in either order.
+If successful in acquiring two forks, she eats for a while, then puts down the forks and continues to think.
+The key question is: can you write a program for each philosopher that does what it is supposed to do and never gets sucked 
+</code></pre>
+<pre><code class="language-c">#define N         5   /* number of philosophers */
+#define LEFT      (i + N - 1) % N 
+#define RIGHT     (i + 1) % N
+
+#define THINKING  0   /* philosopher is thinking */
+#define HUNGRY    1   /* philosopher is trying to get forks */
+#define EATING    2   /* philosopher is eating */
+
+int state[N];
+int phil[N] = { 0, 1, 2, 3, 4 };
+
+dispatch_semaphore_t mutex;  /* mutual exclusion for critical regions */
+dispatch_semaphore_t s[N];   /* semaphore per philosopher */
+
+void think(int i) {
+    int thinktime = rand() % 10 + 1;
+    printf(&quot;%d philosopher is thinking...\n&quot;, i);
+    sleep(thinktime);
+}
+
+void eat(int i) {
+    int eattime = rand() % 5 + 1;
+    printf(&quot;%d philosopher is eating...\n&quot;, i);
+    sleep(eattime);
+}
+
+void test(int i) {
+    if(state[i] == HUNGRY &amp;&amp; state[LEFT] != EATING &amp;&amp; state[RIGHT] != EATING) {
+	state[i] = EATING;
+	dispatch_semaphore_signal(s[i]);
+    }
+}
+
+void take_forks(int i) {
+    dispatch_semaphore_wait(mutex, DISPATCH_TIME_FOREVER); 
+    state[i] = HUNGRY;
+    test(i);
+    dispatch_semaphore_signal(mutex);
+    dispatch_semaphore_signal(s[i]);
+}
+
+void put_forks(int i) {
+    dispatch_semaphore_wait(mutex, DISPATCH_TIME_FOREVER); 
+    state[i] = THINKING;
+    test(LEFT);
+    test(RIGHT);
+    dispatch_semaphore_signal(mutex);
+}
+
+void* philosopher(void* arg) {
+    while (1) {
+	int index = *(int*) arg;
+	think(index);
+	take_forks(index);
+	eat(index);
+	put_forks(index);
+    }
+
+}
+
+int main(int argc, char* argv[]) {
+    srand(time(NULL));
+    pthread_t th[N];  /* number of threads */
+    mutex = dispatch_semaphore_create(1);  /* binary semaphore */
+    for (int i = 0; i &lt; N; i++) {
+	s[i] = dispatch_semaphore_create(0);
+    }
+
+    int i;
+    // create
+    for (i = 0; i &lt; N; i++) {
+	if(pthread_create(&amp;th[i], NULL, philosopher, &amp;phil[i]) != 0) {
+	    perror(&quot;Failed to create a philosopher&quot;);
+	}
+    }
+
+    // join
+    for (i = 0; i &lt; N; i++) {
+	if (pthread_join(th[i], NULL) != 0) {
+	    perror(&quot;Failed to join thread&quot;);
+	}
+    }
+
+    // release
+    dispatch_release(mutex);
+    for (int i = 0; i &lt; N; i++) {
+	dispatch_release(s[i]);
+    }
+}
+</code></pre>
+<p>The solution presented in <strong><a href="Codes/philosopher.c">philosopher.c</a></strong> is deadlock-free and allows the maximum parallelism for an arbitrary number of philosophers.</p>
+<h3>2. The Producer-Consumer Problem</h3>
+<pre><code>The producer-consumer problem (also known as the bounded buffer problem). 
+Many processes share a common, fixed-size buffer. 
+Some of them, the producer, puts information into the buffer, and the other one, the consumer, takes it out.
+</code></pre>
+<pre><code class="language-c">#define THREAD_NUM 8
+
+
+dispatch_semaphore_t semEmpty; // Empty slots
+dispatch_semaphore_t semFull;  // Full slots
+
+pthread_mutex_t mutexBuffer;
+
+int buffer[10];
+int count = 0;
+
+void* producer(void* args) {
+    while (1) {
+        // Produce
+        int x = rand() % 100;
+        sleep(1);
+
+        // Add to the buffer
+	dispatch_semaphore_wait(semEmpty, DISPATCH_TIME_FOREVER); // down Empty slots, stop when semEmpty == 0 (full)
+        pthread_mutex_lock(&amp;mutexBuffer);
+        buffer[count] = x;
+        count++;
+        pthread_mutex_unlock(&amp;mutexBuffer);
+	dispatch_semaphore_signal(semFull); // up
+    }
+}
+
+void* consumer(void* args) {
+    while (1) {
+        int y;
+
+        // Remove from the buffer
+	dispatch_semaphore_wait(semFull, DISPATCH_TIME_FOREVER); // down Full slots, stop whe semFull == 0 (empty)
+        pthread_mutex_lock(&amp;mutexBuffer);
+        y = buffer[count - 1];
+        count--;
+        pthread_mutex_unlock(&amp;mutexBuffer);
+	dispatch_semaphore_signal(semEmpty);
+
+        // Consume
+        printf(&quot;Got %d\n&quot;, y);
+        sleep(1);
+    }
+}
+
+int main(int argc, char* argv[]) {
+    srand(time(NULL));
+    pthread_t th[THREAD_NUM];
+    pthread_mutex_init(&amp;mutexBuffer, NULL);
+    semEmpty = dispatch_semaphore_create(10);
+    semFull = dispatch_semaphore_create(0);
+    int i;
+    for (i = 0; i &lt; THREAD_NUM; i++) {
+        if (i &gt; 0) {
+            if (pthread_create(&amp;th[i], NULL, &amp;producer, NULL) != 0) {
+                perror(&quot;Failed to create thread&quot;);
+            }
+        } else {
+            if (pthread_create(&amp;th[i], NULL, &amp;consumer, NULL) != 0) {
+                perror(&quot;Failed to create thread&quot;);
+            }
+        }
+    }
+    for (i = 0; i &lt; THREAD_NUM; i++) {
+        if (pthread_join(th[i], NULL) != 0) {
+            perror(&quot;Failed to join thread&quot;);
+        }
+    }
+    dispatch_release(semEmpty);
+    dispatch_release(semFull);
+    pthread_mutex_destroy(&amp;mutexBuffer);
+    return 0;
+}
+</code></pre>
+	</section>
+	</div>
+    </div>
+</div>
+<footer>
+   <div class="well well-lg" id="footer-well">
+      <div class="container">
+
+
+      <div class="row">
+         <div class="col-xs-6">
+            <a href="https://angold4.org" title="Angold-4 Organization" class="image-link"><img src="../../../images/logo.png" class="cmudb-logo" /></a>
+         </div>
+         <div class="col-xs-6">
+            <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+        </div>
+      </div>
+   </div>
+   </div>
+</footer>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<!-- Fix scrolling issues to internal HREFs that get positioned behind navbar -->
+<!-- http://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header -->
+<script src="../../../theme/js/href_scroll.js"></script>
+
+<!-- You know what this is and you know what he did to me... -->
+<script src="../../../theme/js/tim-kraska-betrayed-me.js"></script>
+</body>
+</html>

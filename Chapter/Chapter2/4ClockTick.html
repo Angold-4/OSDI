@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Angold-4 Organization</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href=".">
+        <meta name="author" content="Angold Wang" />
+
+    <meta property="og:site_name" content="Angold-4" />
+<!--     <meta property="og:type" content="article"/> -->
+    <meta property="og:title" content="Angold-4 Organization"/>
+    <meta property="og:url" content="."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+<!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"> -->
+
+    <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://angold4.org" class="navbar-brand">
+<img src="../../../images/logo.png" width="32"/> Angold4            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+			    <li><a href="../../../about.html">About</a>
+                            <li><a href="../../../blogs.html">Blogs</a>
+                            <li><a href="../../../projects.html">Projects</a>
+
+	    </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a title="Youtube" href="https://www.youtube.com/channel/UC3ZAjh2LHhm-FrgxgBtgMzQ" target="_new"><i class="fa fa-youtube"></i> Youtube</a>
+		</li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+	<section id="content" class="body">
+
+
+<h2>Operating Systems Design and Implementation Notes</h2>
+<h1>4. Inside a Hole Clock Tick</h1>
+<h5>By Jiawei Wang</h5>
+<p>We are now moving closer to looking at the actual <strong>code of Minix3</strong>.<!-- raw HTML omitted -->
+Unlike the introduction sequence in the original book. I divide the implementation into four parts:<!-- raw HTML omitted --></p>
+<ul>
+<li><strong>Clock Server</strong> (Inside a Hole Clock Tick)</li>
+<li><strong>Process Scheduler</strong></li>
+<li><strong>Interprocess Commnuication</strong></li>
+<li><strong>System Task</strong></li>
+</ul>
+<p><strong>Process management</strong>, <strong>Interprocess communication</strong>, and <strong>Scheduling</strong></p>
+<p>One useful website for learning minix3: <strong><a href="https://elixir.ortiz.sh/minix/v3.1.8/C/ident/">elixir.ortiz.sh</a></strong><!-- raw HTML omitted -->
+Minix3 Source code used in this note: <strong><a href="https://github.com/Angold-4/OSDI/tree/master/Minix3">https://github.com/Angold-4/OSDI/tree/master/Minix3</a></strong> (folked from <a href="https://github.com/jncraton/minix3">jncraton</a>)<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+Before the formal introduction with code, let us begin our study of MINIX 3 by taking a bird’s-eye view of the system. <!-- raw HTML omitted -->
+MINIX 3 is structured in <strong>four layers</strong>, with each layer performing a well-defined function. <!-- raw HTML omitted -->
+<img src="Sources/layer.png" alt="layer"></p>
+<h2>1. Clock Task</h2>
+<p><strong>Clocks (also called timers) are essential to the operation of any timesharing system.</strong><!-- raw HTML omitted -->
+In my opinion, <strong>The Clocks is the heart of a computer</strong>, so that it can make all components run regularly. Also, there are several places one could point to and say, <strong>&quot;This is where Minix3 starts running&quot;</strong>.
+<!-- raw HTML omitted --></p>
+<h3>Clock Hardware</h3>
+<p>The clock is built out of three components: a <strong>crystal oscillator</strong>, a <strong>counter</strong>, and a <strong>holding register</strong>.<!-- raw HTML omitted --></p>
+<p><img src="Sources/clock.png" alt="clock"></p>
+<ul>
+<li><strong>Crystal Oscillator:</strong><!-- raw HTML omitted -->When a piece of quartz crystal is properly cut and mounted under tension, it can be made to generate a periodic signal of very high accuracy.</li>
+<li><strong>Counter:</strong><!-- raw HTML omitted --> The signal that <strong>crystal oscillator</strong> made is fed into the counter to make it count down to zero. When the counter gets to zero, it causes a CPU interrupt.</li>
+<li><strong>Holding Register:</strong><!-- raw HTML omitted --> After getting to zero and causing the interrupt, the holding register is automatically copied into the counter, and the whole process is repeated again indefinitely. These periodic interrupts are called <strong>clock ticks</strong>.<!-- raw HTML omitted --></li>
+</ul>
+<p>The advantage of the <strong>programmable clock</strong> is that its interrupt frequency can be controlled by software. If a 1-MHz crystal is used, then the counter is pulsed every microsecond. With 16-bit registers, interrupts can be programmed to occur at intervals from 1 microsecond to 65.536 milliseconds, <strong>which means the clock ticks can be changed by adjust the value of registers.</strong> The clock interrupts repeat 60 times a second as long as MINIX 3 runs.<!-- raw HTML omitted --></p>
+<h3>Clock Software</h3>
+<p>All the clock hardware does is generate interrupts at known intervals. Everything else involving time must be done by the software, the <strong>clock driver</strong>.<!-- raw HTML omitted -->
+The exact duties of the clock driver vary among operating systems, but must include the following:<!-- raw HTML omitted --></p>
+<ul>
+<li>
+<p><strong>Maintaining the time of day.</strong><!-- raw HTML omitted -->
+In Minix3, because the known-intervals-interrupts, we can maintain the time of the day by counting the ticks.<!-- raw HTML omitted --> but to do that relative to the time the system was booted, rather than relative to a fixed external moment.<!-- raw HTML omitted -->When the time of day is requested, the stored time of day is added to the counter to get the current time of day. <!-- raw HTML omitted --></p>
+</li>
+<li>
+<p><strong>Preventing processes from running longer than they are allowed to.</strong><!-- raw HTML omitted -->
+Whenever a process is started, the scheduler should initialize a counter to the value of that process’ quantum in clock ticks. At every clock interrupt, the clock driver decrements the quantum counter by 1. When it gets to zero, the clock driver calls the scheduler to set up another process.<!-- raw HTML omitted -->
+<!-- raw HTML omitted --></p>
+</li>
+</ul>
+<h2>2. Start of Minix3</h2>
+<p>The <a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/proc.h">kernel/proc.h</a> defines the process table of kernel.<!-- raw HTML omitted --></p>
+<p>Generally speaking, Minx3 runs from <a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/arch/i386/mpx386.S">kernel/mpx386.s</a>.<!-- raw HTML omitted -->
+After execute <code>cstart()</code> function in <a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/start.c">kernel/start.c</a>, which set some global variable and other preparations.<!-- raw HTML omitted -->
+At line 252. after the assembly code: <strong><code>jmp main</code></strong>, it jumps to the main program of Minix3:</p>
+<h3><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/main.c">kernel/main.c</a></h3>
+<ul>
+<li><strong><code>line 76 to 182</code>: Loop the <code>image[]</code>, initialize the boot process table.</strong><!-- raw HTML omitted -->
+The <strong><code>image[]</code></strong> is defined in the line 114 of <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/table.c">kernel/table.c</a>:</strong></li>
+</ul>
+<pre><code class="language-c">PUBLIC struct boot_image image[] = {
+    /* process nr, pc,flags, qs,  queue, stack, traps, ipcto, call,  name */ 
+    {IDLE,  idle_task,IDL_F,  8, IDLE_Q, IDL_S,     0,     0, no_c,&quot;idle&quot;  },
+    {CLOCK,clock_task,TSK_F,  8, TASK_Q, TSK_S, TSK_T,     0, no_c,&quot;clock&quot; },
+    {SYSTEM, sys_task,TSK_F,  8, TASK_Q, TSK_S, TSK_T,     0, no_c,&quot;system&quot;},
+    {HARDWARE,      0,TSK_F,  8, TASK_Q, HRD_S,     0,     0, no_c,&quot;kernel&quot;},
+    {PM_PROC_NR,    0,SRV_F, 32,      4, 0,     SRV_T, SRV_M, c(pm_c),&quot;pm&quot;    },
+    {FS_PROC_NR,    0,SRV_F, 32,      5, 0,     SRV_T, SRV_M, c(fs_c),&quot;vfs&quot;   },
+    {RS_PROC_NR,    0,SVM_F,  4,      4, 0,     SRV_T, SYS_M, c(rs_c),&quot;rs&quot;    },
+    {MEM_PROC_NR,   0,SVM_F,  4,      3, 0,     SRV_T, SYS_M,c(mem_c),&quot;memory&quot;},
+    {LOG_PROC_NR,   0,SRV_F,  4,      2, 0,     SRV_T, SYS_M,c(drv_c),&quot;log&quot;   },
+    {TTY_PROC_NR,   0,SVM_F,  4,      1, 0,     SRV_T, SYS_M,c(tty_c),&quot;tty&quot;   },
+    {DS_PROC_NR,    0,SVM_F,  4,      4, 0,     SRV_T, SYS_M, c(ds_c),&quot;ds&quot;    },
+    {MFS_PROC_NR,   0,SVM_F, 32,      5, 0,     SRV_T, SRV_M, c(fs_c),&quot;mfs&quot;   },
+    {VM_PROC_NR,    0,VM_F, 32,      2, 0,     SRV_T, SRV_M, c(vm_c),&quot;vm&quot;    },
+    {INIT_PROC_NR,  0,USR_F,  8, USER_Q, 0,     USR_T, USR_M, c(usr_c),&quot;init&quot;  },
+};
+</code></pre>
+<ul>
+<li><strong><code>line 193 to 211</code>: Return to the assembly code to start running the current process by calling <code>restart()</code></strong><!-- raw HTML omitted -->
+The <strong><code>restart()</code></strong> is defined from 436 to 469 of <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/arch/i386/mpx386.S">kernel/mpx386.s</a>:</strong></li>
+</ul>
+<pre><code class="language-assembly">/*===========================================================================*/
+/*				restart					     */
+/*===========================================================================*/
+restart:
+
+/* Restart the current process or the next process if it is set.  */
+
+	cli
+	call	schedcheck
+	movl	proc_ptr, %esp	/* will assume P_STACKBASE == 0 */
+	lldt	P_LDT_SEL(%esp)	/* enable process' segment descriptors  */
+	cmpl	$0, P_CR3(%esp)
+	jz	0f
+	mov	P_CR3(%esp), %eax
+	cmpl	loadedcr3, %eax
+	jz	0f
+	mov	%eax, %cr3
+	mov	%eax, loadedcr3
+	mov	proc_ptr, %eax
+	mov	%eax, ptproc
+	movl	$0, dirtypde
+0:
+	lea	P_STACKTOP(%esp), %eax	/* arrange for next interrupt */
+	movl	%eax, tss+TSS3_S_SP0	/* to save state in process table */
+restart1:
+	decb	k_reenter
+	popw	%gs
+	popw	%fs
+	popw	%es
+	popw	%ds
+	popal
+	add	$4, %esp	/* skip return adr */
+	iret	/* continue process */
+</code></pre>
+<p><strong>Then the CPU will start to execute all boot processes that we initialized before (from 0)</strong></p>
+<h2>3. Implementation of Clock Driver in Minix3</h2>
+<p>The Minix 3 clock driver is contained in the file <a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/clock.c">kernel/clock.c</a>.</p>
+<p>From the boot image table:</p>
+<pre><code>{CLOCK,clock_task,TSK_F,  8, TASK_Q, TSK_S, TSK_T,     0, no_c,&quot;clock&quot; },
+</code></pre>
+<p>The <strong><code>CLOCK</code></strong> process has the highest piority <code>(0)</code>, and it will be executed after the  <strong><code>restart()</code></strong>. <!-- raw HTML omitted -->
+The kernel will run it by calling the <strong><code>clock_task()</code></strong> function.</p>
+<pre><code class="language-c">/*===========================================================================*
+ *				clock_task				     *
+ *===========================================================================*/
+PUBLIC void clock_task()
+{
+/* Main program of clock task. If the call is not HARD_INT it is an error.
+ */
+  message m;       /* message buffer for both input and output */
+  int result;      /* result returned by the handler */
+
+  init_clock();    /* initialize clock task */
+    
+  /* Main loop of the clock task.  Get work, process it. Never reply. */
+  while(TRUE) {
+	/* Go get a message. */
+	result = receive(ANY, &amp;m);
+
+	if(result != OK)
+		minix_panic(&quot;receive() failed&quot;, result);
+
+	/* Handle the request. Only clock ticks are expected. */
+	if (is_notify(m.m_type)) {
+		switch (_ENDPOINT_P(m.m_source)) {
+			case HARDWARE:
+				do_clocktick(&amp;m); /* handle clock tick */
+				break;
+			default:	/* illegal request type */
+				kprintf(&quot;CLOCK: illegal notify %d from %d.\n&quot;,
+					m.m_type, m.m_source);
+		}
+	}
+	else {
+		/* illegal request type */
+		kprintf(&quot;CLOCK: illegal request %d from %d.\n&quot;,
+			m.m_type, m.m_source);
+	}
+  }
+}
+
+</code></pre>
+<p>The <strong><code>clock_task()</code></strong> is also known as <strong>Clock Driver</strong>.<!-- raw HTML omitted -->First, it has a main loop, which waiting for a message from the <code>HARD_INT</code>, and then call <strong><code>do_clocktick()</code>.</strong><!-- raw HTML omitted -->
+Before trying to understand the execution of the <strong>Clock Driver</strong>, let's jump to the first command of the <strong><code>clock_task()</code></strong>:<!-- raw HTML omitted -->
+The <strong><code>init_clock()</code></strong> function.</p>
+<pre><code class="language-c">/*===========================================================================*
+ *				init_clock				     *
+ *===========================================================================*/
+PRIVATE void init_clock()
+{
+  /* First of all init the clock system.
+   *
+   * Here the (a) clock is set to produce a interrupt at
+   * every 1/60 second (ea. 60Hz).
+   *
+   * Running right away.
+   */
+  arch_init_clock();	/* architecture-dependent initialization. */
+   
+  /* Initialize the CLOCK's interrupt hook. */
+  clock_hook.proc_nr_e = CLOCK;
+ 
+  put_irq_handler(&amp;clock_hook, CLOCK_IRQ, clock_handler);
+  enable_irq(&amp;clock_hook);		/* ready for clock interrupts */
+    
+  /* Set a watchdog timer to periodically balance the scheduling queues. */
+  balance_queues(NULL);			/* side-effect sets new timer */
+}
+</code></pre>
+<p>Inside the function <strong><code>init_clock()</code></strong>. It is very important to understand these two statements:<!-- raw HTML omitted --></p>
+<pre><code class="language-c">put_irq_handler(&amp;clock_hook, CLOCK_IRQ, clock_handler);  // put_irq_handler: register an interrupt handler
+enable_irq(&amp;clock_hook);        /* ready for clock interrupts */
+</code></pre>
+<p><strong>From its name, it has some relationship with interrupt request (IRQ).</strong></p>
+<h3>Interrupt Request (IRQ)</h3>
+<blockquote>
+<p>Details of interrupt hardware are system dependent, but any system must have elements functionally equivalent to those to be described for systems with 32-bit Intel CPUs. Interrupts generated by hardware devices are electrical signals and are handled in the first place by an <strong>interrupt controller, an integrated circuit that can sense a number of such signals and for each one generate a unique data pattern on the processor’s data bus.</strong></p>
+</blockquote>
+<blockquote>
+<p>This is necessary because the processor itself has only one input for sensing all these devices, and thus cannot differentiate which device needs service. PCs using Intel 32-bit processors are normally equipped with two such controller chips. Each can handle eight inputs, but one is a slave which feeds its output to one of the inputs of the master, so fifteen distinct external devices can be sensed by the combination, as shown in Fig. 2-39. Some of the fifteen inputs are dedicated; <strong>the
+clock input, IRQ 0, for instance, does not have a connection to any socket into which a new adapter can be plugged</strong>. Others are connected to sockets and can be used for whatever device is plugged in.</p>
+</blockquote>
+<p><img src="Sources/interrupt.png" alt="interrupt"></p>
+<p>The code of interrupt controller is in the <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/arch/i386/mpx386.S">kernel/mpx386.s</a></strong>, from line 255 to 368.</p>
+<pre><code class="language-assembly">/*===========================================================================*/
+/*				hwint00 - 07				     */
+/*===========================================================================*/
+/* Note this is a macro, it just looks like a subroutine. */
+#define hwint_master(irq)	\
+	call	save			/* save interrupted process state */;\
+	push	$irq							    ;\
+	call	irq_handle		/* irq_handle(irq) 		  */;\
+	pop	%ecx							    ;\
+	movb	$END_OF_INT, %al						    ;\
+	outb	$INT_CTL			/* reenable master 8259		  */;\
+	ret				/* restart (another) process      */
+
+/* Each of these entry points is an expansion of the hwint_master macro */
+.balign	16
+hwint00:
+/* Interrupt routine for irq 0 (the clock). */
+	hwint_master(0)
+</code></pre>
+<p><strong>Remember the Clock Hardware we metioned at the begining of this note?</strong><!-- raw HTML omitted -->
+As soon as (or, more accurately, 16.67 milliseconds after) <strong><code>init_clock()</code></strong> runs, the first clock interrupt occurs, and clock interrupts repeat 60 times a second as long as Minix 3 runs.</p>
+<ol>
+<li>
+<p>The CPU <strong>disables</strong> all interrupts when it receives an interrupt.</p>
+</li>
+<li>
+<p>For the <strong>clock interrupt</strong> (IRQ0), which is hard wired to the chip that generates clock signals with no possibility of any other device triggering this IRQ. It send a interrupt to 8259 interrupt chip every 16.67 milliseconds.</p>
+</li>
+<li>
+<p>Once the chip get that interrupt, it will expanded the marco <strong><code>hwint_master(0)</code></strong> and execute the assembly code.</p>
+</li>
+</ol>
+<h4><code>hwint_master(0)</code></h4>
+<p><strong><code>save()</code></strong> is in <a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/arch/i386/mpx386.S">kernel/mpx386.s</a> from line 369 to 400.<!-- raw HTML omitted -->
+Which is to save the context of the interrupted process on the stack provided by the CPU.</p>
+<pre><code class="language-assembly">/*===========================================================================*/
+/*				save					     */
+/*===========================================================================*/
+/*
+ * Save for protected mode. 
+ * This is much simpler than for 8086 mode, because the stack already points 
+ * into the process table, or has already been switched to the kernel stack. 
+ */
+
+.balign	16
+save:
+	cld	/* set direction flag to a known value */
+	pushal	/* save &quot;general&quot; registers */
+	pushw	%ds	/* save ds */
+	pushw	%es	/* save es */
+	pushw	%fs	/* save fs */
+	pushw	%gs	/* save gs */
+	mov	%ss, %dx	/* ss is kernel data segment */
+	mov	%dx, %ds	/* load rest of kernel segments */
+	mov	%dx, %es	/* kernel does not use fs, gs */
+	mov	%esp, %eax	/* prepare to return */
+	incb	k_reenter	/* from -1 if not reentering */
+	jne	set_restart1	/* stack is already kernel stack */
+	mov	$k_stktop, %esp
+	push	$restart	/* build return address for int handler */
+	xor	%ebp, %ebp	/* for stacktrace */
+	jmp	*RETADR-P_STACKBASE(%eax)
+
+.balign	4
+set_restart1:
+	push	$restart1
+	jmp	*RETADR-P_STACKBASE(%eax)
+</code></pre>
+<p>On line 389: <strong><code>mov %esp, %eax  /* prepare to return */</code></strong><!-- raw HTML omitted -->
+It move the value of return address (the addr that push into stack when call <strong><code>save()</code></strong> inside <strong><code>hwint_master()</code></strong> function to register <strong><code>%eax</code>.</strong> so that it can return back to the <code>hwint_master()</code> after executing the <strong><code>jmp</code></strong> at the end of <strong><code>save()</code></strong>.</p>
+<p>line 393 <strong><code>push    $restart</code></strong> Is a brilliant idea. It make sure that after the <strong><code>hwint_master()</code></strong> return, it will call the <strong><code>restart()</code></strong> to execute the process which pc is <strong><code>next_ptr</code></strong>.</p>
+<p>After <strong><code>save()</code></strong> return and back to <strong><code>hwint_master(0)</code></strong>, It will execute <strong><code>call    irq_handle</code></strong> to call the function <strong><code>irq_handle(irq)</code></strong>, which scans a linked list of structures that hold, among other things, addresses of functions to be called to handle an interrupt for a device, and the process numbers of the device drivers. It is a linked list because a single IRQ line may be shared with several devices. The handler for each device is supposed to test whether its device actually needs service.</p>
+<pre><code class="language-c">PUBLIC void irq_handle(hook)
+irq_hook_t *hook;
+{
+/* Call the interrupt handlers for an interrupt with the given hook list.
+ * The assembly part of the handler has already masked the IRQ, reenabled the
+ * controller(s) and enabled interrupts.
+ */
+
+  /* Call list of handlers for an IRQ. */
+  while (hook != NULL) {
+      /* For each handler in the list, mark it active by setting its ID bit,
+       * call the function, and unmark it if the function returns true.
+       */
+      irq_actids[hook-&gt;irq] |= hook-&gt;id;
+      if ((*hook-&gt;handler)(hook)) irq_actids[hook-&gt;irq] &amp;= ~hook-&gt;id;  // execute the handler function
+      hook = hook-&gt;next;
+  }
+
+  /* The assembly code will now disable interrupts, unmask the IRQ if and only
+   * if all active ID bits are cleared, and restart a process.
+   */
+}
+
+#if _WORD_SIZE == 2
+</code></pre>
+<p>As I metioned before, the <strong>IRQ0</strong> is only used for <strong>Clock Interrupt</strong>, so after execute <strong><code>put_irq_handler(&amp;clock_hook, CLOCK_IRQ, clock_handler);</code></strong> in <strong><code>init_clock()</code></strong>. Every 16.67 milliseconds when clock sent a <strong><code>Clock IRQ</code></strong> to the <strong><code>hwint_master(0)</code></strong>, it will call <strong><code>intr_handle(CLOCK)</code></strong>, which will call <strong><code>clock_handler()</code></strong> function -- <strong>which probably runs more frequently than any other part of the MINIX 3 system</strong>.<!-- raw HTML omitted --></p>
+<h4><code>clock_handler()</code></h4>
+<p><strong>To improve the reading experience, I just list two key points of this function, if you want to read the full code. Please check <a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/clock.c#L179">kernel/clock.c</a> from line 179 to 265</strong>.<!-- raw HTML omitted --></p>
+<ul>
+<li><strong>Update the ticks of running process</strong><!-- raw HTML omitted -->
+Update counters that register how much of the quantum of the current process has been used and how much total time the current process has used.</li>
+</ul>
+<pre><code class="language-c">/* Get number of ticks and update realtime. */
+  ticks = lost_ticks + 1;
+  lost_ticks = 0;
+  realtime += ticks;
+
+  /* Update user and system accounting times. Charge the current process for
+   * user time. If the current process is not billable, that is, if a non-user
+   * process is running, charge the billable process for system time as well.
+   * Thus the unbillable process' user time is the billable user's system time.
+   */
+  
+  proc_ptr-&gt;p_user_time += ticks;
+  if (priv(proc_ptr)-&gt;s_flags &amp; PREEMPTIBLE) {
+      proc_ptr-&gt;p_ticks_left -= ticks;
+  }
+  if (! (priv(proc_ptr)-&gt;s_flags &amp; BILLABLE)) {
+      bill_ptr-&gt;p_sys_time += ticks;
+      bill_ptr-&gt;p_ticks_left -= ticks;
+  }
+
+</code></pre>
+<ul>
+<li><strong>If the interrupt handler detects that a process has used its quantum or that a timer has expired.</strong><!-- raw HTML omitted -->
+It send a message to the <strong>Clock Driver</strong> which waiting for this <strong>HARD_INT</strong> message.  (<strong><code>clock_task()</code></strong>)</li>
+</ul>
+<pre><code class="language-c"> if ((next_timeout &lt;= realtime) || (proc_ptr-&gt;p_ticks_left &lt;= 0) || expired) {
+      prev_ptr = proc_ptr;			/* store running process */
+      mini_notify(proc_addr(HARDWARE), CLOCK);		/* send notification */
+  } 
+</code></pre>
+<h4><code>do_clocktick()</code></h4>
+<p>When the <strong>Clock Driver</strong> (<strong><code>clock_task()</code></strong>) recieve the messeage from <strong><code>mini_notify()</code></strong>, it will call <strong><code>do_clocktick()</code></strong> to pick a process to run next.<!-- raw HTML omitted -->
+The full code of <strong><code>do_clocktick()</code></strong> is in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/clock.c#L101">kernel/clock.c</a></strong> from line 101 to 154. Also, I only pick a piece of code segment.</p>
+<pre><code class="language-c">/* A process used up a full quantum. The interrupt handler stored this
+   * process in 'prev_ptr'.  First make sure that the process is not on the 
+   * scheduling queues.  Then announce the process ready again. Since it has 
+   * no more time left, it gets a new quantum and is inserted at the right 
+   * place in the queues.  As a side-effect a new process will be scheduled.
+   */ 
+  if (prev_ptr-&gt;p_ticks_left &lt;= 0 &amp;&amp; priv(prev_ptr)-&gt;s_flags &amp; PREEMPTIBLE) {
+
+        dequeue(prev_ptr);		/* take it off the queues */
+        enqueue(prev_ptr);		/* and reinsert it again */ 
+  }
+</code></pre>
+<p>The <strong><code>dequeue()</code></strong> and <strong><code>enqueue()</code></strong> function is a part of the System Components called <strong>System Scheduler</strong>.<!-- raw HTML omitted -->Which will be introduced in the next note. The only thing you need to know is that it will schedule a new process to run by updating the <strong><code>next_ptr</code></strong> so that after the <strong><code>clock_hander()</code></strong> finished and return to <strong><code>hwint_master(0)</code></strong>, when <code>hwint_master(0)</code> return, it will call the <strong><code>restart()</code></strong> function(stack), a process which pc is <strong><code>next_ptr</code></strong> will be called.</p>
+<p><strong>And that is what happend in 16.67 milliseconds of a CPU - A Clock Tick</strong>.</p>
+	</section>
+	</div>
+    </div>
+</div>
+<footer>
+   <div class="well well-lg" id="footer-well">
+      <div class="container">
+
+
+      <div class="row">
+         <div class="col-xs-6">
+            <a href="https://angold4.org" title="Angold-4 Organization" class="image-link"><img src="../../../images/logo.png" class="cmudb-logo" /></a>
+         </div>
+         <div class="col-xs-6">
+            <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+        </div>
+      </div>
+   </div>
+   </div>
+</footer>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<!-- Fix scrolling issues to internal HREFs that get positioned behind navbar -->
+<!-- http://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header -->
+<script src="../../../theme/js/href_scroll.js"></script>
+
+<!-- You know what this is and you know what he did to me... -->
+<script src="../../../theme/js/tim-kraska-betrayed-me.js"></script>
+</body>
+</html>

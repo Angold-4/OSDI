@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Angold-4 Organization</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href=".">
+        <meta name="author" content="Angold Wang" />
+
+    <meta property="og:site_name" content="Angold-4" />
+<!--     <meta property="og:type" content="article"/> -->
+    <meta property="og:title" content="Angold-4 Organization"/>
+    <meta property="og:url" content="."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+<!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"> -->
+
+    <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://angold4.org" class="navbar-brand">
+<img src="../../../images/logo.png" width="32"/> Angold4            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+			    <li><a href="../../../about.html">About</a>
+                            <li><a href="../../../blogs.html">Blogs</a>
+                            <li><a href="../../../projects.html">Projects</a>
+
+	    </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a title="Youtube" href="https://www.youtube.com/channel/UC3ZAjh2LHhm-FrgxgBtgMzQ" target="_new"><i class="fa fa-youtube"></i> Youtube</a>
+		</li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+	<section id="content" class="body">
+
+
+<h2>Operating Systems Design and Implementation Notes</h2>
+<h1>5. Process Scheduler</h1>
+<h5>By Jiawei Wang</h5>
+<p>At the end of last note, we introduced that if a running process uses up its quantum without interruption and returning (still runable) inside <strong>a clock tick.</strong><!-- raw HTML omitted --></p>
+<p>The <strong><code>clock_task()</code></strong> will call <strong><code>do_clocktick()</code></strong> and this function will execute the follwoing code:<!-- raw HTML omitted --></p>
+<pre><code class="language-c">  if (prev_ptr-&gt;p_ticks_left &lt;= 0 &amp;&amp; priv(prev_ptr)-&gt;s_flags &amp; PREEMPTIBLE) {
+        dequeue(prev_ptr);		/* take it off the queues */
+        enqueue(prev_ptr);		/* and reinsert it again */ 
+  }
+</code></pre>
+<p>We only know that these two functions <strong><code>dequeue()</code></strong> and <strong><code>enqueue()</code></strong> will reinsert the current unfinished process into a <strong>&quot;Ready&quot;</strong> status process queue and <strong>pick another process to run</strong>.</p>
+<ul>
+<li><strong>How to pick next process from countless processes to run?</strong></li>
+<li><strong>How to design this process scheduler to manage these processes with piority?</strong></li>
+</ul>
+<p><strong>NOTE</strong>: Since <strong>interrupts</strong> are <strong>not</strong> enabled while kernel code is running in Minix3, we do not consider any <strong>interruption</strong> in this note. And in next note, we will talk about more about <strong>interrupt</strong> with <strong>interprocess communication</strong>.<!-- raw HTML omitted --></p>
+<h2>1. Scheduling in Minix3</h2>
+<p><strong>MINIX 3 uses a multilevel scheduling algorithm to mantain processes inside 16 queues of runnable processes, scheduling is round robin in each queue.</strong><!-- raw HTML omitted -->
+For example, in the <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#kernelmainc">previous note</a></strong>, when we talk about the start of the Minix3, the <strong><code>main()</code></strong> function of minix3 will initialize the boot process table. Then processes are given initial priorities that are related to the structure shown in Fig. 2-29.<!-- raw HTML omitted --></p>
+<p><img src="Sources/layer.png" alt="layer"></p>
+<ul>
+<li>The <strong>clock</strong> and <strong>system tasks</strong> in layer 1 receive the highest priority.</li>
+<li>The <strong>device drivers</strong> of layer 2 get lower priority, but they are not all equal.</li>
+<li><strong>Server processes</strong> in layer 3 get lower priorities than drivers, but some less than others.</li>
+<li><strong>User processes</strong> start with less priority than any of the system processes, and initially are all equal.
+<!-- raw HTML omitted --></li>
+</ul>
+<p>The scheduler maintains 16 queues of <strong>runnable processes</strong>, although not all of them may be used at a particular moment.<!-- raw HTML omitted --></p>
+<p><img src="Sources/init.png" alt="init"></p>
+<p>Whenever a running process becomes blocked or finished, or a runnable process is killed by a signal, that process is removed from the scheduler’s queues. <strong>Only runnable processes are queued.</strong></p>
+<ul>
+<li>The array <strong><code>rdy_head</code></strong> has one entry for each queue, with that entry pointing to the process at the head of the queue.</li>
+<li><strong><code>rdy_tail</code></strong> is an array whose entries point to the last process on each queue.</li>
+<li>If a running process uses up its quantum it is moved to the <strong>tail</strong> of its queue and given a new quantum.</li>
+<li>When a blocked process is awakened, it is put at the <strong>head</strong> of its queue if it had any part of its quantum left when it blocked, it gets only what it had <strong>left</strong> when it blocked.</li>
+</ul>
+<h2>2. Process Scheduler</h2>
+<p>In essence, <strong><code>pick_proc()</code></strong> in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/proc.c#L1297">kernel/proc.c</a></strong> from line 1297 to 1332 is the <strong>scheduler</strong>.<!-- raw HTML omitted --></p>
+<h3>The Scheduling Algorithm</h3>
+<p><strong>Find the highest priority queue that is not empty and pick the process at the head of that queue. The IDLE process is always ready, and is in the lowest priority queue. If all the higher priority queues are empty, IDLE is run.</strong></p>
+<pre><code class="language-c">PRIVATE void pick_proc()
+{
+/* Decide who to run now.  A new process is selected by setting 'next_ptr'.
+ * When a billable process is selected, record it in 'bill_ptr', so that the 
+ * clock task can tell who to bill for system time.
+ */
+  register struct proc *rp;			/* process to run */
+  int q;				/* iterate over queues */
+
+  NOREC_ENTER(pick);
+
+  /* Check each of the scheduling queues for ready processes. The number of
+   * queues is defined in proc.h, and priorities are set in the task table.
+   * The lowest queue contains IDLE, which is always ready.
+   */
+  for (q=0; q &lt; NR_SCHED_QUEUES; q++) {	
+	int found = 0;
+	if(!(rp = rdy_head[q])) {
+		TRACE(VF_PICKPROC, printf(&quot;queue %d empty\n&quot;, q););
+		continue;
+	}
+	TRACE(VF_PICKPROC, printf(&quot;found %s / %d on queue %d\n&quot;, 
+		rp-&gt;p_name, rp-&gt;p_endpoint, q););
+	next_ptr = rp;			/* run process 'rp' next */
+	vmassert(proc_ptr != next_ptr);
+	vmassert(!next_ptr-&gt;p_rts_flags);
+	if (priv(rp)-&gt;s_flags &amp; BILLABLE)	 	
+		bill_ptr = rp;		/* bill for system time */
+	NOREC_RETURN(pick, );
+  }
+  minix_panic(&quot;no runnable processes&quot;, NO_NUM);
+}
+</code></pre>
+<p>Each queue is tested. <strong><code>TASK_Q</code></strong> is tested first, and if a process on this queue is ready, <strong><code>pick_proc</code></strong> sets <strong><code>proc_ptr</code></strong> and returns immediately. Otherwise, the next <strong>lower priority</strong> queue is tested, all the way down to <strong><code>IDLE_Q</code></strong>.</p>
+<h3>Put a Process into Queue</h3>
+<p>The <strong><code>sched()</code></strong> function picks which queue to put a newly-ready process on, and whether to put it on the head or the tail of that queue.</p>
+<pre><code class="language-c">PRIVATE void sched(rp, queue, front)
+register struct proc *rp;			/* process to be scheduled */
+int *queue;					/* return: queue to use */
+int *front;					/* return: front or back */
+{
+/* This function determines the scheduling policy.  It is called whenever a
+ * process must be added to one of the scheduling queues to decide where to
+ * insert it.  As a side-effect the process' priority may be updated.  
+ */
+  int time_left = (rp-&gt;p_ticks_left &gt; 0);	/* quantum fully consumed */
+
+  /* Check whether the process has time left. Otherwise give a new quantum 
+   * and lower the process' priority, unless the process already is in the 
+   * lowest queue.  
+   */
+  if (! time_left) {				/* quantum consumed ? */
+      rp-&gt;p_ticks_left = rp-&gt;p_quantum_size; 	/* give new quantum */
+      if (rp-&gt;p_priority &lt; (IDLE_Q-1)) {  	 
+          rp-&gt;p_priority += 1;			/* lower priority */
+      }
+  }
+
+  /* If there is time left, the process is added to the front of its queue, 
+   * so that it can immediately run. The queue to use simply is always the
+   * process' current priority. 
+   */
+  *queue = rp-&gt;p_priority;
+  *front = time_left;
+}
+</code></pre>
+<p><strong>It check is made to see if the entire quantum was used:</strong></p>
+<ul>
+<li>If not, it will be <strong>restarted</strong> with whatever it had left from its last turn.(Set front=1 means this process need to be insert to the front of the queue)</li>
+<li>if the entire quantum was used but other processes have had a chance to run, the <strong>priority</strong> of this process minus one.(lower the priority)</li>
+</ul>
+<h2>3. Transitions between Status</h2>
+<p><strong>This Fig 2-2 was metioned in the <a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/1Introprogress.md">Chapter2/1.Introduction to Processes</a></strong>.<!-- raw HTML omitted --></p>
+<p><img src="Sources/status.png" alt="status"></p>
+<p>Most of these transitions can be done by two functions: <strong><code>enqueue()</code></strong> and <strong><code>dequeue()</code></strong>:</p>
+<ol>
+<li>
+<p><strong>Running -&gt; Blocked</strong>:  <strong><code>enqueue(next_proc)</code></strong> (<code>sys_call</code>)<!-- raw HTML omitted --></p>
+</li>
+<li>
+<p><strong>Running -&gt; Ready</strong>:  <strong><code>dequeue(proc_ptr)</code></strong> + <strong><code>enqueue(proc_ptr)</code></strong> (<code>do_clocktick</code>)<!-- raw HTML omitted --></p>
+</li>
+<li>
+<p><strong>Ready -&gt; Running</strong>: <strong><code>enqueue(proc_ptr)</code></strong> (<code>do_clocktick</code> <code>sys_call</code> <code>do_exec</code>)<!-- raw HTML omitted --></p>
+</li>
+<li>
+<p><strong>Block -&gt; Ready</strong>: return from <strong><code>1. enqueue(next_proc)</code></strong><!-- raw HTML omitted -->
+<!-- raw HTML omitted --></p>
+</li>
+</ol>
+<p><strong>These two functions are also simple but useful</strong>, both of them were in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/proc.c#L1142">kernel/proc.c</a>:</strong><!-- raw HTML omitted --></p>
+<h3><code>enqueue(proc_ptr)</code></h3>
+<ul>
+<li>Call <strong><code>sched(proc_ptr)</code></strong> to add this process to one of the queue of runnable processes.</li>
+<li>Call <strong><code>pick_proc()</code></strong> to determine which process to run next by assigning the <strong><code>next_ptr</code></strong>.</li>
+</ul>
+<pre><code class="language-c">PUBLIC void enqueue(rp)
+register struct proc *rp;	/* this process is now runnable */
+{
+/* Add 'rp' to one of the queues of runnable processes.  This function is 
+ * responsible for inserting a process into one of the scheduling queues. 
+ * The mechanism is implemented here.   The actual scheduling policy is
+ * defined in sched() and pick_proc().
+ */
+  int q;	 				/* scheduling queue to use */
+  int front;					/* add to front or back */
+
+  NOREC_ENTER(enqueuefunc);
+
+#if DEBUG_SCHED_CHECK
+  if(!intr_disabled()) { minix_panic(&quot;enqueue with interrupts enabled&quot;, NO_NUM); }
+  if (rp-&gt;p_ready) minix_panic(&quot;enqueue already ready process&quot;, NO_NUM);
+#endif
+
+  /* Determine where to insert to process. */
+  sched(rp, &amp;q, &amp;front);
+
+  vmassert(q &gt;= 0);
+  vmassert(q &lt; IDLE_Q || rp-&gt;p_endpoint == IDLE);
+
+  /* Now add the process to the queue. */
+  if (rdy_head[q] == NIL_PROC) {		/* add to empty queue */
+      rdy_head[q] = rdy_tail[q] = rp; 		/* create a new queue */
+      rp-&gt;p_nextready = NIL_PROC;		/* mark new end */
+  } 
+  else if (front) {				/* add to head of queue */
+      rp-&gt;p_nextready = rdy_head[q];		/* chain head of queue */
+      rdy_head[q] = rp;				/* set new queue head */
+  } 
+  else {					/* add to tail of queue */
+      rdy_tail[q]-&gt;p_nextready = rp;		/* chain tail of queue */	
+      rdy_tail[q] = rp;				/* set new queue tail */
+      rp-&gt;p_nextready = NIL_PROC;		/* mark new end */
+  }
+
+#if DEBUG_SCHED_CHECK
+  rp-&gt;p_ready = 1;
+  CHECK_RUNQUEUES;
+#endif
+
+  /* Now select the next process to run, if there isn't a current
+   * process yet or current process isn't ready any more, or
+   * it's PREEMPTIBLE.
+   */
+	vmassert(proc_ptr);
+  if((proc_ptr-&gt;p_priority &gt; rp-&gt;p_priority) &amp;&amp;
+   (priv(proc_ptr)-&gt;s_flags &amp; PREEMPTIBLE)) 
+     pick_proc();
+
+#if DEBUG_SCHED_CHECK
+  CHECK_RUNQUEUES;
+#endif
+
+  NOREC_RETURN(enqueuefunc, );
+}
+
+</code></pre>
+<h3><code>dequeue(proc_ptr)</code></h3>
+<pre><code class="language-c">PUBLIC void dequeue(rp)
+register struct proc *rp;	/* this process is no longer runnable */
+{
+/* A process must be removed from the scheduling queues, for example, because
+ * it has blocked.  If the currently active process is removed, a new process
+ * is picked to run by calling pick_proc().
+ */
+  register int q = rp-&gt;p_priority;		/* queue to use */
+  register struct proc **xpp;			/* iterate over queue */
+  register struct proc *prev_xp;
+
+  NOREC_ENTER(dequeuefunc);
+
+#if DEBUG_STACK_CHECK
+  /* Side-effect for kernel: check if the task's stack still is ok? */
+  if (iskernelp(rp)) { 				
+	if (*priv(rp)-&gt;s_stack_guard != STACK_GUARD)
+		minix_panic(&quot;stack overrun by task&quot;, proc_nr(rp));
+  }
+#endif
+
+#if DEBUG_SCHED_CHECK
+  if(!intr_disabled()) { minix_panic(&quot;dequeue with interrupts enabled&quot;, NO_NUM); }
+  if (! rp-&gt;p_ready) minix_panic(&quot;dequeue() already unready process&quot;, NO_NUM);
+#endif
+
+  /* Now make sure that the process is not in its ready queue. Remove the 
+   * process if it is found. A process can be made unready even if it is not 
+   * running by being sent a signal that kills it.
+   */
+  prev_xp = NIL_PROC;				
+  for (xpp = &amp;rdy_head[q]; *xpp != NIL_PROC; xpp = &amp;(*xpp)-&gt;p_nextready) {
+
+      if (*xpp == rp) {				/* found process to remove */
+          *xpp = (*xpp)-&gt;p_nextready;		/* replace with next chain */
+          if (rp == rdy_tail[q])		/* queue tail removed */
+              rdy_tail[q] = prev_xp;		/* set new tail */
+
+#if DEBUG_SCHED_CHECK
+  		rp-&gt;p_ready = 0;
+		  CHECK_RUNQUEUES;
+#endif
+          if (rp == proc_ptr || rp == next_ptr)	/* active process removed */
+              pick_proc();		/* pick new process to run */
+          break;
+      }
+      prev_xp = *xpp;				/* save previous in chain */
+  }
+
+#if DEBUG_SCHED_CHECK
+  CHECK_RUNQUEUES;
+#endif
+
+  NOREC_RETURN(dequeuefunc, );
+}
+
+</code></pre>
+<p>In the next note, we will further study the implementation of process in Minix3, with considering more <strong>situations</strong> when a process is running.
+Like <strong>interruption</strong> and <strong>race conditions</strong> that we talked about the concepts earlier at of this chapter.</p>
+	</section>
+	</div>
+    </div>
+</div>
+<footer>
+   <div class="well well-lg" id="footer-well">
+      <div class="container">
+
+
+      <div class="row">
+         <div class="col-xs-6">
+            <a href="https://angold4.org" title="Angold-4 Organization" class="image-link"><img src="../../../images/logo.png" class="cmudb-logo" /></a>
+         </div>
+         <div class="col-xs-6">
+            <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+        </div>
+      </div>
+   </div>
+   </div>
+</footer>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<!-- Fix scrolling issues to internal HREFs that get positioned behind navbar -->
+<!-- http://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header -->
+<script src="../../../theme/js/href_scroll.js"></script>
+
+<!-- You know what this is and you know what he did to me... -->
+<script src="../../../theme/js/tim-kraska-betrayed-me.js"></script>
+</body>
+</html>

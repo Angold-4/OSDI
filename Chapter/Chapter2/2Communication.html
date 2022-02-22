@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Angold-4 Organization</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href=".">
+        <meta name="author" content="Angold Wang" />
+
+    <meta property="og:site_name" content="Angold-4" />
+<!--     <meta property="og:type" content="article"/> -->
+    <meta property="og:title" content="Angold-4 Organization"/>
+    <meta property="og:url" content="."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+<!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"> -->
+
+    <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://angold4.org" class="navbar-brand">
+<img src="../../../images/logo.png" width="32"/> Angold4            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+			    <li><a href="../../../about.html">About</a>
+                            <li><a href="../../../blogs.html">Blogs</a>
+                            <li><a href="../../../projects.html">Projects</a>
+
+	    </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a title="Youtube" href="https://www.youtube.com/channel/UC3ZAjh2LHhm-FrgxgBtgMzQ" target="_new"><i class="fa fa-youtube"></i> Youtube</a>
+		</li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+	<section id="content" class="body">
+
+
+<h2>Operating Systems Design and Implementation Notes</h2>
+<h1>2. Interprocess Communication</h1>
+<h5>By Jiawei Wang</h5>
+<p>In this note, we will look at some of the issues related to this <strong>Interprocess Communication(IPC)</strong> <!-- raw HTML omitted -->
+There are three issues here:<!-- raw HTML omitted --></p>
+<ol>
+<li>How one process can pass information to another?</li>
+<li>How can we make sure two or more processes do not get into each other’s way when engaging in critical activities?</li>
+<li>How to make sure the sequence of related processes?(i.e. one process must run after another)</li>
+</ol>
+<h2>1. Thread</h2>
+<p><strong>Thread</strong> is also called as &quot;<strong>lightweight process</strong>&quot;.<!-- raw HTML omitted -->Means there are often situations to have multiple processes of control in the <strong>same address space</strong>.</p>
+<h3>Introduction</h3>
+<p><strong>Example: <a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/Codes/threads.c">Codes/threads.c</a></strong></p>
+<pre><code class="language-c">int x = 2;
+
+// threads shared memory
+void* routine() {
+    x++;
+    printf(&quot;Test from threads %d\n&quot;, getpid());
+    sleep(3);
+    printf(&quot;The value of x is %d\n&quot;, x);
+}
+
+void* routine2() {
+    printf(&quot;Test from threads %d\n&quot;, getpid());
+    sleep(3);
+    printf(&quot;The value of x is %d\n&quot;, x);
+}
+
+int main(int argc, char* argv[]) {
+    pthread_t t1, t2;
+    // pthread_create 2nd parameter is the property of this thread
+    // 4th parameter is the arguments of function(3rd parameter)
+    if (pthread_create(&amp;t1, NULL, &amp;routine, NULL) != 0) return 1;
+    if (pthread_create(&amp;t2, NULL, &amp;routine2, NULL) != 0) return 2;
+
+    // pthread_join is used for waiting the return of the thread (otherwise the thread will not be executed)
+    // the 2nd parameter is the addr of storing the return value
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
+    return 0;
+}
+</code></pre>
+<p>We use the POSIX P-threads package to simulating threads in C language.<!-- raw HTML omitted -->
+<strong>Output:</strong></p>
+<pre><code>❯ ./a.out
+Test from threads 81205
+Test from threads 81205
+The value of x is 3
+The value of x is 3
+</code></pre>
+<p>These two threads shares the same address location and belong to the same process.<!-- raw HTML omitted -->
+<img src="Sources/thread.png" alt="thread"></p>
+<h3>Thread vs Process</h3>
+<p><img src="Sources/threads.png" alt="threads"></p>
+<p>When several processes each have multiple threads, we have <strong>two levels of parallelism</strong> present:</p>
+<h4>1. Process level</h4>
+<ul>
+<li><strong>Process Scheduler</strong> (Inside kernel)
+<ul>
+<li>Please refer <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/5Scheduler.md">OSDI 5. Process Scheduler</a></strong></li>
+</ul>
+</li>
+<li><strong>Scheduling is absolutely required on two occasions:</strong>
+<ol>
+<li>When a process exits. (<strong><code>dequeue()</code></strong>)</li>
+<li>When a process block(waiting) on I/O, or a semaphore. (<strong><code>enqueue()</code></strong>)</li>
+</ol>
+</li>
+<li><strong>Scheduling is not necessary but usually at these times:</strong>
+<ol>
+<li>When a new process is created. (<strong><code>enqueue()</code></strong>)</li>
+<li>When an I/O <strong>(hardware)</strong> interrupt occurs.  (<strong><code>hwint() -&gt; dequeue() enqueue()</code></strong>)</li>
+<li>When a clock interrupt occurs. (<strong><code>dequeue() + enqueue()</code></strong>)</li>
+</ol>
+</li>
+</ul>
+<h4>2. Threads level</h4>
+<ul>
+<li>
+<p><strong>Thread Scheduler</strong> (&quot;Inside&quot; each process)</p>
+</li>
+<li>
+<p>For the <strong>user-level</strong> threads:</p>
+<ul>
+<li>The kernel is <strong>not aware of the existence of threads</strong>, It operates as it always does.</li>
+<li>Picking a process e.g, A, and giving A control for its quantum.</li>
+<li>The <strong>thread scheduler</strong> inside A decides which thread to run, say A1.</li>
+<li>Since there are no clock interrupts to multiprogram threads, this thread may continue running as long as it wants to. If it uses up the process’ entire quantum, the kernel will select another process to run.</li>
+</ul>
+</li>
+<li>
+<p>For the <strong>kernel-level</strong> threads:</p>
+<ul>
+<li>Unlike user-level, the kernel can pick a particular thread to run.</li>
+<li>Like process, the thread is given a quantum and is forceably suspended if it exceeds the quantum.</li>
+</ul>
+</li>
+<li>
+<p>The major difference between user-level and kernel-level threads is the <strong>Performance</strong></p>
+<ul>
+<li>Doing a thread switch with user-level threads takes a handful of machine instructions. since all threads will inside one address space.</li>
+<li>Switching kernel-level threads requires a full context switch. (changing the memory map, invalidating the cache)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Note that in order to facilitate implementation in C language,<!-- raw HTML omitted -->I will use threads instead of processes to introduce some interprocess examples.<!-- raw HTML omitted --></strong>
+Below we will discuss the problem in the context of <strong>threads</strong>.<!-- raw HTML omitted -->But please keep in mind that the same problems and solutions also apply to <strong>processes</strong>.<!-- raw HTML omitted --></p>
+<h2>2. Race Condition</h2>
+<p><strong>Example: <a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/Codes/race.c">Codes/race.c</a></strong></p>
+<pre><code class="language-c">int mails = 0;
+
+void* routine() {
+    for (int i = 0; i &lt; 1000000; i++) {
+        mails++;
+        // read mails:  
+        // movl _mails(%rip), %eax
+
+        // increment
+        // addl $1, %eax
+        
+        // write mails
+        // movl %eax, _mails(%rip)
+    }
+}
+
+int main(int argc, char* argv[]) {
+    pthread_t p1, p2;
+    if (pthread_create(&amp;p1, NULL, &amp;routine, NULL) != 0) {
+        return 1;
+    }
+    if (pthread_create(&amp;p2, NULL, &amp;routine, NULL) != 0) {
+        return 2;
+    }
+
+    // waiting for threads finish
+    pthread_join(p1, NULL);
+    pthread_join(p2, NULL);
+
+    // race condition
+    printf(&quot;Number of mails: %d\n&quot;, mails);  // Number of mails: 1289819 
+
+    return 0;
+    }
+}
+</code></pre>
+<p><strong>Before I give the output, let's see the program - which plus one to the mails <code>(1000000 x 2)</code> times</strong></p>
+<pre><code>❯ ./a.out
+Number of mails: 1289819
+</code></pre>
+<p><strong>But it give me the <code>1289819</code> instead of <code>2000000</code> we expected</strong>.<!-- raw HTML omitted -->
+<strong>Why this happend?</strong><!-- raw HTML omitted --></p>
+<p>Processes or threads that are working together may share some common storage that each one can read and write.<!-- raw HTML omitted -->
+When two or more processes(threads) are reading or writing some shared data at the same time. <!-- raw HTML omitted -->
+This may cause <strong>Race Condition.</strong><!-- raw HTML omitted --></p>
+<p><a href="https://www.youtube.com/watch?v=FY9livorrJI">This</a> video explains the causes of <strong>Race Condition</strong>.<!-- raw HTML omitted --></p>
+<p><strong>When we check the assembly code of <code>mail++;</code> inside the for loop:<!-- raw HTML omitted --></strong></p>
+<pre><code class="language-assembly">    movl    _mails(%rip), %eax   ## read mails
+    addl    $1, %eax             ## increment
+    movl    %eax, _mails(%rip)   ## write mails
+</code></pre>
+<p><strong>As I metioned in <a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/1Introprogress.md">Introduction to Processes</a>: <!-- raw HTML omitted --></strong></p>
+<blockquote>
+<p>At any instant of time, the CPU is running only one program</p>
+</blockquote>
+<p>Imagine that when thread#1 executes at <code>mail++</code>. At that time he executes the first line of the assembly code.<!-- raw HTML omitted -->Which put the current mail value into a CPU register <code>%eax</code>.<!-- raw HTML omitted -->
+Then assume the <strong>Prcocess Scheduler</strong> temporary blocked this thread#1 let's say the algorithm may think that it runs too long. And let thread#2 who is waiting to run.<!-- raw HTML omitted -->
+<strong>Let's assume at that time, the value of  <code>mail</code> is <code>27</code>. Now stored in register <code>%eax</code> of thread#1.</strong><!-- raw HTML omitted -->
+Then thread#2 start to run. At some time (like 0.1 secs after), the <strong>Process Scheduler</strong> temporary blocked thread#2 and wake up thread#1 because of the same reason.<!-- raw HTML omitted -->
+<strong>thread#2 add <code>mails</code> multiple times, let's assume the value of <code>mails</code> is <code>48</code>.</strong><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<strong>Now here comes the Race Condition:<!-- raw HTML omitted --></strong>
+Back to thread#1, When thread#1 restore all the value of registers and start running (<code>movl %eax, _mails(%rip)</code>).<!-- raw HTML omitted -->
+<strong>Now the <code>mails</code> becomes <code>28</code>! instead of <code>49</code> we wished!</strong><!-- raw HTML omitted -->
+<strong>The difficulty above occurred because thread#2 started using one of the shared variables before thread#1 was finished with it.</strong></p>
+<h2>3. Mutual Exclusion</h2>
+<p><strong>How to avoid Race Conditions?</strong><!-- raw HTML omitted -->
+The key to preventing trouble here and in many other situations involving shared memory, shared files, and shared everything else is to find some way to <strong>prohibit more than one process from reading and writing the shared data at the same time. <!-- raw HTML omitted --></strong>
+<img src="Sources/mutual.png" alt="mutual"></p>
+<p>Put in other words, what we need is <strong>mutual exclusion</strong> — some way of making sure that if one process is using a shared variable or file, the other processes will be excluded from doing the same thing.<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<strong>Here I will give two ways to avoid Race Conditions:</strong></p>
+<ol>
+<li>Strict Alternation</li>
+<li>Mutexes (Binary Semaphore)</li>
+</ol>
+<h3>Strict Alternation</h3>
+<p><strong>Example: <a href="Codes/mutual.c">Codes/mutual.c</a></strong><!-- raw HTML omitted --></p>
+<pre><code class="language-c">int mails = 0;
+int turn = 0;
+
+void* routine1() {
+    for (int i = 0; i &lt; 1000000; i++) {
+        while(turn != 0); // busy waiting
+        mails++;
+        turn = 1;
+    }
+}
+
+void* routine2() {
+    for (int i = 0; i &lt; 1000000; i++) {
+        while(turn != 1); // busy waiting
+        mails++;
+        turn = 0;
+    }
+}
+
+int main(int argc, char* argv[]) {
+    pthread_t p1, p2;
+    if (pthread_create(&amp;p1, NULL, &amp;routine1, NULL) != 0) {
+        return 1;
+    }
+    if (pthread_create(&amp;p2, NULL, &amp;routine2, NULL) != 0) {
+        return 2;
+    }
+
+    // waiting for threads finish
+    pthread_join(p1, NULL);
+    pthread_join(p2, NULL);
+
+    // race condition
+    printf(&quot;Number of mails: %d\n&quot;, mails);  // Number of mails: 2000000
+
+    return 0; 
+}
+</code></pre>
+<p><strong>By adding an int variable <code>turn</code> to the program.<!-- raw HTML omitted -->We can make sure in any time, only one thread can run in the critical region.</strong></p>
+<p>This code gives us the right example in most cases.<!-- raw HTML omitted -->But in some cases, like thread#2 runs much long in noncritical region than thread#1:<!-- raw HTML omitted --></p>
+<blockquote>
+<p>Page 92:<!-- raw HTML omitted --><strong>When process 0 leaves the critical region, it sets turn to 1, to allow process 1 to enter its critical region.<!-- raw HTML omitted -->Suppose that process 1 finishes its critical region quickly, so both processes are in their noncritical regions, with turn set to 0. Now process 0 executes its whole loop quickly, exiting its critical region and setting turn to 1. At this point turn is 1 and both processes are executing in their noncritical regions.</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>Suddenly, process 0 finishes its noncritical region and goes back to the top of its loop. Unfortunately, it is not permitted to enter its critical region now, because turn is 1 and process 1 is busy with its noncritical region. It hangs in its while loop until process 1 sets turn to 0. Put differently, taking turns is not a good idea when one of the processes is much slower than the other.</strong></p>
+</blockquote>
+<p><strong>Another problem it will caused is called &quot;Busy Waiting&quot;</strong><!-- raw HTML omitted -->
+Inside the for-loop each iterations, there is a while-loop continuously testing a variable until some value appearsm.<!-- raw HTML omitted -->This is called <strong>busy waiting</strong>.<!-- raw HTML omitted -->
+It should usually be avoided, since it wastes CPU time. Only when there is a reasonable expectation that the wait will be short is busy waiting used.<!-- raw HTML omitted --></p>
+<h3>Mutexes</h3>
+<p><strong>A mutex is a variable that can be in one of two states: unlocked or locked.</strong><!-- raw HTML omitted -->
+<strong>Two procedures are used with mutexes:</strong><!-- raw HTML omitted --></p>
+<ul>
+<li>When a process (or thread) needs access to a critical region, it calls <code>mutex_lock()</code>. <!-- raw HTML omitted -->If the mutex is currently unlocked (meaning that the critical region is available), the call succeeds and the calling thread is free to enter the critical region.<!-- raw HTML omitted --></li>
+<li>On the other hand, if the mutex is already locked, the caller is blocked until the process in the critical region is finished and calls <code>mutex_unlock()</code>.</li>
+</ul>
+<p><strong>Example <a href="Codes/mutex.c">Codes/mutex.c</a></strong></p>
+<pre><code class="language-c">int mails = 0;
+pthread_mutex_t mutex;
+
+void* routine() {
+    for (int i = 0; i &lt; 1000000; i++) {
+        pthread_mutex_lock(&amp;mutex);
+        mails++; // any time, only one thread can run this instruction
+        pthread_mutex_unlock(&amp;mutex);
+    }
+}
+
+int main(int argc, char* argv[]) {
+    pthread_t p1, p2;
+    pthread_mutex_init(&amp;mutex, NULL); // deafult
+    if (pthread_create(&amp;p1, NULL, &amp;routine, NULL) != 0) {
+        return 1;
+    }
+    if (pthread_create(&amp;p2, NULL, &amp;routine, NULL) != 0) {
+        return 2;
+    }
+
+    // waiting for threads finish
+    pthread_join(p1, NULL);
+    pthread_join(p2, NULL);
+
+    pthread_mutex_destroy(&amp;mutex);
+    printf(&quot;Number of mails: %d\n&quot;, mails);  // Number of mails: 2000000
+
+    return 0;
+}
+</code></pre>
+<h2>4. Condition Variable</h2>
+<p><strong>Let's now focus on the 3rd question we metioned in the begining:</strong><!-- raw HTML omitted --></p>
+<blockquote>
+<p><strong>How to make sure the sequence of related processes?</strong>
+<!-- raw HTML omitted --></p>
+</blockquote>
+<p>Consider that case - A <strong>gas station.</strong><!-- raw HTML omitted -->
+<strong>Assumue that a gas station can produce 15 liter petrol per seconds, and there are many cars waiting for refueling.<!-- raw HTML omitted --></strong>
+<strong>Each cars need to be fueled 40 liters once and then leave.</strong><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<strong>In this case, we cannot recieve more cars when the gas station is out of fuel.</strong><!-- raw HTML omitted -->
+There must have a sequence between two events:<!-- raw HTML omitted --></p>
+<ul>
+<li>The gas station has more than 40 liter gas.</li>
+<li>Here comes the car to be refueled.</li>
+</ul>
+<p>The solution lies in the introduction of <strong>condition variables</strong>.<!-- raw HTML omitted --> Along with three operations on them, <strong><code>wait</code></strong>,  <strong><code>signal</code></strong> and <strong><code>boardcast</code></strong>.<!-- raw HTML omitted --></p>
+<ul>
+<li>
+<p><strong><code>wait</code></strong> This action causes the calling process(thread) to <strong>block</strong>, and <strong>waiting</strong> for the <code>signal</code> from other processes(threads) to wake it up.</p>
+</li>
+<li>
+<p><strong><code>signal</code></strong> Wake up one process(thread) waiting on this condition variable (if any). <!-- raw HTML omitted --> If a signal is done on a condition variable on which several processes are waiting, only one of them, determined by the <strong>process scheduler</strong>, is revived.</p>
+</li>
+<li>
+<p><strong><code>boardcast</code></strong> Wake up all waiting processes(threads)</p>
+</li>
+</ul>
+<p><strong>Example: <a href="Code/conditionvar.c">Code/conditionvar.c</a></strong></p>
+<pre><code class="language-c">// condition variable -- for sequence
+
+pthread_mutex_t mutexFuel;
+pthread_cond_t condFuel;
+int fuel = 0;
+
+void* fuel_filling(void* arg) {
+    while (1) {
+        pthread_mutex_lock(&amp;mutexFuel);
+        fuel += 15;
+        printf(&quot;Filled fuel... %d\n&quot;, fuel);
+        pthread_mutex_unlock(&amp;mutexFuel);
+        pthread_cond_signal(&amp;condFuel);
+        sleep(1);
+    }
+}
+
+void* car(void* arg) {
+    pthread_mutex_lock(&amp;mutexFuel);
+    while (1) {
+        while (fuel &lt; 40) {
+            printf(&quot;No fuel. Waiting...\n&quot;);
+            // every time when got a signal from other threads by calling pthread_cond_signal()
+            // it will be executed after that wait 
+            pthread_cond_wait(&amp;condFuel, &amp;mutexFuel);
+        } 
+        fuel -= 40;
+        printf(&quot;Got fuel. Now left: %d\n&quot;, fuel);
+        pthread_mutex_unlock(&amp;mutexFuel);
+    }
+}
+</code></pre>
+	</section>
+	</div>
+    </div>
+</div>
+<footer>
+   <div class="well well-lg" id="footer-well">
+      <div class="container">
+
+
+      <div class="row">
+         <div class="col-xs-6">
+            <a href="https://angold4.org" title="Angold-4 Organization" class="image-link"><img src="../../../images/logo.png" class="cmudb-logo" /></a>
+         </div>
+         <div class="col-xs-6">
+            <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+        </div>
+      </div>
+   </div>
+   </div>
+</footer>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<!-- Fix scrolling issues to internal HREFs that get positioned behind navbar -->
+<!-- http://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header -->
+<script src="../../../theme/js/href_scroll.js"></script>
+
+<!-- You know what this is and you know what he did to me... -->
+<script src="../../../theme/js/tim-kraska-betrayed-me.js"></script>
+</body>
+</html>

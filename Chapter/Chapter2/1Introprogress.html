@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Angold-4 Organization</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href=".">
+        <meta name="author" content="Angold Wang" />
+
+    <meta property="og:site_name" content="Angold-4" />
+<!--     <meta property="og:type" content="article"/> -->
+    <meta property="og:title" content="Angold-4 Organization"/>
+    <meta property="og:url" content="."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+<!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"> -->
+
+    <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://angold4.org" class="navbar-brand">
+<img src="../../../images/logo.png" width="32"/> Angold4            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+			    <li><a href="../../../about.html">About</a>
+                            <li><a href="../../../blogs.html">Blogs</a>
+                            <li><a href="../../../projects.html">Projects</a>
+
+	    </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a title="Youtube" href="https://www.youtube.com/channel/UC3ZAjh2LHhm-FrgxgBtgMzQ" target="_new"><i class="fa fa-youtube"></i> Youtube</a>
+		</li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+	<section id="content" class="body">
+
+
+<h3>Operating Systems Design and Implementation Notes</h3>
+<h1>1. Introduction to Processes</h1>
+<h5>By Jiawei Wang</h5>
+<p>While, strictly speaking, at any instant of time, the CPU is running only one program, in the course of 1 second, it may work on several programs, thus giving the users the illusion of parallelism. called <strong>pseudoparallelism</strong>.<!-- raw HTML omitted --></p>
+<h2>1. Sequential Processes</h2>
+<p><strong>This model (Sequential Processes) that makes parallelism easier to deal with.</strong><!-- raw HTML omitted -->
+<img src="Sources/Process.png" alt="Process"></p>
+<h3>Process vs Program:</h3>
+<ul>
+<li><strong>Process:</strong> A process is just an executing <code>program</code> with values of  <code>program counter</code>,<code>registers</code> and <code>variables</code>.</li>
+<li><strong>Program:</strong> An algorithm expressed in some suitable notation.</li>
+</ul>
+<h3>Key Idea:</h3>
+<p><strong>A process is an activity of some kind. It has a program, input, output, and a state.<!-- raw HTML omitted -->A single processor may be shared among several processes, with some scheduling algorithm being used to determine when to stop work on one process and service a different one.</strong></p>
+<h2>2. Creation and Termination</h2>
+<p><strong>A new process is created by having an existing process execute a process creation system call.</strong><!-- raw HTML omitted --></p>
+<h3>Creation -&gt; <code>fork()</code></h3>
+<ul>
+<li>
+<p><strong>After the <code>fork</code>, the two processes, the parent and the child, have the same <a href="https://stackoverflow.com/questions/32655960/what-is-a-memory-image-in-nix-systems">memory image</a><!-- raw HTML omitted --> the same environment strings, and the same open files.</strong><!-- raw HTML omitted --></p>
+</li>
+<li>
+<p><strong>After a process is created both the parent and child have their own distinct address spaces.<!-- raw HTML omitted --> In short, The child’s initial address space is a copy of the parent’s,</strong> the child can read parent spaces' variables and program text, but no writable memory is shared.</p>
+</li>
+</ul>
+<p><strong>Example: <a href="Codes/process.c">Codes/process.c</a></strong></p>
+<pre><code class="language-c">int main(int argc, char* argv[]) {
+    int x = 2;
+    int pid = fork();
+    if (pid == -1) {
+        return -1;
+    }
+
+    if (pid == 0) {
+        x++;
+    }
+    printf(&quot;Process id %d\n&quot;, getpid());
+    printf(&quot;x is equal to %d\n&quot;, x);
+    if (pid != 0) {
+        wait(NULL);
+    }
+    return 0;
+}
+</code></pre>
+<pre><code>❯ ./a.out
+Process id 62895
+x is equal to 2
+Process id 62896
+x is equal to 3
+</code></pre>
+<h3>Termination</h3>
+<p><strong>There are four principal events that cause processes to be created:</strong></p>
+<ol>
+<li>System initialization.</li>
+<li>Execution of a process creation system call by a running process.</li>
+<li>A user request to create a new process.</li>
+<li>Initiation of a batch job.</li>
+</ol>
+<h2>3. Process Hierarchies</h2>
+<p><strong>A process, its children, and further descendants together may form a process group.</strong><!-- raw HTML omitted --> When a user sends a signal from the keyboard, the signal may be delivered to all members of the process group currently associated with the keyboard.</p>
+<h2>4. Process States</h2>
+<ol>
+<li>Running (actually using the CPU at that instant).</li>
+<li>Ready (runnable; temporarily stopped to let another process run).</li>
+<li>Blocked (unable to run until some external event happens).</li>
+</ol>
+<p><img src="Sources/status.png" alt="status"></p>
+<h3>Process scheduler</h3>
+<p><strong>Process scheduler is a part of the operating system.</strong><!-- raw HTML omitted -->In my opinion, The core of Processes in OS, is the algorithms of process scheduler.<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+The subject of <strong>scheduling</strong>—deciding which process should run when and for how long—is an important one.<!-- raw HTML omitted -->
+How to <strong>balance</strong> the competing demands of <strong>efficiency</strong> for the system as a whole and fairness to individual processes?<!-- raw HTML omitted -->
+Which is also the key of this hole chapter notes, we will talk about in the following notes.</p>
+	</section>
+	</div>
+    </div>
+</div>
+<footer>
+   <div class="well well-lg" id="footer-well">
+      <div class="container">
+
+
+      <div class="row">
+         <div class="col-xs-6">
+            <a href="https://angold4.org" title="Angold-4 Organization" class="image-link"><img src="../../../images/logo.png" class="cmudb-logo" /></a>
+         </div>
+         <div class="col-xs-6">
+            <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+        </div>
+      </div>
+   </div>
+   </div>
+</footer>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<!-- Fix scrolling issues to internal HREFs that get positioned behind navbar -->
+<!-- http://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header -->
+<script src="../../../theme/js/href_scroll.js"></script>
+
+<!-- You know what this is and you know what he did to me... -->
+<script src="../../../theme/js/tim-kraska-betrayed-me.js"></script>
+</body>
+</html>

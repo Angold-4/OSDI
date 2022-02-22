@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Angold-4 Organization</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href=".">
+        <meta name="author" content="Angold Wang" />
+
+    <meta property="og:site_name" content="Angold-4" />
+<!--     <meta property="og:type" content="article"/> -->
+    <meta property="og:title" content="Angold-4 Organization"/>
+    <meta property="og:url" content="."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+<!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"> -->
+
+    <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://angold4.org" class="navbar-brand">
+<img src="../../../images/logo.png" width="32"/> Angold4            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+			    <li><a href="../../../about.html">About</a>
+                            <li><a href="../../../blogs.html">Blogs</a>
+                            <li><a href="../../../projects.html">Projects</a>
+
+	    </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a title="Youtube" href="https://www.youtube.com/channel/UC3ZAjh2LHhm-FrgxgBtgMzQ" target="_new"><i class="fa fa-youtube"></i> Youtube</a>
+		</li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+	<section id="content" class="body">
+
+
+<h3>Operating Systerms Design and Implementation Notes</h3>
+<h5>By Jiawei Wang</h5>
+<h1>7. System Calls (3)</h1>
+<!-- raw HTML omitted -->
+<p><img src="Sources/Systermcalls.png" alt="Systermcalls"><!-- raw HTML omitted --></p>
+<ul>
+<li><a href="#system-calls-for-directory-management">System Calls for Directory Management</a>
+<ul>
+<li><a href="#mkdir-rmdir----make-remove-a-dir">mkdir, rmdir -- make, remove a dir</a></li>
+<li><a href="#link----make-a-new-name-for-a-file">link -- make a new name for a file</a></li>
+<li><a href="#mount----mount-filesystem">mount -- mount filesystem</a></li>
+<li><a href="#chdir----change-working-directory">chdir -- change working directory</a></li>
+<li><a href="#chroot----change-root-directory">chroot -- change root directory</a></li>
+</ul>
+</li>
+<li><a href="#system-calls-for-protection">System Calls for Protection</a>
+<ul>
+<li><a href="#chmod----change-permissions-for-a-file">chmod -- change permissions for a file</a></li>
+<li><a href="#getuid-getgid----get-the-real-user/group-identity">getuid getgid -- get the real user/group identity</a></li>
+<li><a href="#geteuid-getegid----get-the-effective-uid/gid">geteuid getegid -- get the effective uid/gid</a></li>
+<li><a href="#umask----set-file-mode-creation-mask">umask -- set file mode creation mask</a></li>
+<li><a href="#access----check-user's-permissions-for-a-file">access -- check user's permissions for a file</a></li>
+</ul>
+</li>
+<li><a href="#system-calls-for-time-management">System calls for Time Management</a>
+<ul>
+<li><a href="#time----get-time-in-seconds">time -- get time in seconds</a></li>
+<li><a href="#stime----set-time">stime -- set time</a></li>
+<li><a href="#utime----change-file-last-access-and-modification-times">utime -- change file last access and modification times</a></li>
+<li><a href="#times----get-process-times">times -- get process times</a></li>
+</ul>
+</li>
+</ul>
+<h2>System Calls for Directory Management</h2>
+<h3>mkdir, rmdir -- make, remove a dir</h3>
+<p><strong>int <a href="https://man7.org/linux/man-pages/man2/mkdir.2.html">mkdir</a> (const char pathname(pointer), mode_t mode);</strong><!-- raw HTML omitted -->
+<strong><code>mkdir()</code> attempts to create a directory named pathname.</strong>
+<!-- raw HTML omitted --></p>
+<p><strong>int <a href="https://man7.org/linux/man-pages/man2/rmdir.2.html">rmdir</a> (const char pathname(pointer));</strong><!-- raw HTML omitted -->
+<strong><code>rmdir()</code> deletes a directory, which must be empty.</strong>
+<!-- raw HTML omitted --></p>
+<h3>link -- make a new name for a file</h3>
+<p><strong>int <a href="https://man7.org/linux/man-pages/man2/link.2.html">link</a> (const char oldpath(pointer), const char newpath(pointer));</strong><!-- raw HTML omitted -->
+<strong><code>link()</code> creates a new hard link to an existing file. The newly created directory will be owned by the effective user ID of the process.</strong>
+<!-- raw HTML omitted --></p>
+<p><strong>Understanding how link works will probably make it clearer what it does. Let's see an exmple:</strong><!-- raw HTML omitted -->
+<img src="Sources/link1.png" alt="link1"><!-- raw HTML omitted -->
+<strong>consider the situation of fig.(a). here are two users, ast and jim, each having their own directories with some files. if ast now executes a program containing the system call:</strong></p>
+<pre><code class="language-c">link(&quot;/usr/jim/memo&quot;, &quot;&quot;/usr/ast/note&quot;);
+</code></pre>
+<p><strong>the file memo in jim’s directory is now entered into ast’s directory under the name note. thereafter, <code>/usr/jim/memo</code> and <code>/usr/ast/note</code> refer to the same file.</strong>
+<strong>in the <a href="https://github.com/angold-4/osdi/blob/master/chapters/chapter1/6syscall-2.md">previous note</a>. i mentioned that there are 3 tables in unix-like file system:<!-- raw HTML omitted --></strong>
+<strong>the fd table, the file table and the inode table.</strong><!-- raw HTML omitted --></p>
+<p><strong>every file in unix has a unique number, its i-number, that identifies it. this i-number is an index into a table of i-nodes, one per file, telling who owns the file, where its disk blocks are, and so on.</strong></p>
+<blockquote>
+<p><strong>a directory is simply a file containing a set of (i-number, ascii name) pairs. in the first versions of unix, each directory entry was 16 bytes—2 bytes for the i-number and 14 bytes for the name. a more complicated structure is needed to support long file names, but conceptually a directory is still a set of (i-number, ascii name) pairs.</strong></p>
+</blockquote>
+<p><strong>in this example. after the <code>link()</code> system call, it will be like fig.(b):<!-- raw HTML omitted --></strong>
+<img src="Sources/link2.png" alt="link2"><!-- raw HTML omitted --></p>
+<p><strong>in fig.(b), two entries have the same i-number (70) and thus refer to the same file.<!-- raw HTML omitted -->if either one is later removed, using the unlink system call, the other one remains. if both are removed, unix sees that no entries to the file exist (a field in the i-node keeps track of the number of directory entries pointing to the file), so the file is removed from the disk.</strong>
+<!-- raw HTML omitted --></p>
+<h3>mount -- mount filesystem</h3>
+<p><code>#include &lt;sys/mount.h&gt;</code></p>
+<p><strong>int <a href="https://man7.org/linux/man-pages/man2/mount.2.html">mount</a>(const char source(pointer), const char target(pointer),<!-- raw HTML omitted -->const char filesystemtype(pointer), unsigned long mountflags<!-- raw HTML omitted -->const void data(pointer));</strong></p>
+<p><strong>the mount system call allows two file systems to be merged into one. A common situation is to have the root file system con- taining the binary (executable) versions of the common commands and other heavily used files, on a hard disk. The user can then insert a CD-ROM with files to be read into the CD-ROM drive.</strong><!-- raw HTML omitted --></p>
+<p><img src="Sources/mount.png" alt="mount"></p>
+<p><strong>By executing the mount system call, the CD-ROM file system can be attached to the root file system, as shown in Fig. 1-15. A typical statement in C to perform the mount is</strong><!-- raw HTML omitted --></p>
+<pre><code class="language-c">mount(′′/dev/cdrom0′′, ′′/mnt′′, 0);
+</code></pre>
+<p><strong>Where the first parameter is the name of a block special file for CD-ROM drive 0, the second parameter is the place in the tree where it is to be mounted, and the third one tells whether the file system is to be mounted read-write or read-only.</strong><!-- raw HTML omitted --></p>
+<blockquote>
+<p><strong>After the mount call, a file on CD-ROM drive 0 can be accessed by just using its path from the root directory or the working directory, without regard to which drive it is on. In fact, second, third, and fourth drives can also be mounted</strong><!-- raw HTML omitted --></p>
+</blockquote>
+<!-- raw HTML omitted -->
+<h3>sync -- commit filesystem caches to disk</h3>
+<p><code>#include &lt;unistd.h&gt;</code><!-- raw HTML omitted -->
+<strong>void <a href="https://man7.org/linux/man-pages/man2/sync.2.html">sync</a> (void);</strong><!-- raw HTML omitted -->
+<strong><code>sync()</code> causes all pending modifications to filesystem metadata and cached file data to be written to the underlying filesystems.</strong></p>
+<blockquote>
+<p><strong>MINIX 3 maintains a block cache cache of recently used blocks in main memory to avoid having to read them from the disk if they are used again quickly. If a block in the cache is modified (by a write on a file) and the system crashes before the modified block is written out to disk, the file system will be damaged. To limit the potential damage, it is important to flush the cache periodically, so that the amount of data lost by a crash will be small.</strong>
+<!-- raw HTML omitted --></p>
+</blockquote>
+<p><strong>The system call sync tells MINIX 3 to write out all the cache blocks that have been modified since being read in. When MINIX 3 is started up, a program called update is started as a back- ground process to do a sync every 30 seconds, to keep flushing the cache.</strong>
+<!-- raw HTML omitted --></p>
+<h3>chdir -- change working directory</h3>
+<p><code>#include &lt;unistd.h&gt;</code><!-- raw HTML omitted -->
+<strong>int <a href="https://man7.org/linux/man-pages/man2/chdir.2.html">chdir</a> (const char path(pointer));</strong><!-- raw HTML omitted -->
+<strong>chdir() changes the current working directory of the calling process to the directory specified in path.</strong><!-- raw HTML omitted --></p>
+<p><strong>After the call:</strong></p>
+<pre><code class="language-c">chdir(&quot;/usr/ast/test&quot;);
+</code></pre>
+<p><strong>an open on the file xyz will open <code>/usr/ast/test/xyz</code>.</strong>
+<!-- raw HTML omitted --></p>
+<h3>chroot -- change root directory</h3>
+<p><code>#include &lt;unistd.h&gt;</code><!-- raw HTML omitted -->
+<strong>int <a href="https://man7.org/linux/man-pages/man2/chroot.2.html">chroot</a> (const char path(pointer));</strong><!-- raw HTML omitted -->
+<strong><code>chroot()</code> changes the root directory of the calling process to that specified in path.  This directory will be used for pathnames beginning with /.  The root directory is inherited by all children of the calling process.</strong></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2>System Calls for Protection</h2>
+<h3>chmod -- change permissions for a file</h3>
+<p><code>#include &lt;sys/stat.h&gt;</code><!-- raw HTML omitted --></p>
+<p><strong>int chmod(const char pathname(pointer), mode_t mode);</strong><!-- raw HTML omitted -->
+<strong>In MINIX 3 every file has an 11-bit mode used for protection. Nine of these bits are the read-write-execute bits for the owner, group, and others.</strong><!-- raw HTML omitted -->
+<strong>The chmod system call makes it possible to change the mode of a file. For example, to make a file read-only by everyone except the owner, one could execute:</strong><!-- raw HTML omitted --></p>
+<pre><code>chmod(&quot;file&quot;, 0644);
+</code></pre>
+<p><strong>For more about protection mode: Please check this table from <a href="https://www.man7.org/linux/man-pages/man2/chmod.2.html">man7.org</a>:</strong><!-- raw HTML omitted --></p>
+<p><img src="Sources/chmod.png" alt="chmod">
+<!-- raw HTML omitted --></p>
+<h3>getuid getgid -- get the real user/group identity</h3>
+<p><strong>uid_t <a href="https://www.man7.org/linux/man-pages/man2/getuid.2.html">getuid</a> (void);</strong><!-- raw HTML omitted -->
+<strong>uid_t <a href="https://man7.org/linux/man-pages/man2/getgid.2.html">getgid</a> (void);</strong><!-- raw HTML omitted --></p>
+<p><strong><code>getuid()</code> returns the real user ID of the calling process. <!-- raw HTML omitted -->Samely, <code>getgid()</code> returns the real group ID of the calling process.</strong>
+<!-- raw HTML omitted -->
+<strong>In the previous notes, I mentioned the meaning of User ID -- In unix-like system: Every User of the computer has its own user ID, which means different user can have different permissions to do some specific things.</strong><!-- raw HTML omitted --></p>
+<h4>Group Identity</h4>
+<p><strong>From this name. We can easily know that -- Like User id, in unix-like system. Each User also has its own Group ID. So what is the usage of Gid?</strong><!-- raw HTML omitted --></p>
+<p><strong>Group identification number for the process. Valid group numbers are given in /etc/group, and in the GID field of /etc/passwd file. When a process is started, its GID is set to the GID of its parent process.</strong><!-- raw HTML omitted --></p>
+<blockquote>
+<p><strong>From <a href="https://unix.stackexchange.com/questions/43744/what-does-gid-meank">StackExchange</a>:<!-- raw HTML omitted --></strong>
+<strong>Sometimes, though, it is necessary to have elevated privileges to run certain commands, but it is not desirable to give full administrative rights. For example, the passwd command needs access to the system's shadow password file, so that it can update your password. Obviously, you don't want to give every user root privileges, just so they can reset their password - that would undoubtedly lead to chaos! Instead, there needs to be another way to temporarily grant elevated privileges to users to perform certain tasks. That is what the SETUID and SETGID bits are for. It is a way to tell the kernel to temporarily raise the user's privileges, for the duration of the marked command's execution. A SETUID binary will be executed with the privileges of the owner of the executable file (usually root), and a SETGID binary will be executed with the group privileges of the group owner of the executable file. In the case of the passwd command, which belongs to root and is SETUID, it allows
+normal users to directly affect the contents of the password file, in a controlled and predictable manner, by executing with root privileges. There are numerous other SETUID commands on UNIX-like systems (chsh, screen, ping, su, etc), all of which require elevated privileges to operate correctly. There are also a few SETGID programs, where the kernel temporarily changes the GID of the process, to allow access to logfiles, etc. sendmail is such a utility.</strong></p>
+</blockquote>
+<h3>geteuid getegid -- get the effective uid/gid</h3>
+<p><strong>uid_t <a href="https://www.man7.org/linux/man-pages/man2/getuid.2.html">geteuid</a> (void);</strong><!-- raw HTML omitted -->
+<strong>uid_t <a href="https://man7.org/linux/man-pages/man2/getgid.2.html">getegid</a> (void);</strong><!-- raw HTML omitted -->
+<strong><code>geteuid()</code> returns the effective user ID of the calling process. <!-- raw HTML omitted -->Samely, <code>getegid()</code> returns the effective group ID of the calling process.</strong>
+<!-- raw HTML omitted --></p>
+<h4>Effective ID</h4>
+<p><strong>So what is the effective Id?<!-- raw HTML omitted --></strong>
+<strong>The other two protection bits, are the SETGID (set-group-id) and SETUID (set-user-id) bits, respectively. When any user executes a program with the SETUID bit on, for the duration of that process the user’s effective UID is changed to that of the file’s owner. This feature is heavily used to allow users to execute programs that perform superuser only functions, such as creating directories. Creating a directory uses mknod, which is for the superuser only. By arranging for the mkdir program to be owned by the superuser and have mode 04755, ordinary users can be given the power to execute mknod but in a highly <!-- raw HTML omitted -->restricted<!-- raw HTML omitted --> way.</strong></p>
+<h3>umask -- set file mode creation mask</h3>
+<p><strong>mode_t <a href="https://man7.org/linux/man-pages/man2/umask.2.html">umask</a> (mode_t mask);</strong><!-- raw HTML omitted -->
+<strong><code>umask(mask)</code> sets an internal bit mask within the system, which is used to mask off mode bits when a file is created. After the call</strong><!-- raw HTML omitted --></p>
+<pre><code>umask(022);
+</code></pre>
+<p><strong>The mode supplied by creat and mknod will have the 022 bits masked off before being used. Thus the call:</strong></p>
+<pre><code>creat(&quot;file&quot;, 0666)
+</code></pre>
+<p><strong>The resulting file permissions would be 0644 (rw-r--r--). Instead of 0666 (rw-rw-rw-).</strong><!-- raw HTML omitted -->
+<strong>Since the bit mask is inherited by child processes, if the shell does a umask just after login, none of the user’s processes in that session will accidently create files that other people can write on.</strong>
+<!-- raw HTML omitted --></p>
+<h3>access -- check user's permissions for a file</h3>
+<p><code>#include &lt;unistd.h&gt;</code><!-- raw HTML omitted -->
+<strong>int <a href="https://man7.org/linux/man-pages/man2/access.2.html">access</a> (const char *pathname, int mode);</strong><!-- raw HTML omitted --></p>
+<p><strong>The <code>access()</code> system call is born to solve a problem:</strong><!-- raw HTML omitted -->
+<strong>We call know that when a program owned by the root has the SETUID bit on, it can access any file, because its effective UID is the superuser. Frequently it is useful for the program to know if the person who called the program has permission to access a given file. If the program just tries the access, it will always succeed, and thus learn nothing.</strong>
+<!-- raw HTML omitted --></p>
+<p><strong>What is needed is a way to see if the access is permitted for the real UID. The access system call provides a way to find out. The mode parameter is 4 to check for read access, 2 for write access, and 1 for execute access. Combinations of these values are also allowed. For example, with mode equal to 6, the call returns 0 if both read and write access are allowed for the real ID; otherwise −1 is returned. With mode equal to 0, a check is made to see if the file exists and the directories leading up to it can be searched.</strong></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2>System calls for Time Management</h2>
+<h3>time -- get time in seconds</h3>
+<p><code>#include &lt;time.h&gt;</code></p>
+<p><strong>time_t <a href="https://man7.org/linux/man-pages/man2/time.2.html">time</a> (time_t tloc(pinter));</strong><!-- raw HTML omitted --></p>
+<p><strong><code>time()</code>returns the time as the number of seconds since the Epoch.<!-- raw HTML omitted -->
+<code>1970-01-01 00:00:00 +0000 (UTC).</code></strong><!-- raw HTML omitted --></p>
+<p><strong>If tloc is non-NULL, the return value is also stored in the memory pointed to by tloc.</strong>
+<!-- raw HTML omitted --></p>
+<h3>stime -- set time</h3>
+<p><code>#include &lt;time.h&gt;</code></p>
+<p><strong>int <a href="https://man7.org/linux/man-pages/man2/stime.2.html">stime</a> (const time_t t(pointer));</strong><!-- raw HTML omitted --></p>
+<p><strong><code>stime()</code> sets the system's idea of the time and date.  The time, pointed to by t, is measured in seconds since the Epoch, <code>1970-01-01 00:00:00 +0000 (UTC)</code>. <code>stime()</code> may be executed only by the superuser.</strong></p>
+<!-- raw HTML omitted -->
+<h3>utime -- change file last access and modification times</h3>
+<pre><code>#include &lt;sys/types.h&gt;
+#include &lt;utime.h&gt;
+</code></pre>
+<p><strong>int <a href="https://man7.org/linux/man-pages/man2/utime.2.html">utime</a> (const char filename(pointer), const struct utimbuf times(pointer));</strong><!-- raw HTML omitted --></p>
+<p><strong>the <code>utime()</code> system call changes the access and modification times of the inode specified by filename to the actime and modtime fields of times respectively.</strong><!-- raw HTML omitted -->
+<strong>if times is null, then the access and modification times of the file are set to the current time. application of this system call is fairly limited, but a few programs need it, for example, <code>touch</code>, which sets the file’s time to the current time.</strong></p>
+<!-- raw HTML omitted -->
+<h3>times -- get process times</h3>
+<pre><code>#include &lt;sys/times.h&gt;
+</code></pre>
+<p><strong>clock_t <a href="https://man7.org/linux/man-pages/man2/times.2.html">times</a> (struct tms buf(pointer));</strong><!-- raw HTML omitted --></p>
+<p><strong><code>times()</code> stores the current process times in the struct tms that buf points to.  the struct tms is as defined in <code>&lt;sys/times.h&gt;</code>:<!-- raw HTML omitted --></strong></p>
+<pre><code class="language-c">struct tms {
+       clock_t tms_utime;  /* user time */
+       clock_t tms_stime;  /* system time */
+       clock_t tms_cutime; /* user time of children */
+       clock_t tms_cstime; /* system time of children */
+};
+</code></pre>
+<blockquote>
+<p><strong>From <a href="https://man7.org/linux/man-pages/man2/times.2.html">man7.org</a>:<!-- raw HTML omitted -->
+The <code>tms_utime</code> field contains the CPU time spent executing instructions of the calling process.  The <code>tms_stime</code> field contains the CPU time spent executing inside the kernel while performing tasks on behalf of the calling process.<!-- raw HTML omitted --></strong></p>
+</blockquote>
+<blockquote>
+<p><strong>The <code>tms_cutime</code> field contains the sum of the <code>tms_utime</code> and <code>tms_cutime</code> values for all waited-for terminated children.  The <code>tms_cstime</code> field contains the sum of the <code>tms_stime</code> and <code>tms_cstime</code> values for all waited-for terminated children.</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>Times for terminated children (and their descendants) are added in at the moment <code>wait(2)</code> or <code>waitpid(2)</code> returns their process ID.  In particular, times of grandchildren that the children did not wait for are never seen.</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>All times reported are in clock ticks.</strong></p>
+</blockquote>
+	</section>
+	</div>
+    </div>
+</div>
+<footer>
+   <div class="well well-lg" id="footer-well">
+      <div class="container">
+
+
+      <div class="row">
+         <div class="col-xs-6">
+            <a href="https://angold4.org" title="Angold-4 Organization" class="image-link"><img src="../../../images/logo.png" class="cmudb-logo" /></a>
+         </div>
+         <div class="col-xs-6">
+            <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+        </div>
+      </div>
+   </div>
+   </div>
+</footer>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<!-- Fix scrolling issues to internal HREFs that get positioned behind navbar -->
+<!-- http://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header -->
+<script src="../../../theme/js/href_scroll.js"></script>
+
+<!-- You know what this is and you know what he did to me... -->
+<script src="../../../theme/js/tim-kraska-betrayed-me.js"></script>
+</body>
+</html>

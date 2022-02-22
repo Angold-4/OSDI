@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Angold-4 Organization</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href=".">
+        <meta name="author" content="Angold Wang" />
+
+    <meta property="og:site_name" content="Angold-4" />
+<!--     <meta property="og:type" content="article"/> -->
+    <meta property="og:title" content="Angold-4 Organization"/>
+    <meta property="og:url" content="."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+<!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"> -->
+
+    <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://angold4.org" class="navbar-brand">
+<img src="../../../images/logo.png" width="32"/> Angold4            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+			    <li><a href="../../../about.html">About</a>
+                            <li><a href="../../../blogs.html">Blogs</a>
+                            <li><a href="../../../projects.html">Projects</a>
+
+	    </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a title="Youtube" href="https://www.youtube.com/channel/UC3ZAjh2LHhm-FrgxgBtgMzQ" target="_new"><i class="fa fa-youtube"></i> Youtube</a>
+		</li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+	<section id="content" class="body">
+
+
+<h2>Operating Systems Design and Implementation Notes</h2>
+<h1>6. Interrupt</h1>
+<h5>By Jiawei Wang</h5>
+<p>In the previous two notes (<strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md">4. Inside a Hole Clock Tick</a></strong> and <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/5Scheduler.md">5. Process Scheduler</a></strong>) we focus on the implementation of <strong>clock</strong> and <strong>process scheduler</strong>. These components help us understand the OS concretly.<!-- raw HTML omitted --></p>
+<p>But there are also a lot of things we didn't considered, like <strong>Interprocess Communication</strong> and how a process do <strong>System Call</strong> to apply for a service from os that we metioned in Chapter1, or what would happen when there comes an interrupt and so on...  These are also in the field of <strong>Process</strong>.<!-- raw HTML omitted --></p>
+<p>Since each part of the OS was <strong>indivisible</strong>. We should admit that <strong>it impossible to understand a hole part without the understanding of the other parts.</strong><!-- raw HTML omitted --></p>
+<h2>1. Interrupts</h2>
+<p><img src="Sources/interrupts.png" alt="interrupts"></p>
+<h3>Hardware Interrupt</h3>
+<p>In <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#interrupt-request-irq">4. Inside a Hole Clock Tick</a></strong> we talked about the <strong>Hardware Interrupt</strong>:<!-- raw HTML omitted -->There are 15 different <strong><code>IRQ</code></strong> lines in the 8259 interrupt controller, each line connect with one or more hardware device(s) that genarate electrical signals. <!-- raw HTML omitted --></p>
+<p><img src="Sources/interrupt.png" alt="interrupt">
+When user input something at the connected devices like keyboard <strong><code>(IRQ1)</code></strong>, it will cause a <strong>Hardware Interrupt</strong> through the IRQ line and then the 8259 interrupt controller will expand the coorespond assembly marco <strong><code>hwint_master(i)</code></strong> or <strong><code>hwint_slave(i)</code></strong> and execute it.<!-- raw HTML omitted --></p>
+<p>It will call the corresponding <strong><code>irq_handler(hook)</code></strong> which be placed into the interrupt table at initialization <strong><code>put_irq_handler(hook)</code></strong> is called for each process(driver) that must respond to an interrupt(<code>sys_irqctl</code>).</p>
+<pre><code class="language-c">PUBLIC void irq_handle(irq)
+irq_hook_t *hook;
+{
+/* Call the interrupt handlers for an interrupt with the given hook list.
+ * The assembly part of the handler has already masked the IRQ, reenabled the
+ * controller(s) and enabled interrupts.
+ */
+
+  /* Call list of handlers for an IRQ. */
+  while (hook != NULL) {
+      /* For each handler in the list, mark it active by setting its ID bit,
+       * call the function, and unmark it if the function returns true.
+       */
+      irq_actids[hook-&gt;irq] |= hook-&gt;id;
+      if ((*hook-&gt;handler)(hook)) irq_actids[hook-&gt;irq] &amp;= ~hook-&gt;id;
+      hook = hook-&gt;next;
+  }
+
+  /* The assembly code will now disable interrupts, unmask the IRQ if and only
+   * if all active ID bits are cleared, and restart a process.
+   */
+}
+</code></pre>
+<blockquote>
+<p>For example: In the figure 2-39, interrupt signals arrive on the various IRQ n lines shown at the right. The connection to the CPU’s <strong>INT</strong> pin tells the processor that an <strong>interrupt has occurred</strong>. The <strong>INTA</strong> (interrupt acknowledge) signal from the CPU causes the controller responsible for the interrupt to <strong>put data on the system data bus telling the processor which service routine(handler) to execute.</strong></p>
+</blockquote>
+<h3>Software Interrupt</h3>
+<p>There are more cases that a running <strong>process wants to cause an interrupt</strong>.<!-- raw HTML omitted -->
+Actually, in Minix3, all <strong>Interprocess Communication</strong> were done by <strong>software interrupt</strong>.<!-- raw HTML omitted --></p>
+<p>If a process wants to send a message to <strong><code>dst_ptr</code></strong> with message <strong><code>m</code></strong>. it will use this statement:<!-- raw HTML omitted --></p>
+<pre><code class="language-c">send(*dst_ptr, &amp;m);
+</code></pre>
+<p>And <strong><code>send</code></strong> function was a asssembly marco which was defined in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/include/minix/ipc.h#L143">include/minix/ipc.h line143</a>:</strong><!-- raw HTML omitted --></p>
+<pre><code class="language-c">#define send		_send
+</code></pre>
+<p>The hole assembly code are in the <a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/lib/i386/rts/_ipc.s#L20">lib/i386/rts/ipc.s line20</a>:</p>
+<pre><code class="language-assembly">__send:
+	push	ebp
+	mov	ebp, esp
+	push	ebx
+	mov	eax, SRC_DST(ebp)	! eax = dest-src
+	mov	ebx, MESSAGE(ebp)	! ebx = message pointer
+	mov	ecx, SEND		! _send(dest, ptr)
+	int	SYSVEC			! trap to the kernel
+	pop	ebx
+	pop	ebp
+	ret
+</code></pre>
+<p>This piece of assembly code <code>_send</code> put the <strong><code>dst</code></strong> and <strong><code>m</code></strong> arguments into register.<!-- raw HTML omitted -->And then cause a software interrupt <strong><code>int SYSVEC</code></strong>.</p>
+<h4><code>_s_call</code></h4>
+<p><strong><code>s_call</code></strong> is the system call counterpart of the interrupt-handling mechanism. Control arrives at s call following a software interrupt, that is, execution of an <strong><code>int &lt;nnn&gt;</code></strong> instruction.</p>
+<pre><code class="language-assembly">/*===========================================================================*/
+/*				_s_call					     */
+/*===========================================================================*/
+.balign	16
+s_call:
+p_s_call:
+	cld	/* set direction flag to a known value */
+	sub	$4, %esp	/* skip RETADR */
+	pusha			/* save &quot;general&quot; registers */
+	pushw	%ds
+	pushw	%es
+	pushw	%fs
+	pushw	%gs
+
+	mov	%ss, %si	/* ss is kernel data segment */
+	mov	%si, %ds	/* load rest of kernel segments */
+	mov	%si, %es	/* kernel does not use fs, gs */
+	incb	k_reenter	/* increment kernel entry count */
+	mov	%esp, %esi	/* assumes P_STACKBASE == 0 */
+	mov	$k_stktop, %esp
+	xor	%ebp, %ebp	/* for stacktrace */
+/* end of inline save */
+/* now set up parameters for sys_call() */
+	push	%edx	/* event set or flags bit map  */
+	push	%ebx	/* pointer to user message */
+	push	%eax	/* source / destination */
+	push	%ecx	/* call number (ipc primitive to use) */
+
+	call	sys_call	/* sys_call(call_nr, src_dst, m_ptr, bit_map) */
+/* caller is now explicitly in proc_ptr */
+	mov	%eax, AXREG(%esi)
+
+/* Fall into code to restart proc/task running. */
+
+</code></pre>
+<ul>
+<li>The first part of the <strong><code>s_call</code></strong> code resembles an inline expansion of save and saves the additional registers that must be preserved.</li>
+<li>Just as in <strong><code>save</code></strong>, a <strong><code>mov esp, k_stktop</code></strong> instruction then switches to the <strong>kernel stack</strong>.</li>
+<li>The similarity of a software interrupt to a hardware interrupt extends to <strong>both disabling all interrupts</strong></li>
+<li>Following this comes a call to <strong><code>sys_call</code></strong>, which we will discuss in the next section. It causes a message to be delivered, and that this in turn causes the <strong>process scheduler</strong> to call <strong><code>enqueue(dst_ptr)</code></strong> to set the <strong><code>next_ptr</code></strong>.</li>
+<li>Since the <strong><code>restart</code></strong> function is in the next line of <strong><code>s_call</code></strong>, after <strong><code>sys_call</code></strong> return, it will pick another process to run.</li>
+</ul>
+<h4><code>restart</code></h4>
+<p><strong><code>restart</code></strong> is an assembly language routine in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/arch/i386/mpx386.S#L436">kernel/arch/i386/mpx386.s line436</a></strong>.<!-- raw HTML omitted -->
+It causes a <strong>context switch</strong>, so the process pointed to by <strong>next_ptr</strong> will run.<!-- raw HTML omitted -->
+<strong><code>restart</code> is executed again and again as tasks, servers, and user processes are given their opportunities to run and then are suspended, either to wait for input or to give other processes their turns.</strong></p>
+<pre><code class="language-assembly">/*===========================================================================*/
+/*				restart					     */
+/*===========================================================================*/
+restart:
+
+/* Restart the current process or the next process if it is set.  */
+
+	cli
+	call	schedcheck
+	movl	proc_ptr, %esp	/* will assume P_STACKBASE == 0 */
+	lldt	P_LDT_SEL(%esp)	/* enable process' segment descriptors  */
+	cmpl	$0, P_CR3(%esp)
+	jz	0f
+	mov	P_CR3(%esp), %eax
+	cmpl	loadedcr3, %eax
+	jz	0f
+	mov	%eax, %cr3
+	mov	%eax, loadedcr3
+	mov	proc_ptr, %eax
+	mov	%eax, ptproc
+	movl	$0, dirtypde
+0:
+	lea	P_STACKTOP(%esp), %eax	/* arrange for next interrupt */
+	movl	%eax, tss+TSS3_S_SP0	/* to save state in process table */
+restart1:
+	decb	k_reenter
+	popw	%gs
+	popw	%fs
+	popw	%es
+	popw	%ds
+	popal
+	add	$4, %esp	/* skip return adr */
+	iret	/* continue process */
+
+</code></pre>
+<ul>
+<li>When <strong><code>restart</code></strong> is reached, interrupts are disabled, so the <strong><code>next_ptr</code></strong> (mostly assign by <strong>process scheduler</strong> <strong><code>pick_proc()</code></strong>) cannot be changed.</li>
+<li>The process table was carefully constructed so it begins with a stack frame, and the instruction on this line <strong><code>movl    proc_ptr, %esp</code></strong> points the CPU’s stack pointer register at the stack frame.</li>
+<li><strong><code>lldt    P_LDT_SEL(%esp) </code></strong>: this instruction then loads the processor’s local descriptor table register from the stack frame. This prepares the processor to use the memory segments belonging to the next process to be run.<!-- raw HTML omitted --></li>
+</ul>
+<h3>Summary</h3>
+<p><strong>Up to so far. In the Previous Notes of this <a href="https://github.com/Angold-4/OSDI/tree/master/Chapter/Chapter2">Chapter2 Process</a>. <!-- raw HTML omitted -->
+We've seen that <code>restart</code> is reached in several ways:</strong><!-- raw HTML omitted --></p>
+<ol>
+<li>By a call from main when the system <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#kernelmainc">starts</a> (cold boot) (<a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/main.c#L211">kernel/main.c</a>).</strong></li>
+<li>By a jump from <strong><code>hwint_master</code></strong> or <strong><code>hwint_slave</code></strong> after a <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#hwint_master0">hardware interrupt</a></strong>.</li>
+<li>By falling through from s call after a <strong><a href="">system call</a></strong>.</li>
+</ol>
+<p><img src="Sources/restart.png" alt="restart">
+Fig. 2-41 is a simplified summary of how control passes back and forth between processes and the kernel via <strong><code>restart</code></strong>.<!-- raw HTML omitted --></p>
+<h2>2. Interprocess Communication</h2>
+<p>Processes in MINIX 3 communicate by <strong>messages</strong>, using the <strong>rendezvous</strong> principle. <!-- raw HTML omitted -->
+The high-level code for <strong>interprocess communication</strong> is found in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/proc.c#L220">proc.c</a></strong><!-- raw HTML omitted --></p>
+<p><strong>The kernel’s job is to translate either a hardware interrupt or a software interrupt into a message.</strong><!-- raw HTML omitted --></p>
+<ul>
+<li><strong>Hardware Interrupt:</strong> Ask the <strong>interrupt controller</strong> to put data on the system data bus and telling the processor which service routine to execute <strong>(interrupt handler) (drivers)</strong>.</li>
+<li><strong>Software Interrupt:</strong> The <strong><code>sys_call(call_nr, src_dst, m_ptr)</code></strong> function in <strong><code>s_call</code></strong> converts a software interrupt into a message. After all the tests have been passed, one of the functions <strong><code>mini_send()</code></strong>, <strong><code>mini receive()</code></strong>, or <strong><code>mini notify()</code></strong> is called to do the real work.</li>
+</ul>
+<pre><code class="language-c">  /* Now check if the call is known and try to perform the request. The only
+   * system calls that exist in MINIX are sending and receiving messages.
+   *   - SENDREC: combines SEND and RECEIVE in a single system call
+   *   - SEND:    sender blocks until its message has been delivered
+   *   - RECEIVE: receiver blocks until an acceptable message has arrived
+   *   - NOTIFY:  asynchronous call; deliver notification or mark pending
+   *   - SENDA:   list of asynchronous send requests
+   */
+  switch(call_nr) {
+  case SENDREC:
+	/* A flag is set so that notifications cannot interrupt SENDREC. */
+	caller_ptr-&gt;p_misc_flags |= MF_REPLY_PEND;
+	/* fall through */
+  case SEND:			
+	result = mini_send(caller_ptr, src_dst_e, m_ptr, 0);
+	if (call_nr == SEND || result != OK)
+		break;				/* done, or SEND failed */
+	/* fall through for SENDREC */
+  case RECEIVE:			
+	if (call_nr == RECEIVE)
+		caller_ptr-&gt;p_misc_flags &amp;= ~MF_REPLY_PEND;
+	result = mini_receive(caller_ptr, src_dst_e, m_ptr, 0);
+	break;
+  case NOTIFY:
+	result = mini_notify(caller_ptr, src_dst_e);
+	break;
+  case SENDNB:
+        result = mini_send(caller_ptr, src_dst_e, m_ptr, NON_BLOCKING);
+        break;
+  case SENDA:
+	result = mini_senda(caller_ptr, (asynmsg_t *)m_ptr, (size_t)src_dst_e);
+	break;
+  default:
+	result = EBADCALL;			/* illegal system call */
+  }
+
+</code></pre>
+<p>The functions <strong><code>mini_send()</code></strong>, <strong><code>mini_receive()</code></strong>, and <strong><code>mini_notify()</code></strong> are the heart of the normal message passing mechanism of MINIX 3 and deserve careful study.<!-- raw HTML omitted -->
+<strong>NOTE:</strong> I use Minix 3.1 version of these three functions, you can find them through the link: <strong><a href="https://elixir.ortiz.sh/minix/v3.1.0/source/kernel/proc.c#L200">Bootlin Minix V3.1.0</a></strong><!-- raw HTML omitted --></p>
+<h3><code>mini_send()</code></h3>
+<p>When a process does a <strong><code>send()</code>.</strong> <strong>The lowest layer of the kernel checks to see if the destination is waiting for a message from the sender</strong>(or from ANY sender).<!-- raw HTML omitted -->If so, the message is copied from the blocked sender to the receiver, and <strong>both are marked as runnable</strong>. If the destination is not waiting for a message from the sender, <strong>the sender is marked as blocked</strong> and put onto a <strong>queue of processes</strong> waiting to send to the receiver.</p>
+<pre><code class="language-c">PRIVATE int mini_send(caller_ptr, dst, m_ptr, flags)
+register struct proc *caller_ptr;	/* who is trying to send a message? */
+int dst;				/* to whom is message being sent? */
+message *m_ptr;				/* pointer to message buffer */
+unsigned flags;				/* system call flags */
+{
+/* Send a message from 'caller_ptr' to 'dst'. If 'dst' is blocked waiting
+ * for this message, copy the message to it and unblock 'dst'. If 'dst' is
+ * not waiting at all, or is waiting for another source, queue 'caller_ptr'.
+ */
+  register struct proc *dst_ptr = proc_addr(dst);
+  register struct proc **xpp;
+  register struct proc *xp;
+
+</code></pre>
+<ul>
+<li><strong>deadlock:</strong> the caller and destination are trying to send to each other.</li>
+</ul>
+<pre><code class="language-c">  /* Check for deadlock by 'caller_ptr' and 'dst' sending to each other. */
+  xp = dst_ptr;
+  while (xp-&gt;p_rts_flags &amp; SENDING) {		/* check while sending */
+  	xp = proc_addr(xp-&gt;p_sendto);		/* get xp's destination */
+  	if (xp == caller_ptr) return(ELOCKED);	/* deadlock if cyclic */
+  }
+
+</code></pre>
+<ul>
+<li>The key test in <strong><code>mini send</code></strong> is a check is made to see if the destination is blocked on a <strong><code>receive</code></strong>, as shown by the <strong><code>RECEIVING</code></strong> bit in the <strong><code>p_rts</code></strong> flags field of its process table entry.</li>
+<li>If it is waiting, then the next question is: <strong>&quot;Who is it waiting for?&quot;</strong> If it is waiting for the sender, or for ANY, the <strong><code>CopyMess</code></strong> macro is used to copy the message and the receiver is unblocked by resetting its <strong><code>RECEIVING</code></strong> bit. Then <strong><code>enqueue</code></strong> is called to give the receiver an opportunity to the receiver an opportunity to run.</li>
+</ul>
+<pre><code class="language-c">  /* Check if 'dst' is blocked waiting for this message. The destination's 
+   * SENDING flag may be set when its SENDREC call blocked while sending.  
+   */
+  if ( (dst_ptr-&gt;p_rts_flags &amp; (RECEIVING | SENDING)) == RECEIVING &amp;&amp;
+       (dst_ptr-&gt;p_getfrom == ANY || dst_ptr-&gt;p_getfrom == caller_ptr-&gt;p_nr)) {
+	/* Destination is indeed waiting for this message. */
+	CopyMess(caller_ptr-&gt;p_nr, caller_ptr, m_ptr, dst_ptr,
+		 dst_ptr-&gt;p_messbuf);
+	if ((dst_ptr-&gt;p_rts_flags &amp;= ~RECEIVING) == 0) enqueue(dst_ptr);
+</code></pre>
+<ul>
+<li>If, on the other hand, the receiver is not blocked, or is blocked but waiting for a message from someone else. then the caller will be blocked and <strong><code>mini_receive()</code></strong> will put it into the destination's queue.</li>
+<li>All processes wanting to send to a given destination are strung together on a <strong>linked list</strong>, with the destination’s <strong><code>p_callerq</code></strong> field pointing to the process table entry of the process at the head of the queue.</li>
+</ul>
+<pre><code class="language-c">  } else if ( ! (flags &amp; NON_BLOCKING)) {
+	/* Destination is not waiting.  Block and dequeue caller. */
+	caller_ptr-&gt;p_messbuf = m_ptr;
+	if (caller_ptr-&gt;p_rts_flags == 0) dequeue(caller_ptr);
+	caller_ptr-&gt;p_rts_flags |= SENDING;
+	caller_ptr-&gt;p_sendto = dst;
+
+	/* Process is now blocked.  Put in on the destination's queue. */
+	xpp = &amp;dst_ptr-&gt;p_caller_q;		/* find end of list */
+	while (*xpp != NIL_PROC) xpp = &amp;(*xpp)-&gt;p_q_link;	
+	*xpp = caller_ptr;			/* add caller to end */
+	caller_ptr-&gt;p_q_link = NIL_PROC;	/* mark new end of list */
+  } else {
+	return(ENOTREADY);
+  }
+  return(OK);
+}
+</code></pre>
+<p><img src="Sources/queue.png" alt="queue"></p>
+<h3><code>mini_notify()</code></h3>
+<p><strong><code>mini_notify</code></strong> is used to effectuate a notification.<!-- raw HTML omitted -->
+Just as its name implies, a notification is a message which have a higher priority than ordinary messages. <!-- raw HTML omitted -->
+Another difference is that: <strong>If the sender send the notification to the reciever. He do not wish to get reply immediately, on the other words, the sender would not blocked after realize that the reciever is not waiting for it.</strong></p>
+<pre><code class="language-c">PRIVATE int mini_notify(caller_ptr, dst)
+register struct proc *caller_ptr;	/* sender of the notification */
+int dst;				/* which process to notify */
+{
+  register struct proc *dst_ptr = proc_addr(dst);
+  int src_id;				/* source id for late delivery */
+  message m;				/* the notification message */
+</code></pre>
+<p>If the target is also waiting for this message, then like <strong><code>mini_send()</code></strong>, it will build the message and then call <strong><code>enqueue()</code></strong> to change the <strong><code>next_ptr</code></strong> and then return to run it.</p>
+<pre><code class="language-c">  /* Check to see if target is blocked waiting for this message. A process 
+   * can be both sending and receiving during a SENDREC system call.
+   */
+  if ((dst_ptr-&gt;p_rts_flags &amp; (RECEIVING|SENDING)) == RECEIVING &amp;&amp;
+      ! (priv(dst_ptr)-&gt;s_flags &amp; SENDREC_BUSY) &amp;&amp;
+      (dst_ptr-&gt;p_getfrom == ANY || dst_ptr-&gt;p_getfrom == caller_ptr-&gt;p_nr)) {
+
+      /* Destination is indeed waiting for a message. Assemble a notification 
+       * message and deliver it. Copy from pseudo-source HARDWARE, since the
+       * message is in the kernel's address space.
+       */ 
+      BuildMess(&amp;m, proc_nr(caller_ptr), dst_ptr);
+      CopyMess(proc_nr(caller_ptr), proc_addr(HARDWARE), &amp;m, 
+          dst_ptr, dst_ptr-&gt;p_messbuf);
+      dst_ptr-&gt;p_rts_flags &amp;= ~RECEIVING;	/* deblock destination */
+      if (dst_ptr-&gt;p_rts_flags == 0) enqueue(dst_ptr);
+      return(OK);
+  } 
+</code></pre>
+<p>To store a notification, all that is required is a <strong>bitmap</strong> in which each bit corresponds to a process that can send a notification. When a notification cannot be sent, the bit corresponding to the sender is set in the recipient’s bitmap.</p>
+<pre><code class="language-c">  /* Destination is not ready to receive the notification. Add it to the 
+   * bit map with pending notifications. Note the indirectness: the system id 
+   * instead of the process number is used in the pending bit map.
+   */ 
+  src_id = priv(caller_ptr)-&gt;s_id;
+  set_sys_bit(priv(dst_ptr)-&gt;s_notify_pending, src_id); 
+  return(OK);
+}
+</code></pre>
+<h3><code>mini_receive()</code></h3>
+<p><strong><code>mini_recieve()</code></strong> first checking the bitmap of every waiting notifications (if any), if there isn't any, then check if there are any process is blocked and waiting for the reply. If still not, then the caller process just blocked and waiting for the messages or notifications.</p>
+<pre><code class="language-c">PRIVATE int mini_receive(caller_ptr, src, m_ptr, flags)
+register struct proc *caller_ptr;	/* process trying to get message */
+int src;				/* which message source is wanted */
+message *m_ptr;				/* pointer to message buffer */
+unsigned flags;				/* system call flags */
+{
+/* A process or task wants to get a message.  If a message is already queued,
+ * acquire it and deblock the sender.  If no message from the desired source
+ * is available block the caller, unless the flags don't allow blocking.  
+ */
+  register struct proc **xpp;
+  register struct notification **ntf_q_pp;
+  message m;
+  int bit_nr;
+  sys_map_t *map;
+  bitchunk_t *chunk;
+  int i, src_id, src_proc_nr;
+</code></pre>
+<p>Check whether <strong>there are any notifications.</strong><!-- raw HTML omitted -->If yes, then build the message and copy it to the caller's message buffer.</p>
+<pre><code class="language-c">  /* Check to see if a message from desired source is already available.
+   * The caller's SENDING flag may be set if SENDREC couldn't send. If it is
+   * set, the process should be blocked.
+   */
+  if (!(caller_ptr-&gt;p_rts_flags &amp; SENDING)) {
+
+    /* Check if there are pending notifications, except for SENDREC. */
+    if (! (priv(caller_ptr)-&gt;s_flags &amp; SENDREC_BUSY)) {
+
+        map = &amp;priv(caller_ptr)-&gt;s_notify_pending;
+        for (chunk=&amp;map-&gt;chunk[0]; chunk&lt;&amp;map-&gt;chunk[NR_SYS_CHUNKS]; chunk++) {
+
+            /* Find a pending notification from the requested source. */ 
+            if (! *chunk) continue; 			/* no bits in chunk */
+            for (i=0; ! (*chunk &amp; (1&lt;&lt;i)); ++i) {} 	/* look up the bit */
+            src_id = (chunk - &amp;map-&gt;chunk[0]) * BITCHUNK_BITS + i;
+            if (src_id &gt;= NR_SYS_PROCS) break;		/* out of range */
+            src_proc_nr = id_to_nr(src_id);		/* get source proc */
+            if (src!=ANY &amp;&amp; src!=src_proc_nr) continue;	/* source not ok */
+            *chunk &amp;= ~(1 &lt;&lt; i);			/* no longer pending */
+
+            /* Found a suitable source, deliver the notification message. */
+            BuildMess(&amp;m, src_proc_nr, caller_ptr);	/* assemble message */
+            CopyMess(src_proc_nr, proc_addr(HARDWARE), &amp;m, caller_ptr, m_ptr);
+            return(OK);					/* report success */
+        }
+    }
+</code></pre>
+<p>Check whether <strong>there are any pending process waiting for its reply</strong><!-- raw HTML omitted -->If yes, then copy message to the message buffer and call <strong><code>enqueue()</code></strong> to awake this pending process.</p>
+<pre><code class="language-c">    /* Check caller queue. Use pointer pointers to keep code simple. */
+    xpp = &amp;caller_ptr-&gt;p_caller_q;
+    while (*xpp != NIL_PROC) {
+        if (src == ANY || src == proc_nr(*xpp)) {
+	    /* Found acceptable message. Copy it and update status. */
+	    CopyMess((*xpp)-&gt;p_nr, *xpp, (*xpp)-&gt;p_messbuf, caller_ptr, m_ptr);
+            if (((*xpp)-&gt;p_rts_flags &amp;= ~SENDING) == 0) enqueue(*xpp);
+            *xpp = (*xpp)-&gt;p_q_link;		/* remove from queue */
+            return(OK);				/* report success */
+	}
+	xpp = &amp;(*xpp)-&gt;p_q_link;		/* proceed to next */
+    }
+  }
+</code></pre>
+<p>If there <strong>don't have any message or notification.</strong><!-- raw HTML omitted -->
+Call <strong><code>dequeue(caller_ptr)</code></strong> to block the caller, and set the <strong><code>p_rts_flags = RECEIVCING</code></strong>. Waiting for the message and notifications. <!-- raw HTML omitted -->
+( waiting for a <strong><code>enqueue(dst_ptr)</code></strong> to wake it )</p>
+<pre><code class="language-c">  /* No suitable message is available or the caller couldn't send in SENDREC. 
+   * Block the process trying to receive, unless the flags tell otherwise.
+   */
+  if ( ! (flags &amp; NON_BLOCKING)) {
+      caller_ptr-&gt;p_getfrom = src;		
+      caller_ptr-&gt;p_messbuf = m_ptr;
+      if (caller_ptr-&gt;p_rts_flags == 0) dequeue(caller_ptr);
+      caller_ptr-&gt;p_rts_flags |= RECEIVING;		
+      return(OK);
+  } else {
+      return(ENOTREADY);
+  }
+}
+</code></pre>
+	</section>
+	</div>
+    </div>
+</div>
+<footer>
+   <div class="well well-lg" id="footer-well">
+      <div class="container">
+
+
+      <div class="row">
+         <div class="col-xs-6">
+            <a href="https://angold4.org" title="Angold-4 Organization" class="image-link"><img src="../../../images/logo.png" class="cmudb-logo" /></a>
+         </div>
+         <div class="col-xs-6">
+            <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+        </div>
+      </div>
+   </div>
+   </div>
+</footer>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<!-- Fix scrolling issues to internal HREFs that get positioned behind navbar -->
+<!-- http://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header -->
+<script src="../../../theme/js/href_scroll.js"></script>
+
+<!-- You know what this is and you know what he did to me... -->
+<script src="../../../theme/js/tim-kraska-betrayed-me.js"></script>
+</body>
+</html>

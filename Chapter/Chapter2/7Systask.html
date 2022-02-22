@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Angold-4 Organization</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href=".">
+        <meta name="author" content="Angold Wang" />
+
+    <meta property="og:site_name" content="Angold-4" />
+<!--     <meta property="og:type" content="article"/> -->
+    <meta property="og:title" content="Angold-4 Organization"/>
+    <meta property="og:url" content="."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+<!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"> -->
+
+    <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://angold4.org" class="navbar-brand">
+<img src="../../../images/logo.png" width="32"/> Angold4            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+			    <li><a href="../../../about.html">About</a>
+                            <li><a href="../../../blogs.html">Blogs</a>
+                            <li><a href="../../../projects.html">Projects</a>
+
+	    </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a title="Youtube" href="https://www.youtube.com/channel/UC3ZAjh2LHhm-FrgxgBtgMzQ" target="_new"><i class="fa fa-youtube"></i> Youtube</a>
+		</li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+	<section id="content" class="body">
+
+
+<h2>Operating Systems Design and Implementation Notes</h2>
+<h1>7. System Task</h1>
+<h5>By Jiawei Wang</h5>
+<p>Back to Chapter1, we use three notes to introduce 53 <strong>system calls</strong> of POSIX.<!-- raw HTML omitted --></p>
+<p>In a <strong>conventional operating system with a monolithic kernel</strong>, the term <strong>system call</strong> is used to refer to all calls for services provided by the kernel.<!-- raw HTML omitted --> In a sense, making a system call is like making a special kind of procedure call, <strong>only system calls enter the kernel (space) or other privileged operating system components and procedure calls do not.</strong><!-- raw HTML omitted --></p>
+<p>Unlike in a modern UNIX-like operating system the POSIX standard describes the system calls available to processes. In Minix3 components of the operating system run in user space -- <strong>they are forbidden from doing actual I/O, manipulating kernel tables and doing other things operating system functions normally do.</strong></p>
+<p><strong>To make the kernel as simple as possible.</strong> Minx3 only compile 28 nessary <strong>&quot;System Call&quot;</strong> in the kernel binary program. Which is shown in layer in Fig. 2-29, we call them <strong>System Task</strong>.</p>
+<p><img src="Sources/layer.png" alt="layer"></p>
+<h2>1. Calls in Minx3</h2>
+<p>Generally speaking. There are three kinds of <strong>&quot;Calls&quot;</strong> in Minix3:</p>
+<h3>System Call</h3>
+<p>We will still use the name <strong>&quot;system call&quot;</strong> for any of the POSIX-defined system calls (and a few MINIX extensions) listed in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/5Syscall-1.md">Fig. 1-9</a></strong>, but since <strong>user processes do not request services directly of the kernel</strong>. In MINIX 3, system calls by user processes are <strong>transformed into messages to server processes.</strong></p>
+<p>On the other words. Minix3 is still compatible with <strong>POSIX System Calls</strong>. But since most of the system components are running in kernel mode <strong>(Micro-Kernel)</strong>, the kernel cannot put these 58 system calls into its binary program. The way that Minix3 do is: <strong>It create two more layers between user process and kernel. - Server Processes and Device Drivers.</strong><!-- raw HTML omitted --></p>
+<h3>System Task (Kernel Call)</h3>
+<p><strong>Kernel calls</strong> cannot be made by user processes. In many cases a <strong>system call</strong> that originates with a user process results in a <strong>kernel call</strong> with a similar name being made by a <strong>server</strong>.<!-- raw HTML omitted --></p>
+<p>For instance, a <strong><code>fork</code></strong> system call by a user process goes to the <strong>process manager</strong>, which does some of the work. But a <strong><code>fork</code></strong> requires changes in the kernel part of the process table, and to complete the action the process manager makes a <strong><code>sys_fork</code></strong> call to the <strong>system task</strong>, which can manipulate data in kernel space.<!-- raw HTML omitted --></p>
+<p>The system task accepts 28 kinds of messages, shown in Fig. 2-45. Each of these can be considered a kernel call.
+All 28 <strong>kernel calls</strong> were complied into <strong><a href="https://github.com/Angold-4/OSDI/tree/master/Minix3/kernel/system">kernel/system</a></strong> directory.<!-- raw HTML omitted --></p>
+<p><img src="Sources/syscall.png" alt="syscall"></p>
+<h3>IPC primitive (Trap)</h3>
+<p>Technically speaking, a third category of calls (besides <strong>system calls</strong> and <strong>kernel calls</strong>) should be distinguished. The <strong>message primitives</strong> used for interprocess communication such as <strong><code>send</code></strong>, <strong><code>receive</code></strong>, and <strong><code>notify</code></strong> can be thought of as system-call-like.<!-- raw HTML omitted --></p>
+<p>In MINIX 3 system calls by user processes are transformed into messages to server processes. <strong>Server processes communicate with each other, with device drivers, and with the kernel by messages.</strong></p>
+<h2>2. Implementation of System Task</h2>
+<p>As you may have noticed in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/5Scheduler.md#1-scheduling-in-minix3">Fig. 2-43</a></strong>, when MINIX 3 starts up, the system task is at the head of the highest priority queue. So after the first <strong><code>restart()</code></strong>, the <strong><code>sys_task()</code></strong> function will be executed.<!-- raw HTML omitted -->
+All functions related to <strong>System Task</strong> were in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/system.c">kernel/system.c</a></strong><!-- raw HTML omitted --></p>
+<pre><code class="language-c">PUBLIC void sys_task()
+{
+/* Main entry point of sys_task.  Get the message and dispatch on type. */
+  static message m;
+  register int result;
+  register struct proc *caller_ptr;
+  int s;
+  int call_nr;
+  int n = 0;
+
+  /* Initialize the system task. */
+  initialize();
+
+
+  while (TRUE) {
+      struct proc *restarting;
+
+      restarting = vmrestart_check(&amp;m);
+
+      if(!restarting) {
+          int r;
+          /* Get work. Block and wait until a request message arrives. */
+          if((r=receive(ANY, &amp;m)) != OK)
+            minix_panic(&quot;receive() failed&quot;, r);
+      } 
+
+      sys_call_code = (unsigned) m.m_type;
+      call_nr = sys_call_code - KERNEL_CALL;	
+      who_e = m.m_source;
+      okendpt(who_e, &amp;who_p);
+      caller_ptr = proc_addr(who_p);
+
+      else {
+          result = (*call_vec[call_nr])(&amp;m); /* handle the system call */
+      }
+
+</code></pre>
+<p>Just as the <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#3-implementation-of-clock-driver-in-minix3">clock_task</a></strong>, the <strong>sys_task</strong> is also waiting for a message from other server or driver. Then do some verification. after that it will execute them by calling the functions (<strong><code>system task</code></strong>) in the <strong><code>call_vec</code></strong>.</p>
+<p>Although this chapter's name is <strong>Process</strong>. Actually, we talked about the things of the <strong>system</strong>. Many of them will be used in the future chapters.<!-- raw HTML omitted -->
+Like I said before. Each part of the system is indivisible. <strong>Therefore, to understand a part of the hole system, we must have the corresponding knowledge in other part of this system.</strong></p>
+<p>The other part, which is the implementation of these <strong>Kernel Calls</strong>, we will discuss them in the future chapters. Since some of them related to the <strong>Process Manager</strong>, which we will introduce its implementation in Chapter4. Some of them were called by the <strong>File System</strong>, which is the content of Chapter5.</p>
+	</section>
+	</div>
+    </div>
+</div>
+<footer>
+   <div class="well well-lg" id="footer-well">
+      <div class="container">
+
+
+      <div class="row">
+         <div class="col-xs-6">
+            <a href="https://angold4.org" title="Angold-4 Organization" class="image-link"><img src="../../../images/logo.png" class="cmudb-logo" /></a>
+         </div>
+         <div class="col-xs-6">
+            <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+        </div>
+      </div>
+   </div>
+   </div>
+</footer>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<!-- Fix scrolling issues to internal HREFs that get positioned behind navbar -->
+<!-- http://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header -->
+<script src="../../../theme/js/href_scroll.js"></script>
+
+<!-- You know what this is and you know what he did to me... -->
+<script src="../../../theme/js/tim-kraska-betrayed-me.js"></script>
+</body>
+</html>

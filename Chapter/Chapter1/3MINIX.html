@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Angold-4 Organization</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href=".">
+        <meta name="author" content="Angold Wang" />
+
+    <meta property="og:site_name" content="Angold-4" />
+<!--     <meta property="og:type" content="article"/> -->
+    <meta property="og:title" content="Angold-4 Organization"/>
+    <meta property="og:url" content="."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+<!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"> -->
+
+    <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://angold4.org" class="navbar-brand">
+<img src="../../../images/logo.png" width="32"/> Angold4            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+			    <li><a href="../../../about.html">About</a>
+                            <li><a href="../../../blogs.html">Blogs</a>
+                            <li><a href="../../../projects.html">Projects</a>
+
+	    </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a title="Youtube" href="https://www.youtube.com/channel/UC3ZAjh2LHhm-FrgxgBtgMzQ" target="_new"><i class="fa fa-youtube"></i> Youtube</a>
+		</li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+	<section id="content" class="body">
+
+
+<h3>Operating Systerms Design and Implementation Notes</h3>
+<h1>3. MINIX</h1>
+<h5>By Jiawei Wang</h5>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<ul>
+<li><a href="#1-the-problem-of-systerm360">1. The Problem of Systerm/360</a></li>
+<li><a href="#2-ctss-and-multics">2. CTSS and MULTICS</a></li>
+<li><a href="#3-unix">3. Unix</a></li>
+<li><a href="#4-minix">4. Minix</a></li>
+</ul>
+<!-- raw HTML omitted -->
+<p><img src="Sources/s360.png" alt="s360"></p>
+<blockquote>
+<p><strong>In 1964, IBM announced the launch of a total of six specifications of the System 360 series of computers (the price ranges from the lowest 130,000 dollars to the top version asking for 5.5 million dollars)</strong></p>
+</blockquote>
+<p><strong>The Greatness of System 360 is not that it has any superior design or performance (although it did excel in this field at the time), but that it completely reversed people's overall understanding of computer systems. Starting with the System 360 series, compatibility between different hosts and different models has become the fundamental value of the information industry, and each &quot;computer&quot; has since become a set of &quot;computer systems&quot; with fixed specifications.<!-- raw HTML omitted --></strong></p>
+<p><strong>That also means the development of peripherals such as watch machines, software, and memory finally has profitable value (there are fixed specifications between computers, so that peripherals can be universally compatible with them), and IBM has created the entire industry almost exclusively by hand.</strong>
+<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h3>1. The Problem of Systerm/360</h3>
+<p><strong>The greatest strength of the ‘‘one family’’ idea was simultaneously its greatest weakness. The intention was that all software, including the operating system, OS/360, had to work on all models. It had to run on small systems.<!-- raw HTML omitted --><!-- raw HTML omitted -->There was no way that IBM (or anybody else) could write a piece of software to meet all those conflicting requirements. The result was an enormous and extraordinarily complex operating system, probably two to three orders of magnitude larger than FMS. It consisted of millions of lines of assembly language written by thousands of programmers, and contained thousands upon thousands of bugs, which necessitated a continuous stream of new releases in an attempt to correct them. Each new release fixed some bugs and introduced new ones, so the number of bugs probably remained constant in time.</strong>
+<!-- raw HTML omitted --><!-- raw HTML omitted -->
+<strong>Although third-generation operating systems were well suited for big scientific calculations and massive commercial data processing runs, they were still basically batch systems.</strong><!-- raw HTML omitted -->
+<strong>Many programmers pined for the first-generation days when they had the machine all to themselves for a few hours, so they could debug their programs quickly. With third-generation systems, the time between submitting a job and getting back the output was often hours, so a single misplaced comma could cause a compilation to fail, and the programmer to waste half a day.</strong>
+<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h3>2. CTSS and MULTICS</h3>
+<p><strong><a href="https://www.multicians.org/">multicians.org</a><!-- raw HTML omitted --></strong>
+<img src="Sources/MULTICSIndex.png" alt="MULTICS"><!-- raw HTML omitted --></p>
+<p><strong>This desire for quick response time paved the way for timesharing, a variant of multiprogramming, in which each user has an online terminal. In a timesharing system, if 20 users are logged in and 17 of them are thinking or talking or drinking coffee, the CPU can be allocated in turn to the three jobs that want service. Since people debugging programs usually issue short commands (e.g., compile a five page procedure) rather than long ones (e.g., sort a million-record file), the computer can provide fast, interactive service to a number of users and perhaps also work on big batch jobs in the background when the CPU is otherwise idle. <!-- raw HTML omitted --><!-- raw HTML omitted -->
+The first serious timesharing system, CTSS (Compatible Time Sharing System), was developed at M.I.T. on a specially modified 7094 (Corbato ́et al., 1962).</strong>
+<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<p><strong>After the success of the CTSS system, MIT, Bell Labs, and General Electric decided to embark on the development of a ‘‘computer utility,’’ a machine that would support hundreds of simultaneous timesharing users.</strong>
+<!-- raw HTML omitted --></p>
+<blockquote>
+<p><strong>Their model was the electricity distribution system—when you need electric power, you just stick a plug in the wall, and within reason, as much power as you need will be there.</strong>
+<!-- raw HTML omitted --></p>
+</blockquote>
+<p><strong>The designers of this system, known as MULTICS (MULTiplexed Information and Computing Service), envisioned one huge machine providing computing power for everyone in the Boston area.<!-- raw HTML omitted -->
+It was designed to support hundreds of users on a machine only slightly more powerful than an Intel 80386-based PC. In addition, MULTICS was enormously ambitious for its time, much like Charles Babbage’s analytical engine in the nineteenth century.</strong><!-- raw HTML omitted --></p>
+<h3>3. Unix</h3>
+<p><strong>MULTICS introduced many seminal ideas into the computer literature.<!-- raw HTML omitted -->But turning it into a serious product and a commercial success was a lot harder than anyone had expected.</strong><!-- raw HTML omitted -->
+<strong>In 1969, Bell Labs dropped out of the project. Then General Electric quit the computer business altogether.</strong><!-- raw HTML omitted --><!-- raw HTML omitted -->
+<strong>However, M.I.T. persisted and eventually got MULTICS working.</strong></p>
+<blockquote>
+<p><strong>It was ultimately sold as a commercial product by the company that bought GE’s computer business (Honeywell) and installed by about 80 major companies and universities worldwide. While their numbers were small.</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>MULTICS users were fiercely loyal. General Motors, Ford, and the U.S. National Security Agency, for example, only shut down their MULTICS systems in the late 1990s. The last MULTICS running, at the Canadian Department of National Defence, shut down in October 2000.</strong></p>
+</blockquote>
+<p><img src="Sources/HistoryMultics.png" alt="HistoryofMULTICS"><!-- raw HTML omitted --></p>
+<p><strong>Despite its lack of commercial success, MULTICS had a huge influence on subsequent operating systems.</strong>
+<!-- raw HTML omitted --></p>
+<p><strong>One of the computer scientists at Bell Labs who had worked on the MULTICS project, Ken Thompson, subsequently found a small PDP-7 minicomputer that no one was using and set out to write a stripped-down, one-user version of MULTICS. This work later developed into the UNIX operating system, which became popular in the academic world, with government agencies, and with many companies.</strong><!-- raw HTML omitted --></p>
+<blockquote>
+<p><strong>Another major development during the third generation was the phenomenal growth of minicomputers, starting with the Digital Equipment Company (DEC) PDP-1 in 1961. The PDP-1 had only 4K of 18-bit words, but at $120,000 per ma- chine (less than 5 percent of the price of a 7094), it sold like hotcakes. For certain kinds of nonnumerical work, it was almost as fast as the 7094 and gave birth to a whole new industry. It was quickly followed by a series of other PDPs (unlike IBM’s family, all incompatible) culminating in the PDP-11.</strong></p>
+</blockquote>
+<p><strong><a href="https://en.wikipedia.org/wiki/PDP-7#/media/File:Pdp-7-oslo-2004.jpeg">PDP-7 from wikipedia</a><!-- raw HTML omitted --></strong>
+<img src="Sources/PDP-7.png" alt="PDP-7"></p>
+<h3>4. Minix</h3>
+<p><strong>When UNIX was young (Version 6), the source code was widely available, under AT&amp;T license, and frequently studied. John Lions, of the University of New South Wales in Australia, even wrote a little booklet describing its operation, line by line (Lions, 1996). This booklet was used (with permission of AT&amp;T) as a text in many university operating system courses. <a href="https://cs3210.cc.gatech.edu/r/unix6.pdf">J.lions Unix</a></strong>
+<!-- raw HTML omitted --></p>
+<p><strong>But When AT&amp;T released Version 7, it dimly began to realize that UNIX was a valuable commercial product, so it issued Version 7 with a license that prohibited the source code from being studied in courses, in order to avoid endangering its status as a trade secret. Many universities complied by simply dropping the study of UNIX and teaching only theory.</strong></p>
+<p><strong>To remedy this situation, one of the authors of this book (Tanenbaum) decided to write a new operating system from scratch that would be compatible with UNIX from the user’s point of view, but completely different on the inside. By not using even one line of AT&amp;T code, this system avoided the licensing restrictions, so it could be used for class or individual study. In this manner, readers could dissect a real operating system to see what is inside, just as biology students dissect frogs. It was called MINIX and was released in 1987 with its complete source code for anyone to study or modify.</strong>
+<!-- raw HTML omitted --></p>
+<p><strong><a href="https://en.wikipedia.org/wiki/MINIX_3">Minix3</a><!-- raw HTML omitted --></strong>
+<img src="Sources/Minix.jpg" alt="Minix3"></p>
+<p><strong>Comparing with Unix. Minix has these advantages:</strong></p>
+<ul>
+<li><strong>The name MINIX stands for mini-UNIX. Because it is small enough (In Minix3. It only has about 4000 lines C codes)</strong></li>
+<li><strong>UNIX was designed to be efficient. But MINIX was designed to be readable.</strong></li>
+</ul>
+<p><strong>In the Next Note. We will continue talk about The Development of Computer Oprating Systerm</strong></p>
+	</section>
+	</div>
+    </div>
+</div>
+<footer>
+   <div class="well well-lg" id="footer-well">
+      <div class="container">
+
+
+      <div class="row">
+         <div class="col-xs-6">
+            <a href="https://angold4.org" title="Angold-4 Organization" class="image-link"><img src="../../../images/logo.png" class="cmudb-logo" /></a>
+         </div>
+         <div class="col-xs-6">
+            <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+        </div>
+      </div>
+   </div>
+   </div>
+</footer>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<!-- Fix scrolling issues to internal HREFs that get positioned behind navbar -->
+<!-- http://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header -->
+<script src="../../../theme/js/href_scroll.js"></script>
+
+<!-- You know what this is and you know what he did to me... -->
+<script src="../../../theme/js/tim-kraska-betrayed-me.js"></script>
+</body>
+</html>

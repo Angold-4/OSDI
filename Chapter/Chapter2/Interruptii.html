@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Angold-4 Organization</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href=".">
+        <meta name="author" content="Angold Wang" />
+
+    <meta property="og:site_name" content="Angold-4" />
+<!--     <meta property="og:type" content="article"/> -->
+    <meta property="og:title" content="Angold-4 Organization"/>
+    <meta property="og:url" content="."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+<!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"> -->
+
+    <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://angold4.org" class="navbar-brand">
+<img src="../../../images/logo.png" width="32"/> Angold4            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+			    <li><a href="../../../about.html">About</a>
+                            <li><a href="../../../blogs.html">Blogs</a>
+                            <li><a href="../../../projects.html">Projects</a>
+
+	    </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a title="Youtube" href="https://www.youtube.com/channel/UC3ZAjh2LHhm-FrgxgBtgMzQ" target="_new"><i class="fa fa-youtube"></i> Youtube</a>
+		</li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+	<section id="content" class="body">
+
+
+<h2>Operating Systems Design and Implementation Notes</h2>
+<h1>Interrupt Inplementation in Minix3</h1>
+<h5>By Jiawei Wang</h5>
+<p>This note is an extra part of prev <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/6Interrupt.md">OSDI 6. Interrupt</a>.</strong><!-- raw HTML omitted -->
+<strong>If you want to understand how MINIX 3 works at the lowest level, perhaps the most important thing is to understand how exceptions, hardware interrupts, or int <!-- raw HTML omitted --> instructions lead to the execution of the various pieces of code that has been written to service them.</strong></p>
+<p><img src="Sources/status.png" alt="status"></p>
+<h2>1. TSS</h2>
+<h3>i. Real Mode VS. Protect Mode</h3>
+<h4>Real Mode</h4>
+<ul>
+<li><strong>Early Computers, Small Storage</strong></li>
+<li><strong>CS:IP -&gt; Physical Address</strong> <!-- raw HTML omitted --></li>
+<li><strong><code>Physical Address = CS &lt;&lt; 4 + IP</code></strong></li>
+<li><strong>Security Issue: Hackers can access any part of storiage by setting CS:IP register</strong></li>
+</ul>
+<h4>Protected Mode</h4>
+<ul>
+<li><strong>3 Types of Addresses:</strong>
+<ul>
+<li>Logical Address
+<ul>
+<li>Used by program</li>
+<li><strong>(<code>segment reg(cs, ss, ds...) + offset (ip, sp...)</code>)</strong></li>
+</ul>
+</li>
+<li>Virtual Address
+<ul>
+<li>An 32-bit unsigned integer</li>
+<li>Represent 4GB address</li>
+</ul>
+</li>
+<li>Physical Address
+<ul>
+<li>OS -&gt; Passing to RAM address</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="Sources/memoryaddress.png" alt="memoryaddress"></p>
+<ol>
+<li><strong>Detect Error (Segmentation Error)</strong></li>
+<li><strong>Access Large Amount of Memory Effectively</strong></li>
+</ol>
+<h3>ii. GDT</h3>
+<ul>
+<li>Global Descriptor Table.</li>
+<li>Each Processor can only have one GDT.</li>
+<li>Store the <strong>segment descriptor</strong></li>
+</ul>
+<h3>iii. TSS</h3>
+<ul>
+<li>Task State Segment.</li>
+<li>TSS Descriptor is Stored in GDT</li>
+<li><strong>Key to Understand Interrupt</strong></li>
+</ul>
+<p><img src="Sources/interrupts.png" alt="interrupts"></p>
+<p><strong>The task-switching mechanism of a 32-bit Intel processor is complex (handle interrupt).</strong><!-- raw HTML omitted -->
+<strong>If you do not understand the &quot;hidden&quot; work in TSS, it is hard to figure out what happends.</strong><!-- raw HTML omitted --></p>
+<p>When the CPU receives an interrupt while running a process, it sets up a <strong>new stack</strong> for use during the interrupt service.<!-- raw HTML omitted -->
+<strong>The location of this stack is determined by an entry in the Task State Segment (TSS).</strong><!-- raw HTML omitted -->
+<strong>The new stack created by an interrupt always starts at the end of the <code>stackframe_s</code> structure within the process table entry of the interrupted process.</strong>
+<!-- raw HTML omitted --></p>
+<p><strong>The CPU automatically pushes several key registers onto this new stack</strong>, including those necessary to <strong>reinstate the interrupted process’ own stack</strong> and <strong>restore its program counter</strong>. When the interrupt handler code starts running, it uses this area in the process table as its stack. and much of the information needed to return to the interrupted process will have already been stored. <!-- raw HTML omitted -->The interrupt handler pushes the contents of additional registers, filling the stackframe, and then switches to a stack provided by the kernel while it does whatever must be done to service the interrupt.</p>
+<p><strong>Nothing is stored on the interrupted process’ working stack when a user process is interrupted!</strong></p>
+<p><strong>Furthermore, because the stack is created in a known location (determined by the TSS) after an interrupt, control of multiple processes is simplified.</strong></p>
+<p><img src="Sources/tss.png" alt="tss"></p>
+<h2>2. Runtime</h2>
+<h3>i. Hardware Interrupt</h3>
+<h5>Using Clock interrupt as an hardware interrupt example</h5>
+<p><img src="Sources/interrupt.png" alt="interrupt"></p>
+<p><strong>Please make sure that you've read <a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md">OSDI 4. Inside a Whole Clocktick</a>, to follow the following contents:</strong></p>
+<p><img src="Sources/afterhwi.png" alt="afterhwi"></p>
+<h4><code>hwint_master</code></h4>
+<pre><code class="language-asm">/*===========================================================================*/
+/*				hwint00 - 07				                               */
+/*===========================================================================*/
+/* Note this is a macro, it just looks like a subroutine. */
+#define hwint_master(irq)	\
+	call	save			/* save interrupted process state */;\
+	push	$irq							    ;\
+	call	irq_handle		/* irq_handle(irq) 		  */;\
+	pop	%ecx							    ;\
+	movb	$END_OF_INT, %al						    ;\
+	outb	$INT_CTL			/* reenable master 8259		  */;\
+	ret				/* restart (another) process      */
+
+/* Each of these entry points is an expansion of the hwint_master macro */
+.balign	16
+hwint00:
+/* Interrupt routine for irq 0 (the clock). */
+	hwint_master(0)
+</code></pre>
+<h4><code>save</code></h4>
+<pre><code class="language-asm">!*===========================================================================*
+!*				save					                                   *
+!*===========================================================================*
+! Save for protected mode.
+! This is much simpler than for 8086 mode, because the stack already points
+! into the process table, or has already been switched to the kernel stack.
+
+	.align	16
+save:
+	cld			! set direction flag to a known value
+	pushad			! save &quot;general&quot; registers
+    o16	push	ds		! save ds
+    o16	push	es		! save es
+    o16	push	fs		! save fs
+    o16	push	gs		! save gs
+	mov	dx, ss		! ss is kernel data segment
+	mov	ds, dx		! load rest of kernel segments
+	mov	es, dx		! kernel does not use fs, gs
+	mov	eax, esp	! prepare to return
+	incb	(_k_reenter)	! from -1 if not reentering
+	jnz	set_restart1	! stack is already kernel stack
+	mov	esp, k_stktop
+	push	_restart	! build return address for int handler
+	xor	ebp, ebp	! for stacktrace
+	jmp	RETADR-P_STACKBASE(eax)
+
+	.align	4
+set_restart1:
+	push	restart1
+	jmp	RETADR-P_STACKBASE(eax)
+</code></pre>
+<p><img src="Sources/aftersave.png" alt="aftersave"></p>
+<h4><code>restart</code></h4>
+<pre><code class="language-asm">!*===========================================================================*
+!*				restart					                                *     
+!*===========================================================================*
+_restart:
+
+! Restart the current process or the next process if it is set. 
+
+	cmp	(_next_ptr), 0		! see if another process is scheduled
+	jz	0f
+	mov 	eax, (_next_ptr)
+	mov	(_proc_ptr), eax	! schedule new process 
+	mov	(_next_ptr), 0
+0:	mov	esp, (_proc_ptr)	! will assume P_STACKBASE == 0
+	lldt	P_LDT_SEL(esp)		! enable process' segment descriptors 
+	lea	eax, P_STACKTOP(esp)	! arrange for next interrupt
+	mov	(_tss+TSS3_S_SP0), eax	! to save state in process table
+restart1:
+	decb	(_k_reenter)
+    o16	pop	gs
+    o16	pop	fs
+    o16	pop	es
+    o16	pop	ds
+	popad
+	add	esp, 4		! skip return adr
+	iretd			! continue process
+</code></pre>
+	</section>
+	</div>
+    </div>
+</div>
+<footer>
+   <div class="well well-lg" id="footer-well">
+      <div class="container">
+
+
+      <div class="row">
+         <div class="col-xs-6">
+            <a href="https://angold4.org" title="Angold-4 Organization" class="image-link"><img src="../../../images/logo.png" class="cmudb-logo" /></a>
+         </div>
+         <div class="col-xs-6">
+            <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+        </div>
+      </div>
+   </div>
+   </div>
+</footer>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<!-- Fix scrolling issues to internal HREFs that get positioned behind navbar -->
+<!-- http://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header -->
+<script src="../../../theme/js/href_scroll.js"></script>
+
+<!-- You know what this is and you know what he did to me... -->
+<script src="../../../theme/js/tim-kraska-betrayed-me.js"></script>
+</body>
+</html>
