@@ -1,6 +1,6 @@
 ## Operating Systems Design and Implementation Notes
 
-# 4. Inside a Hole Clock Tick
+# 4. Inside a Whole Clock Tick
 ##### By Jiawei Wang
 
 We are now moving closer to looking at the actual **code of Minix3**.<br>

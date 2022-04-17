@@ -22,7 +22,7 @@
 * **1. [Introduction to Processes](Chapter/Chapter2/1Introprogress.html)**
 * **2. [Interprocess Communication](Chapter/Chapter2/2Communication.html)**
 * **3. [Semaphore and IPC Problems](Chapter/Chapter2/3Semaphore.html)**
-* **4. [Inside a Hole Clock Tick](Chapter/Chapter2/4ClockTick.html)**
+* **4. [Inside a Whole Clock Tick](Chapter/Chapter2/4ClockTick.html)**
 * **5. [Process Scheduler](Chapter/Chapter2/5Scheduler.html)**
 * **6. [Interrupt](Chapter/Chapter2/6Interrupt.html)**
 * **7. [System Task](Chapter/Chapter2/7Systask.html)**
