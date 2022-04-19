@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<DOCTYPE html>
 <html lang="en"
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
@@ -9,9 +9,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link href="../../../images/favicon.png" rel="icon">
+    <link rel="shortcut icon" href="./images/favicon.png"/>
 
-<link rel="canonical" href=".">
+    <link rel="canonical" href=".">
         <meta name="author" content="Angold Wang" />
 
     <meta property="og:site_name" content="Angold-4" />
@@ -20,17 +20,34 @@
     <meta property="og:url" content="."/>
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
 <!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"> -->
 
-    <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+    <link href="./theme/css/pygments/monokai.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
 
 </head>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+<style>
+#banner{
+    background-image:url("images/banner.jpg");
+}
+body {
+    padding-top: 50px;
+}
+</style>
+
+<div id="banner">
+    <div class="container">
+        <div class="copy">
+            <h1>Webinar <br>SPRING 2022</h1>
+	    <p class="intro">What happens underneath?</p>
+        </div>
+    </div>
+</div>
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -41,15 +58,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="http://angold4.org" class="navbar-brand">
-<img src="../../../images/logo.png" width="32"/> Angold4            </a>
+            <a href="./" class="navbar-brand">
+<img src="./images/logo.png" width="32"/> Angold4            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-			    <li><a href="../../../about.html">About</a>
-                            <li><a href="../../../blogs.html">Blogs</a>
-                            <li><a href="../../../projects.html">Projects</a>
-
+			    <li><a href="./about.html">About</a>
+                            <li><a href="./blogs.html">Blogs</a>
+                            <li><a href="./projects.html">Projects</a>
 	    </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li> <a title="Youtube" href="https://www.youtube.com/channel/UC3ZAjh2LHhm-FrgxgBtgMzQ" target="_new"><i class="fa fa-youtube"></i> Youtube</a>
@@ -63,8 +79,8 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-	<section id="content" class="body">
 
+<section id="content" class="body">
 
 <h3>Operating Systerms Design and Implementation Notes</h3>
 <h5>By Jiawei Wang</h5>
@@ -179,6 +195,24 @@
 	</section>
 	</div>
     </div>
+
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+this.page.url = "https://angold4.org/OSDI/Chapter/Chapter1/8OStruc.html"
+this.page.identifier = "OSDI/Chapter/Chapter1/8OStruc.html"
+
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://angold.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 </div>
 <footer>
    <div class="well well-lg" id="footer-well">
@@ -210,3 +244,4 @@
 <script src="../../../theme/js/tim-kraska-betrayed-me.js"></script>
 </body>
 </html>
+
