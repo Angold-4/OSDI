@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="../../../images/favicon.png" rel="icon">
-
 <link rel="canonical" href=".">
         <meta name="author" content="Angold Wang" />
 
@@ -26,6 +25,128 @@
 
     <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+  <style>
+
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+
+    li {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    a {
+      font-size: 18px;
+    }
+
+    k
+
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+    {   }
+
+    @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 
 </head>
 <body>
@@ -64,81 +185,192 @@
     <div class="row">
         <div class="col-lg-12">
 	<section id="content" class="body">
-
-
-
-<h3>Operating Systerms Design and Implementation Notes</h3>
-<h1>3. MINIX</h1>
-<h5>By Jiawei Wang</h5>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#1-the-problem-of-systerm360">1. The Problem of Systerm/360</a></li>
+<li><a href="#operating-systerms-design-and-implementation-notes"
+id="toc-operating-systerms-design-and-implementation-notes">Operating
+Systerms Design and Implementation Notes</a></li>
+<li><a href="#minix" id="toc-minix">3. MINIX</a>
+<ul>
+<li><a href="#the-problem-of-systerm360"
+id="toc-the-problem-of-systerm360">1. The Problem of
+Systerm/360</a></li>
+<li><a href="#ctss-and-multics" id="toc-ctss-and-multics">2. CTSS and
+MULTICS</a></li>
+<li><a href="#unix" id="toc-unix">3. Unix</a></li>
+<li><a href="#minix-1" id="toc-minix-1">4. Minix</a></li>
+</ul></li>
+</ul>
+</nav>
+<h3 id="operating-systerms-design-and-implementation-notes">Operating
+Systerms Design and Implementation Notes</h3>
+<h1 id="minix">3. MINIX</h1>
+<h5 id="by-jiawei-wang">By Jiawei Wang</h5>
+<p><br></p>
+<!-- vim-markdown-toc GFM -->
+<ul>
+<li><a href="#1-the-problem-of-systerm360">1. The Problem of
+Systerm/360</a></li>
 <li><a href="#2-ctss-and-multics">2. CTSS and MULTICS</a></li>
 <li><a href="#3-unix">3. Unix</a></li>
 <li><a href="#4-minix">4. Minix</a></li>
 </ul>
-<!-- raw HTML omitted -->
-<p><img src="Sources/s360.png" alt="s360"></p>
+<!-- vim-markdown-toc -->
+<figure>
+<img src="Sources/s360.png" alt="s360" />
+<figcaption aria-hidden="true">s360</figcaption>
+</figure>
 <blockquote>
-<p><strong>In 1964, IBM announced the launch of a total of six specifications of the System 360 series of computers (the price ranges from the lowest 130,000 dollars to the top version asking for 5.5 million dollars)</strong></p>
+<p><strong>In 1964, IBM announced the launch of a total of six
+specifications of the System 360 series of computers (the price ranges
+from the lowest 130,000 dollars to the top version asking for 5.5
+million dollars)</strong></p>
 </blockquote>
-<p><strong>The Greatness of System 360 is not that it has any superior design or performance (although it did excel in this field at the time), but that it completely reversed people's overall understanding of computer systems. Starting with the System 360 series, compatibility between different hosts and different models has become the fundamental value of the information industry, and each &quot;computer&quot; has since become a set of &quot;computer systems&quot; with fixed specifications.<!-- raw HTML omitted --></strong></p>
-<p><strong>That also means the development of peripherals such as watch machines, software, and memory finally has profitable value (there are fixed specifications between computers, so that peripherals can be universally compatible with them), and IBM has created the entire industry almost exclusively by hand.</strong>
-<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h3>1. The Problem of Systerm/360</h3>
-<p><strong>The greatest strength of the ‘‘one family’’ idea was simultaneously its greatest weakness. The intention was that all software, including the operating system, OS/360, had to work on all models. It had to run on small systems.<!-- raw HTML omitted --><!-- raw HTML omitted -->There was no way that IBM (or anybody else) could write a piece of software to meet all those conflicting requirements. The result was an enormous and extraordinarily complex operating system, probably two to three orders of magnitude larger than FMS. It consisted of millions of lines of assembly language written by thousands of programmers, and contained thousands upon thousands of bugs, which necessitated a continuous stream of new releases in an attempt to correct them. Each new release fixed some bugs and introduced new ones, so the number of bugs probably remained constant in time.</strong>
-<!-- raw HTML omitted --><!-- raw HTML omitted -->
-<strong>Although third-generation operating systems were well suited for big scientific calculations and massive commercial data processing runs, they were still basically batch systems.</strong><!-- raw HTML omitted -->
-<strong>Many programmers pined for the first-generation days when they had the machine all to themselves for a few hours, so they could debug their programs quickly. With third-generation systems, the time between submitting a job and getting back the output was often hours, so a single misplaced comma could cause a compilation to fail, and the programmer to waste half a day.</strong>
-<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h3>2. CTSS and MULTICS</h3>
-<p><strong><a href="https://www.multicians.org/">multicians.org</a><!-- raw HTML omitted --></strong>
-<img src="Sources/MULTICSIndex.png" alt="MULTICS"><!-- raw HTML omitted --></p>
-<p><strong>This desire for quick response time paved the way for timesharing, a variant of multiprogramming, in which each user has an online terminal. In a timesharing system, if 20 users are logged in and 17 of them are thinking or talking or drinking coffee, the CPU can be allocated in turn to the three jobs that want service. Since people debugging programs usually issue short commands (e.g., compile a five page procedure) rather than long ones (e.g., sort a million-record file), the computer can provide fast, interactive service to a number of users and perhaps also work on big batch jobs in the background when the CPU is otherwise idle. <!-- raw HTML omitted --><!-- raw HTML omitted -->
-The first serious timesharing system, CTSS (Compatible Time Sharing System), was developed at M.I.T. on a specially modified 7094 (Corbato ́et al., 1962).</strong>
-<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<p><strong>After the success of the CTSS system, MIT, Bell Labs, and General Electric decided to embark on the development of a ‘‘computer utility,’’ a machine that would support hundreds of simultaneous timesharing users.</strong>
-<!-- raw HTML omitted --></p>
+<p><strong>The Greatness of System 360 is not that it has any superior
+design or performance (although it did excel in this field at the time),
+but that it completely reversed people’s overall understanding of
+computer systems. Starting with the System 360 series, compatibility
+between different hosts and different models has become the fundamental
+value of the information industry, and each “computer” has since become
+a set of “computer systems” with fixed specifications.<br></strong></p>
+<p><strong>That also means the development of peripherals such as watch
+machines, software, and memory finally has profitable value (there are
+fixed specifications between computers, so that peripherals can be
+universally compatible with them), and IBM has created the entire
+industry almost exclusively by hand.</strong> <br><br></p>
+<h3 id="the-problem-of-systerm360">1. The Problem of Systerm/360</h3>
+<p><strong>The greatest strength of the ‘‘one family’’ idea was
+simultaneously its greatest weakness. The intention was that all
+software, including the operating system, OS/360, had to work on all
+models. It had to run on small systems.<br><br>There was no way that IBM
+(or anybody else) could write a piece of software to meet all those
+conflicting requirements. The result was an enormous and extraordinarily
+complex operating system, probably two to three orders of magnitude
+larger than FMS. It consisted of millions of lines of assembly language
+written by thousands of programmers, and contained thousands upon
+thousands of bugs, which necessitated a continuous stream of new
+releases in an attempt to correct them. Each new release fixed some bugs
+and introduced new ones, so the number of bugs probably remained
+constant in time.</strong> <br><br> <strong>Although third-generation
+operating systems were well suited for big scientific calculations and
+massive commercial data processing runs, they were still basically batch
+systems.</strong><br> <strong>Many programmers pined for the
+first-generation days when they had the machine all to themselves for a
+few hours, so they could debug their programs quickly. With
+third-generation systems, the time between submitting a job and getting
+back the output was often hours, so a single misplaced comma could cause
+a compilation to fail, and the programmer to waste half a day.</strong>
+<br><br></p>
+<h3 id="ctss-and-multics">2. CTSS and MULTICS</h3>
+<p><strong><a
+href="https://www.multicians.org/">multicians.org</a><br></strong> <img
+src="Sources/MULTICSIndex.png" alt="MULTICS" /><br></p>
+<p><strong>This desire for quick response time paved the way for
+timesharing, a variant of multiprogramming, in which each user has an
+online terminal. In a timesharing system, if 20 users are logged in and
+17 of them are thinking or talking or drinking coffee, the CPU can be
+allocated in turn to the three jobs that want service. Since people
+debugging programs usually issue short commands (e.g., compile a five
+page procedure) rather than long ones (e.g., sort a million-record
+file), the computer can provide fast, interactive service to a number of
+users and perhaps also work on big batch jobs in the background when the
+CPU is otherwise idle. <br><br> The first serious timesharing system,
+CTSS (Compatible Time Sharing System), was developed at M.I.T. on a
+specially modified 7094 (Corbato ́et al., 1962).</strong> <br><br></p>
+<p><strong>After the success of the CTSS system, MIT, Bell Labs, and
+General Electric decided to embark on the development of a ‘‘computer
+utility,’’ a machine that would support hundreds of simultaneous
+timesharing users.</strong> <br> &gt; <strong>Their model was the
+electricity distribution system—when you need electric power, you just
+stick a plug in the wall, and within reason, as much power as you need
+will be there.</strong> <br></p>
+<p><strong>The designers of this system, known as MULTICS (MULTiplexed
+Information and Computing Service), envisioned one huge machine
+providing computing power for everyone in the Boston area.<br> It was
+designed to support hundreds of users on a machine only slightly more
+powerful than an Intel 80386-based PC. In addition, MULTICS was
+enormously ambitious for its time, much like Charles Babbage’s
+analytical engine in the nineteenth century.</strong><br></p>
+<h3 id="unix">3. Unix</h3>
+<p><strong>MULTICS introduced many seminal ideas into the computer
+literature.<br>But turning it into a serious product and a commercial
+success was a lot harder than anyone had expected.</strong><br>
+<strong>In 1969, Bell Labs dropped out of the project. Then General
+Electric quit the computer business altogether.</strong><br><br>
+<strong>However, M.I.T. persisted and eventually got MULTICS
+working.</strong></p>
 <blockquote>
-<p><strong>Their model was the electricity distribution system—when you need electric power, you just stick a plug in the wall, and within reason, as much power as you need will be there.</strong>
-<!-- raw HTML omitted --></p>
-</blockquote>
-<p><strong>The designers of this system, known as MULTICS (MULTiplexed Information and Computing Service), envisioned one huge machine providing computing power for everyone in the Boston area.<!-- raw HTML omitted -->
-It was designed to support hundreds of users on a machine only slightly more powerful than an Intel 80386-based PC. In addition, MULTICS was enormously ambitious for its time, much like Charles Babbage’s analytical engine in the nineteenth century.</strong><!-- raw HTML omitted --></p>
-<h3>3. Unix</h3>
-<p><strong>MULTICS introduced many seminal ideas into the computer literature.<!-- raw HTML omitted -->But turning it into a serious product and a commercial success was a lot harder than anyone had expected.</strong><!-- raw HTML omitted -->
-<strong>In 1969, Bell Labs dropped out of the project. Then General Electric quit the computer business altogether.</strong><!-- raw HTML omitted --><!-- raw HTML omitted -->
-<strong>However, M.I.T. persisted and eventually got MULTICS working.</strong></p>
-<blockquote>
-<p><strong>It was ultimately sold as a commercial product by the company that bought GE’s computer business (Honeywell) and installed by about 80 major companies and universities worldwide. While their numbers were small.</strong></p>
+<p><strong>It was ultimately sold as a commercial product by the company
+that bought GE’s computer business (Honeywell) and installed by about 80
+major companies and universities worldwide. While their numbers were
+small.</strong></p>
 </blockquote>
 <blockquote>
-<p><strong>MULTICS users were fiercely loyal. General Motors, Ford, and the U.S. National Security Agency, for example, only shut down their MULTICS systems in the late 1990s. The last MULTICS running, at the Canadian Department of National Defence, shut down in October 2000.</strong></p>
+<p><strong>MULTICS users were fiercely loyal. General Motors, Ford, and
+the U.S. National Security Agency, for example, only shut down their
+MULTICS systems in the late 1990s. The last MULTICS running, at the
+Canadian Department of National Defence, shut down in October
+2000.</strong></p>
 </blockquote>
-<p><img src="Sources/HistoryMultics.png" alt="HistoryofMULTICS"><!-- raw HTML omitted --></p>
-<p><strong>Despite its lack of commercial success, MULTICS had a huge influence on subsequent operating systems.</strong>
-<!-- raw HTML omitted --></p>
-<p><strong>One of the computer scientists at Bell Labs who had worked on the MULTICS project, Ken Thompson, subsequently found a small PDP-7 minicomputer that no one was using and set out to write a stripped-down, one-user version of MULTICS. This work later developed into the UNIX operating system, which became popular in the academic world, with government agencies, and with many companies.</strong><!-- raw HTML omitted --></p>
+<p><img src="Sources/HistoryMultics.png"
+alt="HistoryofMULTICS" /><br></p>
+<p><strong>Despite its lack of commercial success, MULTICS had a huge
+influence on subsequent operating systems.</strong> <br></p>
+<p><strong>One of the computer scientists at Bell Labs who had worked on
+the MULTICS project, Ken Thompson, subsequently found a small PDP-7
+minicomputer that no one was using and set out to write a stripped-down,
+one-user version of MULTICS. This work later developed into the UNIX
+operating system, which became popular in the academic world, with
+government agencies, and with many companies.</strong><br></p>
 <blockquote>
-<p><strong>Another major development during the third generation was the phenomenal growth of minicomputers, starting with the Digital Equipment Company (DEC) PDP-1 in 1961. The PDP-1 had only 4K of 18-bit words, but at $120,000 per ma- chine (less than 5 percent of the price of a 7094), it sold like hotcakes. For certain kinds of nonnumerical work, it was almost as fast as the 7094 and gave birth to a whole new industry. It was quickly followed by a series of other PDPs (unlike IBM’s family, all incompatible) culminating in the PDP-11.</strong></p>
+<p><strong>Another major development during the third generation was the
+phenomenal growth of minicomputers, starting with the Digital Equipment
+Company (DEC) PDP-1 in 1961. The PDP-1 had only 4K of 18-bit words, but
+at $120,000 per ma- chine (less than 5 percent of the price of a 7094),
+it sold like hotcakes. For certain kinds of nonnumerical work, it was
+almost as fast as the 7094 and gave birth to a whole new industry. It
+was quickly followed by a series of other PDPs (unlike IBM’s family, all
+incompatible) culminating in the PDP-11.</strong></p>
 </blockquote>
-<p><strong><a href="https://en.wikipedia.org/wiki/PDP-7#/media/File:Pdp-7-oslo-2004.jpeg">PDP-7 from wikipedia</a><!-- raw HTML omitted --></strong>
-<img src="Sources/PDP-7.png" alt="PDP-7"></p>
-<h3>4. Minix</h3>
-<p><strong>When UNIX was young (Version 6), the source code was widely available, under AT&amp;T license, and frequently studied. John Lions, of the University of New South Wales in Australia, even wrote a little booklet describing its operation, line by line (Lions, 1996). This booklet was used (with permission of AT&amp;T) as a text in many university operating system courses. <a href="https://cs3210.cc.gatech.edu/r/unix6.pdf">J.lions Unix</a></strong>
-<!-- raw HTML omitted --></p>
-<p><strong>But When AT&amp;T released Version 7, it dimly began to realize that UNIX was a valuable commercial product, so it issued Version 7 with a license that prohibited the source code from being studied in courses, in order to avoid endangering its status as a trade secret. Many universities complied by simply dropping the study of UNIX and teaching only theory.</strong></p>
-<p><strong>To remedy this situation, one of the authors of this book (Tanenbaum) decided to write a new operating system from scratch that would be compatible with UNIX from the user’s point of view, but completely different on the inside. By not using even one line of AT&amp;T code, this system avoided the licensing restrictions, so it could be used for class or individual study. In this manner, readers could dissect a real operating system to see what is inside, just as biology students dissect frogs. It was called MINIX and was released in 1987 with its complete source code for anyone to study or modify.</strong>
-<!-- raw HTML omitted --></p>
-<p><strong><a href="https://en.wikipedia.org/wiki/MINIX_3">Minix3</a><!-- raw HTML omitted --></strong>
-<img src="Sources/Minix.jpg" alt="Minix3"></p>
-<p><strong>Comparing with Unix. Minix has these advantages:</strong></p>
-<ul>
-<li><strong>The name MINIX stands for mini-UNIX. Because it is small enough (In Minix3. It only has about 4000 lines C codes)</strong></li>
-<li><strong>UNIX was designed to be efficient. But MINIX was designed to be readable.</strong></li>
-</ul>
-<p><strong>In the Next Note. We will continue talk about The Development of Computer Oprating Systerm</strong></p>
+<p><strong><a
+href="https://en.wikipedia.org/wiki/PDP-7#/media/File:Pdp-7-oslo-2004.jpeg">PDP-7
+from wikipedia</a><br></strong> <img src="Sources/PDP-7.png"
+alt="PDP-7" /></p>
+<h3 id="minix-1">4. Minix</h3>
+<p><strong>When UNIX was young (Version 6), the source code was widely
+available, under AT&amp;T license, and frequently studied. John Lions,
+of the University of New South Wales in Australia, even wrote a little
+booklet describing its operation, line by line (Lions, 1996). This
+booklet was used (with permission of AT&amp;T) as a text in many
+university operating system courses. <a
+href="https://cs3210.cc.gatech.edu/r/unix6.pdf">J.lions
+Unix</a></strong> <br></p>
+<p><strong>But When AT&amp;T released Version 7, it dimly began to
+realize that UNIX was a valuable commercial product, so it issued
+Version 7 with a license that prohibited the source code from being
+studied in courses, in order to avoid endangering its status as a trade
+secret. Many universities complied by simply dropping the study of UNIX
+and teaching only theory.</strong></p>
+<p><strong>To remedy this situation, one of the authors of this book
+(Tanenbaum) decided to write a new operating system from scratch that
+would be compatible with UNIX from the user’s point of view, but
+completely different on the inside. By not using even one line of
+AT&amp;T code, this system avoided the licensing restrictions, so it
+could be used for class or individual study. In this manner, readers
+could dissect a real operating system to see what is inside, just as
+biology students dissect frogs. It was called MINIX and was released in
+1987 with its complete source code for anyone to study or
+modify.</strong> <br></p>
+<p><strong><a
+href="https://en.wikipedia.org/wiki/MINIX_3">Minix3</a><br></strong>
+<img src="Sources/Minix.jpg" alt="Minix3" /></p>
+<p><strong>Comparing with Unix. Minix has these advantages:</strong> *
+<strong>The name MINIX stands for mini-UNIX. Because it is small enough
+(In Minix3. It only has about 4000 lines C codes)</strong> *
+<strong>UNIX was designed to be efficient. But MINIX was designed to be
+readable.</strong></p>
+<p><strong>In the Next Note. We will continue talk about The Development
+of Computer Oprating Systerm</strong></p>
 	</section>
 	</div>
     </div>
@@ -178,6 +410,10 @@ this.page.identifier = "OSDI/Chapter/Chapter1/3MINIX.html"
    </div>
 </footer>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <script src="../../../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->

@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="../../../images/favicon.png" rel="icon">
-
 <link rel="canonical" href=".">
         <meta name="author" content="Angold Wang" />
 
@@ -26,6 +25,128 @@
 
     <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+  <style>
+
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+
+    li {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    a {
+      font-size: 18px;
+    }
+
+    k
+
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+    {   }
+
+    @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 
 </head>
 <body>
@@ -64,282 +185,455 @@
     <div class="row">
         <div class="col-lg-12">
 	<section id="content" class="body">
-
-
-
-<h1>Sigreturn Oriented Programming Attack</h1>
-<h5>By Jiawei Wang</h5>
-<p><strong>This is my Notes for This Paper : <a href="http://www.ieee-security.org/TC/SP2014/papers/FramingSignals-AReturntoPortableShellcode.pdf">Framing Signals — A Return to Portable Shellcode</a></strong><!-- raw HTML omitted -->
-<strong>Which Won the <a href="http://www.ieee-security.org/TC/SP2014/donors.html">Best Student Paper</a> in 35th IEEE Symposium on Security and Privacy. 2014</strong>
-<!-- raw HTML omitted --></p>
-<!-- raw HTML omitted -->
+<nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#1return-oriented-programming-attack">1.Return Oriented Programming Attack</a>
+<li><a href="#sigreturn-oriented-programming-attack"
+id="toc-sigreturn-oriented-programming-attack">Sigreturn Oriented
+Programming Attack</a>
 <ul>
-<li><a href="#ways-oprating-system-defence">Ways Oprating System Defence</a>
+<li><a href="#return-oriented-programming-attack"
+id="toc-return-oriented-programming-attack">1.Return Oriented
+Programming Attack</a>
 <ul>
-<li><a href="#data-execution-protectiondep">Data Execution Protection(DEP)</a></li>
-<li><a href="#address-space-layout-randomizationaslr">Address Space Layout Randomization(ASLR)</a></li>
-<li><a href="#stack-destruction-detectionsdd">Stack Destruction Detection(SDD)</a></li>
+<li><a href="#ways-oprating-system-defence"
+id="toc-ways-oprating-system-defence">Ways Oprating System
+Defence</a></li>
+<li><a href="#return-oriented-programming-attack-1"
+id="toc-return-oriented-programming-attack-1">Return Oriented
+Programming Attack</a></li>
+</ul></li>
+<li><a href="#sigreturn-oriented-programming-attack-1"
+id="toc-sigreturn-oriented-programming-attack-1">2. Sigreturn Oriented
+Programming Attack</a>
+<ul>
+<li><a href="#signal-in-unix-like-system"
+id="toc-signal-in-unix-like-system">Signal in Unix-like System</a></li>
+<li><a href="#signal-mechanism-defect-utilization"
+id="toc-signal-mechanism-defect-utilization">Signal Mechanism Defect
+Utilization</a></li>
+<li><a href="#example-one-of-the-simplest-attacks"
+id="toc-example-one-of-the-simplest-attacks">Example: One of the
+Simplest Attacks</a></li>
+<li><a href="#system-call-chains" id="toc-system-call-chains">System
+Call Chains</a></li>
+<li><a href="#two-gadgets" id="toc-two-gadgets">Two Gadgets</a></li>
+</ul></li>
+<li><a href="#the-prevention-of-srop-attack"
+id="toc-the-prevention-of-srop-attack">3. The Prevention of SROP
+Attack</a>
+<ul>
+<li><a href="#gadgets-prevention" id="toc-gadgets-prevention">1.Gadgets
+Prevention</a></li>
+<li><a href="#signal-frame-canaries"
+id="toc-signal-frame-canaries">2.Signal Frame Canaries</a></li>
+<li><a href="#break-kernel-agnostic"
+id="toc-break-kernel-agnostic">3.Break Kernel Agnostic</a></li>
+</ul></li>
+</ul></li>
 </ul>
-</li>
-<li><a href="#return-oriented-programming-attack">Return Oriented Programming Attack</a>
+</nav>
+<h1 id="sigreturn-oriented-programming-attack">Sigreturn Oriented
+Programming Attack</h1>
+<h5 id="by-jiawei-wang">By Jiawei Wang</h5>
+<p><strong>This is my Notes for This Paper : <a
+href="http://www.ieee-security.org/TC/SP2014/papers/FramingSignals-AReturntoPortableShellcode.pdf">Framing
+Signals — A Return to Portable Shellcode</a></strong><br> <strong>Which
+Won the <a
+href="http://www.ieee-security.org/TC/SP2014/donors.html">Best Student
+Paper</a> in 35th IEEE Symposium on Security and Privacy. 2014</strong>
+<br></p>
+<!-- vim-markdown-toc GFM -->
+<ul>
+<li><a href="#1return-oriented-programming-attack">1.Return Oriented
+Programming Attack</a>
+<ul>
+<li><a href="#ways-oprating-system-defence">Ways Oprating System
+Defence</a>
+<ul>
+<li><a href="#data-execution-protectiondep">Data Execution
+Protection(DEP)</a></li>
+<li><a href="#address-space-layout-randomizationaslr">Address Space
+Layout Randomization(ASLR)</a></li>
+<li><a href="#stack-destruction-detectionsdd">Stack Destruction
+Detection(SDD)</a></li>
+</ul></li>
+<li><a href="#return-oriented-programming-attack">Return Oriented
+Programming Attack</a>
 <ul>
 <li><a href="#the-core-of-rop">The Core of ROP</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#2-sigreturn-oriented-programming-attack">2. Sigreturn Oriented Programming Attack</a>
+</ul></li>
+</ul></li>
+<li><a href="#2-sigreturn-oriented-programming-attack">2. Sigreturn
+Oriented Programming Attack</a>
 <ul>
-<li><a href="#signal-in-unix-like-system">Signal in Unix-like System</a></li>
-<li><a href="#signal-mechanism-defect-utilization">Signal Mechanism Defect Utilization</a></li>
-<li><a href="#example-one-of-the-simplest-attacks">Example: One of the Simplest Attacks</a></li>
+<li><a href="#signal-in-unix-like-system">Signal in Unix-like
+System</a></li>
+<li><a href="#signal-mechanism-defect-utilization">Signal Mechanism
+Defect Utilization</a></li>
+<li><a href="#example-one-of-the-simplest-attacks">Example: One of the
+Simplest Attacks</a></li>
 <li><a href="#system-call-chains">System Call Chains</a></li>
 <li><a href="#two-gadgets">Two Gadgets</a></li>
-</ul>
-</li>
-<li><a href="#3-the-prevention-of-srop-attack">3. The Prevention of SROP Attack</a>
+</ul></li>
+<li><a href="#3-the-prevention-of-srop-attack">3. The Prevention of SROP
+Attack</a>
 <ul>
 <li><a href="#1gadgets-prevention">1.Gadgets Prevention</a></li>
 <li><a href="#2signal-frame-canaries">2.Signal Frame Canaries</a></li>
 <li><a href="#3break-kernel-agnostic">3.Break Kernel Agnostic</a></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<!-- raw HTML omitted -->
-<h2>1.Return Oriented Programming Attack</h2>
-<h3>Ways Oprating System Defence</h3>
-<h4><a href="https://en.wikipedia.org/wiki/Executable_space_protection#Windows">Data Execution Protection(DEP)</a></h4>
-<p><strong>In computer security, executable-space protection marks memory regions as non-executable, such that an attempt to execute machine code in these regions will cause an exception.</strong></p>
-<h4><a href="https://en.wikipedia.org/wiki/Address_space_layout_randomization">Address Space Layout Randomization(ASLR)</a></h4>
-<p><strong>Address space layout randomization (ASLR) is a computer security technique involved in preventing exploitation of memory corruption vulnerabilities. In order to prevent an attacker from reliably jumping to, for example, a particular exploited function in memory, ASLR randomly arranges the address space positions of key data areas of a process, including the base of the executable and the positions of the stack, heap and libraries.</strong></p>
-<h4><a href="https://github.com/Angold-4/Angold4-CSAPP/blob/master/ChapterNotes/Chapter3/canary.md">Stack Destruction Detection(SDD)</a></h4>
-<p><strong>Canary is a Test area in Stack. Which helps to avoid Stack Overflow</strong><!-- raw HTML omitted -->
-<strong>Although The Stack Randomization(ASLR) Can counter some forms of attack</strong><!-- raw HTML omitted -->
-<strong>Random loss to brute force</strong> You will never know what the power of attacker</p>
-<p><strong>Let's see a normal stack:</strong></p>
+<!-- vim-markdown-toc -->
+<h2 id="return-oriented-programming-attack">1.Return Oriented
+Programming Attack</h2>
+<h3 id="ways-oprating-system-defence">Ways Oprating System Defence</h3>
+<h4 id="data-execution-protectiondep"><a
+href="https://en.wikipedia.org/wiki/Executable_space_protection#Windows">Data
+Execution Protection(DEP)</a></h4>
+<p><strong>In computer security, executable-space protection marks
+memory regions as non-executable, such that an attempt to execute
+machine code in these regions will cause an exception.</strong></p>
+<h4 id="address-space-layout-randomizationaslr"><a
+href="https://en.wikipedia.org/wiki/Address_space_layout_randomization">Address
+Space Layout Randomization(ASLR)</a></h4>
+<p><strong>Address space layout randomization (ASLR) is a computer
+security technique involved in preventing exploitation of memory
+corruption vulnerabilities. In order to prevent an attacker from
+reliably jumping to, for example, a particular exploited function in
+memory, ASLR randomly arranges the address space positions of key data
+areas of a process, including the base of the executable and the
+positions of the stack, heap and libraries.</strong></p>
+<h4 id="stack-destruction-detectionsdd"><a
+href="https://github.com/Angold-4/Angold4-CSAPP/blob/master/ChapterNotes/Chapter3/canary.md">Stack
+Destruction Detection(SDD)</a></h4>
+<p><strong>Canary is a Test area in Stack. Which helps to avoid Stack
+Overflow</strong><br> <strong>Although The Stack Randomization(ASLR) Can
+counter some forms of attack</strong><br> <strong>Random loss to brute
+force</strong> You will never know what the power of attacker</p>
+<p><strong>Let’s see a normal stack:</strong></p>
 <pre><code>-------------------------------------
 |                                   |
-|___________________________________| --&gt; Caller's shallow frame
+|___________________________________| --&gt; Caller&#39;s shallow frame
 |          Return address           |
 -------------------------------------
 |                                   |
 |                                   | --&gt; Buffer
 |___________________________________|
 |             Canary                |
-------------------------------------- --&gt; buf = %rsp
-</code></pre>
-<p><strong>Store a special Canary Value between any local buffer and the Caller's shallow frame</strong><!-- raw HTML omitted --></p>
-<p><strong>Let's see an example to figure out that:</strong></p>
-<pre><code class="language-c">/*echo.c*/
-#include &lt;stdio.h&gt;
-
-void echo(){
-    char buf[8];
-    gets(buf);
-    puts(buf);
-}
-</code></pre>
+------------------------------------- --&gt; buf = %rsp</code></pre>
+<p><strong>Store a special Canary Value between any local buffer and the
+Caller’s shallow frame</strong><br></p>
+<p><strong>Let’s see an example to figure out that:</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*echo.c*/</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> echo<span class="op">(){</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> buf<span class="op">[</span><span class="dv">8</span><span class="op">];</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    gets<span class="op">(</span>buf<span class="op">);</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    puts<span class="op">(</span>buf<span class="op">);</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p><strong>After we compile it:</strong></p>
-<pre><code class="language-assembly">## echo.s
+<pre class="assembly"><code>## echo.s
 _echo:                                  ## @echo
-	.cfi_startproc
+    .cfi_startproc
 ## %bb.0:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	pushq	%rbx
-	subq	$24, %rsp
-	.cfi_offset %rbx, -24
-	movq	___stack_chk_guard@GOTPCREL(%rip), %rax
-	movq	(%rax), %rax
-	movq	%rax, -16(%rbp)
-	leaq	-24(%rbp), %rbx
-	movq	%rbx, %rdi
-	callq	_gets
-	movq	%rbx, %rdi
-	callq	_puts
-	movq	___stack_chk_guard@GOTPCREL(%rip), %rax
-	movq	(%rax), %rax
-	cmpq	-16(%rbp), %rax
-	jne	LBB0_2
+    pushq   %rbp
+    movq    %rsp, %rbp
+    .cfi_def_cfa_register %rbp
+    pushq   %rbx
+    subq    $24, %rsp
+    .cfi_offset %rbx, -24
+    movq    ___stack_chk_guard@GOTPCREL(%rip), %rax
+    movq    (%rax), %rax
+    movq    %rax, -16(%rbp)
+    leaq    -24(%rbp), %rbx
+    movq    %rbx, %rdi
+    callq   _gets
+    movq    %rbx, %rdi
+    callq   _puts
+    movq    ___stack_chk_guard@GOTPCREL(%rip), %rax
+    movq    (%rax), %rax
+    cmpq    -16(%rbp), %rax
+    jne LBB0_2
 ## %bb.1:
-	addq	$24, %rsp
-	popq	%rbx
-	popq	%rbp
-	retq
+    addq    $24, %rsp
+    popq    %rbx
+    popq    %rbp
+    retq
 LBB0_2:
-	callq	___stack_chk_fail
+    callq   ___stack_chk_fail
                                         ## -- End function
-
 </code></pre>
-<p><strong>We can find that in line 11 at echo.s: <code>movq stack_chk_guard@GOTPCREL(%rip), %rax</code></strong><!-- raw HTML omitted -->
-<strong>It is like we create a special position pointer and mov it to %rax(This Special area is Marked as Read-Only)<!-- raw HTML omitted --></strong>
-<strong>In the next line We move the value into %rax and this value is Canary<!-- raw HTML omitted --></strong></p>
-<p><strong>Before the function <code>puts()</code> return. The gcc will check the Value of Canary's position whether it is as same as the Value store in The Special position pointer(In Line 20)<!-- raw HTML omitted --></strong>
-<strong>If not equal(<code>jne</code>). Jump to LBB0_2(last line) and cause <code>stack_chk_fail</code></strong>
-<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h3>Return Oriented Programming Attack</h3>
-<p><strong>Because of These Defences. The earliest code injection attacks are basically unusable in current operating systems, ROP appeared</strong><!-- raw HTML omitted --></p>
-<p><strong>The main idea of ROP is that the attacker does not need to inject code himself (because the injected code is not executable under the protection of DEP), but uses the existing code fragments of the system to construct the attack. It is called ROP here because the way it changes the control flow is to use the return instruction in the system (such as <code>ret</code> in x86).</strong>
-<!-- raw HTML omitted --></p>
-<p><strong>For Example:</strong><!-- raw HTML omitted --></p>
-<p><strong>Here is a simple example to illustrate how to use ROP to implement a memory assignment statement:</strong></p>
-<pre><code>Mem[v2] = v1
-</code></pre>
+<p><strong>We can find that in line 11 at echo.s:
+<code>movq stack_chk_guard@GOTPCREL(%rip), %rax</code></strong><br>
+<strong>It is like we create a special position pointer and mov it to
+%rax(This Special area is Marked as Read-Only)<br></strong> <strong>In
+the next line We move the value into %rax and this value is
+Canary<br></strong></p>
+<p><strong>Before the function <code>puts()</code> return. The gcc will
+check the Value of Canary’s position whether it is as same as the Value
+store in The Special position pointer(In Line 20)<br></strong>
+<strong>If not equal(<code>jne</code>). Jump to LBB0_2(last line) and
+cause <code>stack_chk_fail</code></strong> <br><br></p>
+<h3 id="return-oriented-programming-attack-1">Return Oriented
+Programming Attack</h3>
+<p><strong>Because of These Defences. The earliest code injection
+attacks are basically unusable in current operating systems, ROP
+appeared</strong><br></p>
+<p><strong>The main idea of ROP is that the attacker does not need to
+inject code himself (because the injected code is not executable under
+the protection of DEP), but uses the existing code fragments of the
+system to construct the attack. It is called ROP here because the way it
+changes the control flow is to use the return instruction in the system
+(such as <code>ret</code> in x86).</strong> <br></p>
+<p><strong>For Example:</strong><br></p>
+<p><strong>Here is a simple example to illustrate how to use ROP to
+implement a memory assignment statement:</strong></p>
+<pre><code>Mem[v2] = v1</code></pre>
 <p><strong>Which assembly code is:</strong></p>
-<pre><code class="language-assembly">mov %eax v1;
+<pre class="assembly"><code>mov %eax v1;
 mov %ebx v2;
-mov [%ebx], %eax
-</code></pre>
-<p><strong>We can achieve that Statement by using ROP:</strong><!-- raw HTML omitted --></p>
+mov [%ebx], %eax</code></pre>
+<p><strong>We can achieve that Statement by using ROP:</strong><br></p>
 <pre><code>-------------------------------------
 |               addr3               |
 |                v2                 | 
 |               addr2               |  --&gt; Stack
 |                v1                 |
 |               addr1               |
--------------------------------------
-</code></pre>
+-------------------------------------</code></pre>
 <pre><code>-------------------------------------
 addr1: pop %eax; ret                |
 addr2: pop %ebx; ret                |  --&gt; Memory
 addr3: mov [%ebx]; %eax;            |
--------------------------------------
-</code></pre>
-<p><strong>Among them, <code>addr1</code>, <code>addr2</code>, and <code>addr3</code> are the memory addresses of the corresponding instructions. We call each line a &quot;gadget&quot;. The same effect as the compilation above can be achieved by constructing the data on the stack as shown in the figure above.</strong><!-- raw HTML omitted --></p>
-<p><strong>Before trying to understand The Detail of ROP. We need to understand the Core of ROP:</strong><!-- raw HTML omitted -->
-<strong>When ASLR and DEP are turned on, the memory location of the program will change every time the program is executed and the executable location cannot be written, and the writeable location cannot be executed, so try to combine the original fragments of the program to form a meaningful attack process.</strong><!-- raw HTML omitted --></p>
-<p><strong>The small fragments of these programs are called gadgets, such as pop eax; ret; fragments, these fragments mostly exist at the end of the function (because there is ret), you can use tools to find available gadgets</strong>
-<!-- raw HTML omitted --></p>
-<h4>The Core of ROP</h4>
-<p><strong>As we mentioned before: Because of ASLR and DEP. The Program which is executable cannot be written, and the Program which is writeable cannot be executed.</strong><!-- raw HTML omitted -->
-<strong>If The Attack wants to run his attack program in a computer. The ROP attack need to modify the writeable program(Stack) to control the executable program(Code)<!-- raw HTML omitted --></strong></p>
-<p><strong>And the Only Way Link Between Stack and Code is <code>ret</code> in x86</strong>
-<!-- raw HTML omitted --><!-- raw HTML omitted -->
-<strong>Procedure:</strong></p>
+-------------------------------------</code></pre>
+<p><strong>Among them, <code>addr1</code>, <code>addr2</code>, and
+<code>addr3</code> are the memory addresses of the corresponding
+instructions. We call each line a “gadget”. The same effect as the
+compilation above can be achieved by constructing the data on the stack
+as shown in the figure above.</strong><br></p>
+<p><strong>Before trying to understand The Detail of ROP. We need to
+understand the Core of ROP:</strong><br> <strong>When ASLR and DEP are
+turned on, the memory location of the program will change every time the
+program is executed and the executable location cannot be written, and
+the writeable location cannot be executed, so try to combine the
+original fragments of the program to form a meaningful attack
+process.</strong><br></p>
+<p><strong>The small fragments of these programs are called gadgets,
+such as pop eax; ret; fragments, these fragments mostly exist at the end
+of the function (because there is ret), you can use tools to find
+available gadgets</strong> <br></p>
+<h4 id="the-core-of-rop">The Core of ROP</h4>
+<p><strong>As we mentioned before: Because of ASLR and DEP. The Program
+which is executable cannot be written, and the Program which is
+writeable cannot be executed.</strong><br> <strong>If The Attack wants
+to run his attack program in a computer. The ROP attack need to modify
+the writeable program(Stack) to control the executable
+program(Code)<br></strong></p>
+<p><strong>And the Only Way Link Between Stack and Code is
+<code>ret</code> in x86</strong> <br><br> <strong>Procedure:</strong> *
+<strong>First. The Attacker need to find a buffer overflow
+loophole</strong> <img src="Sources/stackbufferoverflow1.png"
+alt="stackbufferoverflow1" /><br> * <strong>Then. It is very important
+and troublesome to distribute all gadgets in memory and stack<br>(One to
+one correspondence)<br></strong> <img
+src="Sources/stackbufferoverflow2.png" alt="stackbufferoverflow2" /><br>
+* <strong>Last. Call the Program which have a buffer overflow loophole.
+and Execute it<br>When overflow. The return addr is addr1. and the
+Kernel will execute addr1 code in memory and so on
+automatically.<br></strong> <img src="Sources/stackbufferoverflow3.png"
+alt="stackbufferoverflow3" /><br> <strong>That makes the attacker can
+run his attack code in target computer</strong> <br><br>
+<strong>Although it will works sometimes. But ASLR makes this work
+harder.<br></strong> <strong>And for an attacker, he needs to carefully
+construct a large number of gadgets separately to attack each different
+application, which also makes the reusability of ROP very poor.</strong>
+<br><br></p>
+<h2 id="sigreturn-oriented-programming-attack-1">2. Sigreturn Oriented
+Programming Attack</h2>
+<p><strong>Here <code>sigreturn</code> is a system call, it will be
+called indirectly when a signal occurs in the unix system</strong><br>
+<strong>Before starting to introduce the attack principle of SROP. Let’s
+introduce <code>signal</code>. Which is a system call in Unix-like
+system:</strong> <br></p>
+<h3 id="signal-in-unix-like-system">Signal in Unix-like System</h3>
+<p><strong>Signal handling has been an integral part of UNIX (and
+UNIX-like) systems ever since the very first implementation by Dennis
+Ritchie in the early 1970s.</strong> &gt; <strong>Signals are an
+extremely powerful mechanism to deliver asynchronous notifications
+directly to a process or thread. They are used to kill processes, to
+tell them that timers have expired, or to notify them about exceptional
+behavior. The UNIX design has spawned a plethora of UNIX-like “children”
+of which GNU Linux, several flavours of BSD, Android, iOS/Mac OS X, and
+Solaris are perhaps the best known ones in active use today. While each
+flavor handles signals in slightly different ways, the different
+implementations are all very similar.</strong> <br></p>
 <ul>
-<li><strong>First. The Attacker need to find a buffer overflow loophole</strong>
-<img src="Sources/stackbufferoverflow1.png" alt="stackbufferoverflow1"><!-- raw HTML omitted --></li>
-<li><strong>Then. It is very important and troublesome to distribute all gadgets in memory and stack<!-- raw HTML omitted -->(One to one correspondence)<!-- raw HTML omitted --></strong>
-<img src="Sources/stackbufferoverflow2.png" alt="stackbufferoverflow2"><!-- raw HTML omitted --></li>
-<li><strong>Last. Call the Program which have a buffer overflow loophole. and Execute it<!-- raw HTML omitted -->When overflow. The return addr is addr1. and the Kernel will execute addr1 code in memory and so on automatically.<!-- raw HTML omitted --></strong>
-<img src="Sources/stackbufferoverflow3.png" alt="stackbufferoverflow3"><!-- raw HTML omitted -->
-<strong>That makes the attacker can run his attack code in target computer</strong>
-<!-- raw HTML omitted --><!-- raw HTML omitted -->
-<strong>Although it will works sometimes. But ASLR makes this work harder.<!-- raw HTML omitted --></strong>
-<strong>And for an attacker, he needs to carefully construct a large number of gadgets separately to attack each different application, which also makes the reusability of ROP very poor.</strong>
-<!-- raw HTML omitted --><!-- raw HTML omitted --></li>
+<li><strong>As shown in the figure below, when the kernel delivers a
+signal to a process, the process will be temporarily suspended and enter
+the kernel(1)</strong><br> <img src="Sources/deliver.png"
+alt="deliver" /><br></li>
+<li><strong>Then the kernel saves the corresponding context for the
+process and jumps to the previously registered signal handler to process
+the corresponding signal(2)</strong><br></li>
+<li><strong>When the signal handler returns (3), the kernel restores the
+previously saved context for the process</strong><br></li>
+<li><strong>The execution of the final recovery process
+(4)</strong><br></li>
 </ul>
-<h2>2. Sigreturn Oriented Programming Attack</h2>
-<p><strong>Here <code>sigreturn</code> is a system call, it will be called indirectly when a signal occurs in the unix system</strong><!-- raw HTML omitted -->
-<strong>Before starting to introduce the attack principle of SROP. Let's introduce <code>signal</code>. Which is a system call in Unix-like system:</strong>
-<!-- raw HTML omitted --></p>
-<h3>Signal in Unix-like System</h3>
-<p><strong>Signal handling has been an integral part of UNIX (and UNIX-like) systems ever since the very first implementation by Dennis Ritchie in the early 1970s.</strong></p>
-<blockquote>
-<p><strong>Signals are an extremely powerful mechanism to deliver asynchronous notifications directly to a process or thread. They are used to kill processes, to tell them that timers have expired, or to notify them about exceptional behavior. The UNIX design has spawned a plethora of UNIX-like “children” of which GNU Linux, several flavours of BSD, Android, iOS/Mac OS X, and Solaris are perhaps the best known ones in active use today. While each flavor handles signals in slightly different ways, the different implementations are all very similar.</strong>
-<!-- raw HTML omitted --></p>
-</blockquote>
+<p><strong>In the four-step process, the third step is the
+key:</strong><br> <strong>How to make the signal handler in user mode
+return to the kernel mode smoothly after execution?</strong><br></p>
+<p><strong>In various UNIX-like systems, this process is slightly
+different, but the general process is the same. Here is an example of
+Linux:</strong> <br></p>
+<p><strong>In the second step, the kernel will help the user process
+save its context on the stack of the process</strong><br> <strong>Then
+fill in an address <code>rt_sigreturn</code> at the top of the stack,
+this address points to a piece of code, in which the
+<code>sigreturn</code> system call will be called.</strong><br>
+<strong>That means After Step 3 signal hander finished. The Stack
+Pointer(%rsp) point to <code>rt_sigreturn</code> and Execute that code
+passively</strong><br></p>
+<p><strong>The following figure shows the user process context, signal
+related information, and <code>rt_sigreturn</code> saved on the
+stack:</strong><br> <img src="Sources/SignalFrame.png"
+alt="SignalFrame" /><br> <strong>We called this: Signal
+Frame</strong><br> <strong>In the kernel <code>sigreturn</code> system
+call processing function, the process context will be restored according
+to the <code>Signal Frame</code> pointed to by the current stack
+pointer, and return to the user state, and resume execution from the
+suspension point.</strong><br> <br></p>
+<h3 id="signal-mechanism-defect-utilization">Signal Mechanism Defect
+Utilization</h3>
+<p><strong>From the Introduction below We can find two
+Defects:</strong><br> * <strong><code>Signal Frame</code> is stored in
+the address space of the user process and is readable and writable by
+the user process</strong> * <strong>The kernel does not compare the
+saving process with the recovery process. The kernel does not judge that
+the current <code>Signal Frame</code> is the <code>Signal Frame</code>
+saved by the kernel for the user process.</strong> <br></p>
+<figure>
+<img src="Sources/Unixsignals.png" alt="Unix-Signals" />
+<figcaption aria-hidden="true">Unix-Signals</figcaption>
+</figure>
+<p><strong>To Some Extent, “kernel agnostic about signal handlers” is
+both an advantage and disadvantage:</strong><br> <strong>The advantage
+is that Because the kernel does not need to spend energy to record the
+signal, and the disadvantage is that Because we can’t fake them. A
+malicious user process can forge it!</strong> <br></p>
+<h3 id="example-one-of-the-simplest-attacks">Example: One of the
+Simplest Attacks</h3>
+<p><strong>Let us first assume that an attacker can control the stack of
+the user process, then it can forge a <code>Signal Frame</code>, as
+shown in the figure below:</strong><br></p>
+<p><img src="Sources/FakeSignalFrame.png" alt="FakeSignalFrame" /> *
+<strong>In this fake <code>Signal Frame</code>, set <code>%rax</code> to
+59 (the <code>execve</code> system call number)</strong> * <strong>Set
+<code>rdi</code> to the address of the string
+<code>/bin/sh</code></strong> * <strong>Set <code>rip</code> to the
+memory address of the system call instruction
+<code>syscall</code></strong> * <strong>Set <code>rt_sigreturn</code>
+manually to the memory address of the <code>sigreturn</code> system
+call</strong> <br></p>
+<p><strong>In this example, once <code>sigreturn</code> returns, it will
+execute the <code>execve</code> system call and open a shell.</strong>
+<br> <strong>This is the simplest attack. In this attack, there are 4
+prerequisites:</strong><br> * <strong>Attackers can control the contents
+of the stack through vulnerabilities such as stack buffer
+overflow</strong> * <strong>Know the address of the stack (for example,
+you need to know the address of the string <code>/bin/sh</code> you
+constructed)</strong> * <strong>Know the address of the
+<code>syscall</code> instruction in memory</strong> * <strong>Know the
+memory address of the <code>sigreturn</code> system call</strong>
+<br></p>
+<p><strong>Compared with traditional ROP, this simplest SROP attack only
+needs to find two gadgets. Seems more easier</strong> <br></p>
+<h3 id="system-call-chains">System Call Chains</h3>
+<p><strong>The Simple Attack below Worked! But the effect produced by
+the attacker can only call a syscall. When the syscall returns, the
+control of the execution flow is lost, which obviously cannot meet most
+of the requirements.</strong><br></p>
+<p><strong>So, how do we use the above mechanism to make system calls
+continuously? In fact, the method is very simple. In addition to the
+above steps, you only need to add an additional control to the stack
+pointer <code>rsp</code>, as shown in the following
+figure:</strong><br></p>
+<p><img src="Sources/Syscallchain.png" alt="Syscallchain" /> <strong>In
+addition, we need to replace the original simple <code>syscall</code>
+gadget with <code>syscall; ret</code> gadget so that every time
+<code>syscall</code> returns, the stack pointer will point to the next
+<code>Signal Frame</code>.<br></strong> <strong>Therefore, when the
+<code>ret</code> instruction is executed at this time, the
+<code>sigreturn</code> system call will be called again. In this way,
+the effect of continuous system calls can be achieved by operating the
+stack.</strong> <br></p>
+<h3 id="two-gadgets">Two Gadgets</h3>
+<p><strong>Another difference with normal ROP is that both of the two
+gadgets that SROP needed can be found in a specific location in
+memory:</strong><br> * <strong><code>Sigreturn</code></strong><br>
+<strong>Because Normal applications will not actively call it. The
+kernel fills the corresponding address on the stack, making the
+application process passively call.</strong><br> <strong>Therefore,
+there is usually a piece of code in the system dedicated to calling
+<code>sigreturn</code>, The author of the paper found that in different
+UNIX-like systems, this code will appear in different locations, as
+shown in the following figure:</strong><br> <img
+src="Sources/Sigreturn.png" alt="sigreturn" /><br> &gt; <strong>Among
+them, in <code>Linux &lt;3.11 ARM</code> (the kernel used by most of
+Android), and <code>FreeBSB 9.2 x86_64</code>, this gadget can be found
+in a fixed memory address, while in other systems, it is generally
+stored in In the memory of the <code>libc</code> library, it seems that
+it is not so easy to find if it is protected by ASLR.</strong><br></p>
 <ul>
-<li><strong>As shown in the figure below, when the kernel delivers a signal to a process, the process will be temporarily suspended and enter the kernel(1)</strong><!-- raw HTML omitted -->
-<img src="Sources/deliver.png" alt="deliver"><!-- raw HTML omitted --></li>
-<li><strong>Then the kernel saves the corresponding context for the process and jumps to the previously registered signal handler to process the corresponding signal(2)</strong><!-- raw HTML omitted --></li>
-<li><strong>When the signal handler returns (3), the kernel restores the previously saved context for the process</strong><!-- raw HTML omitted --></li>
-<li><strong>The execution of the final recovery process (4)</strong><!-- raw HTML omitted --></li>
+<li><strong><code>syscall; ret</code></strong><br> <img
+src="Sources/syscallret.png" alt="syscallret" /> <strong>If it is Linux
+&lt;3.3 x86_64 (the default kernel in Debian 7.0, Ubuntu long-term
+support, CentOS 6 system). You can find this code snippet directly in
+the fixed address [vsyscall].</strong><br> <strong>In addition to the
+two gadgets mentioned above that may exist at fixed addresses, in other
+systems, these two gadgets seem to be not so easy to find, especially in
+systems with ALSR protection.</strong><br></li>
 </ul>
-<p><strong>In the four-step process, the third step is the key:</strong><!-- raw HTML omitted -->
-<strong>How to make the signal handler in user mode return to the kernel mode smoothly after execution?</strong><!-- raw HTML omitted --></p>
-<p><strong>In various UNIX-like systems, this process is slightly different, but the general process is the same. Here is an example of Linux:</strong>
-<!-- raw HTML omitted --></p>
-<p><strong>In the second step, the kernel will help the user process save its context on the stack of the process</strong><!-- raw HTML omitted -->
-<strong>Then fill in an address <code>rt_sigreturn</code> at the top of the stack, this address points to a piece of code, in which the <code>sigreturn</code> system call will be called.</strong><!-- raw HTML omitted -->
-<strong>That means After Step 3 signal hander finished. The Stack Pointer(%rsp) point to <code>rt_sigreturn</code> and Execute that code passively</strong><!-- raw HTML omitted --></p>
-<p><strong>The following figure shows the user process context, signal related information, and <code>rt_sigreturn</code> saved on the stack:</strong><!-- raw HTML omitted -->
-<img src="Sources/SignalFrame.png" alt="SignalFrame"><!-- raw HTML omitted -->
-<strong>We called this: Signal Frame</strong><!-- raw HTML omitted -->
-<strong>In the kernel <code>sigreturn</code> system call processing function, the process context will be restored according to the <code>Signal Frame</code> pointed to by the current stack pointer, and return to the user state, and resume execution from the suspension point.</strong><!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
-<h3>Signal Mechanism Defect Utilization</h3>
-<p><strong>From the Introduction below We can find two Defects:</strong><!-- raw HTML omitted --></p>
-<ul>
-<li><strong><code>Signal Frame</code> is stored in the address space of the user process and is readable and writable by the user process</strong></li>
-<li><strong>The kernel does not compare the saving process with the recovery process. The kernel does not judge that the current <code>Signal Frame</code> is the <code>Signal Frame</code> saved by the kernel for the user process.</strong>
-<!-- raw HTML omitted --></li>
-</ul>
-<p><img src="Sources/Unixsignals.png" alt="Unix-Signals"></p>
-<p><strong>To Some Extent, &quot;kernel agnostic about signal handlers&quot; is both an advantage and disadvantage:</strong><!-- raw HTML omitted -->
-<strong>The advantage is that Because the kernel does not need to spend energy to record the signal, and the disadvantage is that Because we can't fake them. A malicious user process can forge it!</strong>
-<!-- raw HTML omitted --></p>
-<h3>Example: One of the Simplest Attacks</h3>
-<p><strong>Let us first assume that an attacker can control the stack of the user process, then it can forge a <code>Signal Frame</code>, as shown in the figure below:</strong><!-- raw HTML omitted --></p>
-<p><img src="Sources/FakeSignalFrame.png" alt="FakeSignalFrame"></p>
-<ul>
-<li><strong>In this fake <code>Signal Frame</code>, set <code>%rax</code> to 59 (the <code>execve</code> system call number)</strong></li>
-<li><strong>Set <code>rdi</code> to the address of the string <code>/bin/sh</code></strong></li>
-<li><strong>Set <code>rip</code> to the memory address of the system call instruction <code>syscall</code></strong></li>
-<li><strong>Set <code>rt_sigreturn</code> manually to the memory address of the <code>sigreturn</code> system call</strong>
-<!-- raw HTML omitted --></li>
-</ul>
-<p><strong>In this example, once <code>sigreturn</code> returns, it will execute the <code>execve</code> system call and open a shell.</strong>
-<!-- raw HTML omitted -->
-<strong>This is the simplest attack. In this attack, there are 4 prerequisites:</strong><!-- raw HTML omitted --></p>
-<ul>
-<li><strong>Attackers can control the contents of the stack through vulnerabilities such as stack buffer overflow</strong></li>
-<li><strong>Know the address of the stack (for example, you need to know the address of the string <code>/bin/sh</code> you constructed)</strong></li>
-<li><strong>Know the address of the <code>syscall</code> instruction in memory</strong></li>
-<li><strong>Know the memory address of the <code>sigreturn</code> system call</strong>
-<!-- raw HTML omitted --></li>
-</ul>
-<p><strong>Compared with traditional ROP, this simplest SROP attack only needs to find two gadgets. Seems more easier</strong>
-<!-- raw HTML omitted --></p>
-<h3>System Call Chains</h3>
-<p><strong>The Simple Attack below Worked! But the effect produced by the attacker can only call a syscall. When the syscall returns, the control of the execution flow is lost, which obviously cannot meet most of the requirements.</strong><!-- raw HTML omitted --></p>
-<p><strong>So, how do we use the above mechanism to make system calls continuously? In fact, the method is very simple. In addition to the above steps, you only need to add an additional control to the stack pointer <code>rsp</code>, as shown in the following figure:</strong><!-- raw HTML omitted --></p>
-<p><img src="Sources/Syscallchain.png" alt="Syscallchain">
-<strong>In addition, we need to replace the original simple <code>syscall</code> gadget with <code>syscall; ret</code> gadget so that every time <code>syscall</code> returns, the stack pointer will point to the next <code>Signal Frame</code>.<!-- raw HTML omitted --></strong>
-<strong>Therefore, when the <code>ret</code> instruction is executed at this time, the <code>sigreturn</code> system call will be called again. In this way, the effect of continuous system calls can be achieved by operating the stack.</strong>
-<!-- raw HTML omitted --></p>
-<h3>Two Gadgets</h3>
-<p><strong>Another difference with normal ROP is that both of the two gadgets that SROP needed can be found in a specific location in memory:</strong><!-- raw HTML omitted --></p>
-<ul>
-<li><strong><code>Sigreturn</code></strong><!-- raw HTML omitted -->
-<strong>Because Normal applications will not actively call it. The kernel fills the corresponding address on the stack, making the application process passively call.</strong><!-- raw HTML omitted -->
-<strong>Therefore, there is usually a piece of code in the system dedicated to calling <code>sigreturn</code>, The author of the paper found that in different UNIX-like systems, this code will appear in different locations, as shown in the following figure:</strong><!-- raw HTML omitted -->
-<img src="Sources/Sigreturn.png" alt="sigreturn"><!-- raw HTML omitted --></li>
-</ul>
-<blockquote>
-<p><strong>Among them, in <code>Linux &lt;3.11 ARM</code> (the kernel used by most of Android), and <code>FreeBSB 9.2 x86_64</code>, this gadget can be found in a fixed memory address, while in other systems, it is generally stored in In the memory of the <code>libc</code> library, it seems that it is not so easy to find if it is protected by ASLR.</strong><!-- raw HTML omitted --></p>
-</blockquote>
-<ul>
-<li><strong><code>syscall; ret</code></strong><!-- raw HTML omitted -->
-<img src="Sources/syscallret.png" alt="syscallret">
-<strong>If it is Linux &lt;3.3 x86_64 (the default kernel in Debian 7.0, Ubuntu long-term support, CentOS 6 system). You can find this code snippet directly in the fixed address [vsyscall].</strong><!-- raw HTML omitted -->
-<strong>In addition to the two gadgets mentioned above that may exist at fixed addresses, in other systems, these two gadgets seem to be not so easy to find, especially in systems with ALSR protection.</strong><!-- raw HTML omitted --></li>
-</ul>
-<p><strong>However, if we compare it with traditional ROP, we can find that it reduces the cost of the entire attack by a notch.</strong><!-- raw HTML omitted --></p>
-<blockquote>
-<p><strong>SROP is among the lowest hanging fruit available to an attacker!</strong></p>
-</blockquote>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2>3. The Prevention of SROP Attack</h2>
-<p><strong>Finally, let's mention the prevention of SROP. From three perspectives, the author proposes three methods:</strong>
-<!-- raw HTML omitted --></p>
-<h3>1.Gadgets Prevention</h3>
-<p><strong>In the notes above We metioned that The two gadgets <code>sigreturn</code> and <code>syscall; ret</code> are very easy to find, especially in the presence of a particularly insecure mechanism like <code>vsyscall</code>. Therefore, we should try to avoid this mechanism and make the best use of protection mechanisms such as ASLR, making it difficult for attackers to find these gadgets.</strong><!-- raw HTML omitted --></p>
-<p><strong>Of course, this method does not essentially solve the problem of SROP</strong>
-<!-- raw HTML omitted --></p>
-<h3>2.Signal Frame Canaries</h3>
-<p><strong>As we metioned that before. Borrowing from <a href="https://en.wikipedia.org/wiki/Buffer_overflow_protection#Canaries">stack canaries</a> mechanism (Also see <a href="https://github.com/Angold-4/Angold4-CSAPP/blob/master/ChapterNotes/Chapter3/canary.md">my Note</a>)</strong><!-- raw HTML omitted -->
-<strong>Insert a randomly generated byte before the <code>rt_sigreturn</code> field of the <code>Signal Frame</code>. If an overflow occurs, the byte will be destroyed, so that it will be detected before the <code>sigreturn</code> occurs.</strong>
-<!-- raw HTML omitted -->
-<strong>Of course, there are many attacks against stack canaries, which also cannot essentially prevent the occurrence of SROP.</strong>
-<!-- raw HTML omitted --></p>
-<h3>3.Break Kernel Agnostic</h3>
-<p><strong>This will go back to the essence of SROP -- Unknowability of the Kernel to Signal</strong><!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<strong>If we judge whether the current <code>Signal Frame</code> was created before the kernel when the kernel processes the <code>sigreturn</code> system call, then this problem can be fundamentally solved. Of course, this involves modifying some of the underlying design of the kernel, and it may also introduce some new problems.</strong><!-- raw HTML omitted --></p>
+<p><strong>However, if we compare it with traditional ROP, we can find
+that it reduces the cost of the entire attack by a notch.</strong><br>
+&gt; <strong>SROP is among the lowest hanging fruit available to an
+attacker!</strong></p>
+<p><br><br></p>
+<h2 id="the-prevention-of-srop-attack">3. The Prevention of SROP
+Attack</h2>
+<p><strong>Finally, let’s mention the prevention of SROP. From three
+perspectives, the author proposes three methods:</strong> <br></p>
+<h3 id="gadgets-prevention">1.Gadgets Prevention</h3>
+<p><strong>In the notes above We metioned that The two gadgets
+<code>sigreturn</code> and <code>syscall; ret</code> are very easy to
+find, especially in the presence of a particularly insecure mechanism
+like <code>vsyscall</code>. Therefore, we should try to avoid this
+mechanism and make the best use of protection mechanisms such as ASLR,
+making it difficult for attackers to find these
+gadgets.</strong><br></p>
+<p><strong>Of course, this method does not essentially solve the problem
+of SROP</strong> <br></p>
+<h3 id="signal-frame-canaries">2.Signal Frame Canaries</h3>
+<p><strong>As we metioned that before. Borrowing from <a
+href="https://en.wikipedia.org/wiki/Buffer_overflow_protection#Canaries">stack
+canaries</a> mechanism (Also see <a
+href="https://github.com/Angold-4/Angold4-CSAPP/blob/master/ChapterNotes/Chapter3/canary.md">my
+Note</a>)</strong><br> <strong>Insert a randomly generated byte before
+the <code>rt_sigreturn</code> field of the <code>Signal Frame</code>. If
+an overflow occurs, the byte will be destroyed, so that it will be
+detected before the <code>sigreturn</code> occurs.</strong> <br>
+<strong>Of course, there are many attacks against stack canaries, which
+also cannot essentially prevent the occurrence of SROP.</strong>
+<br></p>
+<h3 id="break-kernel-agnostic">3.Break Kernel Agnostic</h3>
+<p><strong>This will go back to the essence of SROP – Unknowability of
+the Kernel to Signal</strong><br> <br> <strong>If we judge whether the
+current <code>Signal Frame</code> was created before the kernel when the
+kernel processes the <code>sigreturn</code> system call, then this
+problem can be fundamentally solved. Of course, this involves modifying
+some of the underlying design of the kernel, and it may also introduce
+some new problems.</strong><br></p>
 	</section>
 	</div>
     </div>
@@ -379,6 +673,10 @@ this.page.identifier = "OSDI/Chapter/Chapter1/SROPAttack.html"
    </div>
 </footer>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <script src="../../../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->

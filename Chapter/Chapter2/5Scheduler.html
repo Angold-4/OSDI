@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="../../../images/favicon.png" rel="icon">
-
 <link rel="canonical" href=".">
         <meta name="author" content="Angold Wang" />
 
@@ -26,6 +25,128 @@
 
     <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+  <style>
+
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+
+    li {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    a {
+      font-size: 18px;
+    }
+
+    k
+
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+    {   }
+
+    @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 
 </head>
 <body>
@@ -64,266 +185,344 @@
     <div class="row">
         <div class="col-lg-12">
 	<section id="content" class="body">
-
-
-
-<h2>Operating Systems Design and Implementation Notes</h2>
-<h1>5. Process Scheduler</h1>
-<h5>By Jiawei Wang</h5>
-<p>At the end of last note, we introduced that if a running process uses up its quantum without interruption and returning (still runable) inside <strong>a clock tick.</strong><!-- raw HTML omitted --></p>
-<p>The <strong><code>clock_task()</code></strong> will call <strong><code>do_clocktick()</code></strong> and this function will execute the follwoing code:<!-- raw HTML omitted --></p>
-<pre><code class="language-c">  if (prev_ptr-&gt;p_ticks_left &lt;= 0 &amp;&amp; priv(prev_ptr)-&gt;s_flags &amp; PREEMPTIBLE) {
-        dequeue(prev_ptr);		/* take it off the queues */
-        enqueue(prev_ptr);		/* and reinsert it again */ 
-  }
-</code></pre>
-<p>We only know that these two functions <strong><code>dequeue()</code></strong> and <strong><code>enqueue()</code></strong> will reinsert the current unfinished process into a <strong>&quot;Ready&quot;</strong> status process queue and <strong>pick another process to run</strong>.</p>
+<nav id="TOC" role="doc-toc">
 <ul>
-<li><strong>How to pick next process from countless processes to run?</strong></li>
-<li><strong>How to design this process scheduler to manage these processes with piority?</strong></li>
-</ul>
-<p><strong>NOTE</strong>: Since <strong>interrupts</strong> are <strong>not</strong> enabled while kernel code is running in Minix3, we do not consider any <strong>interruption</strong> in this note. And in next note, we will talk about more about <strong>interrupt</strong> with <strong>interprocess communication</strong>.<!-- raw HTML omitted --></p>
-<h2>1. Scheduling in Minix3</h2>
-<p><strong>MINIX 3 uses a multilevel scheduling algorithm to mantain processes inside 16 queues of runnable processes, scheduling is round robin in each queue.</strong><!-- raw HTML omitted -->
-For example, in the <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#kernelmainc">previous note</a></strong>, when we talk about the start of the Minix3, the <strong><code>main()</code></strong> function of minix3 will initialize the boot process table. Then processes are given initial priorities that are related to the structure shown in Fig. 2-29.<!-- raw HTML omitted --></p>
-<p><img src="Sources/layer.png" alt="layer"></p>
+<li><a href="#operating-systems-design-and-implementation-notes"
+id="toc-operating-systems-design-and-implementation-notes">Operating
+Systems Design and Implementation Notes</a></li>
+<li><a href="#process-scheduler" id="toc-process-scheduler">5. Process
+Scheduler</a>
 <ul>
-<li>The <strong>clock</strong> and <strong>system tasks</strong> in layer 1 receive the highest priority.</li>
-<li>The <strong>device drivers</strong> of layer 2 get lower priority, but they are not all equal.</li>
-<li><strong>Server processes</strong> in layer 3 get lower priorities than drivers, but some less than others.</li>
-<li><strong>User processes</strong> start with less priority than any of the system processes, and initially are all equal.
-<!-- raw HTML omitted --></li>
-</ul>
-<p>The scheduler maintains 16 queues of <strong>runnable processes</strong>, although not all of them may be used at a particular moment.<!-- raw HTML omitted --></p>
-<p><img src="Sources/init.png" alt="init"></p>
-<p>Whenever a running process becomes blocked or finished, or a runnable process is killed by a signal, that process is removed from the scheduler’s queues. <strong>Only runnable processes are queued.</strong></p>
+<li><a href="#scheduling-in-minix3" id="toc-scheduling-in-minix3">1.
+Scheduling in Minix3</a></li>
+<li><a href="#process-scheduler-1" id="toc-process-scheduler-1">2.
+Process Scheduler</a>
 <ul>
-<li>The array <strong><code>rdy_head</code></strong> has one entry for each queue, with that entry pointing to the process at the head of the queue.</li>
-<li><strong><code>rdy_tail</code></strong> is an array whose entries point to the last process on each queue.</li>
-<li>If a running process uses up its quantum it is moved to the <strong>tail</strong> of its queue and given a new quantum.</li>
-<li>When a blocked process is awakened, it is put at the <strong>head</strong> of its queue if it had any part of its quantum left when it blocked, it gets only what it had <strong>left</strong> when it blocked.</li>
-</ul>
-<h2>2. Process Scheduler</h2>
-<p>In essence, <strong><code>pick_proc()</code></strong> in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/proc.c#L1297">kernel/proc.c</a></strong> from line 1297 to 1332 is the <strong>scheduler</strong>.<!-- raw HTML omitted --></p>
-<h3>The Scheduling Algorithm</h3>
-<p><strong>Find the highest priority queue that is not empty and pick the process at the head of that queue. The IDLE process is always ready, and is in the lowest priority queue. If all the higher priority queues are empty, IDLE is run.</strong></p>
-<pre><code class="language-c">PRIVATE void pick_proc()
-{
-/* Decide who to run now.  A new process is selected by setting 'next_ptr'.
- * When a billable process is selected, record it in 'bill_ptr', so that the 
- * clock task can tell who to bill for system time.
- */
-  register struct proc *rp;			/* process to run */
-  int q;				/* iterate over queues */
-
-  NOREC_ENTER(pick);
-
-  /* Check each of the scheduling queues for ready processes. The number of
-   * queues is defined in proc.h, and priorities are set in the task table.
-   * The lowest queue contains IDLE, which is always ready.
-   */
-  for (q=0; q &lt; NR_SCHED_QUEUES; q++) {	
-	int found = 0;
-	if(!(rp = rdy_head[q])) {
-		TRACE(VF_PICKPROC, printf(&quot;queue %d empty\n&quot;, q););
-		continue;
-	}
-	TRACE(VF_PICKPROC, printf(&quot;found %s / %d on queue %d\n&quot;, 
-		rp-&gt;p_name, rp-&gt;p_endpoint, q););
-	next_ptr = rp;			/* run process 'rp' next */
-	vmassert(proc_ptr != next_ptr);
-	vmassert(!next_ptr-&gt;p_rts_flags);
-	if (priv(rp)-&gt;s_flags &amp; BILLABLE)	 	
-		bill_ptr = rp;		/* bill for system time */
-	NOREC_RETURN(pick, );
-  }
-  minix_panic(&quot;no runnable processes&quot;, NO_NUM);
-}
-</code></pre>
-<p>Each queue is tested. <strong><code>TASK_Q</code></strong> is tested first, and if a process on this queue is ready, <strong><code>pick_proc</code></strong> sets <strong><code>proc_ptr</code></strong> and returns immediately. Otherwise, the next <strong>lower priority</strong> queue is tested, all the way down to <strong><code>IDLE_Q</code></strong>.</p>
-<h3>Put a Process into Queue</h3>
-<p>The <strong><code>sched()</code></strong> function picks which queue to put a newly-ready process on, and whether to put it on the head or the tail of that queue.</p>
-<pre><code class="language-c">PRIVATE void sched(rp, queue, front)
-register struct proc *rp;			/* process to be scheduled */
-int *queue;					/* return: queue to use */
-int *front;					/* return: front or back */
-{
-/* This function determines the scheduling policy.  It is called whenever a
- * process must be added to one of the scheduling queues to decide where to
- * insert it.  As a side-effect the process' priority may be updated.  
- */
-  int time_left = (rp-&gt;p_ticks_left &gt; 0);	/* quantum fully consumed */
-
-  /* Check whether the process has time left. Otherwise give a new quantum 
-   * and lower the process' priority, unless the process already is in the 
-   * lowest queue.  
-   */
-  if (! time_left) {				/* quantum consumed ? */
-      rp-&gt;p_ticks_left = rp-&gt;p_quantum_size; 	/* give new quantum */
-      if (rp-&gt;p_priority &lt; (IDLE_Q-1)) {  	 
-          rp-&gt;p_priority += 1;			/* lower priority */
-      }
-  }
-
-  /* If there is time left, the process is added to the front of its queue, 
-   * so that it can immediately run. The queue to use simply is always the
-   * process' current priority. 
-   */
-  *queue = rp-&gt;p_priority;
-  *front = time_left;
-}
-</code></pre>
-<p><strong>It check is made to see if the entire quantum was used:</strong></p>
+<li><a href="#the-scheduling-algorithm"
+id="toc-the-scheduling-algorithm">The Scheduling Algorithm</a></li>
+<li><a href="#put-a-process-into-queue"
+id="toc-put-a-process-into-queue">Put a Process into Queue</a></li>
+</ul></li>
+<li><a href="#transitions-between-status"
+id="toc-transitions-between-status">3. Transitions between Status</a>
 <ul>
-<li>If not, it will be <strong>restarted</strong> with whatever it had left from its last turn.(Set front=1 means this process need to be insert to the front of the queue)</li>
-<li>if the entire quantum was used but other processes have had a chance to run, the <strong>priority</strong> of this process minus one.(lower the priority)</li>
+<li><a href="#dequeueproc_ptr"
+id="toc-dequeueproc_ptr"><code>dequeue(proc_ptr)</code></a></li>
+</ul></li>
+</ul></li>
 </ul>
-<h2>3. Transitions between Status</h2>
-<p><strong>This Fig 2-2 was metioned in the <a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/1Introprogress.md">Chapter2/1.Introduction to Processes</a></strong>.<!-- raw HTML omitted --></p>
-<p><img src="Sources/status.png" alt="status"></p>
-<p>Most of these transitions can be done by two functions: <strong><code>enqueue()</code></strong> and <strong><code>dequeue()</code></strong>:</p>
-<ol>
-<li>
-<p><strong>Running -&gt; Blocked</strong>:  <strong><code>enqueue(next_proc)</code></strong> (<code>sys_call</code>)<!-- raw HTML omitted --></p>
-</li>
-<li>
-<p><strong>Running -&gt; Ready</strong>:  <strong><code>dequeue(proc_ptr)</code></strong> + <strong><code>enqueue(proc_ptr)</code></strong> (<code>do_clocktick</code>)<!-- raw HTML omitted --></p>
-</li>
-<li>
-<p><strong>Ready -&gt; Running</strong>: <strong><code>enqueue(proc_ptr)</code></strong> (<code>do_clocktick</code> <code>sys_call</code> <code>do_exec</code>)<!-- raw HTML omitted --></p>
-</li>
-<li>
-<p><strong>Block -&gt; Ready</strong>: return from <strong><code>1. enqueue(next_proc)</code></strong><!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
-</li>
+</nav>
+<h2 id="operating-systems-design-and-implementation-notes">Operating
+Systems Design and Implementation Notes</h2>
+<h1 id="process-scheduler">5. Process Scheduler</h1>
+<h5 id="by-jiawei-wang">By Jiawei Wang</h5>
+<p>At the end of last note, we introduced that if a running process uses
+up its quantum without interruption and returning (still runable) inside
+<strong>a clock tick.</strong><br></p>
+<p>The <strong><code>clock_task()</code></strong> will call
+<strong><code>do_clocktick()</code></strong> and this function will
+execute the follwoing code:<br></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>prev_ptr<span class="op">-&gt;</span>p_ticks_left <span class="op">&lt;=</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> priv<span class="op">(</span>prev_ptr<span class="op">)-&gt;</span>s_flags <span class="op">&amp;</span> PREEMPTIBLE<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        dequeue<span class="op">(</span>prev_ptr<span class="op">);</span>      <span class="co">/* take it off the queues */</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        enqueue<span class="op">(</span>prev_ptr<span class="op">);</span>      <span class="co">/* and reinsert it again */</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span></code></pre></div>
+<p>We only know that these two functions
+<strong><code>dequeue()</code></strong> and
+<strong><code>enqueue()</code></strong> will reinsert the current
+unfinished process into a <strong>“Ready”</strong> status process queue
+and <strong>pick another process to run</strong>.</p>
+<ul>
+<li><strong>How to pick next process from countless processes to
+run?</strong></li>
+<li><strong>How to design this process scheduler to manage these
+processes with piority?</strong></li>
+</ul>
+<p><strong>NOTE</strong>: Since <strong>interrupts</strong> are
+<strong>not</strong> enabled while kernel code is running in Minix3, we
+do not consider any <strong>interruption</strong> in this note. And in
+next note, we will talk about more about <strong>interrupt</strong> with
+<strong>interprocess communication</strong>.<br></p>
+<h2 id="scheduling-in-minix3">1. Scheduling in Minix3</h2>
+<p><strong>MINIX 3 uses a multilevel scheduling algorithm to mantain
+processes inside 16 queues of runnable processes, scheduling is round
+robin in each queue.</strong><br> For example, in the <strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#kernelmainc">previous
+note</a></strong>, when we talk about the start of the Minix3, the
+<strong><code>main()</code></strong> function of minix3 will initialize
+the boot process table. Then processes are given initial priorities that
+are related to the structure shown in Fig. 2-29.<br></p>
+<p><img src="Sources/layer.png" alt="layer" /> * The
+<strong>clock</strong> and <strong>system tasks</strong> in layer 1
+receive the highest priority. * The <strong>device drivers</strong> of
+layer 2 get lower priority, but they are not all equal. * <strong>Server
+processes</strong> in layer 3 get lower priorities than drivers, but
+some less than others. * <strong>User processes</strong> start with less
+priority than any of the system processes, and initially are all equal.
+<br></p>
+<p>The scheduler maintains 16 queues of <strong>runnable
+processes</strong>, although not all of them may be used at a particular
+moment.<br></p>
+<figure>
+<img src="Sources/init.png" alt="init" />
+<figcaption aria-hidden="true">init</figcaption>
+</figure>
+<p>Whenever a running process becomes blocked or finished, or a runnable
+process is killed by a signal, that process is removed from the
+scheduler’s queues. <strong>Only runnable processes are
+queued.</strong></p>
+<ul>
+<li>The array <strong><code>rdy_head</code></strong> has one entry for
+each queue, with that entry pointing to the process at the head of the
+queue.</li>
+<li><strong><code>rdy_tail</code></strong> is an array whose entries
+point to the last process on each queue.</li>
+<li>If a running process uses up its quantum it is moved to the
+<strong>tail</strong> of its queue and given a new quantum.</li>
+<li>When a blocked process is awakened, it is put at the
+<strong>head</strong> of its queue if it had any part of its quantum
+left when it blocked, it gets only what it had <strong>left</strong>
+when it blocked.</li>
+</ul>
+<h2 id="process-scheduler-1">2. Process Scheduler</h2>
+<p>In essence, <strong><code>pick_proc()</code></strong> in <strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/proc.c#L1297">kernel/proc.c</a></strong>
+from line 1297 to 1332 is the <strong>scheduler</strong>.<br></p>
+<h3 id="the-scheduling-algorithm">The Scheduling Algorithm</h3>
+<p><strong>Find the highest priority queue that is not empty and pick
+the process at the head of that queue. The IDLE process is always ready,
+and is in the lowest priority queue. If all the higher priority queues
+are empty, IDLE is run.</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>PRIVATE <span class="dt">void</span> pick_proc<span class="op">()</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* Decide who to run now.  A new process is selected by setting &#39;next_ptr&#39;.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * When a billable process is selected, record it in &#39;bill_ptr&#39;, so that the </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * clock task can tell who to bill for system time.</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">*</span>rp<span class="op">;</span>         <span class="co">/* process to run */</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> q<span class="op">;</span>                <span class="co">/* iterate over queues */</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  NOREC_ENTER<span class="op">(</span>pick<span class="op">);</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Check each of the scheduling queues for ready processes. The number of</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">   * queues is defined in proc.h, and priorities are set in the task table.</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">   * The lowest queue contains IDLE, which is always ready.</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span>q<span class="op">=</span><span class="dv">0</span><span class="op">;</span> q <span class="op">&lt;</span> NR_SCHED_QUEUES<span class="op">;</span> q<span class="op">++)</span> <span class="op">{</span> </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> found <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(!(</span>rp <span class="op">=</span> rdy_head<span class="op">[</span>q<span class="op">]))</span> <span class="op">{</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        TRACE<span class="op">(</span>VF_PICKPROC<span class="op">,</span> printf<span class="op">(</span><span class="st">&quot;queue %d empty</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> q<span class="op">););</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span><span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    TRACE<span class="op">(</span>VF_PICKPROC<span class="op">,</span> printf<span class="op">(</span><span class="st">&quot;found %s / %d on queue %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        rp<span class="op">-&gt;</span>p_name<span class="op">,</span> rp<span class="op">-&gt;</span>p_endpoint<span class="op">,</span> q<span class="op">););</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    next_ptr <span class="op">=</span> rp<span class="op">;</span>          <span class="co">/* run process &#39;rp&#39; next */</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    vmassert<span class="op">(</span>proc_ptr <span class="op">!=</span> next_ptr<span class="op">);</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    vmassert<span class="op">(!</span>next_ptr<span class="op">-&gt;</span>p_rts_flags<span class="op">);</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>priv<span class="op">(</span>rp<span class="op">)-&gt;</span>s_flags <span class="op">&amp;</span> BILLABLE<span class="op">)</span>       </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        bill_ptr <span class="op">=</span> rp<span class="op">;</span>      <span class="co">/* bill for system time */</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    NOREC_RETURN<span class="op">(</span>pick<span class="op">,</span> <span class="op">);</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  minix_panic<span class="op">(</span><span class="st">&quot;no runnable processes&quot;</span><span class="op">,</span> NO_NUM<span class="op">);</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Each queue is tested. <strong><code>TASK_Q</code></strong> is tested
+first, and if a process on this queue is ready,
+<strong><code>pick_proc</code></strong> sets
+<strong><code>proc_ptr</code></strong> and returns immediately.
+Otherwise, the next <strong>lower priority</strong> queue is tested, all
+the way down to <strong><code>IDLE_Q</code></strong>.</p>
+<h3 id="put-a-process-into-queue">Put a Process into Queue</h3>
+<p>The <strong><code>sched()</code></strong> function picks which queue
+to put a newly-ready process on, and whether to put it on the head or
+the tail of that queue.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>PRIVATE <span class="dt">void</span> sched<span class="op">(</span>rp<span class="op">,</span> queue<span class="op">,</span> front<span class="op">)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">*</span>rp<span class="op">;</span>           <span class="co">/* process to be scheduled */</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> <span class="op">*</span>queue<span class="op">;</span>                 <span class="co">/* return: queue to use */</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> <span class="op">*</span>front<span class="op">;</span>                 <span class="co">/* return: front or back */</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">/* This function determines the scheduling policy.  It is called whenever a</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"> * process must be added to one of the scheduling queues to decide where to</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"> * insert it.  As a side-effect the process&#39; priority may be updated.  </span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> time_left <span class="op">=</span> <span class="op">(</span>rp<span class="op">-&gt;</span>p_ticks_left <span class="op">&gt;</span> <span class="dv">0</span><span class="op">);</span>   <span class="co">/* quantum fully consumed */</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Check whether the process has time left. Otherwise give a new quantum </span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">   * and lower the process&#39; priority, unless the process already is in the </span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">   * lowest queue.  </span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span> time_left<span class="op">)</span> <span class="op">{</span>                <span class="co">/* quantum consumed ? */</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>      rp<span class="op">-&gt;</span>p_ticks_left <span class="op">=</span> rp<span class="op">-&gt;</span>p_quantum_size<span class="op">;</span>    <span class="co">/* give new quantum */</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> <span class="op">(</span>rp<span class="op">-&gt;</span>p_priority <span class="op">&lt;</span> <span class="op">(</span>IDLE_Q<span class="op">-</span><span class="dv">1</span><span class="op">))</span> <span class="op">{</span>     </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>          rp<span class="op">-&gt;</span>p_priority <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span>          <span class="co">/* lower priority */</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* If there is time left, the process is added to the front of its queue, </span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">   * so that it can immediately run. The queue to use simply is always the</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">   * process&#39; current priority. </span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="op">*</span>queue <span class="op">=</span> rp<span class="op">-&gt;</span>p_priority<span class="op">;</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="op">*</span>front <span class="op">=</span> time_left<span class="op">;</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>It check is made to see if the entire quantum was
+used:</strong> * If not, it will be <strong>restarted</strong> with
+whatever it had left from its last turn.(Set front=1 means this process
+need to be insert to the front of the queue) * if the entire quantum was
+used but other processes have had a chance to run, the
+<strong>priority</strong> of this process minus one.(lower the
+priority)</p>
+<h2 id="transitions-between-status">3. Transitions between Status</h2>
+<p><strong>This Fig 2-2 was metioned in the <a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/1Introprogress.md">Chapter2/1.Introduction
+to Processes</a></strong>.<br></p>
+<figure>
+<img src="Sources/status.png" alt="status" />
+<figcaption aria-hidden="true">status</figcaption>
+</figure>
+<p>Most of these transitions can be done by two functions:
+<strong><code>enqueue()</code></strong> and
+<strong><code>dequeue()</code></strong>: 1. <strong>Running -&gt;
+Blocked</strong>: <strong><code>enqueue(next_proc)</code></strong>
+(<code>sys_call</code>)<br></p>
+<ol start="2" type="1">
+<li><p><strong>Running -&gt; Ready</strong>:
+<strong><code>dequeue(proc_ptr)</code></strong> +
+<strong><code>enqueue(proc_ptr)</code></strong>
+(<code>do_clocktick</code>)<br></p></li>
+<li><p><strong>Ready -&gt; Running</strong>:
+<strong><code>enqueue(proc_ptr)</code></strong>
+(<code>do_clocktick</code> <code>sys_call</code>
+<code>do_exec</code>)<br></p></li>
+<li><p><strong>Block -&gt; Ready</strong>: return from
+<strong><code>1. enqueue(next_proc)</code></strong><br> <br></p></li>
 </ol>
-<p><strong>These two functions are also simple but useful</strong>, both of them were in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/proc.c#L1142">kernel/proc.c</a>:</strong><!-- raw HTML omitted --></p>
-<h3><code>enqueue(proc_ptr)</code></h3>
-<ul>
-<li>Call <strong><code>sched(proc_ptr)</code></strong> to add this process to one of the queue of runnable processes.</li>
-<li>Call <strong><code>pick_proc()</code></strong> to determine which process to run next by assigning the <strong><code>next_ptr</code></strong>.</li>
-</ul>
-<pre><code class="language-c">PUBLIC void enqueue(rp)
-register struct proc *rp;	/* this process is now runnable */
-{
-/* Add 'rp' to one of the queues of runnable processes.  This function is 
- * responsible for inserting a process into one of the scheduling queues. 
- * The mechanism is implemented here.   The actual scheduling policy is
- * defined in sched() and pick_proc().
- */
-  int q;	 				/* scheduling queue to use */
-  int front;					/* add to front or back */
-
-  NOREC_ENTER(enqueuefunc);
-
-#if DEBUG_SCHED_CHECK
-  if(!intr_disabled()) { minix_panic(&quot;enqueue with interrupts enabled&quot;, NO_NUM); }
-  if (rp-&gt;p_ready) minix_panic(&quot;enqueue already ready process&quot;, NO_NUM);
-#endif
-
-  /* Determine where to insert to process. */
-  sched(rp, &amp;q, &amp;front);
-
-  vmassert(q &gt;= 0);
-  vmassert(q &lt; IDLE_Q || rp-&gt;p_endpoint == IDLE);
-
-  /* Now add the process to the queue. */
-  if (rdy_head[q] == NIL_PROC) {		/* add to empty queue */
-      rdy_head[q] = rdy_tail[q] = rp; 		/* create a new queue */
-      rp-&gt;p_nextready = NIL_PROC;		/* mark new end */
-  } 
-  else if (front) {				/* add to head of queue */
-      rp-&gt;p_nextready = rdy_head[q];		/* chain head of queue */
-      rdy_head[q] = rp;				/* set new queue head */
-  } 
-  else {					/* add to tail of queue */
-      rdy_tail[q]-&gt;p_nextready = rp;		/* chain tail of queue */	
-      rdy_tail[q] = rp;				/* set new queue tail */
-      rp-&gt;p_nextready = NIL_PROC;		/* mark new end */
-  }
-
-#if DEBUG_SCHED_CHECK
-  rp-&gt;p_ready = 1;
-  CHECK_RUNQUEUES;
-#endif
-
-  /* Now select the next process to run, if there isn't a current
-   * process yet or current process isn't ready any more, or
-   * it's PREEMPTIBLE.
-   */
-	vmassert(proc_ptr);
-  if((proc_ptr-&gt;p_priority &gt; rp-&gt;p_priority) &amp;&amp;
-   (priv(proc_ptr)-&gt;s_flags &amp; PREEMPTIBLE)) 
-     pick_proc();
-
-#if DEBUG_SCHED_CHECK
-  CHECK_RUNQUEUES;
-#endif
-
-  NOREC_RETURN(enqueuefunc, );
-}
-
-</code></pre>
-<h3><code>dequeue(proc_ptr)</code></h3>
-<pre><code class="language-c">PUBLIC void dequeue(rp)
-register struct proc *rp;	/* this process is no longer runnable */
-{
-/* A process must be removed from the scheduling queues, for example, because
- * it has blocked.  If the currently active process is removed, a new process
- * is picked to run by calling pick_proc().
- */
-  register int q = rp-&gt;p_priority;		/* queue to use */
-  register struct proc **xpp;			/* iterate over queue */
-  register struct proc *prev_xp;
-
-  NOREC_ENTER(dequeuefunc);
-
-#if DEBUG_STACK_CHECK
-  /* Side-effect for kernel: check if the task's stack still is ok? */
-  if (iskernelp(rp)) { 				
-	if (*priv(rp)-&gt;s_stack_guard != STACK_GUARD)
-		minix_panic(&quot;stack overrun by task&quot;, proc_nr(rp));
-  }
-#endif
-
-#if DEBUG_SCHED_CHECK
-  if(!intr_disabled()) { minix_panic(&quot;dequeue with interrupts enabled&quot;, NO_NUM); }
-  if (! rp-&gt;p_ready) minix_panic(&quot;dequeue() already unready process&quot;, NO_NUM);
-#endif
-
-  /* Now make sure that the process is not in its ready queue. Remove the 
-   * process if it is found. A process can be made unready even if it is not 
-   * running by being sent a signal that kills it.
-   */
-  prev_xp = NIL_PROC;				
-  for (xpp = &amp;rdy_head[q]; *xpp != NIL_PROC; xpp = &amp;(*xpp)-&gt;p_nextready) {
-
-      if (*xpp == rp) {				/* found process to remove */
-          *xpp = (*xpp)-&gt;p_nextready;		/* replace with next chain */
-          if (rp == rdy_tail[q])		/* queue tail removed */
-              rdy_tail[q] = prev_xp;		/* set new tail */
-
-#if DEBUG_SCHED_CHECK
-  		rp-&gt;p_ready = 0;
-		  CHECK_RUNQUEUES;
-#endif
-          if (rp == proc_ptr || rp == next_ptr)	/* active process removed */
-              pick_proc();		/* pick new process to run */
-          break;
-      }
-      prev_xp = *xpp;				/* save previous in chain */
-  }
-
-#if DEBUG_SCHED_CHECK
-  CHECK_RUNQUEUES;
-#endif
-
-  NOREC_RETURN(dequeuefunc, );
-}
-
-</code></pre>
-<p>In the next note, we will further study the implementation of process in Minix3, with considering more <strong>situations</strong> when a process is running.
-Like <strong>interruption</strong> and <strong>race conditions</strong> that we talked about the concepts earlier at of this chapter.</p>
+<p><strong>These two functions are also simple but useful</strong>, both
+of them were in <strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/proc.c#L1142">kernel/proc.c</a>:</strong><br>
+### <code>enqueue(proc_ptr)</code> * Call
+<strong><code>sched(proc_ptr)</code></strong> to add this process to one
+of the queue of runnable processes. * Call
+<strong><code>pick_proc()</code></strong> to determine which process to
+run next by assigning the <strong><code>next_ptr</code></strong>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>PUBLIC <span class="dt">void</span> enqueue<span class="op">(</span>rp<span class="op">)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">*</span>rp<span class="op">;</span>   <span class="co">/* this process is now runnable */</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">/* Add &#39;rp&#39; to one of the queues of runnable processes.  This function is </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * responsible for inserting a process into one of the scheduling queues. </span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"> * The mechanism is implemented here.   The actual scheduling policy is</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"> * defined in sched() and pick_proc().</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> q<span class="op">;</span>                    <span class="co">/* scheduling queue to use */</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> front<span class="op">;</span>                    <span class="co">/* add to front or back */</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  NOREC_ENTER<span class="op">(</span>enqueuefunc<span class="op">);</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="pp">#if DEBUG_SCHED_CHECK</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span><span class="op">(!</span>intr_disabled<span class="op">())</span> <span class="op">{</span> minix_panic<span class="op">(</span><span class="st">&quot;enqueue with interrupts enabled&quot;</span><span class="op">,</span> NO_NUM<span class="op">);</span> <span class="op">}</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>rp<span class="op">-&gt;</span>p_ready<span class="op">)</span> minix_panic<span class="op">(</span><span class="st">&quot;enqueue already ready process&quot;</span><span class="op">,</span> NO_NUM<span class="op">);</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Determine where to insert to process. */</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  sched<span class="op">(</span>rp<span class="op">,</span> <span class="op">&amp;</span>q<span class="op">,</span> <span class="op">&amp;</span>front<span class="op">);</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  vmassert<span class="op">(</span>q <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  vmassert<span class="op">(</span>q <span class="op">&lt;</span> IDLE_Q <span class="op">||</span> rp<span class="op">-&gt;</span>p_endpoint <span class="op">==</span> IDLE<span class="op">);</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Now add the process to the queue. */</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>rdy_head<span class="op">[</span>q<span class="op">]</span> <span class="op">==</span> NIL_PROC<span class="op">)</span> <span class="op">{</span>        <span class="co">/* add to empty queue */</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>      rdy_head<span class="op">[</span>q<span class="op">]</span> <span class="op">=</span> rdy_tail<span class="op">[</span>q<span class="op">]</span> <span class="op">=</span> rp<span class="op">;</span>       <span class="co">/* create a new queue */</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>      rp<span class="op">-&gt;</span>p_nextready <span class="op">=</span> NIL_PROC<span class="op">;</span>       <span class="co">/* mark new end */</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> </span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>front<span class="op">)</span> <span class="op">{</span>             <span class="co">/* add to head of queue */</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>      rp<span class="op">-&gt;</span>p_nextready <span class="op">=</span> rdy_head<span class="op">[</span>q<span class="op">];</span>        <span class="co">/* chain head of queue */</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>      rdy_head<span class="op">[</span>q<span class="op">]</span> <span class="op">=</span> rp<span class="op">;</span>             <span class="co">/* set new queue head */</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> </span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="op">{</span>                    <span class="co">/* add to tail of queue */</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>      rdy_tail<span class="op">[</span>q<span class="op">]-&gt;</span>p_nextready <span class="op">=</span> rp<span class="op">;</span>        <span class="co">/* chain tail of queue */</span>   </span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>      rdy_tail<span class="op">[</span>q<span class="op">]</span> <span class="op">=</span> rp<span class="op">;</span>             <span class="co">/* set new queue tail */</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>      rp<span class="op">-&gt;</span>p_nextready <span class="op">=</span> NIL_PROC<span class="op">;</span>       <span class="co">/* mark new end */</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="pp">#if DEBUG_SCHED_CHECK</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  rp<span class="op">-&gt;</span>p_ready <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  CHECK_RUNQUEUES<span class="op">;</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Now select the next process to run, if there isn&#39;t a current</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="co">   * process yet or current process isn&#39;t ready any more, or</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co">   * it&#39;s PREEMPTIBLE.</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    vmassert<span class="op">(</span>proc_ptr<span class="op">);</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span><span class="op">((</span>proc_ptr<span class="op">-&gt;</span>p_priority <span class="op">&gt;</span> rp<span class="op">-&gt;</span>p_priority<span class="op">)</span> <span class="op">&amp;&amp;</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>   <span class="op">(</span>priv<span class="op">(</span>proc_ptr<span class="op">)-&gt;</span>s_flags <span class="op">&amp;</span> PREEMPTIBLE<span class="op">))</span> </span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>     pick_proc<span class="op">();</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="pp">#if DEBUG_SCHED_CHECK</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>  CHECK_RUNQUEUES<span class="op">;</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>  NOREC_RETURN<span class="op">(</span>enqueuefunc<span class="op">,</span> <span class="op">);</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="dequeueproc_ptr"><code>dequeue(proc_ptr)</code></h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>PUBLIC <span class="dt">void</span> dequeue<span class="op">(</span>rp<span class="op">)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">*</span>rp<span class="op">;</span>   <span class="co">/* this process is no longer runnable */</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">/* A process must be removed from the scheduling queues, for example, because</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * it has blocked.  If the currently active process is removed, a new process</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"> * is picked to run by calling pick_proc().</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">register</span> <span class="dt">int</span> q <span class="op">=</span> rp<span class="op">-&gt;</span>p_priority<span class="op">;</span>      <span class="co">/* queue to use */</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">**</span>xpp<span class="op">;</span>           <span class="co">/* iterate over queue */</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">*</span>prev_xp<span class="op">;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  NOREC_ENTER<span class="op">(</span>dequeuefunc<span class="op">);</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="pp">#if DEBUG_STACK_CHECK</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Side-effect for kernel: check if the task&#39;s stack still is ok? */</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>iskernelp<span class="op">(</span>rp<span class="op">))</span> <span class="op">{</span>              </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(*</span>priv<span class="op">(</span>rp<span class="op">)-&gt;</span>s_stack_guard <span class="op">!=</span> STACK_GUARD<span class="op">)</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        minix_panic<span class="op">(</span><span class="st">&quot;stack overrun by task&quot;</span><span class="op">,</span> proc_nr<span class="op">(</span>rp<span class="op">));</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="pp">#if DEBUG_SCHED_CHECK</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span><span class="op">(!</span>intr_disabled<span class="op">())</span> <span class="op">{</span> minix_panic<span class="op">(</span><span class="st">&quot;dequeue with interrupts enabled&quot;</span><span class="op">,</span> NO_NUM<span class="op">);</span> <span class="op">}</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span> rp<span class="op">-&gt;</span>p_ready<span class="op">)</span> minix_panic<span class="op">(</span><span class="st">&quot;dequeue() already unready process&quot;</span><span class="op">,</span> NO_NUM<span class="op">);</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Now make sure that the process is not in its ready queue. Remove the </span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">   * process if it is found. A process can be made unready even if it is not </span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">   * running by being sent a signal that kills it.</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  prev_xp <span class="op">=</span> NIL_PROC<span class="op">;</span>               </span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span>xpp <span class="op">=</span> <span class="op">&amp;</span>rdy_head<span class="op">[</span>q<span class="op">];</span> <span class="op">*</span>xpp <span class="op">!=</span> NIL_PROC<span class="op">;</span> xpp <span class="op">=</span> <span class="op">&amp;(*</span>xpp<span class="op">)-&gt;</span>p_nextready<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> <span class="op">(*</span>xpp <span class="op">==</span> rp<span class="op">)</span> <span class="op">{</span>             <span class="co">/* found process to remove */</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>          <span class="op">*</span>xpp <span class="op">=</span> <span class="op">(*</span>xpp<span class="op">)-&gt;</span>p_nextready<span class="op">;</span>       <span class="co">/* replace with next chain */</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span> <span class="op">(</span>rp <span class="op">==</span> rdy_tail<span class="op">[</span>q<span class="op">])</span>        <span class="co">/* queue tail removed */</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>              rdy_tail<span class="op">[</span>q<span class="op">]</span> <span class="op">=</span> prev_xp<span class="op">;</span>        <span class="co">/* set new tail */</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="pp">#if DEBUG_SCHED_CHECK</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>        rp<span class="op">-&gt;</span>p_ready <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>          CHECK_RUNQUEUES<span class="op">;</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span> <span class="op">(</span>rp <span class="op">==</span> proc_ptr <span class="op">||</span> rp <span class="op">==</span> next_ptr<span class="op">)</span> <span class="co">/* active process removed */</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>              pick_proc<span class="op">();</span>      <span class="co">/* pick new process to run */</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>          <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>      prev_xp <span class="op">=</span> <span class="op">*</span>xpp<span class="op">;</span>               <span class="co">/* save previous in chain */</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="pp">#if DEBUG_SCHED_CHECK</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>  CHECK_RUNQUEUES<span class="op">;</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>  NOREC_RETURN<span class="op">(</span>dequeuefunc<span class="op">,</span> <span class="op">);</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>In the next note, we will further study the implementation of process
+in Minix3, with considering more <strong>situations</strong> when a
+process is running. Like <strong>interruption</strong> and <strong>race
+conditions</strong> that we talked about the concepts earlier at of this
+chapter.</p>
 	</section>
 	</div>
     </div>
@@ -363,6 +562,10 @@ this.page.identifier = "OSDI/Chapter/Chapter2/5Scheduler.html"
    </div>
 </footer>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <script src="../../../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->

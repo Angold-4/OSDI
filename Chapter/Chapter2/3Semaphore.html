@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="../../../images/favicon.png" rel="icon">
-
 <link rel="canonical" href=".">
         <meta name="author" content="Angold Wang" />
 
@@ -26,6 +25,128 @@
 
     <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+  <style>
+
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+
+    li {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    a {
+      font-size: 18px;
+    }
+
+    k
+
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+    {   }
+
+    @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 
 </head>
 <body>
@@ -64,274 +185,312 @@
     <div class="row">
         <div class="col-lg-12">
 	<section id="content" class="body">
-
-
-
-<h2>Operating Systems Design and Implementation Notes</h2>
-<h1>3. Semaphore and IPC Problems</h1>
-<h5>By Jiawei Wang</h5>
-<p>Before we take a further step into <strong>Semaphore</strong>, let's make a conclusion of the <a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/2Communication.md">Prev Note</a>:<!-- raw HTML omitted --></p>
-<ol>
-<li>
-<p>The main difference between normal <strong>strict alternation</strong> and <strong>condition variables</strong> to avoid race conditions is that:<!-- raw HTML omitted -->
-<strong>Condition variables make the waiting process blocked rather than busy waiting.</strong><!-- raw HTML omitted -->Which makes the code more efficient and also can prevent more unknown errors.<!-- raw HTML omitted --></p>
-</li>
-<li>
-<p>In the <a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/2Communication.md">prev note</a>. We use <strong>Mutex</strong> to prevent chaos, and using <strong>Condition Variable</strong> to guarantee sequences.</p>
-</li>
-</ol>
-<p>In this note. First we will introduce <strong>Semaphore</strong>. Then we will use this new technique to solve two classical <strong>IPC problems</strong>.<!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
-<h2>1. Semaphore</h2>
-<p>This was the situation until E. W. Dtra (1965) suggested <strong>using an integer variable to count the number of wakeups saved for future use</strong>. In his proposal, a new variable type, called a <strong>semaphore</strong>, was introduced.</p>
-<p>In my opinion: <strong>Semaphore</strong> is a combination of both <strong>Mutex</strong> and <strong>Condition Variables</strong>:<!-- raw HTML omitted --></p>
+<nav id="TOC" role="doc-toc">
 <ul>
-<li>
-<p>A semaphore could have the value 0, indicating that no wakeups were saved, or some positive value if one or more wakeups were <strong>pending</strong>.<!-- raw HTML omitted --></p>
-</li>
-<li>
-<p>We can do both <strong>up</strong> and <strong>down</strong> operations with semaphore.<!-- raw HTML omitted --></p>
-<ol>
-<li>
-<p>The <strong>down operation</strong> on a semaphore checks to see if the value is greater than 0. If so, it decrements the value and just continues. If the value is 0, the process is put to sleep without completing the down for the moment.</p>
-</li>
-<li>
-<p>The <strong>up operation</strong> increments the value of the semaphore addressed. If one or more processes were sleeping on that semaphore, unable to complete an earlier down operation, one of them is chosen by the system and is allowed to complete its down.</p>
-</li>
-<li>
-<p>One important thing to notice is that: <strong>Both operations of incrementing the semaphore and waking up one process is indivisible, so as decreasing and sleep a process</strong></p>
-</li>
-</ol>
-</li>
+<li><a href="#operating-systems-design-and-implementation-notes"
+id="toc-operating-systems-design-and-implementation-notes">Operating
+Systems Design and Implementation Notes</a></li>
+<li><a href="#semaphore-and-ipc-problems"
+id="toc-semaphore-and-ipc-problems">3. Semaphore and IPC Problems</a>
+<ul>
+<li><a href="#semaphore" id="toc-semaphore">1. Semaphore</a></li>
+<li><a href="#classical-ipc-problems" id="toc-classical-ipc-problems">2.
+Classical IPC Problems</a>
+<ul>
+<li><a href="#the-dining-philosophers-problem"
+id="toc-the-dining-philosophers-problem">1. The Dining Philosophers
+Problem</a></li>
+<li><a href="#the-producer-consumer-problem"
+id="toc-the-producer-consumer-problem">2. The Producer-Consumer
+Problem</a></li>
+</ul></li>
+</ul></li>
 </ul>
-<p><strong>Example: <a href="Codes/semaphore.c">Codes/semaphore.c</a></strong></p>
-<pre><code class="language-c">#include &lt;dispatch/dispatch.h&gt; // use dispatch intead of semaphore on MacOSX (deprecated)
-
-#define THREAD_NUM 4
-
-dispatch_semaphore_t semaphore;
-
-void* routine(void* args) {
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);    // down
-    sleep(1);
-    printf(&quot;Hello from thread %d\n&quot;, *(int*)args);
-    dispatch_semaphore_signal(semaphore);    // up
-    free(args);
-}
-
-int main(int argc, char *argv[]) {
-    pthread_t th[THREAD_NUM];
-    semaphore = dispatch_semaphore_create(2); // only allow two threads execute at the same time
-    int i;
-    for (i = 0; i &lt; THREAD_NUM; i++) {
-        int* a = malloc(sizeof(int));
-        *a = i;
-        if (pthread_create(&amp;th[i], NULL, &amp;routine, a) != 0) {
-            perror(&quot;Failed to create thread&quot;);
-        }
-    }
-
-    for (i = 0; i &lt; THREAD_NUM; i++) {
-        if (pthread_join(th[i], NULL) != 0) {
-            perror(&quot;Failed to join thread&quot;);
-        }
-    }
-    dispatch_release(semaphore);
-    return 0;
-}
-</code></pre>
-<p><strong>Output:</strong><!-- raw HTML omitted --></p>
+</nav>
+<h2 id="operating-systems-design-and-implementation-notes">Operating
+Systems Design and Implementation Notes</h2>
+<h1 id="semaphore-and-ipc-problems">3. Semaphore and IPC Problems</h1>
+<h5 id="by-jiawei-wang">By Jiawei Wang</h5>
+<p>Before we take a further step into <strong>Semaphore</strong>, let’s
+make a conclusion of the <a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/2Communication.md">Prev
+Note</a>:<br> 1. The main difference between normal <strong>strict
+alternation</strong> and <strong>condition variables</strong> to avoid
+race conditions is that:<br> <strong>Condition variables make the
+waiting process blocked rather than busy waiting.</strong><br>Which
+makes the code more efficient and also can prevent more unknown
+errors.<br></p>
+<ol start="2" type="1">
+<li>In the <a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/2Communication.md">prev
+note</a>. We use <strong>Mutex</strong> to prevent chaos, and using
+<strong>Condition Variable</strong> to guarantee sequences.</li>
+</ol>
+<p>In this note. First we will introduce <strong>Semaphore</strong>.
+Then we will use this new technique to solve two classical <strong>IPC
+problems</strong>.<br> <br></p>
+<h2 id="semaphore">1. Semaphore</h2>
+<p>This was the situation until E. W. Dtra (1965) suggested
+<strong>using an integer variable to count the number of wakeups saved
+for future use</strong>. In his proposal, a new variable type, called a
+<strong>semaphore</strong>, was introduced.</p>
+<p>In my opinion: <strong>Semaphore</strong> is a combination of both
+<strong>Mutex</strong> and <strong>Condition Variables</strong>:<br> * A
+semaphore could have the value 0, indicating that no wakeups were saved,
+or some positive value if one or more wakeups were
+<strong>pending</strong>.<br></p>
+<ul>
+<li><p>We can do both <strong>up</strong> and <strong>down</strong>
+operations with semaphore.<br></p>
+<ol type="1">
+<li><p>The <strong>down operation</strong> on a semaphore checks to see
+if the value is greater than 0. If so, it decrements the value and just
+continues. If the value is 0, the process is put to sleep without
+completing the down for the moment.</p></li>
+<li><p>The <strong>up operation</strong> increments the value of the
+semaphore addressed. If one or more processes were sleeping on that
+semaphore, unable to complete an earlier down operation, one of them is
+chosen by the system and is allowed to complete its down.</p></li>
+<li><p>One important thing to notice is that: <strong>Both operations of
+incrementing the semaphore and waking up one process is indivisible, so
+as decreasing and sleep a process</strong></p></li>
+</ol></li>
+</ul>
+<p><strong>Example: <a
+href="Codes/semaphore.c">Codes/semaphore.c</a></strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;dispatch/dispatch.h&gt;</span><span class="pp"> </span><span class="co">// use dispatch intead of semaphore on MacOSX (deprecated)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define THREAD_NUM 4</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>dispatch_semaphore_t semaphore<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span><span class="op">*</span> routine<span class="op">(</span><span class="dt">void</span><span class="op">*</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    dispatch_semaphore_wait<span class="op">(</span>semaphore<span class="op">,</span> DISPATCH_TIME_FOREVER<span class="op">);</span>    <span class="co">// down</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    sleep<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;Hello from thread %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> <span class="op">*(</span><span class="dt">int</span><span class="op">*)</span>args<span class="op">);</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    dispatch_semaphore_signal<span class="op">(</span>semaphore<span class="op">);</span>    <span class="co">// up</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    free<span class="op">(</span>args<span class="op">);</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    pthread_t th<span class="op">[</span>THREAD_NUM<span class="op">];</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    semaphore <span class="op">=</span> dispatch_semaphore_create<span class="op">(</span><span class="dv">2</span><span class="op">);</span> <span class="co">// only allow two threads execute at the same time</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i<span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> THREAD_NUM<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span><span class="op">*</span> a <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">));</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span>a <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>pthread_create<span class="op">(&amp;</span>th<span class="op">[</span>i<span class="op">],</span> NULL<span class="op">,</span> <span class="op">&amp;</span>routine<span class="op">,</span> a<span class="op">)</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>            perror<span class="op">(</span><span class="st">&quot;Failed to create thread&quot;</span><span class="op">);</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> THREAD_NUM<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>pthread_join<span class="op">(</span>th<span class="op">[</span>i<span class="op">],</span> NULL<span class="op">)</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>            perror<span class="op">(</span><span class="st">&quot;Failed to join thread&quot;</span><span class="op">);</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    dispatch_release<span class="op">(</span>semaphore<span class="op">);</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Output:</strong><br></p>
 <pre><code>❯ ./a.out
 Hello from thread 0
 Hello from thread 2
 (sleep one sec)
 Hello from thread 1
-Hello from thread 3
-</code></pre>
-<p>In this example: <!-- raw HTML omitted -->we assign two to the <code>semaphore</code> variable -- Only two threads are allowed to execute at any moments.</p>
-<p>If you want to practice one more example of semaphore, you can check <a href="Codes/semaphores.c">Codes/semaphores.c</a>.<!-- raw HTML omitted -->Which gives us a <strong>Log In Model</strong> in real life. and the server can only deal with 4 users at the same time.</p>
-<!-- raw HTML omitted -->
-<h2>2. Classical IPC Problems</h2>
-<h3>1. The Dining Philosophers Problem</h3>
-<p><img src="Sources/Philosophers.png" alt="philosophers"></p>
+Hello from thread 3</code></pre>
+<p>In this example: <br>we assign two to the <code>semaphore</code>
+variable – Only two threads are allowed to execute at any moments.</p>
+<p>If you want to practice one more example of semaphore, you can check
+<a href="Codes/semaphores.c">Codes/semaphores.c</a>.<br>Which gives us a
+<strong>Log In Model</strong> in real life. and the server can only deal
+with 4 users at the same time.</p>
+<p><br></p>
+<h2 id="classical-ipc-problems">2. Classical IPC Problems</h2>
+<h3 id="the-dining-philosophers-problem">1. The Dining Philosophers
+Problem</h3>
+<figure>
+<img src="Sources/Philosophers.png" alt="philosophers" />
+<figcaption aria-hidden="true">philosophers</figcaption>
+</figure>
 <pre><code>Dinning Philosophers
 Five philosophers are seated around a circular table.
 Each philosopher has a plate of spaghetti. The spaghetti is so slippery that a philosopher needs two forks to eat it.
 The life of a philosopher consists of alternate periods of eating and thinking.
 When a philosopher gets hungry, she tries to acquire her left and right fork, one at a time, in either order.
 If successful in acquiring two forks, she eats for a while, then puts down the forks and continues to think.
-The key question is: can you write a program for each philosopher that does what it is supposed to do and never gets sucked 
-</code></pre>
-<pre><code class="language-c">#define N         5   /* number of philosophers */
-#define LEFT      (i + N - 1) % N 
-#define RIGHT     (i + 1) % N
-
-#define THINKING  0   /* philosopher is thinking */
-#define HUNGRY    1   /* philosopher is trying to get forks */
-#define EATING    2   /* philosopher is eating */
-
-int state[N];
-int phil[N] = { 0, 1, 2, 3, 4 };
-
-dispatch_semaphore_t mutex;  /* mutual exclusion for critical regions */
-dispatch_semaphore_t s[N];   /* semaphore per philosopher */
-
-void think(int i) {
-    int thinktime = rand() % 10 + 1;
-    printf(&quot;%d philosopher is thinking...\n&quot;, i);
-    sleep(thinktime);
-}
-
-void eat(int i) {
-    int eattime = rand() % 5 + 1;
-    printf(&quot;%d philosopher is eating...\n&quot;, i);
-    sleep(eattime);
-}
-
-void test(int i) {
-    if(state[i] == HUNGRY &amp;&amp; state[LEFT] != EATING &amp;&amp; state[RIGHT] != EATING) {
-	state[i] = EATING;
-	dispatch_semaphore_signal(s[i]);
-    }
-}
-
-void take_forks(int i) {
-    dispatch_semaphore_wait(mutex, DISPATCH_TIME_FOREVER); 
-    state[i] = HUNGRY;
-    test(i);
-    dispatch_semaphore_signal(mutex);
-    dispatch_semaphore_signal(s[i]);
-}
-
-void put_forks(int i) {
-    dispatch_semaphore_wait(mutex, DISPATCH_TIME_FOREVER); 
-    state[i] = THINKING;
-    test(LEFT);
-    test(RIGHT);
-    dispatch_semaphore_signal(mutex);
-}
-
-void* philosopher(void* arg) {
-    while (1) {
-	int index = *(int*) arg;
-	think(index);
-	take_forks(index);
-	eat(index);
-	put_forks(index);
-    }
-
-}
-
-int main(int argc, char* argv[]) {
-    srand(time(NULL));
-    pthread_t th[N];  /* number of threads */
-    mutex = dispatch_semaphore_create(1);  /* binary semaphore */
-    for (int i = 0; i &lt; N; i++) {
-	s[i] = dispatch_semaphore_create(0);
-    }
-
-    int i;
-    // create
-    for (i = 0; i &lt; N; i++) {
-	if(pthread_create(&amp;th[i], NULL, philosopher, &amp;phil[i]) != 0) {
-	    perror(&quot;Failed to create a philosopher&quot;);
-	}
-    }
-
-    // join
-    for (i = 0; i &lt; N; i++) {
-	if (pthread_join(th[i], NULL) != 0) {
-	    perror(&quot;Failed to join thread&quot;);
-	}
-    }
-
-    // release
-    dispatch_release(mutex);
-    for (int i = 0; i &lt; N; i++) {
-	dispatch_release(s[i]);
-    }
-}
-</code></pre>
-<p>The solution presented in <strong><a href="Codes/philosopher.c">philosopher.c</a></strong> is deadlock-free and allows the maximum parallelism for an arbitrary number of philosophers.</p>
-<h3>2. The Producer-Consumer Problem</h3>
+The key question is: can you write a program for each philosopher that does what it is supposed to do and never gets sucked </code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define N         5   </span><span class="co">/* number of philosophers */</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define LEFT      (i + N - 1) % N </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define RIGHT     (i + 1) % N</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#define THINKING  0   </span><span class="co">/* philosopher is thinking */</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#define HUNGRY    1   </span><span class="co">/* philosopher is trying to get forks */</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#define EATING    2   </span><span class="co">/* philosopher is eating */</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> state<span class="op">[</span>N<span class="op">];</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> phil<span class="op">[</span>N<span class="op">]</span> <span class="op">=</span> <span class="op">{</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span> <span class="op">};</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>dispatch_semaphore_t mutex<span class="op">;</span>  <span class="co">/* mutual exclusion for critical regions */</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>dispatch_semaphore_t s<span class="op">[</span>N<span class="op">];</span>   <span class="co">/* semaphore per philosopher */</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> think<span class="op">(</span><span class="dt">int</span> i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> thinktime <span class="op">=</span> rand<span class="op">()</span> <span class="op">%</span> <span class="dv">10</span> <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;%d philosopher is thinking...</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> i<span class="op">);</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    sleep<span class="op">(</span>thinktime<span class="op">);</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> eat<span class="op">(</span><span class="dt">int</span> i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> eattime <span class="op">=</span> rand<span class="op">()</span> <span class="op">%</span> <span class="dv">5</span> <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;%d philosopher is eating...</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> i<span class="op">);</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    sleep<span class="op">(</span>eattime<span class="op">);</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> test<span class="op">(</span><span class="dt">int</span> i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>state<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> HUNGRY <span class="op">&amp;&amp;</span> state<span class="op">[</span>LEFT<span class="op">]</span> <span class="op">!=</span> EATING <span class="op">&amp;&amp;</span> state<span class="op">[</span>RIGHT<span class="op">]</span> <span class="op">!=</span> EATING<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    state<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> EATING<span class="op">;</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    dispatch_semaphore_signal<span class="op">(</span>s<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> take_forks<span class="op">(</span><span class="dt">int</span> i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    dispatch_semaphore_wait<span class="op">(</span>mutex<span class="op">,</span> DISPATCH_TIME_FOREVER<span class="op">);</span> </span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    state<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> HUNGRY<span class="op">;</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    test<span class="op">(</span>i<span class="op">);</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    dispatch_semaphore_signal<span class="op">(</span>mutex<span class="op">);</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    dispatch_semaphore_signal<span class="op">(</span>s<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> put_forks<span class="op">(</span><span class="dt">int</span> i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    dispatch_semaphore_wait<span class="op">(</span>mutex<span class="op">,</span> DISPATCH_TIME_FOREVER<span class="op">);</span> </span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    state<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> THINKING<span class="op">;</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    test<span class="op">(</span>LEFT<span class="op">);</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    test<span class="op">(</span>RIGHT<span class="op">);</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    dispatch_semaphore_signal<span class="op">(</span>mutex<span class="op">);</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span><span class="op">*</span> philosopher<span class="op">(</span><span class="dt">void</span><span class="op">*</span> arg<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> index <span class="op">=</span> <span class="op">*(</span><span class="dt">int</span><span class="op">*)</span> arg<span class="op">;</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    think<span class="op">(</span>index<span class="op">);</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>    take_forks<span class="op">(</span>index<span class="op">);</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    eat<span class="op">(</span>index<span class="op">);</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>    put_forks<span class="op">(</span>index<span class="op">);</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">*</span> argv<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>    srand<span class="op">(</span>time<span class="op">(</span>NULL<span class="op">));</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    pthread_t th<span class="op">[</span>N<span class="op">];</span>  <span class="co">/* number of threads */</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>    mutex <span class="op">=</span> dispatch_semaphore_create<span class="op">(</span><span class="dv">1</span><span class="op">);</span>  <span class="co">/* binary semaphore */</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> N<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>    s<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> dispatch_semaphore_create<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i<span class="op">;</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>    <span class="co">// create</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> N<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>pthread_create<span class="op">(&amp;</span>th<span class="op">[</span>i<span class="op">],</span> NULL<span class="op">,</span> philosopher<span class="op">,</span> <span class="op">&amp;</span>phil<span class="op">[</span>i<span class="op">])</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>        perror<span class="op">(</span><span class="st">&quot;Failed to create a philosopher&quot;</span><span class="op">);</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>    <span class="co">// join</span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> N<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>pthread_join<span class="op">(</span>th<span class="op">[</span>i<span class="op">],</span> NULL<span class="op">)</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>        perror<span class="op">(</span><span class="st">&quot;Failed to join thread&quot;</span><span class="op">);</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>    <span class="co">// release</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>    dispatch_release<span class="op">(</span>mutex<span class="op">);</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> N<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>    dispatch_release<span class="op">(</span>s<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The solution presented in <strong><a
+href="Codes/philosopher.c">philosopher.c</a></strong> is deadlock-free
+and allows the maximum parallelism for an arbitrary number of
+philosophers.</p>
+<h3 id="the-producer-consumer-problem">2. The Producer-Consumer
+Problem</h3>
 <pre><code>The producer-consumer problem (also known as the bounded buffer problem). 
 Many processes share a common, fixed-size buffer. 
-Some of them, the producer, puts information into the buffer, and the other one, the consumer, takes it out.
-</code></pre>
-<pre><code class="language-c">#define THREAD_NUM 8
-
-
-dispatch_semaphore_t semEmpty; // Empty slots
-dispatch_semaphore_t semFull;  // Full slots
-
-pthread_mutex_t mutexBuffer;
-
-int buffer[10];
-int count = 0;
-
-void* producer(void* args) {
-    while (1) {
-        // Produce
-        int x = rand() % 100;
-        sleep(1);
-
-        // Add to the buffer
-	dispatch_semaphore_wait(semEmpty, DISPATCH_TIME_FOREVER); // down Empty slots, stop when semEmpty == 0 (full)
-        pthread_mutex_lock(&amp;mutexBuffer);
-        buffer[count] = x;
-        count++;
-        pthread_mutex_unlock(&amp;mutexBuffer);
-	dispatch_semaphore_signal(semFull); // up
-    }
-}
-
-void* consumer(void* args) {
-    while (1) {
-        int y;
-
-        // Remove from the buffer
-	dispatch_semaphore_wait(semFull, DISPATCH_TIME_FOREVER); // down Full slots, stop whe semFull == 0 (empty)
-        pthread_mutex_lock(&amp;mutexBuffer);
-        y = buffer[count - 1];
-        count--;
-        pthread_mutex_unlock(&amp;mutexBuffer);
-	dispatch_semaphore_signal(semEmpty);
-
-        // Consume
-        printf(&quot;Got %d\n&quot;, y);
-        sleep(1);
-    }
-}
-
-int main(int argc, char* argv[]) {
-    srand(time(NULL));
-    pthread_t th[THREAD_NUM];
-    pthread_mutex_init(&amp;mutexBuffer, NULL);
-    semEmpty = dispatch_semaphore_create(10);
-    semFull = dispatch_semaphore_create(0);
-    int i;
-    for (i = 0; i &lt; THREAD_NUM; i++) {
-        if (i &gt; 0) {
-            if (pthread_create(&amp;th[i], NULL, &amp;producer, NULL) != 0) {
-                perror(&quot;Failed to create thread&quot;);
-            }
-        } else {
-            if (pthread_create(&amp;th[i], NULL, &amp;consumer, NULL) != 0) {
-                perror(&quot;Failed to create thread&quot;);
-            }
-        }
-    }
-    for (i = 0; i &lt; THREAD_NUM; i++) {
-        if (pthread_join(th[i], NULL) != 0) {
-            perror(&quot;Failed to join thread&quot;);
-        }
-    }
-    dispatch_release(semEmpty);
-    dispatch_release(semFull);
-    pthread_mutex_destroy(&amp;mutexBuffer);
-    return 0;
-}
-</code></pre>
+Some of them, the producer, puts information into the buffer, and the other one, the consumer, takes it out.</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define THREAD_NUM 8</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>dispatch_semaphore_t semEmpty<span class="op">;</span> <span class="co">// Empty slots</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>dispatch_semaphore_t semFull<span class="op">;</span>  <span class="co">// Full slots</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>pthread_mutex_t mutexBuffer<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> buffer<span class="op">[</span><span class="dv">10</span><span class="op">];</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> count <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span><span class="op">*</span> producer<span class="op">(</span><span class="dt">void</span><span class="op">*</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Produce</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> x <span class="op">=</span> rand<span class="op">()</span> <span class="op">%</span> <span class="dv">100</span><span class="op">;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        sleep<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Add to the buffer</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    dispatch_semaphore_wait<span class="op">(</span>semEmpty<span class="op">,</span> DISPATCH_TIME_FOREVER<span class="op">);</span> <span class="co">// down Empty slots, stop when semEmpty == 0 (full)</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        pthread_mutex_lock<span class="op">(&amp;</span>mutexBuffer<span class="op">);</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        buffer<span class="op">[</span>count<span class="op">]</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        count<span class="op">++;</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        pthread_mutex_unlock<span class="op">(&amp;</span>mutexBuffer<span class="op">);</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    dispatch_semaphore_signal<span class="op">(</span>semFull<span class="op">);</span> <span class="co">// up</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span><span class="op">*</span> consumer<span class="op">(</span><span class="dt">void</span><span class="op">*</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> y<span class="op">;</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Remove from the buffer</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    dispatch_semaphore_wait<span class="op">(</span>semFull<span class="op">,</span> DISPATCH_TIME_FOREVER<span class="op">);</span> <span class="co">// down Full slots, stop whe semFull == 0 (empty)</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>        pthread_mutex_lock<span class="op">(&amp;</span>mutexBuffer<span class="op">);</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> buffer<span class="op">[</span>count <span class="op">-</span> <span class="dv">1</span><span class="op">];</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>        count<span class="op">--;</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>        pthread_mutex_unlock<span class="op">(&amp;</span>mutexBuffer<span class="op">);</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    dispatch_semaphore_signal<span class="op">(</span>semEmpty<span class="op">);</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Consume</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;Got %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> y<span class="op">);</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>        sleep<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">*</span> argv<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    srand<span class="op">(</span>time<span class="op">(</span>NULL<span class="op">));</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    pthread_t th<span class="op">[</span>THREAD_NUM<span class="op">];</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>    pthread_mutex_init<span class="op">(&amp;</span>mutexBuffer<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    semEmpty <span class="op">=</span> dispatch_semaphore_create<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    semFull <span class="op">=</span> dispatch_semaphore_create<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i<span class="op">;</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> THREAD_NUM<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>i <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>pthread_create<span class="op">(&amp;</span>th<span class="op">[</span>i<span class="op">],</span> NULL<span class="op">,</span> <span class="op">&amp;</span>producer<span class="op">,</span> NULL<span class="op">)</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>                perror<span class="op">(</span><span class="st">&quot;Failed to create thread&quot;</span><span class="op">);</span></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>pthread_create<span class="op">(&amp;</span>th<span class="op">[</span>i<span class="op">],</span> NULL<span class="op">,</span> <span class="op">&amp;</span>consumer<span class="op">,</span> NULL<span class="op">)</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>                perror<span class="op">(</span><span class="st">&quot;Failed to create thread&quot;</span><span class="op">);</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> THREAD_NUM<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>pthread_join<span class="op">(</span>th<span class="op">[</span>i<span class="op">],</span> NULL<span class="op">)</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>            perror<span class="op">(</span><span class="st">&quot;Failed to join thread&quot;</span><span class="op">);</span></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>    dispatch_release<span class="op">(</span>semEmpty<span class="op">);</span></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>    dispatch_release<span class="op">(</span>semFull<span class="op">);</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>    pthread_mutex_destroy<span class="op">(&amp;</span>mutexBuffer<span class="op">);</span></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 	</section>
 	</div>
     </div>
@@ -371,6 +530,10 @@ this.page.identifier = "OSDI/Chapter/Chapter2/3Semaphore.html"
    </div>
 </footer>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <script src="../../../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->

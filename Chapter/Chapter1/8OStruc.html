@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="../../../images/favicon.png" rel="icon">
-
 <link rel="canonical" href=".">
         <meta name="author" content="Angold Wang" />
 
@@ -26,6 +25,128 @@
 
     <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+  <style>
+
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+
+    li {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    a {
+      font-size: 18px;
+    }
+
+    k
+
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+    {   }
+
+    @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 
 </head>
 <body>
@@ -64,15 +185,35 @@
     <div class="row">
         <div class="col-lg-12">
 	<section id="content" class="body">
-
-
-
-<h3>Operating Systerms Design and Implementation Notes</h3>
-<h5>By Jiawei Wang</h5>
-<h1>8. Operating System Structure</h1>
-<p><strong>Now that we have seen what operating systems look like on the outside (i.e, the programmer’s interface), it is time to take a look inside.</strong><!-- raw HTML omitted -->
-<strong>In the Following sections, We will introduce Oprating System briefly in 5 point of views:</strong><!-- raw HTML omitted --></p>
-<!-- raw HTML omitted -->
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#operating-systerms-design-and-implementation-notes"
+id="toc-operating-systerms-design-and-implementation-notes">Operating
+Systerms Design and Implementation Notes</a></li>
+<li><a href="#operating-system-structure"
+id="toc-operating-system-structure">8. Operating System Structure</a>
+<ul>
+<li><a href="#monolithic-systems" id="toc-monolithic-systems">1.
+Monolithic Systems</a></li>
+<li><a href="#layered-systems" id="toc-layered-systems">2. Layered
+Systems</a></li>
+<li><a href="#virtual-machines" id="toc-virtual-machines">3. Virtual
+Machines</a></li>
+<li><a href="#exokernels" id="toc-exokernels">4. Exokernels</a></li>
+<li><a href="#client-server-model" id="toc-client-server-model">5.
+Client-Server Model</a></li>
+</ul></li>
+</ul>
+</nav>
+<h3 id="operating-systerms-design-and-implementation-notes">Operating
+Systerms Design and Implementation Notes</h3>
+<h5 id="by-jiawei-wang">By Jiawei Wang</h5>
+<h1 id="operating-system-structure">8. Operating System Structure</h1>
+<p><strong>Now that we have seen what operating systems look like on the
+outside (i.e, the programmer’s interface), it is time to take a look
+inside.</strong><br> <strong>In the Following sections, We will
+introduce Oprating System briefly in 5 point of views:</strong><br></p>
+<!-- vim-markdown-toc GFM -->
 <ul>
 <li><a href="#1-monolithic-systems">1. Monolithic Systems</a></li>
 <li><a href="#2-layered-systems">2. Layered Systems</a></li>
@@ -80,103 +221,233 @@
 <li><a href="#4-exokernels">4. Exokernels</a></li>
 <li><a href="#5-client-server-model">5. Client-Server Model</a></li>
 </ul>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<h2>1. Monolithic Systems</h2>
-<p><strong>In this point of view. The OS is written as a collection of procedures.</strong><!-- raw HTML omitted --></p>
-<ul>
-<li><strong>Each of procedures can call any of the other ones whenever it needs to.</strong></li>
-<li><strong>Each procedure in the system has a well-defined interface in terms of parameters and results</strong></li>
-<li><strong>Each one is free to call any other one, if the latter provides some useful computation that the former needs.</strong>
-<!-- raw HTML omitted --></li>
-</ul>
-<p><strong>This is a good time to look at how system calls are performed in this point of view.</strong><!-- raw HTML omitted -->
-<strong>Let's see this <code>read</code> system call:</strong><!-- raw HTML omitted --></p>
-<pre><code class="language-c">count = read(fd, &amp;buffer, nbytes);
-</code></pre>
-<p><img src="Sources/monolithic.png" alt="monolithic"></p>
-<p><strong>In preparation for calling the read library procedure, which actually makes the <code>read</code> system call.</strong><!-- raw HTML omitted -->
-<strong>(Please notice that the following point 1 to 11 are correspond to the 11 steps in figure 1.16 above)</strong></p>
-<ol>
-<li><strong>The calling program pushes the parameters onto the stack(nbytes)</strong></li>
-<li><strong>The calling program pushes the parameters onto the stack(buffer)</strong></li>
-<li><strong>The calling program pushes the parameters onto the stack(fd)</strong></li>
-<li><strong>Then comes the actual call to the library procedure <code>read</code>.</strong></li>
-<li><strong>Execute the library procedure <code>read</code>, It possibly written in assembly language, typically puts the system call number in a place where the operating system expects it, such as a register.</strong></li>
-<li><strong>This step is the continuous of step 5, Then it executes a TRAP instruction to switch from user mode to kernel mode and start execution at a fixed address within the kernel.</strong></li>
-<li><strong>Within the kernel, the kernel code that starts examines the system call number and then dispatches to the correct system call handler, usually via a table of pointers to system call handlers indexed on system call number.</strong></li>
-<li><strong>At that point the system call handler runs <!-- raw HTML omitted -->(This is the formal handler)<!-- raw HTML omitted --></strong></li>
-<li><strong>Once the system call handler has completed its work, control may be returned to the user-space library procedure at the instruction following the TRAP instruction.</strong></li>
-<li><strong>This procedure then returns to the user program(The program called <code>read</code> system call) in the usual way procedure calls return</strong></li>
-<li><strong>To finish the job, the user program has to clean up the stack, as it does after any procedure call.</strong></li>
+<!-- vim-markdown-toc -->
+<p><br></p>
+<h2 id="monolithic-systems">1. Monolithic Systems</h2>
+<p><strong>In this point of view. The OS is written as a collection of
+procedures.</strong><br> * <strong>Each of procedures can call any of
+the other ones whenever it needs to.</strong> * <strong>Each procedure
+in the system has a well-defined interface in terms of parameters and
+results</strong> * <strong>Each one is free to call any other one, if
+the latter provides some useful computation that the former
+needs.</strong> <br></p>
+<p><strong>This is a good time to look at how system calls are performed
+in this point of view.</strong><br> <strong>Let’s see this
+<code>read</code> system call:</strong><br></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> read<span class="op">(</span>fd<span class="op">,</span> <span class="op">&amp;</span>buffer<span class="op">,</span> nbytes<span class="op">);</span></span></code></pre></div>
+<figure>
+<img src="Sources/monolithic.png" alt="monolithic" />
+<figcaption aria-hidden="true">monolithic</figcaption>
+</figure>
+<p><strong>In preparation for calling the read library procedure, which
+actually makes the <code>read</code> system call.</strong><br>
+<strong>(Please notice that the following point 1 to 11 are correspond
+to the 11 steps in figure 1.16 above)</strong></p>
+<ol type="1">
+<li><strong>The calling program pushes the parameters onto the
+stack(nbytes)</strong></li>
+<li><strong>The calling program pushes the parameters onto the
+stack(buffer)</strong></li>
+<li><strong>The calling program pushes the parameters onto the
+stack(fd)</strong></li>
+<li><strong>Then comes the actual call to the library procedure
+<code>read</code>.</strong></li>
+<li><strong>Execute the library procedure <code>read</code>, It possibly
+written in assembly language, typically puts the system call number in a
+place where the operating system expects it, such as a
+register.</strong></li>
+<li><strong>This step is the continuous of step 5, Then it executes a
+TRAP instruction to switch from user mode to kernel mode and start
+execution at a fixed address within the kernel.</strong></li>
+<li><strong>Within the kernel, the kernel code that starts examines the
+system call number and then dispatches to the correct system call
+handler, usually via a table of pointers to system call handlers indexed
+on system call number.</strong></li>
+<li><strong>At that point the system call handler runs <u>(This is the
+formal handler)</u></strong></li>
+<li><strong>Once the system call handler has completed its work, control
+may be returned to the user-space library procedure at the instruction
+following the TRAP instruction.</strong></li>
+<li><strong>This procedure then returns to the user program(The program
+called <code>read</code> system call) in the usual way procedure calls
+return</strong></li>
+<li><strong>To finish the job, the user program has to clean up the
+stack, as it does after any procedure call.</strong> &gt;
+<strong>Assuming the stack grows downward, as it often does, the
+compiled code increments the stack pointer exactly enough to remove the
+parameters pushed before the call to read. The program is now free to do
+whatever it wants to do next.</strong> <br></li>
 </ol>
-<blockquote>
-<p><strong>Assuming the stack grows downward, as it often does, the compiled code increments the stack pointer exactly enough to remove the parameters pushed before the call to read. The program is now free to do whatever it wants to do next.</strong>
-<!-- raw HTML omitted --></p>
-</blockquote>
-<p><strong>This organization suggests a basic structure for the operating system:</strong></p>
-<ol>
-<li><strong>A main program that invokes the requested service procedure.<!-- raw HTML omitted --><!-- raw HTML omitted -->i.e: The user program which called the system call<!-- raw HTML omitted --></strong></li>
-<li><strong>A set of service procedures that carry out the system calls.<!-- raw HTML omitted --><!-- raw HTML omitted -->i.e: The system call handler inside the kernel (8)<!-- raw HTML omitted --></strong></li>
-<li><strong>A set of utility procedures that help the service procedures.<!-- raw HTML omitted --><!-- raw HTML omitted -->i.e: Specific operation. Such as fetching data from user programs or clean up the stack<!-- raw HTML omitted --></strong></li>
+<p><strong>This organization suggests a basic structure for the
+operating system:</strong></p>
+<ol type="1">
+<li><strong>A main program that invokes the requested service
+procedure.<br><u>i.e: The user program which called the system
+call</u></strong></li>
+<li><strong>A set of service procedures that carry out the system
+calls.<br><u>i.e: The system call handler inside the kernel
+(8)</u></strong></li>
+<li><strong>A set of utility procedures that help the service
+procedures.<br><u>i.e: Specific operation. Such as fetching data from
+user programs or clean up the stack</u></strong></li>
 </ol>
-<!-- raw HTML omitted -->
-<p><img src="Sources/monolithicmodel.png" alt="monolithicmodel"></p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2>2. Layered Systems</h2>
-<p><strong>The system had 6 layers, as shown in Fig. 1-18.</strong><!-- raw HTML omitted --></p>
-<p><img src="Sources/layered.png" alt="layered">
-<!-- raw HTML omitted --></p>
-<p><strong>For details each book, please check No.64 to 65 pages in the book</strong><!-- raw HTML omitted -->
-<strong>Each layer conceals certain details, and by providing some interfaces upwards, the upper-level program does not need to consider specific details.</strong><!-- raw HTML omitted --></p>
-<p><strong>For example:<!-- raw HTML omitted --></strong>
-<strong>Layer 0 dealt with allocation of the processor, switching between processes when interrupts occurred or timers expired.<!-- raw HTML omitted -->Above layer 0, the system consisted of sequential processes, each of which could be programmed without having to worry about the fact that multiple processes were running on a single processor. In other words, layer 0 provided the basic multiprogramming of the CPU.</strong></p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2>3. Virtual Machines</h2>
-<p><strong>Before We introduce OS in this point of view, to make a better understanding.  It is important to know some history about it.<!-- raw HTML omitted --></strong></p>
+<p><br></p>
+<figure>
+<img src="Sources/monolithicmodel.png" alt="monolithicmodel" />
+<figcaption aria-hidden="true">monolithicmodel</figcaption>
+</figure>
+<p><br><br></p>
+<h2 id="layered-systems">2. Layered Systems</h2>
+<p><strong>The system had 6 layers, as shown in Fig.
+1-18.</strong><br></p>
+<p><img src="Sources/layered.png" alt="layered" /> <br></p>
+<p><strong>For details each book, please check No.64 to 65 pages in the
+book</strong><br> <strong>Each layer conceals certain details, and by
+providing some interfaces upwards, the upper-level program does not need
+to consider specific details.</strong><br></p>
+<p><strong>For example:<br></strong> <strong>Layer 0 dealt with
+allocation of the processor, switching between processes when interrupts
+occurred or timers expired.<br>Above layer 0, the system consisted of
+sequential processes, each of which could be programmed without having
+to worry about the fact that multiple processes were running on a single
+processor. In other words, layer 0 provided the basic multiprogramming
+of the CPU.</strong></p>
+<p><br><br></p>
+<h2 id="virtual-machines">3. Virtual Machines</h2>
+<p><strong>Before We introduce OS in this point of view, to make a
+better understanding. It is important to know some history about
+it.<br></strong></p>
 <blockquote>
-<p><strong>The initial releases of OS/360 were strictly batch systems. Nevertheless, many 360 users wanted to have timesharing, so various groups, both inside and outside IBM decided to write timesharing systems for it. The official IBM timesharing system, TSS/360, was delivered late, and when it finally arrived it was so big and slow that few sites converted over to it. It was eventually abandoned after its development had consumed some $50 million (Graham, 1970). But a group at IBM’s Scientific Center in Cambridge, Massachusetts, produced a radically dif- ferent system that IBM eventually accepted as a product, and which is now widely used on its mainframes.</strong></p>
+<p><strong>The initial releases of OS/360 were strictly batch systems.
+Nevertheless, many 360 users wanted to have timesharing, so various
+groups, both inside and outside IBM decided to write timesharing systems
+for it. The official IBM timesharing system, TSS/360, was delivered
+late, and when it finally arrived it was so big and slow that few sites
+converted over to it. It was eventually abandoned after its development
+had consumed some $50 million (Graham, 1970). But a group at IBM’s
+Scientific Center in Cambridge, Massachusetts, produced a radically dif-
+ferent system that IBM eventually accepted as a product, and which is
+now widely used on its mainframes.</strong></p>
 </blockquote>
-<!-- raw HTML omitted -->
-<p><strong>This system, originally called CP/CMS and later renamed VM/370, was based on a very astute observation:<!-- raw HTML omitted -->A timesharing system provides:<!-- raw HTML omitted -->(1) multiprogramming and (2) an extended machine with a more convenient interface than the bare hardware.</strong><!-- raw HTML omitted --></p>
-<p><strong>The heart of the system, known as the <!-- raw HTML omitted -->virtual machine monitor<!-- raw HTML omitted -->, runs on the bare hardware and does the multiprogramming, providing not one, but several <!-- raw HTML omitted -->virtual machines<!-- raw HTML omitted --> to the next layer up, as shown in Fig. 1-19.</strong><!-- raw HTML omitted --></p>
-<p><img src="Sources/vm.png" alt="vm"></p>
-<p><strong>The <a href="https://en.wikipedia.org/wiki/Virtual_machine">virtual machine</a> is a software which modify the hardware, including kernel/user mode, I/O, interrupts, and everything else the real machine has.</strong><!-- raw HTML omitted -->
-<strong>In this point of view, maybe we can understand the meaning of <!-- raw HTML omitted -->OS is the virtual machine monitor<!-- raw HTML omitted -->:<!-- raw HTML omitted --></strong>
-<strong>When a CMS program executes a system call, the call is trapped to the operating system in its own virtual machine, not to VM/370, just as it would if it were running on a real machine instead of a virtual one. CMS then issues the normal hardware I/O instructions for reading its virtual disk or whatever is needed to carry out the call. <!-- raw HTML omitted -->These I/O instructions are trapped by VM/370<!-- raw HTML omitted -->, which then performs them as part of its simulation of the real hardware.</strong><!-- raw HTML omitted --></p>
-<p><strong>In this example above, we can find that the OS is the manager of all virtual machine at this time. By making a complete separation of the functions of multiprogramming and providing an extended machine, each of the pieces can be much simpler, more flexible, and easier to maintain.</strong>
-<!-- raw HTML omitted --></p>
-<p><strong>Several virtual machine implementations are marketed commercially. For example, today it is very convinent to run Linux on Windows through <a href="https://www.microsoft.com/en-hk/download/details.aspx?id=3702">Virtual PC</a> or other virture machine software. The nature of them were all provide a <!-- raw HTML omitted -->virtual machine monitor<!-- raw HTML omitted --> layer between Two systems and handle all system calls just like below.</strong><!-- raw HTML omitted --></p>
-<p><img src="Sources/virtualbox.png" alt="virtualbox"><!-- raw HTML omitted --></p>
-<p><img src="Sources/minix3mac.png" alt="minix3mac"><!-- raw HTML omitted --></p>
-<p><strong>Run <a href="https://wiki.minix3.org/doku.php?id=www:download:start">MINIX3.3</a> in OS X by using <a href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a></strong></p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2>4. Exokernels</h2>
-<p><strong>With VM/370, each user process gets an exact copy of the actual computer. Going one step further, researchers at M.I.T. built a system that gives each user a clone of the actual computer, but with a subset of the resources<!-- raw HTML omitted --></strong></p>
-<p><strong>For example: Thus one virtual machine might get disk blocks 0 to 1023, the next one might get blocks 1024 to 2047, and so on.</strong><!-- raw HTML omitted -->
-<strong>At the bottom layer, running in kernel mode, is a program called the <a href="https://en.wikipedia.org/wiki/Exokernel">exokernel</a>. Its job is to allocate resources to virtual machines and then check attempts to use them to make sure no machine is trying to use somebody else’s resources. Each user-level virtual machine can run its own operating system, as on VM/370, except that each one is restricted to using only the resources it has asked for and been allocated.</strong>
-<!-- raw HTML omitted --></p>
-<p><img src="Sources/Exokernel.png" alt="Exokernel"><!-- raw HTML omitted -->
-<strong><a href="https://commons.wikimedia.org/w/index.php?curid=25131239">Provided by Thorben Bochenek, CC BY-SA 3.0</a></strong><!-- raw HTML omitted --></p>
-<p><strong>The advantage of the exokernel scheme is that it saves a layer of mapping. In the other designs, each virtual machine thinks it has its own disk, with blocks running from 0 to some maximum, so the virtual machine monitor must maintain tables to remap disk addresses (and all other resources).</strong><!-- raw HTML omitted -->
-<strong>With the exokernel, this remapping is not needed. The exokernel need only keep track of which virtual machine has been assigned which resource, since all the exokernel has to do is keep the virtual machines out of each other’s hair.</strong></p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2>5. Client-Server Model</h2>
-<p><strong>VM/370 gains much in simplicity by moving a large part of the traditional operating system code (implementing the extended machine) into a higher layer, CMS. Nevertheless, VM/370 itself is still a complex program because simulating a number of virtual 370s is not that simple (especially if you want to do it reasonably efficiently and in large systems).</strong>
-<!-- raw HTML omitted --></p>
-<p><strong>A trend in modern operating systems is to take this idea of moving code up into higher layers even further and remove as much as possible from the operating system, leaving a minimal kernel(Usually called <a href="https://en.wikipedia.org/wiki/Microkernel">Micro Kernel</a>).</strong>
-<!-- raw HTML omitted --></p>
-<p><img src="Sources/microkernel.png" alt="microkernel"><!-- raw HTML omitted -->
-<strong><a href="https://commons.wikimedia.org/wiki/File:OS-structure2.svg">https://commons.wikimedia.org/wiki/File:OS-structure2.svg</a></strong><!-- raw HTML omitted --></p>
-<p><strong>As we can see in the picture below: The Kernel Space in Monolithic Kernel is much bigger than which in Micro Kernel.<!-- raw HTML omitted -->In Micro Kernel. The reason is to implement most of the operating system functions in user processes. To request a service, such as reading a block of a file, a user process sends the request to a server process, which then does the work and sends back the answer.</strong>
-<!-- raw HTML omitted --></p>
-<p><strong>In this model, shown in Fig. 1-20, <!-- raw HTML omitted -->all the kernel does is handle the communication between clients and servers.<!-- raw HTML omitted --> <!-- raw HTML omitted -->By splitting the operating system up into parts, each of which only handles one facet of the system, such as file service, process service, terminal service, or memory service, each part becomes small and manageable. <!-- raw HTML omitted -->Furthermore, because all the servers run as user-mode processes, and not in kernel mode, they do not have direct access to the hardware. As a consequence, if a bug in the file server is triggered, the file service may crash, but this will not usually bring the whole machine down.</strong></p>
-<p><img src="Sources/microkernelmodel.png" alt="microkernelmodel"><!-- raw HTML omitted --></p>
-<p><strong>Another advantage of the client-server model is its adaptability to use in distributed systems (see Fig. 1-21).<!-- raw HTML omitted --><!-- raw HTML omitted -->If a client communicates with a server by sending it messages, the client need not know whether the message is handled locally in its own machine, or whether it was sent across a network to a server on a remote machine. As far as the client is concerned, the same thing happens in both cases: a request was sent and a reply came back.</strong>
-<!-- raw HTML omitted --></p>
-<p><img src="Sources/distributed.png" alt="distributed">
-<!-- raw HTML omitted --></p>
-<p><strong>However, in reality, the microkernel is not on the same level as the monolithic kernel. We do not use it or accept it. In addition to the preconceived factors caused by commercial and ecological factors, there is a more important factor -- Performance.</strong></p>
+<p><br></p>
+<p><strong>This system, originally called CP/CMS and later renamed
+VM/370, was based on a very astute observation:<br>A timesharing system
+provides:<br>(1) multiprogramming and (2) an extended machine with a
+more convenient interface than the bare hardware.</strong><br></p>
+<p><strong>The heart of the system, known as the <u>virtual machine
+monitor</u>, runs on the bare hardware and does the multiprogramming,
+providing not one, but several <u>virtual machines</u> to the next layer
+up, as shown in Fig. 1-19.</strong><br></p>
+<figure>
+<img src="Sources/vm.png" alt="vm" />
+<figcaption aria-hidden="true">vm</figcaption>
+</figure>
+<p><strong>The <a
+href="https://en.wikipedia.org/wiki/Virtual_machine">virtual machine</a>
+is a software which modify the hardware, including kernel/user mode,
+I/O, interrupts, and everything else the real machine has.</strong><br>
+<strong>In this point of view, maybe we can understand the meaning of
+<u>OS is the virtual machine monitor</u>:<br></strong> <strong>When a
+CMS program executes a system call, the call is trapped to the operating
+system in its own virtual machine, not to VM/370, just as it would if it
+were running on a real machine instead of a virtual one. CMS then issues
+the normal hardware I/O instructions for reading its virtual disk or
+whatever is needed to carry out the call. <u>These I/O instructions are
+trapped by VM/370</u>, which then performs them as part of its
+simulation of the real hardware.</strong><br></p>
+<p><strong>In this example above, we can find that the OS is the manager
+of all virtual machine at this time. By making a complete separation of
+the functions of multiprogramming and providing an extended machine,
+each of the pieces can be much simpler, more flexible, and easier to
+maintain.</strong> <br></p>
+<p><strong>Several virtual machine implementations are marketed
+commercially. For example, today it is very convinent to run Linux on
+Windows through <a
+href="https://www.microsoft.com/en-hk/download/details.aspx?id=3702">Virtual
+PC</a> or other virture machine software. The nature of them were all
+provide a <u>virtual machine monitor</u> layer between Two systems and
+handle all system calls just like below.</strong><br></p>
+<p><img src="Sources/virtualbox.png" alt="virtualbox" /><br></p>
+<p><img src="Sources/minix3mac.png" alt="minix3mac" /><br></p>
+<p><strong>Run <a
+href="https://wiki.minix3.org/doku.php?id=www:download:start">MINIX3.3</a>
+in OS X by using <a
+href="https://www.virtualbox.org/wiki/Downloads">Virtual
+Box</a></strong></p>
+<p><br><br></p>
+<h2 id="exokernels">4. Exokernels</h2>
+<p><strong>With VM/370, each user process gets an exact copy of the
+actual computer. Going one step further, researchers at M.I.T. built a
+system that gives each user a clone of the actual computer, but with a
+subset of the resources<br></strong></p>
+<p><strong>For example: Thus one virtual machine might get disk blocks 0
+to 1023, the next one might get blocks 1024 to 2047, and so
+on.</strong><br> <strong>At the bottom layer, running in kernel mode, is
+a program called the <a
+href="https://en.wikipedia.org/wiki/Exokernel">exokernel</a>. Its job is
+to allocate resources to virtual machines and then check attempts to use
+them to make sure no machine is trying to use somebody else’s resources.
+Each user-level virtual machine can run its own operating system, as on
+VM/370, except that each one is restricted to using only the resources
+it has asked for and been allocated.</strong> <br></p>
+<p><img src="Sources/Exokernel.png" alt="Exokernel" /><br> <strong><a
+href="https://commons.wikimedia.org/w/index.php?curid=25131239">Provided
+by Thorben Bochenek, CC BY-SA 3.0</a></strong><br></p>
+<p><strong>The advantage of the exokernel scheme is that it saves a
+layer of mapping. In the other designs, each virtual machine thinks it
+has its own disk, with blocks running from 0 to some maximum, so the
+virtual machine monitor must maintain tables to remap disk addresses
+(and all other resources).</strong><br> <strong>With the exokernel, this
+remapping is not needed. The exokernel need only keep track of which
+virtual machine has been assigned which resource, since all the
+exokernel has to do is keep the virtual machines out of each other’s
+hair.</strong></p>
+<p><br><br></p>
+<h2 id="client-server-model">5. Client-Server Model</h2>
+<p><strong>VM/370 gains much in simplicity by moving a large part of the
+traditional operating system code (implementing the extended machine)
+into a higher layer, CMS. Nevertheless, VM/370 itself is still a complex
+program because simulating a number of virtual 370s is not that simple
+(especially if you want to do it reasonably efficiently and in large
+systems).</strong> <br></p>
+<p><strong>A trend in modern operating systems is to take this idea of
+moving code up into higher layers even further and remove as much as
+possible from the operating system, leaving a minimal kernel(Usually
+called <a href="https://en.wikipedia.org/wiki/Microkernel">Micro
+Kernel</a>).</strong> <br></p>
+<p><img src="Sources/microkernel.png" alt="microkernel" /><br>
+<strong><a
+href="https://commons.wikimedia.org/wiki/File:OS-structure2.svg">https://commons.wikimedia.org/wiki/File:OS-structure2.svg</a></strong><br></p>
+<p><strong>As we can see in the picture below: The Kernel Space in
+Monolithic Kernel is much bigger than which in Micro Kernel.<br>In Micro
+Kernel. The reason is to implement most of the operating system
+functions in user processes. To request a service, such as reading a
+block of a file, a user process sends the request to a server process,
+which then does the work and sends back the answer.</strong> <br></p>
+<p><strong>In this model, shown in Fig. 1-20, <u>all the kernel does is
+handle the communication between clients and servers.</u> <br>By
+splitting the operating system up into parts, each of which only handles
+one facet of the system, such as file service, process service, terminal
+service, or memory service, each part becomes small and manageable.
+<br>Furthermore, because all the servers run as user-mode processes, and
+not in kernel mode, they do not have direct access to the hardware. As a
+consequence, if a bug in the file server is triggered, the file service
+may crash, but this will not usually bring the whole machine
+down.</strong></p>
+<p><img src="Sources/microkernelmodel.png"
+alt="microkernelmodel" /><br></p>
+<p><strong>Another advantage of the client-server model is its
+adaptability to use in distributed systems (see Fig. 1-21).<br><br>If a
+client communicates with a server by sending it messages, the client
+need not know whether the message is handled locally in its own machine,
+or whether it was sent across a network to a server on a remote machine.
+As far as the client is concerned, the same thing happens in both cases:
+a request was sent and a reply came back.</strong> <br></p>
+<p><img src="Sources/distributed.png" alt="distributed" /> <br></p>
+<p><strong>However, in reality, the microkernel is not on the same level
+as the monolithic kernel. We do not use it or accept it. In addition to
+the preconceived factors caused by commercial and ecological factors,
+there is a more important factor – Performance.</strong></p>
 	</section>
 	</div>
     </div>
@@ -216,6 +487,10 @@ this.page.identifier = "OSDI/Chapter/Chapter1/8OStruc.html"
    </div>
 </footer>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <script src="../../../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->

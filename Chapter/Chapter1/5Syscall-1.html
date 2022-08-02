@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="../../../images/favicon.png" rel="icon">
-
 <link rel="canonical" href=".">
         <meta name="author" content="Angold Wang" />
 
@@ -26,6 +25,128 @@
 
     <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+  <style>
+
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+
+    li {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    a {
+      font-size: 18px;
+    }
+
+    k
+
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+    {   }
+
+    @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 
 </head>
 <body>
@@ -64,411 +185,611 @@
     <div class="row">
         <div class="col-lg-12">
 	<section id="content" class="body">
-
-
-
-<h3>Operating Systerms Design and Implementation Notes</h3>
-<h5>By Jiawei Wang</h5>
-<!-- raw HTML omitted -->
-<h2>Shell</h2>
-<p><strong>In the First Note. We mentioned that: The operating system is the code that carries out the system calls.<!-- raw HTML omitted -->
-Editors, compilers, assemblers, linkers, and command interpreters definitely are not part of the operating system, even though they are important and useful.</strong>
-<!-- raw HTML omitted -->
-<strong>The MINIX 3 command interpreter, called the Shell.</strong><!-- raw HTML omitted -->
-<strong>It is also the primary interface between a user sitting at his terminal and the operating system, unless the user is using a graphical user interface.</strong><!-- raw HTML omitted --></p>
-<p><img src="Sources/zshell.png" alt="zshell"></p>
-<!-- raw HTML omitted -->
-<p><strong>When any user logs in, a shell is started up. The shell has the terminal as standard input and standard output (STDIN STDOUT). It starts out by typing the prompt, a character such as a dollar sign, which tells the user that the shell is waiting to accept a command. If the user now types</strong><!-- raw HTML omitted --></p>
-<pre><code class="language-shell">date
-</code></pre>
-<!-- raw HTML omitted -->
-<p><img src="Sources/date.png" alt="zshdate"><!-- raw HTML omitted --></p>
-<p><strong>for example, the shell creates a child process and runs the date program as the child. While the child process is running, the shell waits for it to terminate. When the child finishes, the shell types the prompt again and tries to read the next input line.</strong><!-- raw HTML omitted --></p>
-<h3>Example:</h3>
-<p><strong>Considering you input that command in shell:</strong><!-- raw HTML omitted --></p>
-<pre><code class="language-shell">cp file1 file2
-</code></pre>
-<p><strong>Used to copy file1 to file2. After the shell has forked, the child process locates and executes the file cp and passes to it the names of the source and target files.</strong><!-- raw HTML omitted -->
-<strong>The main program of cp (and main program of most other C programs) contains the declaration:</strong></p>
-<pre><code class="language-c">main(argc, argv, envp)
-</code></pre>
+<nav id="TOC" role="doc-toc">
 <ul>
-<li><strong>where argc is a count of the number of items on the command line, including the program name. For the example above, argc is 3.</strong></li>
-<li><strong>The second parameter, argv, is a pointer to an array. Element i of that array is a pointer to the i-th string on the command line. In our example, argv[0] would point to the string ‘‘cp’’, argv[1] would point to the string ‘‘file1’’, and argv[2] would point to the string ‘‘file2’’.</strong></li>
-<li><strong>The third parameter of main, envp, is a pointer to the environment, an array of strings containing assignments of the form name=value used to pass information such as the terminal type and home directory name to a program. In Fig. 1-10, no environment is passed to the child, so the third parameter of execve is a zero.</strong></li>
-</ul>
-<!-- raw HTML omitted -->
-<h1>5. System Calls (1)</h1>
-<!-- raw HTML omitted -->
-<p><strong>In a sense, making a system call is like making a special kind of procedure call, only system calls enter the kernel or other privileged operating system components and procedure calls do not.</strong>
-<!-- raw HTML omitted --><!-- raw HTML omitted -->
-<strong>MINIX 3 has a total of 53 main system calls:</strong><!-- raw HTML omitted -->
-<img src="Sources/Systermcalls.png" alt="Systermcalls"><!-- raw HTML omitted --></p>
-<!-- raw HTML omitted -->
+<li><a href="#operating-systerms-design-and-implementation-notes"
+id="toc-operating-systerms-design-and-implementation-notes">Operating
+Systerms Design and Implementation Notes</a></li>
+<li><a href="#shell" id="toc-shell">Shell</a>
 <ul>
-<li><a href="#1-systerm-calls-for-process-management">1. Systerm Calls For Process Management</a>
+<li><a href="#example" id="toc-example">Example:</a></li>
+</ul></li>
+<li><a href="#system-calls-1" id="toc-system-calls-1">5. System Calls
+(1)</a>
 <ul>
-<li><a href="#fork----create-a-child-process">fork -- create a child process</a></li>
-<li><a href="#waitpid----wait-for-process-to-change-state">waitpid -- wait for process to change state</a></li>
-<li><a href="#wait----old-wait-for-process-to-change-state">wait -- old wait for process to change state</a></li>
-<li><a href="#execve----execute-program">execve -- execute program</a></li>
-<li><a href="#exit----cause-normal-process-termination">exit -- cause normal process termination</a></li>
-<li><a href="#brk-sbrk---change-data-segment-size">brk, sbrk - change data segment size</a></li>
-<li><a href="#getpid----get-process-identification">getpid -- get process identification</a></li>
-<li><a href="#getpgrp----get-process-group-id">getpgrp -- get process group id</a></li>
-<li><a href="#ptrace----process-trace">ptrace -- process trace</a></li>
-</ul>
-</li>
-<li><a href="#2-systerm-calls-for-signaling">2. Systerm Calls for Signaling</a>
+<li><a href="#systerm-calls-for-process-management"
+id="toc-systerm-calls-for-process-management">1. Systerm Calls For
+Process Management</a>
 <ul>
-<li><a href="#sigaction----examine-and-change-a-signal-action">sigaction -- examine and change a signal action</a></li>
-<li><a href="#sigreturn----return-from-signal-handler-and-cleanup-stack-frame">sigreturn -- return from signal handler and cleanup stack frame</a></li>
-<li><a href="#signal---ansi-c-signal-handling">signal - ANSI C signal handling</a></li>
-<li><a href="#kill----terminate---send-signal-to-a-process">kill -- terminate  / send signal to a process</a></li>
-<li><a href="#alarm---set-an-alarm-clock-for-delivery-of-a-signal">alarm - set an alarm clock for delivery of a signal</a></li>
-<li><a href="#pause---suspended-process-and-wait-for-a-signal">pause - suspended process and wait for a signal</a></li>
-</ul>
-</li>
-</ul>
-<!-- raw HTML omitted -->
-<h2>1. Systerm Calls For Process Management</h2>
-<!-- raw HTML omitted -->
-<h3>fork -- create a child process</h3>
-<p><strong><a href="https://man7.org/linux/man-pages/man2/fork.2.html">fork</a>( ) creates a new process by duplicating the calling process.<!-- raw HTML omitted -->
-The new process is referred to as the child process.  The calling process is referred to as the parent process.</strong><!-- raw HTML omitted --></p>
+<li><a href="#fork-create-a-child-process"
+id="toc-fork-create-a-child-process">fork – create a child
+process</a></li>
+<li><a href="#waitpid-wait-for-process-to-change-state"
+id="toc-waitpid-wait-for-process-to-change-state">waitpid – wait for
+process to change state</a></li>
+<li><a href="#wait-old-wait-for-process-to-change-state"
+id="toc-wait-old-wait-for-process-to-change-state">wait – old wait for
+process to change state</a></li>
+<li><a href="#execve-execute-program"
+id="toc-execve-execute-program">execve – execute program</a></li>
+<li><a href="#exit-cause-normal-process-termination"
+id="toc-exit-cause-normal-process-termination">exit – cause normal
+process termination</a></li>
+<li><a href="#brk-sbrk---change-data-segment-size"
+id="toc-brk-sbrk---change-data-segment-size">brk, sbrk - change data
+segment size</a></li>
+<li><a href="#getpid-get-process-identification"
+id="toc-getpid-get-process-identification">getpid – get process
+identification</a></li>
+<li><a href="#getpgrp-get-process-group-id"
+id="toc-getpgrp-get-process-group-id">getpgrp – get process group
+id</a></li>
+<li><a href="#ptrace-process-trace" id="toc-ptrace-process-trace">ptrace
+– process trace</a></li>
+</ul></li>
+<li><a href="#systerm-calls-for-signaling"
+id="toc-systerm-calls-for-signaling">2. Systerm Calls for Signaling</a>
 <ul>
-<li><strong>After the fork, the original process and the copy (the parent and child) go their separate ways.</strong></li>
-<li><strong>In most cases, after a fork, the child will need to execute different code from the parent</strong></li>
-<li><strong>On success: the PID of the child process is returned in the parent, and 0 is returned in the child.</strong></li>
-<li><strong>On failure, -1 is returned in the parent, no child process is created, and errno is set appropriately.</strong>
-<!-- raw HTML omitted --></li>
+<li><a href="#sigaction-examine-and-change-a-signal-action"
+id="toc-sigaction-examine-and-change-a-signal-action">sigaction –
+examine and change a signal action</a></li>
+<li><a
+href="#sigreturn-return-from-signal-handler-and-cleanup-stack-frame"
+id="toc-sigreturn-return-from-signal-handler-and-cleanup-stack-frame">sigreturn
+– return from signal handler and cleanup stack frame</a></li>
+<li><a href="#signal---ansi-c-signal-handling"
+id="toc-signal---ansi-c-signal-handling">signal - ANSI C signal
+handling</a></li>
+<li><a href="#kill-terminate-send-signal-to-a-process"
+id="toc-kill-terminate-send-signal-to-a-process">kill – terminate / send
+signal to a process</a></li>
+<li><a href="#alarm---set-an-alarm-clock-for-delivery-of-a-signal"
+id="toc-alarm---set-an-alarm-clock-for-delivery-of-a-signal">alarm - set
+an alarm clock for delivery of a signal</a></li>
+<li><a href="#pause---suspended-process-and-wait-for-a-signal"
+id="toc-pause---suspended-process-and-wait-for-a-signal">pause -
+suspended process and wait for a signal</a></li>
+</ul></li>
+</ul></li>
 </ul>
-<h3>waitpid -- wait for process to change state</h3>
-<p><strong><a href="https://man7.org/linux/man-pages/man2/waitpid.2.html">waitpid</a>(pid_t pid, int wstatus(pointer), int options)</strong><!-- raw HTML omitted -->
-<strong>To wait for the child to finish, the parent executes a waitpid system call, which just waits until the child terminates (any child if more than one exists).</strong></p>
+</nav>
+<h3 id="operating-systerms-design-and-implementation-notes">Operating
+Systerms Design and Implementation Notes</h3>
+<h5 id="by-jiawei-wang">By Jiawei Wang</h5>
+<p><br></p>
+<h2 id="shell">Shell</h2>
+<p><strong>In the First Note. We mentioned that: The operating system is
+the code that carries out the system calls.<br> Editors, compilers,
+assemblers, linkers, and command interpreters definitely are not part of
+the operating system, even though they are important and
+useful.</strong> <br> <strong>The MINIX 3 command interpreter, called
+the Shell.</strong><br> <strong>It is also the primary interface between
+a user sitting at his terminal and the operating system, unless the user
+is using a graphical user interface.</strong><br></p>
+<figure>
+<img src="Sources/zshell.png" alt="zshell" />
+<figcaption aria-hidden="true">zshell</figcaption>
+</figure>
+<p><br></p>
+<p><strong>When any user logs in, a shell is started up. The shell has
+the terminal as standard input and standard output (STDIN STDOUT). It
+starts out by typing the prompt, a character such as a dollar sign,
+which tells the user that the shell is waiting to accept a command. If
+the user now types</strong><br></p>
+<pre class="shell"><code>date</code></pre>
+<p><br></p>
+<p><img src="Sources/date.png" alt="zshdate" /><br></p>
+<p><strong>for example, the shell creates a child process and runs the
+date program as the child. While the child process is running, the shell
+waits for it to terminate. When the child finishes, the shell types the
+prompt again and tries to read the next input line.</strong><br></p>
+<h3 id="example">Example:</h3>
+<p><strong>Considering you input that command in shell:</strong><br></p>
+<pre class="shell"><code>cp file1 file2</code></pre>
+<p><strong>Used to copy file1 to file2. After the shell has forked, the
+child process locates and executes the file cp and passes to it the
+names of the source and target files.</strong><br> <strong>The main
+program of cp (and main program of most other C programs) contains the
+declaration:</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>main<span class="op">(</span>argc<span class="op">,</span> argv<span class="op">,</span> envp<span class="op">)</span></span></code></pre></div>
 <ul>
-<li><strong>The First argument(pid) default is -1: detail see below:</strong> <!-- raw HTML omitted -->
-<img src="Sources/getpid_pid.png" alt="pid"><!-- raw HTML omitted --></li>
-<li><strong>The Second argument(wstatus) is a pointer. which point to the exit value of the child process(default is Null)</strong></li>
-<li><strong>The Third argument default is 0. For the detail you can check this <a href="https://man7.org/linux/man-pages/man2/waitpid.2.html">website</a></strong></li>
-<li><strong>In normal case: returns the process ID of the child whose state has changed or -1</strong>
-<!-- raw HTML omitted --></li>
+<li><strong>where argc is a count of the number of items on the command
+line, including the program name. For the example above, argc is
+3.</strong></li>
+<li><strong>The second parameter, argv, is a pointer to an array.
+Element i of that array is a pointer to the i-th string on the command
+line. In our example, argv[0] would point to the string ‘‘cp’’, argv[1]
+would point to the string ‘‘file1’’, and argv[2] would point to the
+string ‘‘file2’’.</strong></li>
+<li><strong>The third parameter of main, envp, is a pointer to the
+environment, an array of strings containing assignments of the form
+name=value used to pass information such as the terminal type and home
+directory name to a program. In Fig. 1-10, no environment is passed to
+the child, so the third parameter of execve is a zero.</strong></li>
 </ul>
-<h3>wait -- old wait for process to change state</h3>
-<p><strong><a href="https://man7.org/linux/man-pages/man2/waitpid.2.html">wait</a> (wstatus(pointer))</strong><!-- raw HTML omitted -->
-<strong>The waitpid call replaces the previous wait call, which is now obsolete but is provided for reasons of backward compatibility.</strong></p>
-<pre><code class="language-c">/* example */
-#include &lt;stdlib.h&gt;
-#include &lt;unistd.h&gt;
-#include &lt;sys/types.h&gt;
-#include &lt;sys/wait.h&gt;
-main()
-{
-    pid_t pid;
-    int status, i;
-    if(fork() == 0)
-    {
-        printf(&quot;This is the child process. pid =%d\n&quot;, getpid());
-        exit(5);
-     }
-    else
-    {
-        sleep(1);
-        printf(&quot;This is the parent process, wait for child...\n&quot;);
-        pid = wait(&amp;status);
-        i = WEXITSTATUS(status);
-        printf(&quot;child's pid =%d . exit status=^d\n&quot;, pid, i);
-    }
-}
-</code></pre>
-<p><strong>output:</strong><!-- raw HTML omitted --></p>
+<p><br></p>
+<h1 id="system-calls-1">5. System Calls (1)</h1>
+<p><br></p>
+<p><strong>In a sense, making a system call is like making a special
+kind of procedure call, only system calls enter the kernel or other
+privileged operating system components and procedure calls do
+not.</strong> <br><br> <strong>MINIX 3 has a total of 53 main system
+calls:</strong><br> <img src="Sources/Systermcalls.png"
+alt="Systermcalls" /><br></p>
+<!-- vim-markdown-toc GFM -->
+<ul>
+<li><a href="#1-systerm-calls-for-process-management">1. Systerm Calls
+For Process Management</a>
+<ul>
+<li><a href="#fork----create-a-child-process">fork – create a child
+process</a></li>
+<li><a href="#waitpid----wait-for-process-to-change-state">waitpid –
+wait for process to change state</a></li>
+<li><a href="#wait----old-wait-for-process-to-change-state">wait – old
+wait for process to change state</a></li>
+<li><a href="#execve----execute-program">execve – execute
+program</a></li>
+<li><a href="#exit----cause-normal-process-termination">exit – cause
+normal process termination</a></li>
+<li><a href="#brk-sbrk---change-data-segment-size">brk, sbrk - change
+data segment size</a></li>
+<li><a href="#getpid----get-process-identification">getpid – get process
+identification</a></li>
+<li><a href="#getpgrp----get-process-group-id">getpgrp – get process
+group id</a></li>
+<li><a href="#ptrace----process-trace">ptrace – process trace</a></li>
+</ul></li>
+<li><a href="#2-systerm-calls-for-signaling">2. Systerm Calls for
+Signaling</a>
+<ul>
+<li><a href="#sigaction----examine-and-change-a-signal-action">sigaction
+– examine and change a signal action</a></li>
+<li><a
+href="#sigreturn----return-from-signal-handler-and-cleanup-stack-frame">sigreturn
+– return from signal handler and cleanup stack frame</a></li>
+<li><a href="#signal---ansi-c-signal-handling">signal - ANSI C signal
+handling</a></li>
+<li><a href="#kill----terminate---send-signal-to-a-process">kill –
+terminate / send signal to a process</a></li>
+<li><a href="#alarm---set-an-alarm-clock-for-delivery-of-a-signal">alarm
+- set an alarm clock for delivery of a signal</a></li>
+<li><a href="#pause---suspended-process-and-wait-for-a-signal">pause -
+suspended process and wait for a signal</a></li>
+</ul></li>
+</ul>
+<!-- vim-markdown-toc -->
+<h2 id="systerm-calls-for-process-management">1. Systerm Calls For
+Process Management</h2>
+<p><br></p>
+<h3 id="fork-create-a-child-process">fork – create a child process</h3>
+<p><strong><a
+href="https://man7.org/linux/man-pages/man2/fork.2.html">fork</a>( )
+creates a new process by duplicating the calling process.<br> The new
+process is referred to as the child process. The calling process is
+referred to as the parent process.</strong><br> * <strong>After the
+fork, the original process and the copy (the parent and child) go their
+separate ways.</strong> * <strong>In most cases, after a fork, the child
+will need to execute different code from the parent</strong> *
+<strong>On success: the PID of the child process is returned in the
+parent, and 0 is returned in the child.</strong> * <strong>On failure,
+-1 is returned in the parent, no child process is created, and errno is
+set appropriately.</strong> <br></p>
+<h3 id="waitpid-wait-for-process-to-change-state">waitpid – wait for
+process to change state</h3>
+<p><strong><a
+href="https://man7.org/linux/man-pages/man2/waitpid.2.html">waitpid</a>(pid_t
+pid, int wstatus(pointer), int options)</strong><br> <strong>To wait for
+the child to finish, the parent executes a waitpid system call, which
+just waits until the child terminates (any child if more than one
+exists).</strong> * <strong>The First argument(pid) default is -1:
+detail see below:</strong> <br> <img src="Sources/getpid_pid.png"
+alt="pid" /><br> * <strong>The Second argument(wstatus) is a pointer.
+which point to the exit value of the child process(default is
+Null)</strong> * <strong>The Third argument default is 0. For the detail
+you can check this <a
+href="https://man7.org/linux/man-pages/man2/waitpid.2.html">website</a></strong>
+* <strong>In normal case: returns the process ID of the child whose
+state has changed or -1</strong> <br></p>
+<h3 id="wait-old-wait-for-process-to-change-state">wait – old wait for
+process to change state</h3>
+<p><strong><a
+href="https://man7.org/linux/man-pages/man2/waitpid.2.html">wait</a>
+(wstatus(pointer))</strong><br> <strong>The waitpid call replaces the
+previous wait call, which is now obsolete but is provided for reasons of
+backward compatibility.</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* example */</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/wait.h&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>main<span class="op">()</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    pid_t pid<span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> status<span class="op">,</span> i<span class="op">;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>fork<span class="op">()</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;This is the child process. pid =%d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> getpid<span class="op">());</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">5</span><span class="op">);</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>     <span class="op">}</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        sleep<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;This is the parent process, wait for child...</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        pid <span class="op">=</span> wait<span class="op">(&amp;</span>status<span class="op">);</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        i <span class="op">=</span> WEXITSTATUS<span class="op">(</span>status<span class="op">);</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;child&#39;s pid =%d . exit status=^d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> pid<span class="op">,</span> i<span class="op">);</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>output:</strong><br></p>
 <pre><code>This is the child process. pid =67313
 This is the parent process, wait for child...
-child's pid =67313 . exit status=^d
-</code></pre>
-<p><strong>If we remove the sleep(1) in the parent process, the output will be:</strong></p>
+child&#39;s pid =67313 . exit status=^d</code></pre>
+<p><strong>If we remove the sleep(1) in the parent process, the output
+will be:</strong></p>
 <pre><code>This is the parent process, wait for child...
 This is the child process. pid =67672
-child's pid =67672 . exit status=^d
-</code></pre>
-<p><strong><code>wait()</code> will temporarily stop the execution of the current process until a signal comes or the child process ends.</strong>
-<!-- raw HTML omitted --></p>
-<h3>execve -- execute program</h3>
-<p><strong><a href="https://man7.org/linux/man-pages/man3/exec.3.html">execve</a> (command, parameters, env)</strong><!-- raw HTML omitted -->
-<strong>In the most general case, execve has three parameters: the name of the file to be executed, a pointer to the argument array, and a pointer to the environment</strong><!-- raw HTML omitted --></p>
+child&#39;s pid =67672 . exit status=^d</code></pre>
+<p><strong><code>wait()</code> will temporarily stop the execution of
+the current process until a signal comes or the child process
+ends.</strong> <br></p>
+<h3 id="execve-execute-program">execve – execute program</h3>
+<p><strong><a
+href="https://man7.org/linux/man-pages/man3/exec.3.html">execve</a>
+(command, parameters, env)</strong><br> <strong>In the most general
+case, execve has three parameters: the name of the file to be executed,
+a pointer to the argument array, and a pointer to the
+environment</strong><br></p>
 <ul>
-<li><strong>There are many different types of exeve for difference <a href="https://man7.org/linux/man-pages/man3/exec.3.html">use</a>: execl, execlp, execle, execv, execvp, execvpe</strong></li>
-<li><strong>The exec functions return only if an error has occurred. -1 and errno is set to indicate the error.</strong></li>
+<li><strong>There are many different types of exeve for difference <a
+href="https://man7.org/linux/man-pages/man3/exec.3.html">use</a>: execl,
+execlp, execle, execv, execvp, execvpe</strong></li>
+<li><strong>The exec functions return only if an error has occurred. -1
+and errno is set to indicate the error.</strong></li>
 </ul>
-<pre><code class="language-c">/*A stripped-down shell */
-#define TRUE 1
-
-while (TRUE){                            /* repeat forever */
-    typt_prompt()                        /* display prompt on the screen */
-    read_command(command, parameters);   /* read input from terminal */
-
-    if (folk()!=0){                      /* fork off child process */
-        /*parent code.*/
-        waitpid(-1, &amp;status, 0);         /* wait for child to exit */
-        }
-    else{
-        /*child code.*/
-        execve(command, parameters, 0);  /* execute command */
-        }
-    }
-
-</code></pre>
-<!-- raw HTML omitted -->
-<h3>exit -- cause normal process termination</h3>
-<p><strong><a href="https://www.man7.org/linux/man-pages/man3/exit.3.html">exit</a> (int status)</strong><!-- raw HTML omitted -->
-<strong>The exit function causes normal process termination and the least significant byte of status (i.e., status &amp; 0xFF) is returned to the parent (see wait(2)).</strong>
-<!-- raw HTML omitted --></p>
-<h3>brk, sbrk - change data segment size</h3>
-<p><strong><a href="https://man7.org/linux/man-pages/man2/brk.2.html">brk</a> (void addr(pointer))</strong><!-- raw HTML omitted -->
-<strong><a href="https://man7.org/linux/man-pages/man2/brk.2.html">sbrk</a> (intptr_t increment)</strong><!-- raw HTML omitted -->
-<strong>brk and sbrk change the location of the program break, which defines the end of the process's data segment (i.e., the program break is the first location after the end of the uninitialized data segment)</strong><!-- raw HTML omitted --></p>
-<p><img src="Sources/brk.png" alt="brk"><!-- raw HTML omitted -->
-<strong>Processes in MINIX 3 have their memory divided up into three segments: the text segment (i.e., the program code), the data segment (i.e., the variables), and the stack segment. <!-- raw HTML omitted -->The data segment grows upward and the stack grows down-ward. Between them is a gap of unused address space. The stack grows into the gap automatically, as needed, but expansion of the data segment is done explicitly by using a system call, brk, which specifies the new address where the data segment is to end.</strong><!-- raw HTML omitted --></p>
-<p><strong>As a convenience for programmers, a library routine sbrk is provided that also changes the size of the data segment, only its parameter is the number of bytes to add to the data segment (negative parameters make the data segment smaller).</strong>
-<!-- raw HTML omitted --></p>
-<h3>getpid -- get process identification</h3>
-<p><strong><a href="https://man7.org/linux/man-pages/man2/getpid.2.html">getpid</a> ( ) returns the process ID (PID) of the calling process.</strong>
-<!-- raw HTML omitted --></p>
-<h3>getpgrp -- get process group id</h3>
-<p><strong><a href="https://man7.org/linux/man-pages/man2/getpgrp.2.html">getpgrp</a> ( ) returns the process group ID of the calling process</strong><!-- raw HTML omitted -->
-<strong><a href="https://en.wikipedia.org/wiki/Process_group">From Wikipedia</a>: A process group denotes a collection of one or more processes. Among other things, a process group is used to control the distribution of a signal; when a signal is directed to a process group, the signal is delivered to each process that is a member of the group.</strong>
-<!-- raw HTML omitted --></p>
-<h3>ptrace -- process trace</h3>
-<p><strong>It is used by debugging programs to control the program being debugged. It allows the debugger to read and write the controlled process’ memory and manage it in other ways.</strong><!-- raw HTML omitted -->
-<strong>For more: <a href="https://man7.org/linux/man-pages/man2/ptrace.2.html">man7.org</a></strong>
-<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2>2. Systerm Calls for Signaling</h2>
-<p><strong>Although most forms of interprocess communication are planned, situations exist in which unexpected communication is needed. For example, if a user accidently tells a text editor to list the entire contents of a very long file, and then realizes the error, some way is needed to interrupt the editor. <!-- raw HTML omitted --><!-- raw HTML omitted -->In MINIX 3, the user can hit the CTRL-C key on the keyboard, which sends a signal to the editor. The editor catches the signal and stops the print-out. Signals can also be used to report certain traps detected by the hardware, such as illegal instruction or floating point overflow. Timeouts are also implemented as signals.</strong>
-<!-- raw HTML omitted --></p>
-<h3>sigaction -- examine and change a signal action</h3>
-<p><strong><a href="https://man7.org/linux/man-pages/man2/sigaction.2.html">sigaction</a> (int signum, const struct sigaction act(pointer), struct sigaction oldact(pointer) )</strong><!-- raw HTML omitted -->
-<strong>The sigaction() system call is used to change the action taken by a process on receipt of a specific signal</strong><!-- raw HTML omitted --></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*A stripped-down shell */</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TRUE 1</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>TRUE<span class="op">){</span>                            <span class="co">/* repeat forever */</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    typt_prompt<span class="op">()</span>                        <span class="co">/* display prompt on the screen */</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    read_command<span class="op">(</span>command<span class="op">,</span> parameters<span class="op">);</span>   <span class="co">/* read input from terminal */</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>folk<span class="op">()!=</span><span class="dv">0</span><span class="op">){</span>                      <span class="co">/* fork off child process */</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">/*parent code.*/</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        waitpid<span class="op">(-</span><span class="dv">1</span><span class="op">,</span> <span class="op">&amp;</span>status<span class="op">,</span> <span class="dv">0</span><span class="op">);</span>         <span class="co">/* wait for child to exit */</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span><span class="op">{</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">/*child code.*/</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        execve<span class="op">(</span>command<span class="op">,</span> parameters<span class="op">,</span> <span class="dv">0</span><span class="op">);</span>  <span class="co">/* execute command */</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p><br></p>
+<h3 id="exit-cause-normal-process-termination">exit – cause normal
+process termination</h3>
+<p><strong><a
+href="https://www.man7.org/linux/man-pages/man3/exit.3.html">exit</a>
+(int status)</strong><br> <strong>The exit function causes normal
+process termination and the least significant byte of status (i.e.,
+status &amp; 0xFF) is returned to the parent (see wait(2)).</strong>
+<br></p>
+<h3 id="brk-sbrk---change-data-segment-size">brk, sbrk - change data
+segment size</h3>
+<p><strong><a
+href="https://man7.org/linux/man-pages/man2/brk.2.html">brk</a> (void
+addr(pointer))</strong><br> <strong><a
+href="https://man7.org/linux/man-pages/man2/brk.2.html">sbrk</a>
+(intptr_t increment)</strong><br> <strong>brk and sbrk change the
+location of the program break, which defines the end of the process’s
+data segment (i.e., the program break is the first location after the
+end of the uninitialized data segment)</strong><br></p>
+<p><img src="Sources/brk.png" alt="brk" /><br> <strong>Processes in
+MINIX 3 have their memory divided up into three segments: the text
+segment (i.e., the program code), the data segment (i.e., the
+variables), and the stack segment. <br>The data segment grows upward and
+the stack grows down-ward. Between them is a gap of unused address
+space. The stack grows into the gap automatically, as needed, but
+expansion of the data segment is done explicitly by using a system call,
+brk, which specifies the new address where the data segment is to
+end.</strong><br></p>
+<p><strong>As a convenience for programmers, a library routine sbrk is
+provided that also changes the size of the data segment, only its
+parameter is the number of bytes to add to the data segment (negative
+parameters make the data segment smaller).</strong> <br></p>
+<h3 id="getpid-get-process-identification">getpid – get process
+identification</h3>
+<p><strong><a
+href="https://man7.org/linux/man-pages/man2/getpid.2.html">getpid</a> (
+) returns the process ID (PID) of the calling process.</strong> <br></p>
+<h3 id="getpgrp-get-process-group-id">getpgrp – get process group
+id</h3>
+<p><strong><a
+href="https://man7.org/linux/man-pages/man2/getpgrp.2.html">getpgrp</a>
+( ) returns the process group ID of the calling process</strong><br>
+<strong><a href="https://en.wikipedia.org/wiki/Process_group">From
+Wikipedia</a>: A process group denotes a collection of one or more
+processes. Among other things, a process group is used to control the
+distribution of a signal; when a signal is directed to a process group,
+the signal is delivered to each process that is a member of the
+group.</strong> <br></p>
+<h3 id="ptrace-process-trace">ptrace – process trace</h3>
+<p><strong>It is used by debugging programs to control the program being
+debugged. It allows the debugger to read and write the controlled
+process’ memory and manage it in other ways.</strong><br> <strong>For
+more: <a
+href="https://man7.org/linux/man-pages/man2/ptrace.2.html">man7.org</a></strong>
+<br><br></p>
+<h2 id="systerm-calls-for-signaling">2. Systerm Calls for Signaling</h2>
+<p><strong>Although most forms of interprocess communication are
+planned, situations exist in which unexpected communication is needed.
+For example, if a user accidently tells a text editor to list the entire
+contents of a very long file, and then realizes the error, some way is
+needed to interrupt the editor. <br><br>In MINIX 3, the user can hit the
+CTRL-C key on the keyboard, which sends a signal to the editor. The
+editor catches the signal and stops the print-out. Signals can also be
+used to report certain traps detected by the hardware, such as illegal
+instruction or floating point overflow. Timeouts are also implemented as
+signals.</strong> <br></p>
+<h3 id="sigaction-examine-and-change-a-signal-action">sigaction –
+examine and change a signal action</h3>
+<p><strong><a
+href="https://man7.org/linux/man-pages/man2/sigaction.2.html">sigaction</a>
+(int signum, const struct sigaction act(pointer), struct sigaction
+oldact(pointer) )</strong><br> <strong>The sigaction() system call is
+used to change the action taken by a process on receipt of a specific
+signal</strong><br></p>
 <ul>
-<li>
-<p><strong>When a signal is sent to a process that has not announced its willingness to accept that signal, the process is simply killed without further ado.</strong></p>
-</li>
-<li>
-<p><strong>The first argument(int signum) is an integer which direct to a specific signal, detail see below:</strong><!-- raw HTML omitted -->
-<img src="Sources/signal.png" alt="signal"></p>
-</li>
-<li>
-<p><strong>signum specifies the signal and can be any valid signal except SIGKILL and SIGSTOP.</strong></p>
-</li>
-<li>
-<p><strong>The Second arg act is a pointer which to a signal hander program in the storiage</strong></p>
-</li>
-<li>
-<p><strong>The Third arg oldact is also a pointer like act. Which point to the address stored by the original handler.(If is Null means don't need to return previous program)</strong></p>
-</li>
-<li>
-<p><strong>If act is non-NULL, the new action for signal signum is installed from act. If oldact is non-NULL, the previous action is saved in oldact.</strong></p>
-</li>
-<li>
-<p><strong>After a sigaction call, if a signal of the relevant type is generated (e.g., by pressing CTRL-C), the state of the process is pushed onto its own stack, and then the signal handler is called.</strong><!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
-</li>
+<li><p><strong>When a signal is sent to a process that has not announced
+its willingness to accept that signal, the process is simply killed
+without further ado.</strong></p></li>
+<li><p><strong>The first argument(int signum) is an integer which direct
+to a specific signal, detail see below:</strong><br> <img
+src="Sources/signal.png" alt="signal" /></p></li>
+<li><p><strong>signum specifies the signal and can be any valid signal
+except SIGKILL and SIGSTOP.</strong></p></li>
+<li><p><strong>The Second arg act is a pointer which to a signal hander
+program in the storiage</strong></p></li>
+<li><p><strong>The Third arg oldact is also a pointer like act. Which
+point to the address stored by the original handler.(If is Null means
+don’t need to return previous program)</strong></p></li>
+<li><p><strong>If act is non-NULL, the new action for signal signum is
+installed from act. If oldact is non-NULL, the previous action is saved
+in oldact.</strong></p></li>
+<li><p><strong>After a sigaction call, if a signal of the relevant type
+is generated (e.g., by pressing CTRL-C), the state of the process is
+pushed onto its own stack, and then the signal handler is
+called.</strong><br> <br></p></li>
 </ul>
-<p><strong>Example:</strong><!-- raw HTML omitted -->
-<strong>Instead of providing a function to catch a signal, the program may also specify the constant SIG_IGN to have all subsequent signals of the specified type ignored, or SIG_DFL to restore the default action of the signal when it occurs. The default action is either to kill the process or ignore the signal, depending upon the signal. As an example of how SIG_IGN is used, consider what happens when the shell forks off a background process as a result of.</strong></p>
-<pre><code>command &amp;
-</code></pre>
-<!-- raw HTML omitted -->
-<p><strong>It would be undesirable for a SIGINT signal (generated by pressing CTRL-C) to affect the background process, so after the fork but before the exec, the shell does</strong></p>
-<pre><code>sigaction(SIGINT, SIG_IGN, NULL);
-</code></pre>
-<!-- raw HTML omitted -->
+<p><strong>Example:</strong><br> <strong>Instead of providing a function
+to catch a signal, the program may also specify the constant SIG_IGN to
+have all subsequent signals of the specified type ignored, or SIG_DFL to
+restore the default action of the signal when it occurs. The default
+action is either to kill the process or ignore the signal, depending
+upon the signal. As an example of how SIG_IGN is used, consider what
+happens when the shell forks off a background process as a result
+of.</strong></p>
+<pre><code>command &amp;</code></pre>
+<p><br></p>
+<p><strong>It would be undesirable for a SIGINT signal (generated by
+pressing CTRL-C) to affect the background process, so after the fork but
+before the exec, the shell does</strong></p>
+<pre><code>sigaction(SIGINT, SIG_IGN, NULL);</code></pre>
+<p><br></p>
 <p><strong>and</strong></p>
-<pre><code>sigaction(SIGQUIT, SIG_IGN, NULL);
-</code></pre>
-<p><strong>To disable the SIGINT and SIGQUIT signals.</strong>
-<!-- raw HTML omitted --></p>
-<h3>sigreturn -- return from signal handler and cleanup stack frame</h3>
-<p><strong><a href="https://www.man7.org/linux/man-pages/man2/sigreturn.2.html">sigreturn</a></strong><!-- raw HTML omitted -->
-<strong>When the signal handling procedure is done, it calls sigreturn to continue where it left off before the signal passively</strong></p>
-<p><strong>Signal handling has been an integral part of UNIX (and UNIX-like) systems ever since the very first implementation by Dennis Ritchie in the early 1970s.</strong></p>
-<blockquote>
-<p><strong>Signals are an extremely powerful mechanism to deliver asynchronous notifications directly to a process or thread. They are used to kill processes, to tell them that timers have expired, or to notify them about exceptional behavior. The UNIX design has spawned a plethora of UNIX-like “children” of which GNU Linux, several flavours of BSD, Android, iOS/Mac OS X, and Solaris are perhaps the best known ones in active use today. While each flavor handles signals in slightly different ways, the different implementations are all very similar.</strong>
-<!-- raw HTML omitted --></p>
-</blockquote>
+<pre><code>sigaction(SIGQUIT, SIG_IGN, NULL);</code></pre>
+<p><strong>To disable the SIGINT and SIGQUIT signals.</strong> <br></p>
+<h3
+id="sigreturn-return-from-signal-handler-and-cleanup-stack-frame">sigreturn
+– return from signal handler and cleanup stack frame</h3>
+<p><strong><a
+href="https://www.man7.org/linux/man-pages/man2/sigreturn.2.html">sigreturn</a></strong><br>
+<strong>When the signal handling procedure is done, it calls sigreturn
+to continue where it left off before the signal passively</strong></p>
+<p><strong>Signal handling has been an integral part of UNIX (and
+UNIX-like) systems ever since the very first implementation by Dennis
+Ritchie in the early 1970s.</strong> &gt; <strong>Signals are an
+extremely powerful mechanism to deliver asynchronous notifications
+directly to a process or thread. They are used to kill processes, to
+tell them that timers have expired, or to notify them about exceptional
+behavior. The UNIX design has spawned a plethora of UNIX-like “children”
+of which GNU Linux, several flavours of BSD, Android, iOS/Mac OS X, and
+Solaris are perhaps the best known ones in active use today. While each
+flavor handles signals in slightly different ways, the different
+implementations are all very similar.</strong> <br></p>
 <ul>
-<li><strong>As shown in the figure below, when the kernel delivers a signal to a process, the process will be temporarily suspended and enter the kernel(1)</strong><!-- raw HTML omitted -->
-<img src="Sources/deliver.png" alt="deliver"><!-- raw HTML omitted --></li>
-<li><strong>Then the kernel saves the corresponding context for the process and jumps to the previously registered signal handler to process the corresponding signal(2)</strong><!-- raw HTML omitted --></li>
-<li><strong>When the signal handler returns (3), the kernel restores the previously saved context for the process</strong><!-- raw HTML omitted --></li>
-<li><strong>The execution of the final recovery process (4)</strong><!-- raw HTML omitted --></li>
+<li><strong>As shown in the figure below, when the kernel delivers a
+signal to a process, the process will be temporarily suspended and enter
+the kernel(1)</strong><br> <img src="Sources/deliver.png"
+alt="deliver" /><br></li>
+<li><strong>Then the kernel saves the corresponding context for the
+process and jumps to the previously registered signal handler to process
+the corresponding signal(2)</strong><br></li>
+<li><strong>When the signal handler returns (3), the kernel restores the
+previously saved context for the process</strong><br></li>
+<li><strong>The execution of the final recovery process
+(4)</strong><br></li>
 </ul>
-<p><strong>If You want to know more about Signal (System Call). You can read this Note:<!-- raw HTML omitted --><a href="https://github.com/Angold-4/OSDI/blob/master/Chapters/Chapter1/SROP/SROPAttack.md">Sigreturn Oriented Programming Attack Note by Jiawei Wang</a></strong>
-<!-- raw HTML omitted --></p>
-<h3>signal - ANSI C signal handling</h3>
-<pre><code class="language-c">#include &lt;signal.h&gt;
-
-typedef void (*sighandler_t)(int);
-</code></pre>
-<p><strong>sighandler_t <a href="https://man7.org/linux/man-pages/man2/signal.2.html">signal</a> (int signum, sighandler_t handler)</strong><!-- raw HTML omitted --></p>
-<p>** signal ( ) sets the disposition of the signal signum to handler, which is either SIG_IGN, SIG_DFL, or the address of a programmer-defined function (a &quot;signal handler&quot;).**</p>
-<p><strong>Let's see an <a href="https://www.geeksforgeeks.org/signals-c-language/">example program</a> in C to understand:</strong><!-- raw HTML omitted --></p>
-<pre><code class="language-c">// default Signal Handler 
-#include&lt;stdio.h&gt;
-#include&lt;signal.h&gt;
-
-int main()
-{
-    signal(SIGINT, handle_sigint);
-    while (1)
-    {
-        printf(“hello world\n”);
-        sleep(1);
-    }
-    return 0;
-}
-
-</code></pre>
-<p><strong>Output : Print hello world infinite times. If user presses ctrl-c to terminate the process because of SIGINT signal sent and its default handler to terminate the process.</strong></p>
+<p><strong>If You want to know more about Signal (System Call). You can
+read this Note:<br><a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapters/Chapter1/SROP/SROPAttack.md">Sigreturn
+Oriented Programming Attack Note by Jiawei Wang</a></strong> <br></p>
+<h3 id="signal---ansi-c-signal-handling">signal - ANSI C signal
+handling</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;signal.h&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> <span class="dt">void</span> <span class="op">(*</span>sighandler_t<span class="op">)(</span><span class="dt">int</span><span class="op">);</span></span></code></pre></div>
+<p><strong>sighandler_t <a
+href="https://man7.org/linux/man-pages/man2/signal.2.html">signal</a>
+(int signum, sighandler_t handler)</strong><br></p>
+<p>** signal ( ) sets the disposition of the signal signum to handler,
+which is either SIG_IGN, SIG_DFL, or the address of a programmer-defined
+function (a “signal handler”).**</p>
+<p><strong>Let’s see an <a
+href="https://www.geeksforgeeks.org/signals-c-language/">example
+program</a> in C to understand:</strong><br></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">// default Signal Handler </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include</span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include</span><span class="im">&lt;signal.h&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    signal<span class="op">(</span>SIGINT<span class="op">,</span> handle_sigint<span class="op">);</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span>“hello world\n”<span class="op">);</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        sleep<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Output : Print hello world infinite times. If user presses
+ctrl-c to terminate the process because of SIGINT signal sent and its
+default handler to terminate the process.</strong></p>
 <pre><code>hello world   
 hello world         
 hello world         
-terminated    
-</code></pre>
-<p><strong>User Defined Signal Handlers:</strong><!-- raw HTML omitted --></p>
-<pre><code class="language-c">// default Signal Handler 
-#include&lt;stdio.h&gt;
-#include&lt;signal.h&gt;
-
-// Handler for SIGINT, caused by
-// Ctrl-C at keyboard
-void handle_sigint(int sig)
-{
-    printf(&quot;Caught signal %d\n&quot;, sig);
-}
-
-int main()
-{
-    signal(SIGINT, handle_sigint);
-    while (1) ;
-    return 0;
-}
-</code></pre>
-<p><strong>Output :</strong><!-- raw HTML omitted --></p>
+terminated    </code></pre>
+<p><strong>User Defined Signal Handlers:</strong><br></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">// default Signal Handler </span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include</span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include</span><span class="im">&lt;signal.h&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Handler for SIGINT, caused by</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Ctrl-C at keyboard</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> handle_sigint<span class="op">(</span><span class="dt">int</span> sig<span class="op">)</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;Caught signal %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> sig<span class="op">);</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    signal<span class="op">(</span>SIGINT<span class="op">,</span> handle_sigint<span class="op">);</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">;</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Output :</strong><br></p>
 <pre><code>^CCaught signal 2  // when user presses ctrl-c
-^CCaught signal 2
-</code></pre>
-<h3>kill -- terminate  / send signal to a process</h3>
-<p><strong><a href="https://man7.org/linux/man-pages/man1/kill.1.html">kill</a> [-signal|-s signal|-p] [-q value] [-a] [--timeout milliseconds signal] [--] pid|name...</strong><!-- raw HTML omitted --></p>
-<p><strong>If no signal is specified, the TERM signal is sent.  The default action for this signal is to terminate the process.</strong><!-- raw HTML omitted -->
-<strong>Getting back to the example of background processes used above, suppose a background process is started up, but later it is decided that the process should be terminated.</strong><!-- raw HTML omitted --></p>
+^CCaught signal 2</code></pre>
+<h3 id="kill-terminate-send-signal-to-a-process">kill – terminate / send
+signal to a process</h3>
+<p><strong><a
+href="https://man7.org/linux/man-pages/man1/kill.1.html">kill</a>
+[-signal|-s signal|-p] [-q value] [-a] [–timeout milliseconds signal]
+[–] pid|name…</strong><br></p>
+<p><strong>If no signal is specified, the TERM signal is sent. The
+default action for this signal is to terminate the process.</strong><br>
+<strong>Getting back to the example of background processes used above,
+suppose a background process is started up, but later it is decided that
+the process should be terminated.</strong><br></p>
 <ul>
-<li>
-<p><strong>For the detail of the First argument. Please check that <a href="https://man7.org/linux/man-pages/man1/kill.1.html">Link</a></strong></p>
-</li>
-<li>
-<p><strong>The Second argument pid or name is that:</strong><!-- raw HTML omitted --></p>
-</li>
+<li><p><strong>For the detail of the First argument. Please check that
+<a
+href="https://man7.org/linux/man-pages/man1/kill.1.html">Link</a></strong></p></li>
+<li><p><strong>The Second argument pid or name is
+that:</strong><br></p></li>
 </ul>
-<p><img src="Sources/killprocess.png" alt="killprocess">
-<!-- raw HTML omitted --></p>
-<p><strong>Another Use of kill syscall is that kill can send message between two processes:</strong><!-- raw HTML omitted -->
-<strong>To send a signal to another process, we need to use the Unix system <a href="https://man7.org/linux/man-pages/man2/kill.2.html">kill()</a>. The following is the prototype of kill():<!-- raw HTML omitted --></strong></p>
-<pre><code class="language-c">int  kill(pid_t pid, int sig)
-</code></pre>
-<!-- raw HTML omitted -->
-<p><strong><a href="http://www.csl.mtu.edu/cs4411.ck/www/NOTES/signal/kill.html">Send signal to a process</a></strong></p>
-<ul>
-<li><strong>System call kill() takes two arguments. The first, pid, is the process ID you want to send a signal to, and the second, sig, is the signal you want to send. Therefore, you have to find some way to know the process ID of the other party.</strong></li>
-<li><strong>If the call to kill() is successful, it returns 0; otherwise, the returned value is negative.<!-- raw HTML omitted --></strong></li>
-</ul>
-<p><strong>Here is an Example of kill used in send signal:</strong><!-- raw HTML omitted --></p>
-<pre><code class="language-c">/* ---------------------------------------------------------------- */
-/* PROGRAM  process-a.c:                                            */
-/*   This program demonstrates the use of the kill() system call.   */
-/* This process must run before process-b.c because it creates a    */
-/* shared memory segment for storing its process id.                */
-/* ---------------------------------------------------------------- */
-
-#include  &lt;stdio.h&gt;
-#include  &lt;sys/types.h&gt;
-#include  &lt;signal.h&gt;
-#include  &lt;sys/ipc.h&gt;
-#include  &lt;sys/shm.h&gt;
-
-/* ---------------------------------------------------------------- */
-/*                 signal handler function prototypes               */
-/* ---------------------------------------------------------------- */
-
-void  SIGINT_handler(int);         /* for SIGINT                    */
-void  SIGQUIT_handler(int);        /* for SIGQUIT                   */
-
-/* ---------------------------------------------------------------- */
-/*                         global variable                          */
-/* ---------------------------------------------------------------- */
-int   ShmID;                       /* shared memory ID              */
-pid_t *ShmPTR;                     /* shared memory pointer         */
-
-/* ---------------------------------------------------------------- */
-/*                   main program starts here                       */
-/* ---------------------------------------------------------------- */
-
-void main(void)
-{
-     int   i;
-     pid_t pid = getpid();
-     key_t MyKey;
-
-     if (signal(SIGINT, SIGINT_handler) == SIG_ERR) {
-          printf(&quot;SIGINT install error\n&quot;);
-          exit(1);
-     }
-     if (signal(SIGQUIT, SIGQUIT_handler) == SIG_ERR) {
-          printf(&quot;SIGQUIT install error\n&quot;);
-          exit(2);
-     }
-
-     MyKey   = ftok(&quot;.&quot;, 's');     /* create a shared memory segment*/
-     ShmID   = shmget(MyKey, sizeof(pid_t), IPC_CREAT | 0666);
-     ShmPTR  = (pid_t *) shmat(ShmID, NULL, 0);
-     *ShmPTR = pid;                /* save my pid there*/
-
-     for (i = 0; ; i++) {
-          printf(&quot;From process %d: %d\n&quot;, pid, i);
-          sleep(1);
-     }
-}
-
-/* ---------------------------------------------------------------- */
-/* FUNCTION  SIGINT_handler:                                        */
-/*    SIGINT signal handler.  It only reports that a Ctrl-C has     */
-/* been received.   Nothing else.                                   */
-/* ---------------------------------------------------------------- */
-
-void  SIGINT_handler(int sig)
-{
-     signal(sig, SIG_IGN);
-     printf(&quot;From SIGINT: just got a %d (SIGINT ^C) signal\n&quot;, sig);
-     signal(sig, SIGINT_handler);
-}
-
-/* ---------------------------------------------------------------- */
-/* FUNCTION  SIGQUIT_handler:                                       */
-/*    SIGQUIT signal handler.   When SIGQUIT arrives, this handler  */
-/* shows a message, removes the shared memory segment, and exits.   */
-/* ---------------------------------------------------------------- */
-
-void  SIGQUIT_handler(int sig)
-{
-     signal(sig, SIG_IGN);
-     printf(&quot;From SIGQUIT: just got a %d (SIGQUIT ^\\) signal&quot;
-                          &quot; and is about to quit\n&quot;, sig);
-     shmdt(ShmPTR);
-     shmctl(ShmID, IPC_RMID, NULL);          /*shared memory control*/
-                                             /*quit*/
-     exit(3);
-}
-</code></pre>
-<p><strong>If we run this program above. Obviously. It should be like that:<!-- raw HTML omitted --></strong></p>
+<p><img src="Sources/killprocess.png" alt="killprocess" /> <br></p>
+<p><strong>Another Use of kill syscall is that kill can send message
+between two processes:</strong><br> <strong>To send a signal to another
+process, we need to use the Unix system <a
+href="https://man7.org/linux/man-pages/man2/kill.2.html">kill()</a>. The
+following is the prototype of kill():<br></strong></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>  kill<span class="op">(</span>pid_t pid<span class="op">,</span> <span class="dt">int</span> sig<span class="op">)</span></span></code></pre></div>
+<p><br></p>
+<p><strong><a
+href="http://www.csl.mtu.edu/cs4411.ck/www/NOTES/signal/kill.html">Send
+signal to a process</a></strong> * <strong>System call kill() takes two
+arguments. The first, pid, is the process ID you want to send a signal
+to, and the second, sig, is the signal you want to send. Therefore, you
+have to find some way to know the process ID of the other
+party.</strong> * <strong>If the call to kill() is successful, it
+returns 0; otherwise, the returned value is negative.<br></strong></p>
+<p><strong>Here is an Example of kill used in send
+signal:</strong><br></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* ---------------------------------------------------------------- */</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">/* PROGRAM  process-a.c:                                            */</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">/*   This program demonstrates the use of the kill() system call.   */</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">/* This process must run before process-b.c because it creates a    */</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">/* shared memory segment for storing its process id.                */</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">/* ---------------------------------------------------------------- */</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#include  </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="pp">#include  </span><span class="im">&lt;sys/types.h&gt;</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="pp">#include  </span><span class="im">&lt;signal.h&gt;</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="pp">#include  </span><span class="im">&lt;sys/ipc.h&gt;</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="pp">#include  </span><span class="im">&lt;sys/shm.h&gt;</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co">/* ---------------------------------------------------------------- */</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co">/*                 signal handler function prototypes               */</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co">/* ---------------------------------------------------------------- */</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span>  SIGINT_handler<span class="op">(</span><span class="dt">int</span><span class="op">);</span>         <span class="co">/* for SIGINT                    */</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span>  SIGQUIT_handler<span class="op">(</span><span class="dt">int</span><span class="op">);</span>        <span class="co">/* for SIGQUIT                   */</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="co">/* ---------------------------------------------------------------- */</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="co">/*                         global variable                          */</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="co">/* ---------------------------------------------------------------- */</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span>   ShmID<span class="op">;</span>                       <span class="co">/* shared memory ID              */</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>pid_t <span class="op">*</span>ShmPTR<span class="op">;</span>                     <span class="co">/* shared memory pointer         */</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="co">/* ---------------------------------------------------------------- */</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="co">/*                   main program starts here                       */</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co">/* ---------------------------------------------------------------- */</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>     <span class="dt">int</span>   i<span class="op">;</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>     pid_t pid <span class="op">=</span> getpid<span class="op">();</span></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>     key_t MyKey<span class="op">;</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>     <span class="cf">if</span> <span class="op">(</span>signal<span class="op">(</span>SIGINT<span class="op">,</span> SIGINT_handler<span class="op">)</span> <span class="op">==</span> SIG_ERR<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>          printf<span class="op">(</span><span class="st">&quot;SIGINT install error</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>          exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>     <span class="op">}</span></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>     <span class="cf">if</span> <span class="op">(</span>signal<span class="op">(</span>SIGQUIT<span class="op">,</span> SIGQUIT_handler<span class="op">)</span> <span class="op">==</span> SIG_ERR<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>          printf<span class="op">(</span><span class="st">&quot;SIGQUIT install error</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>          exit<span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>     <span class="op">}</span></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>     MyKey   <span class="op">=</span> ftok<span class="op">(</span><span class="st">&quot;.&quot;</span><span class="op">,</span> <span class="ch">&#39;s&#39;</span><span class="op">);</span>     <span class="co">/* create a shared memory segment*/</span></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>     ShmID   <span class="op">=</span> shmget<span class="op">(</span>MyKey<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>pid_t<span class="op">),</span> IPC_CREAT <span class="op">|</span> <span class="bn">0666</span><span class="op">);</span></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>     ShmPTR  <span class="op">=</span> <span class="op">(</span>pid_t <span class="op">*)</span> shmat<span class="op">(</span>ShmID<span class="op">,</span> NULL<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>     <span class="op">*</span>ShmPTR <span class="op">=</span> pid<span class="op">;</span>                <span class="co">/* save my pid there*/</span></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>     <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>          printf<span class="op">(</span><span class="st">&quot;From process %d: %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> pid<span class="op">,</span> i<span class="op">);</span></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>          sleep<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>     <span class="op">}</span></span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a><span class="co">/* ---------------------------------------------------------------- */</span></span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a><span class="co">/* FUNCTION  SIGINT_handler:                                        */</span></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a><span class="co">/*    SIGINT signal handler.  It only reports that a Ctrl-C has     */</span></span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a><span class="co">/* been received.   Nothing else.                                   */</span></span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a><span class="co">/* ---------------------------------------------------------------- */</span></span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span>  SIGINT_handler<span class="op">(</span><span class="dt">int</span> sig<span class="op">)</span></span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a>     signal<span class="op">(</span>sig<span class="op">,</span> SIG_IGN<span class="op">);</span></span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a>     printf<span class="op">(</span><span class="st">&quot;From SIGINT: just got a %d (SIGINT ^C) signal</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> sig<span class="op">);</span></span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a>     signal<span class="op">(</span>sig<span class="op">,</span> SIGINT_handler<span class="op">);</span></span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a><span class="co">/* ---------------------------------------------------------------- */</span></span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a><span class="co">/* FUNCTION  SIGQUIT_handler:                                       */</span></span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a><span class="co">/*    SIGQUIT signal handler.   When SIGQUIT arrives, this handler  */</span></span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a><span class="co">/* shows a message, removes the shared memory segment, and exits.   */</span></span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a><span class="co">/* ---------------------------------------------------------------- */</span></span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span>  SIGQUIT_handler<span class="op">(</span><span class="dt">int</span> sig<span class="op">)</span></span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a>     signal<span class="op">(</span>sig<span class="op">,</span> SIG_IGN<span class="op">);</span></span>
+<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a>     printf<span class="op">(</span><span class="st">&quot;From SIGQUIT: just got a %d (SIGQUIT ^</span><span class="sc">\\</span><span class="st">) signal&quot;</span></span>
+<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&quot; and is about to quit</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> sig<span class="op">);</span></span>
+<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a>     shmdt<span class="op">(</span>ShmPTR<span class="op">);</span></span>
+<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a>     shmctl<span class="op">(</span>ShmID<span class="op">,</span> IPC_RMID<span class="op">,</span> NULL<span class="op">);</span>          <span class="co">/*shared memory control*/</span></span>
+<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a>                                             <span class="co">/*quit*/</span></span>
+<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a>     exit<span class="op">(</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>If we run this program above. Obviously. It should be like
+that:<br></strong></p>
 <pre><code>From process 92982: 0
 From process 92982: 1
 From process 92982: 2
@@ -485,107 +806,140 @@ From process 92982: 12
 From process 92982: 13
 From process 92982: 14
 From process 92982: 15
-.......Iteration Forever
-</code></pre>
-<p><strong>If we press Ctrl-C. It should be like that:<!-- raw HTML omitted --></strong></p>
+.......Iteration Forever</code></pre>
+<p><strong>If we press Ctrl-C. It should be like that:<br></strong></p>
 <pre><code>From process 92982: 15
 From SIGINT: just got a 2 (SIGINT ^C) signal
 From process 92982: 16
-.......Iteration Forever
-</code></pre>
-<p><strong>If we press Ctrl-\ (SIGQUIT):<!-- raw HTML omitted --></strong></p>
+.......Iteration Forever</code></pre>
+<p><strong>If we press Ctrl- (SIGQUIT):<br></strong></p>
 <pre><code>From SIGQUIT: just got a 3 (SIGQUIT ^\) signal and is about to quit
-(No more interation)
-</code></pre>
-<p><strong>The Program runs as expected. Now. Let's see another program:</strong><!-- raw HTML omitted --></p>
-<pre><code class="language-c">/* ---------------------------------------------------------------- */
-/* PROGRAM  process-b.c:                                            */
-/*   This program demonstrates the use of the kill() system call.   */
-/* This process reads in commands and sends the corresponding       */
-/* to process-a.  Note that process-a must run before process-b for */
-/* process-b to retrieve process-a's pid through the shared memory  */
-/* segment created by process-a.                                    */
-/* ---------------------------------------------------------------- */
-
-#include  &lt;stdio.h&gt;
-#include  &lt;sys/types.h&gt;
-#include  &lt;signal.h&gt;
-#include  &lt;sys/ipc.h&gt;
-#include  &lt;sys/shm.h&gt;
-
-void  main(void)
-{
-     pid_t   pid;
-     key_t MyKey;
-     int   ShmID;
-     pid_t *ShmPTR;
-     char  line[100], c;
-     int   i;
-     
-     MyKey   = ftok(&quot;.&quot;, 's');          /* obtain the shared memory */
-     ShmID   = shmget(MyKey, sizeof(pid_t), 0666);
-     ShmPTR  = (pid_t *) shmat(ShmID, NULL, 0);
-     pid     = *ShmPTR;                 /* get process-a's ID       */
-     shmdt(ShmPTR);                     /* detach shared memory     */
-     
-     while (1) {                        /* get a command            */
-          printf(&quot;Want to interrupt the other guy or kill it (i or k)? &quot;);
-          gets(line);
-          for (i = 0; !(isalpha(line[i])); i++)
-               ;
-               c = line[i];
-          if (c == 'i' || c == 'I') {   /* send SIGINT with kill()  */
-               kill(pid, SIGINT);
-               printf(&quot;Sent a SIGINT signal\n&quot;);
-          }
-          else if (c == 'k' || c == 'K') {
-               printf(&quot;About to send a SIGQUIT signal\n&quot;);
-               kill(pid, SIGQUIT);      /* send SIGQUIT with kill() */
-               printf(&quot;Done.....\n&quot;);
-               exit(0);
-          }
-          else
-               printf(&quot;Wrong keypress (%c).  Try again\n&quot;, c);
-     }
-}
-</code></pre>
+(No more interation)</code></pre>
+<p><strong>The Program runs as expected. Now. Let’s see another
+program:</strong><br></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* ---------------------------------------------------------------- */</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">/* PROGRAM  process-b.c:                                            */</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">/*   This program demonstrates the use of the kill() system call.   */</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">/* This process reads in commands and sends the corresponding       */</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">/* to process-a.  Note that process-a must run before process-b for */</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">/* process-b to retrieve process-a&#39;s pid through the shared memory  */</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">/* segment created by process-a.                                    */</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">/* ---------------------------------------------------------------- */</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="pp">#include  </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="pp">#include  </span><span class="im">&lt;sys/types.h&gt;</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="pp">#include  </span><span class="im">&lt;signal.h&gt;</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="pp">#include  </span><span class="im">&lt;sys/ipc.h&gt;</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="pp">#include  </span><span class="im">&lt;sys/shm.h&gt;</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span>  main<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>     pid_t   pid<span class="op">;</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>     key_t MyKey<span class="op">;</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>     <span class="dt">int</span>   ShmID<span class="op">;</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>     pid_t <span class="op">*</span>ShmPTR<span class="op">;</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>     <span class="dt">char</span>  line<span class="op">[</span><span class="dv">100</span><span class="op">],</span> c<span class="op">;</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>     <span class="dt">int</span>   i<span class="op">;</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>     MyKey   <span class="op">=</span> ftok<span class="op">(</span><span class="st">&quot;.&quot;</span><span class="op">,</span> <span class="ch">&#39;s&#39;</span><span class="op">);</span>          <span class="co">/* obtain the shared memory */</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>     ShmID   <span class="op">=</span> shmget<span class="op">(</span>MyKey<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>pid_t<span class="op">),</span> <span class="bn">0666</span><span class="op">);</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>     ShmPTR  <span class="op">=</span> <span class="op">(</span>pid_t <span class="op">*)</span> shmat<span class="op">(</span>ShmID<span class="op">,</span> NULL<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>     pid     <span class="op">=</span> <span class="op">*</span>ShmPTR<span class="op">;</span>                 <span class="co">/* get process-a&#39;s ID       */</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>     shmdt<span class="op">(</span>ShmPTR<span class="op">);</span>                     <span class="co">/* detach shared memory     */</span></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>     <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span>                        <span class="co">/* get a command            */</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>          printf<span class="op">(</span><span class="st">&quot;Want to interrupt the other guy or kill it (i or k)? &quot;</span><span class="op">);</span></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>          gets<span class="op">(</span>line<span class="op">);</span></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>          <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="op">!(</span>isalpha<span class="op">(</span>line<span class="op">[</span>i<span class="op">]));</span> i<span class="op">++)</span></span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>               <span class="op">;</span></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>               c <span class="op">=</span> line<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span> <span class="op">(</span>c <span class="op">==</span> <span class="ch">&#39;i&#39;</span> <span class="op">||</span> c <span class="op">==</span> <span class="ch">&#39;I&#39;</span><span class="op">)</span> <span class="op">{</span>   <span class="co">/* send SIGINT with kill()  */</span></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>               kill<span class="op">(</span>pid<span class="op">,</span> SIGINT<span class="op">);</span></span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>               printf<span class="op">(</span><span class="st">&quot;Sent a SIGINT signal</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>          <span class="op">}</span></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>          <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>c <span class="op">==</span> <span class="ch">&#39;k&#39;</span> <span class="op">||</span> c <span class="op">==</span> <span class="ch">&#39;K&#39;</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>               printf<span class="op">(</span><span class="st">&quot;About to send a SIGQUIT signal</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>               kill<span class="op">(</span>pid<span class="op">,</span> SIGQUIT<span class="op">);</span>      <span class="co">/* send SIGQUIT with kill() */</span></span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>               printf<span class="op">(</span><span class="st">&quot;Done.....</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>               exit<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>          <span class="op">}</span></span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>          <span class="cf">else</span></span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>               printf<span class="op">(</span><span class="st">&quot;Wrong keypress (%c).  Try again</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> c<span class="op">);</span></span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>     <span class="op">}</span></span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <ul>
-<li><strong>This program requests the shared memory segment created by the previous program. Since both programs use ftok() to create the key, they should be in the same directory.</strong></li>
-<li><strong>Then, it retrieves the process ID stored in the shared memory segment and enters an infinite loop asking for a single character input.</strong></li>
-<li><strong>If the input is i, a SIGINT is sent to the other process with kill().</strong></li>
-<li><strong>If the input is k, a SIGQUIT is sent to the other process with kill(). After this is done, this program exits.</strong>
-<!-- raw HTML omitted --></li>
+<li><strong>This program requests the shared memory segment created by
+the previous program. Since both programs use ftok() to create the key,
+they should be in the same directory.</strong></li>
+<li><strong>Then, it retrieves the process ID stored in the shared
+memory segment and enters an infinite loop asking for a single character
+input.</strong></li>
+<li><strong>If the input is i, a SIGINT is sent to the other process
+with kill().</strong></li>
+<li><strong>If the input is k, a SIGQUIT is sent to the other process
+with kill(). After this is done, this program exits.</strong> <br></li>
 </ul>
-<p><strong>As you can see: With <code>kill ( )</code>, we do not need to actually press a key to generate a particular signal. Moreover, some signals have no corresponding keys.</strong>
-<!-- raw HTML omitted --></p>
-<p><strong>Now, let us see how to play with these two programs. The first program is called process-a and the second process-b. Because process-a must create a shared memory segment and save its process ID there, it must run first. So, run this program in one window until some output lines are shown. At this moment, the shared memory has been created and the process ID stored properly.</strong><!-- raw HTML omitted --></p>
-<p><strong>Then, move to another window and run process-b. If you type i, process-b sends a SIGINT to process-a, and if you type k, process-b send a SIGQUIT to process-a.</strong>
-<!-- raw HTML omitted -->
-<strong>Hitting CTRL-C is not the only way to send a signal. The kill system call allows a process to signal another process (provided they have the same UID— unrelated processes cannot signal each other)</strong>
-<!-- raw HTML omitted --></p>
-<p><strong>As you can see : We use <code>kill ()</code> and C achieve Communication between processes successfully!</strong><!-- raw HTML omitted --></p>
-<p><img src="Sources/kill2.png" alt="kill2"><!-- raw HTML omitted -->
-<img src="Sources/kill.png" alt="kill"><!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
-<h3>alarm - set an alarm clock for delivery of a signal</h3>
-<p><strong>unsigned int <a href="https://www.man7.org/linux/man-pages/man2/alarm.2.html">alarm</a> (unsigned int seconds);</strong><!-- raw HTML omitted --></p>
-<ul>
-<li><strong>alarm() arranges for a SIGALRM signal to be delivered to the calling process in seconds seconds.</strong></li>
-<li><strong>If seconds is zero, any pending alarm is canceled.</strong></li>
-<li><strong>In any event any previously set alarm() is canceled.</strong></li>
-</ul>
-<p><strong>For many real-time applications, a process needs to be interrupted after a specific time interval to do something, such as to retransmit a potentially lost packet over an unreliable communication line. To handle this situation, the alarm system call has been provided.</strong><!-- raw HTML omitted --></p>
-<p><strong>The parameter specifies an interval, in seconds, after which a SIGALRM signal is sent to the process. A process may only have one alarm outstanding at any instant.</strong><!-- raw HTML omitted --></p>
-<p><strong>Example:</strong><!-- raw HTML omitted --></p>
+<p><strong>As you can see: With <code>kill ( )</code>, we do not need to
+actually press a key to generate a particular signal. Moreover, some
+signals have no corresponding keys.</strong> <br></p>
+<p><strong>Now, let us see how to play with these two programs. The
+first program is called process-a and the second process-b. Because
+process-a must create a shared memory segment and save its process ID
+there, it must run first. So, run this program in one window until some
+output lines are shown. At this moment, the shared memory has been
+created and the process ID stored properly.</strong><br></p>
+<p><strong>Then, move to another window and run process-b. If you type
+i, process-b sends a SIGINT to process-a, and if you type k, process-b
+send a SIGQUIT to process-a.</strong> <br> <strong>Hitting CTRL-C is not
+the only way to send a signal. The kill system call allows a process to
+signal another process (provided they have the same UID— unrelated
+processes cannot signal each other)</strong> <br></p>
+<p><strong>As you can see : We use <code>kill ()</code> and C achieve
+Communication between processes successfully!</strong><br></p>
+<p><img src="Sources/kill2.png" alt="kill2" /><br> <img
+src="Sources/kill.png" alt="kill" /><br> <br></p>
+<h3 id="alarm---set-an-alarm-clock-for-delivery-of-a-signal">alarm - set
+an alarm clock for delivery of a signal</h3>
+<p><strong>unsigned int <a
+href="https://www.man7.org/linux/man-pages/man2/alarm.2.html">alarm</a>
+(unsigned int seconds);</strong><br> * <strong>alarm() arranges for a
+SIGALRM signal to be delivered to the calling process in seconds
+seconds.</strong> * <strong>If seconds is zero, any pending alarm is
+canceled.</strong> * <strong>In any event any previously set alarm() is
+canceled.</strong></p>
+<p><strong>For many real-time applications, a process needs to be
+interrupted after a specific time interval to do something, such as to
+retransmit a potentially lost packet over an unreliable communication
+line. To handle this situation, the alarm system call has been
+provided.</strong><br></p>
+<p><strong>The parameter specifies an interval, in seconds, after which
+a SIGALRM signal is sent to the process. A process may only have one
+alarm outstanding at any instant.</strong><br></p>
+<p><strong>Example:</strong><br></p>
 <blockquote>
-<p><strong>If an alarm call is made with a parameter of 10 seconds, and then 3 seconds later another alarm call is made with a parameter of 20 seconds, only one signal will be generated, 20 seconds after the second call. The first signal is canceled by the second call to alarm. If the parameter to alarm is zero, any pending alarm signal is canceled. If an alarm signal is not caught, the default action is taken and the signaled process is killed.</strong></p>
+<p><strong>If an alarm call is made with a parameter of 10 seconds, and
+then 3 seconds later another alarm call is made with a parameter of 20
+seconds, only one signal will be generated, 20 seconds after the second
+call. The first signal is canceled by the second call to alarm. If the
+parameter to alarm is zero, any pending alarm signal is canceled. If an
+alarm signal is not caught, the default action is taken and the signaled
+process is killed.</strong></p>
 </blockquote>
-<h3>pause - suspended process and wait for a signal</h3>
-<pre><code>#include &lt;unistd.h&gt;
-</code></pre>
-<p><strong><a href="https://www.man7.org/linux/man-pages/man2/pause.2.html">int</a> pause (void)</strong></p>
-<p><strong>It sometimes occurs that a process has nothing to do until a signal arrives. For example, consider a computer-aided-instruction program that is testing reading speed and comprehension. It displays some text on the screen and then calls alarm to signal it after 30 seconds. While the student is reading the text, the pro- gram has nothing to do. It could sit in a tight loop doing nothing, but that would waste CPU time that another process or user might need. A better idea is to use pause, which
-tells MINIX 3 to suspend the process until the next signal.</strong><!-- raw HTML omitted --></p>
+<h3 id="pause---suspended-process-and-wait-for-a-signal">pause -
+suspended process and wait for a signal</h3>
+<pre><code>#include &lt;unistd.h&gt;</code></pre>
+<p><strong><a
+href="https://www.man7.org/linux/man-pages/man2/pause.2.html">int</a>
+pause (void)</strong></p>
+<p><strong>It sometimes occurs that a process has nothing to do until a
+signal arrives. For example, consider a computer-aided-instruction
+program that is testing reading speed and comprehension. It displays
+some text on the screen and then calls alarm to signal it after 30
+seconds. While the student is reading the text, the pro- gram has
+nothing to do. It could sit in a tight loop doing nothing, but that
+would waste CPU time that another process or user might need. A better
+idea is to use pause, which tells MINIX 3 to suspend the process until
+the next signal.</strong><br></p>
 	</section>
 	</div>
     </div>
@@ -625,6 +979,10 @@ this.page.identifier = "OSDI/Chapter/Chapter1/5Syscall-1.html"
    </div>
 </footer>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <script src="../../../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->

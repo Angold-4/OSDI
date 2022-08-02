@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="../../../images/favicon.png" rel="icon">
-
 <link rel="canonical" href=".">
         <meta name="author" content="Angold Wang" />
 
@@ -26,6 +25,128 @@
 
     <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+  <style>
+
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+
+    li {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    a {
+      font-size: 18px;
+    }
+
+    k
+
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+    {   }
+
+    @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 
 </head>
 <body>
@@ -64,98 +185,215 @@
     <div class="row">
         <div class="col-lg-12">
 	<section id="content" class="body">
-
-
-
-<h3>Operating Systerms Design and Implementation Notes</h3>
-<h5>By Jiawei Wang</h5>
-<h1>6. System Calls (2)</h1>
-<!-- raw HTML omitted -->
-<p><img src="Sources/Systermcalls.png" alt="Systermcalls"><!-- raw HTML omitted --></p>
-<!-- raw HTML omitted -->
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#operating-systerms-design-and-implementation-notes"
+id="toc-operating-systerms-design-and-implementation-notes">Operating
+Systerms Design and Implementation Notes</a></li>
+<li><a href="#system-calls-2" id="toc-system-calls-2">6. System Calls
+(2)</a>
+<ul>
+<li><a href="#file-system" id="toc-file-system">File System</a>
+<ul>
+<li><a href="#standard-stream" id="toc-standard-stream">Standard
+Stream</a></li>
+<li><a href="#three-data-structures-inside-the-kernel"
+id="toc-three-data-structures-inside-the-kernel">Three Data Structures
+inside The Kernel</a></li>
+</ul></li>
+<li><a href="#system-calls-for-file-management"
+id="toc-system-calls-for-file-management">System Calls for File
+Management</a>
+<ul>
+<li><a href="#creat-create-a-file-with-name-and-protection-mode"
+id="toc-creat-create-a-file-with-name-and-protection-mode">creat –
+create a file with name and protection mode</a></li>
+<li><a href="#mknod-create-a-special-or-ordinary-file"
+id="toc-mknod-create-a-special-or-ordinary-file">mknod – create a
+special or ordinary file</a></li>
+<li><a href="#open-open-file-relative-to-directory-file-descriptor"
+id="toc-open-open-file-relative-to-directory-file-descriptor">open –
+open file relative to directory file descriptor</a></li>
+<li><a href="#close-close-a-file-descriptor"
+id="toc-close-close-a-file-descriptor">close – close a file
+descriptor</a></li>
+<li><a href="#read-read-from-a-file-descriptor"
+id="toc-read-read-from-a-file-descriptor">read – read from a file
+descriptor</a></li>
+<li><a href="#write-write-to-a-file-descriptor"
+id="toc-write-write-to-a-file-descriptor">write – write to a file
+descriptor</a></li>
+<li><a href="#lseek-reposition-readwrite-file-offset"
+id="toc-lseek-reposition-readwrite-file-offset">lseek – reposition
+read/write file offset</a></li>
+<li><a href="#stat-fstat-get-file-status"
+id="toc-stat-fstat-get-file-status">stat, fstat – get file
+status</a></li>
+<li><a href="#dup-dup2-duplicate-a-file-descriptor"
+id="toc-dup-dup2-duplicate-a-file-descriptor">dup, dup2 – duplicate a
+file descriptor</a></li>
+<li><a href="#pipe-create-pipe" id="toc-pipe-create-pipe">pipe – create
+pipe</a></li>
+<li><a href="#ioctl---control-device"
+id="toc-ioctl---control-device">ioctl - control device</a></li>
+<li><a href="#fcntl-manipulate-file-descriptor"
+id="toc-fcntl-manipulate-file-descriptor">fcntl – manipulate file
+descriptor</a></li>
+<li><a href="#access-check-users-permissions-for-a-file"
+id="toc-access-check-users-permissions-for-a-file">access – check user’s
+permissions for a file</a></li>
+<li><a href="#rename-change-the-name-or-location-of-a-file"
+id="toc-rename-change-the-name-or-location-of-a-file">rename – change
+the name or location of a file</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h3 id="operating-systerms-design-and-implementation-notes">Operating
+Systerms Design and Implementation Notes</h3>
+<h5 id="by-jiawei-wang">By Jiawei Wang</h5>
+<h1 id="system-calls-2">6. System Calls (2)</h1>
+<p><br></p>
+<p><img src="Sources/Systermcalls.png" alt="Systermcalls" /><br></p>
+<!-- vim-markdown-toc GFM -->
 <ul>
 <li><a href="#file-system">File System</a>
 <ul>
 <li><a href="#standard-stream">Standard Stream</a></li>
-<li><a href="#three-data-structures-inside-the-kernel">Three Data Structures inside The Kernel</a>
+<li><a href="#three-data-structures-inside-the-kernel">Three Data
+Structures inside The Kernel</a>
 <ul>
-<li><a href="#the-per-process-file-description-table">The per-process file description table</a></li>
-<li><a href="#the-system-wide-table-of-open-file-descriptions">The system-wide table of open file descriptions</a></li>
-<li><a href="#the-file-system-i-node-table">The file system i-node table</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#system-calls-for-file-management">System Calls for File Management</a>
+<li><a href="#the-per-process-file-description-table">The per-process
+file description table</a></li>
+<li><a href="#the-system-wide-table-of-open-file-descriptions">The
+system-wide table of open file descriptions</a></li>
+<li><a href="#the-file-system-i-node-table">The file system i-node
+table</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#system-calls-for-file-management">System Calls for File
+Management</a>
 <ul>
-<li><a href="#creat----create-a-file-with-name-and-protection-mode">creat -- create a file with name and protection mode</a></li>
-<li><a href="#mknod----create-a-special-or-ordinary-file">mknod -- create a special or ordinary file</a></li>
-<li><a href="#open----open-file-relative-to-directory-file-descriptor">open -- open file relative to directory file descriptor</a></li>
-<li><a href="#close----close-a-file-descriptor">close -- close a file descriptor</a></li>
-<li><a href="#read----read-from-a-file-descriptor">read -- read from a file descriptor</a></li>
-<li><a href="#write----write-to-a-file-descriptor">write -- write to a file descriptor</a></li>
-<li><a href="#lseek----reposition-readwrite-file-offset">lseek -- reposition read/write file offset</a></li>
-<li><a href="#stat-fstat----get-file-status">stat, fstat -- get file status</a></li>
-<li><a href="#dup-dup2----duplicate-a-file-descriptor">dup, dup2 -- duplicate a file descriptor</a></li>
-<li><a href="#pipe----create-pipe">pipe -- create pipe</a></li>
+<li><a
+href="#creat----create-a-file-with-name-and-protection-mode">creat –
+create a file with name and protection mode</a></li>
+<li><a href="#mknod----create-a-special-or-ordinary-file">mknod – create
+a special or ordinary file</a></li>
+<li><a
+href="#open----open-file-relative-to-directory-file-descriptor">open –
+open file relative to directory file descriptor</a></li>
+<li><a href="#close----close-a-file-descriptor">close – close a file
+descriptor</a></li>
+<li><a href="#read----read-from-a-file-descriptor">read – read from a
+file descriptor</a></li>
+<li><a href="#write----write-to-a-file-descriptor">write – write to a
+file descriptor</a></li>
+<li><a href="#lseek----reposition-readwrite-file-offset">lseek –
+reposition read/write file offset</a></li>
+<li><a href="#stat-fstat----get-file-status">stat, fstat – get file
+status</a></li>
+<li><a href="#dup-dup2----duplicate-a-file-descriptor">dup, dup2 –
+duplicate a file descriptor</a></li>
+<li><a href="#pipe----create-pipe">pipe – create pipe</a></li>
 <li><a href="#ioctl---control-device">ioctl - control device</a>
 <ul>
 <li><a href="#cmd">cmd</a></li>
 <li><a href="#the-usage-of-ioctl">the usage of ioctl</a></li>
+</ul></li>
+<li><a href="#fcntl----manipulate-file-descriptor">fcntl – manipulate
+file descriptor</a></li>
+<li><a href="#access----check-users-permissions-for-a-file">access –
+check user’s permissions for a file</a></li>
+<li><a href="#rename----change-the-name-or-location-of-a-file">rename –
+change the name or location of a file</a></li>
+</ul></li>
 </ul>
-</li>
-<li><a href="#fcntl----manipulate-file-descriptor">fcntl -- manipulate file descriptor</a></li>
-<li><a href="#access----check-users-permissions-for-a-file">access -- check user's permissions for a file</a></li>
-<li><a href="#rename----change-the-name-or-location-of-a-file">rename -- change the name or location of a file</a></li>
-</ul>
-</li>
-</ul>
-<!-- raw HTML omitted -->
-<h2>File System</h2>
-<p><strong>Before we try to understand the specific file system calls<!-- raw HTML omitted --></strong>
-<strong>we need to have a general understanding of the operating principle of the entire file system:</strong></p>
-<h3>Standard Stream</h3>
-<p><strong>In computer programming, <a href="https://en.wikipedia.org/wiki/Standard_streams">standard streams</a> are interconnected input and output communication channels between a computer program and its environment when it begins execution.</strong><!-- raw HTML omitted --></p>
-<p><strong>Once a process is created, it will automatically creates a standard stream by opening 3 files (stdin stdout stderr)<!-- raw HTML omitted --></strong>
-<strong>Once the process opens an existing file or creates a new file, the kernel returns a file descriptor to the process.<!-- raw HTML omitted --></strong>
-<strong>Once the process involves IO operations, there must be a call file descriptor.</strong>
-<!-- raw HTML omitted --></p>
-<p><strong>To understand what is Standard Stream. let us see an example in shell process:</strong><!-- raw HTML omitted -->
-<strong>In the <a href="https://github.com/Angold-4/OSDI/blob/master/Chapters/Chapter1/5Syscall-1.md">last Note</a> we metioned that shell is a process which accept the user input and creat child processes<!-- raw HTML omitted --></strong>
-<strong>Let's briefly review the process of shell reading instructions to create child processes:</strong><!-- raw HTML omitted --></p>
+<!-- vim-markdown-toc -->
+<h2 id="file-system">File System</h2>
+<p><strong>Before we try to understand the specific file system
+calls<br></strong> <strong>we need to have a general understanding of
+the operating principle of the entire file system:</strong></p>
+<h3 id="standard-stream">Standard Stream</h3>
+<p><strong>In computer programming, <a
+href="https://en.wikipedia.org/wiki/Standard_streams">standard
+streams</a> are interconnected input and output communication channels
+between a computer program and its environment when it begins
+execution.</strong><br></p>
+<p><strong>Once a process is created, it will automatically creates a
+standard stream by opening 3 files (stdin stdout stderr)<br></strong>
+<strong>Once the process opens an existing file or creates a new file,
+the kernel returns a file descriptor to the process.<br></strong>
+<strong>Once the process involves IO operations, there must be a call
+file descriptor.</strong> <br></p>
+<p><strong>To understand what is Standard Stream. let us see an example
+in shell process:</strong><br> <strong>In the <a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapters/Chapter1/5Syscall-1.md">last
+Note</a> we metioned that shell is a process which accept the user input
+and creat child processes<br></strong> <strong>Let’s briefly review the
+process of shell reading instructions to create child
+processes:</strong><br></p>
 <ul>
-<li><strong>Call getchar ( ) to read the input string from the terminal, separated by spaces, the first parameter is the file name, and the following parameters are the input parameters.</strong></li>
-<li><strong>Execute the system call fork() to generate a child process</strong></li>
-<li><strong>The child process executes the system call execve(), passes in the file name and input parameters to update the memory space of the child process, and points the program counter of the process to the first instruction. So far, the new process has been generated.</strong></li>
-<li><strong>If the parameter ends with &amp; (in shell), the main process continues to wait for input. On the contrary, the main process executes the system call waitpid() until the child process is executed, and then continues to wait for input.</strong>
-<!-- raw HTML omitted --></li>
+<li><strong>Call getchar ( ) to read the input string from the terminal,
+separated by spaces, the first parameter is the file name, and the
+following parameters are the input parameters.</strong></li>
+<li><strong>Execute the system call fork() to generate a child
+process</strong></li>
+<li><strong>The child process executes the system call execve(), passes
+in the file name and input parameters to update the memory space of the
+child process, and points the program counter of the process to the
+first instruction. So far, the new process has been
+generated.</strong></li>
+<li><strong>If the parameter ends with &amp; (in shell), the main
+process continues to wait for input. On the contrary, the main process
+executes the system call waitpid() until the child process is executed,
+and then continues to wait for input.</strong> <br></li>
 </ul>
-<p><strong>In these steps above: the last step is very interesting. Sometimes people will say that adding &quot;&amp;&quot; after the command means creating a background process</strong><!-- raw HTML omitted -->
-<strong>But I don't think it is the true <a href="https://en.wikipedia.org/wiki/Background_process#:~:text=A%20background%20process%20is%20a,%2C%20scheduling%2C%20and%20user%20notification.">background process</a>:</strong><!-- raw HTML omitted --></p>
-<blockquote>
-<p><strong>from wikipedia:<!-- raw HTML omitted -->A background process is a computer process that runs behind the scenes (i.e., in the background) and without user intervention. Typical tasks for these processes include logging, system monitoring, scheduling, and user notification. The background process usually is a child process created by a control process for processing a computing task. After creation, the child process will run on its own, performing the task independent of the control process, freeing the control process of performing that task.</strong></p>
-</blockquote>
-<p><strong>In this briefly description: &quot;independent&quot; is the key word. If the background process cannot run with foreground process independently. It will not be truly defined as this name.</strong><!-- raw HTML omitted --></p>
-<p><img src="Sources/background.png" alt="background"><!-- raw HTML omitted --></p>
-<p><strong>Let us see this command above -- cat</strong><!-- raw HTML omitted -->
-<strong>The independent <code>cat</code> command read the char from shell and writing them to standard output.</strong><!-- raw HTML omitted -->
-<strong>In this figure. we can find that: if we create a background <code>cat</code> process. Then in shell we type <code>ps</code> command to let the shell write the process status to standard output.</strong><!-- raw HTML omitted -->
-<strong>We will find that the background process <code>cat</code> was stopped unexpectly.</strong>
-<!-- raw HTML omitted --></p>
-<p><strong>To understand why this error occurs. we need to figure out These three Stand Stream -- <code>stdin</code> <code>stdout</code> <code>stderr</code></strong><!-- raw HTML omitted -->
-<strong>As we metioned above : Once a process is created, it will automatically creates a standard stream by opening 3 files (stdin stdout stderr), which stand for standard input, output, and error.</strong><!-- raw HTML omitted -->
-<strong>Samely, when shell open (we create the shell process). it will also creates 3 standard stream. we use <a href="https://en.wikipedia.org/wiki/Lsof">lsof</a> command to view the file opened by a process.</strong><!-- raw HTML omitted --></p>
-<blockquote>
-<p><strong>from wikipedia:<!-- raw HTML omitted --><code>lsof</code> is a command meaning &quot;list open files&quot;, which is used in many Unix-like systems to report a list of all open files and the processes that opened them.</strong></p>
-</blockquote>
-<!-- raw HTML omitted -->
+<p><strong>In these steps above: the last step is very interesting.
+Sometimes people will say that adding “&amp;” after the command means
+creating a background process</strong><br> <strong>But I don’t think it
+is the true <a
+href="https://en.wikipedia.org/wiki/Background_process#:~:text=A%20background%20process%20is%20a,%2C%20scheduling%2C%20and%20user%20notification.">background
+process</a>:</strong><br> &gt; <strong>from wikipedia:<br>A background
+process is a computer process that runs behind the scenes (i.e., in the
+background) and without user intervention. Typical tasks for these
+processes include logging, system monitoring, scheduling, and user
+notification. The background process usually is a child process created
+by a control process for processing a computing task. After creation,
+the child process will run on its own, performing the task independent
+of the control process, freeing the control process of performing that
+task.</strong></p>
+<p><strong>In this briefly description: “independent” is the key word.
+If the background process cannot run with foreground process
+independently. It will not be truly defined as this
+name.</strong><br></p>
+<p><img src="Sources/background.png" alt="background" /><br></p>
+<p><strong>Let us see this command above – cat</strong><br> <strong>The
+independent <code>cat</code> command read the char from shell and
+writing them to standard output.</strong><br> <strong>In this figure. we
+can find that: if we create a background <code>cat</code> process. Then
+in shell we type <code>ps</code> command to let the shell write the
+process status to standard output.</strong><br> <strong>We will find
+that the background process <code>cat</code> was stopped
+unexpectly.</strong> <br></p>
+<p><strong>To understand why this error occurs. we need to figure out
+These three Stand Stream – <code>stdin</code> <code>stdout</code>
+<code>stderr</code></strong><br> <strong>As we metioned above : Once a
+process is created, it will automatically creates a standard stream by
+opening 3 files (stdin stdout stderr), which stand for standard input,
+output, and error.</strong><br> <strong>Samely, when shell open (we
+create the shell process). it will also creates 3 standard stream. we
+use <a href="https://en.wikipedia.org/wiki/Lsof">lsof</a> command to
+view the file opened by a process.</strong><br> &gt; <strong>from
+wikipedia:<br><code>lsof</code> is a command meaning “list open files”,
+which is used in many Unix-like systems to report a list of all open
+files and the processes that opened them.</strong></p>
+<p><br></p>
 <p><strong>Check out this code:</strong></p>
 <pre><code>ubuntu@ubuntu:~$ ps
     PID TTY          TIME CMD
    1799 pts/0    00:00:00 bash
    2367 pts/0    00:00:00 cat
-  12849 pts/0    00:00:00 ps
-</code></pre>
+  12849 pts/0    00:00:00 ps</code></pre>
 <pre><code>ubuntu@ubuntu:~$ lsof -p 1799
 COMMAND  PID   USER   FD   TYPE DEVICE SIZE/OFF   NODE NAME
 bash    1799 ubuntu  cwd    DIR  179,2     4096 130305 /home/ubuntu
@@ -183,498 +421,701 @@ bash    1799 ubuntu  mem    REG  179,2      252   8108 /usr/lib/locale/C.UTF-8/L
 bash    1799 ubuntu    0u   CHR  136,0      0t0      3 /dev/pts/0
 bash    1799 ubuntu    1u   CHR  136,0      0t0      3 /dev/pts/0
 bash    1799 ubuntu    2u   CHR  136,0      0t0      3 /dev/pts/0
-bash    1799 ubuntu  255u   CHR  136,0      0t0      3 /dev/pts/0
-</code></pre>
-<p><strong>The 4-th column FD and the very next column TYPE correspond to the File Descriptor and the File Descriptor type.</strong><!-- raw HTML omitted --></p>
+bash    1799 ubuntu  255u   CHR  136,0      0t0      3 /dev/pts/0</code></pre>
+<p><strong>The 4-th column FD and the very next column TYPE correspond
+to the File Descriptor and the File Descriptor type.</strong><br></p>
 <p><strong>Some of the values for the FD can be:</strong></p>
 <pre><code>cwd – Current Working Directory
 txt – Text file
 mem – Memory mapped file
-mmap – Memory mapped device
-</code></pre>
+mmap – Memory mapped device</code></pre>
 <p><strong>But the real file descriptor is under:</strong></p>
-<pre><code>NUMBER – Represent the actual file descriptor.
-</code></pre>
-<p><strong>The character after the number i.e &quot;1u&quot;, represents the mode in which the file is opened. r for read, w for write, u for read and write.</strong><!-- raw HTML omitted -->
-<strong>In this figure: we can find that the last few lines were 3 different file descripter 0 1 and 2. And that is the standard stream</strong><!-- raw HTML omitted --></p>
+<pre><code>NUMBER – Represent the actual file descriptor.</code></pre>
+<p><strong>The character after the number i.e “1u”, represents the mode
+in which the file is opened. r for read, w for write, u for read and
+write.</strong><br> <strong>In this figure: we can find that the last
+few lines were 3 different file descripter 0 1 and 2. And that is the
+standard stream</strong><br></p>
 <pre><code>bash    1799 ubuntu    0u   CHR  136,0      0t0      3 /dev/pts/0
 bash    1799 ubuntu    1u   CHR  136,0      0t0      3 /dev/pts/0
-bash    1799 ubuntu    2u   CHR  136,0      0t0      3 /dev/pts/0
-</code></pre>
-<p><strong>You may ask yourself where are these file descriptors physically and what is stored in /dev/pts/0 for instance.</strong><!-- raw HTML omitted -->
-<strong>The <code>dev/</code> directory stands for device. It is important that all things in linux-like system were files. so in this place store all <a href="https://en.wikipedia.org/wiki/Device_file">device file</a> (keyboard monitor etc.)</strong><!-- raw HTML omitted --></p>
-<blockquote>
-<p><strong>from <a href="https://unix.stackexchange.com/questions/21280/difference-between-pts-and-tty">stackexchange</a> :<!-- raw HTML omitted -->A tty is a regular terminal device (the console on your server, for example).<!-- raw HTML omitted -->A pts is a psuedo terminal slave (an xterm or an ssh connection).</strong><!-- raw HTML omitted --></p>
-</blockquote>
+bash    1799 ubuntu    2u   CHR  136,0      0t0      3 /dev/pts/0</code></pre>
+<p><strong>You may ask yourself where are these file descriptors
+physically and what is stored in /dev/pts/0 for instance.</strong><br>
+<strong>The <code>dev/</code> directory stands for device. It is
+important that all things in linux-like system were files. so in this
+place store all <a
+href="https://en.wikipedia.org/wiki/Device_file">device file</a>
+(keyboard monitor etc.)</strong><br> &gt; <strong>from <a
+href="https://unix.stackexchange.com/questions/21280/difference-between-pts-and-tty">stackexchange</a>
+:<br>A tty is a regular terminal device (the console on your server, for
+example).<br>A pts is a psuedo terminal slave (an xterm or an ssh
+connection).</strong><br></p>
 <ul>
-<li><strong>Standard input -- stand for 0 file descripter, is a stream from which a program reads its input data. For example, in shell process. The keyboard is the standard input, which means the keyboard directly write chars into that stdin file.</strong></li>
-<li><strong>Standard output -- stand for 1 file descripter, is a stream to which a program writes its output data, Usually be the monitor.</strong></li>
-<li><strong>Standard error -- is another output stream typically used by programs to output error messages or diagnostics. It is a stream independent of standard output and can be redirected separately.</strong><!-- raw HTML omitted -->
-<img src="Sources/stdstream.png" alt="stdstream">
-<!-- raw HTML omitted --></li>
+<li><strong>Standard input – stand for 0 file descripter, is a stream
+from which a program reads its input data. For example, in shell
+process. The keyboard is the standard input, which means the keyboard
+directly write chars into that stdin file.</strong></li>
+<li><strong>Standard output – stand for 1 file descripter, is a stream
+to which a program writes its output data, Usually be the
+monitor.</strong></li>
+<li><strong>Standard error – is another output stream typically used by
+programs to output error messages or diagnostics. It is a stream
+independent of standard output and can be redirected
+separately.</strong><br> <img src="Sources/stdstream.png"
+alt="stdstream" /> <br></li>
 </ul>
-<p><strong>Let us back to that question: Why the background <code>cat</code> program will be stopped?</strong><!-- raw HTML omitted -->
-<strong>Well, if we check the inode of two Standard streams of two different process.</strong><!-- raw HTML omitted --></p>
+<p><strong>Let us back to that question: Why the background
+<code>cat</code> program will be stopped?</strong><br> <strong>Well, if
+we check the inode of two Standard streams of two different
+process.</strong><br></p>
 <pre><code>COMMAND  PID   USER   FD   TYPE DEVICE SIZE/OFF   NODE NAME
 bash    1799 ubuntu    0u   CHR  136,0      0t0      3 /dev/pts/0
 bash    1799 ubuntu    1u   CHR  136,0      0t0      3 /dev/pts/0
-bash    1799 ubuntu    2u   CHR  136,0      0t0      3 /dev/pts/0
-</code></pre>
+bash    1799 ubuntu    2u   CHR  136,0      0t0      3 /dev/pts/0</code></pre>
 <pre><code>cat     2367 ubuntu    0u   CHR  136,0      0t0      3 /dev/pts/0
 cat     2367 ubuntu    1u   CHR  136,0      0t0      3 /dev/pts/0
-cat     2367 ubuntu    2u   CHR  136,0      0t0      3 /dev/pts/0
-</code></pre>
-<p><strong>As we can see that: because of two processes' standard stream have the same Node number 3(we will talk about node number later), they direct to the same file.<!-- raw HTML omitted --></strong>
-<strong>Because of this. When background process <code>cat</code> is waiting for standard input from keyboard (like the shell), if we type a command or other chars at shell. the OS cannot distingushes which one from the standard input will be executed. So the shell stopped the <code>cat</code> child process to avoid error.</strong><!-- raw HTML omitted --></p>
-<p><strong>So what is Node number? and what is the File Descripter (fd) ?</strong><!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<strong>The file descriptor (fd) is an index created by the kernel to efficiently manage the opened file. It is a non-negative integer used to refer to the opened file. All system calls that perform I/O operations are Via file descriptor.</strong><!-- raw HTML omitted --></p>
-<p><strong>Each file descriptor will correspond to an open file, and at the same time, different file descriptors will also point to the same file. The same file can be opened by different processes or opened multiple times in the same process.</strong><!-- raw HTML omitted --></p>
-<p><strong>The system maintains a file descriptor table for each process. The value of the table starts from 0, so you will see the same file descriptor in different processes. In this case, the same file descriptor is possible Point to the same file, or it may point to different files. The specific situation needs to be analyzed in detail. To understand the specific situation, you need to look at the three data structures maintained by the kernel.</strong>
-<!-- raw HTML omitted --></p>
+cat     2367 ubuntu    2u   CHR  136,0      0t0      3 /dev/pts/0</code></pre>
+<p><strong>As we can see that: because of two processes’ standard stream
+have the same Node number 3(we will talk about node number later), they
+direct to the same file.<br></strong> <strong>Because of this. When
+background process <code>cat</code> is waiting for standard input from
+keyboard (like the shell), if we type a command or other chars at shell.
+the OS cannot distingushes which one from the standard input will be
+executed. So the shell stopped the <code>cat</code> child process to
+avoid error.</strong><br></p>
+<p><strong>So what is Node number? and what is the File Descripter (fd)
+?</strong><br> <br> <strong>The file descriptor (fd) is an index created
+by the kernel to efficiently manage the opened file. It is a
+non-negative integer used to refer to the opened file. All system calls
+that perform I/O operations are Via file descriptor.</strong><br></p>
+<p><strong>Each file descriptor will correspond to an open file, and at
+the same time, different file descriptors will also point to the same
+file. The same file can be opened by different processes or opened
+multiple times in the same process.</strong><br></p>
+<p><strong>The system maintains a file descriptor table for each
+process. The value of the table starts from 0, so you will see the same
+file descriptor in different processes. In this case, the same file
+descriptor is possible Point to the same file, or it may point to
+different files. The specific situation needs to be analyzed in detail.
+To understand the specific situation, you need to look at the three data
+structures maintained by the kernel.</strong> <br></p>
 <ul>
 <li><strong>File Descripters</strong></li>
 <li><strong>File Table</strong></li>
-<li><strong>Inode Table</strong>
-<img src="Sources/3table.png" alt="3table"></li>
+<li><strong>Inode Table</strong> <img src="Sources/3table.png"
+alt="3table" /></li>
 </ul>
-<h3>Three Data Structures inside The Kernel</h3>
-<h4>The per-process file description table</h4>
-<p><strong>For each process, the kernel maintains a table of open file descriptors. Each entry in this table records information about a single file descriptor(the one returned by the <code>open()</code> system call), including:</strong></p>
+<h3 id="three-data-structures-inside-the-kernel">Three Data Structures
+inside The Kernel</h3>
+<h4 id="the-per-process-file-description-table">The per-process file
+description table</h4>
+<p><strong>For each process, the kernel maintains a table of open file
+descriptors. Each entry in this table records information about a single
+file descriptor(the one returned by the <code>open()</code> system
+call), including:</strong></p>
 <ul>
-<li><strong>a set of <a href="https://www.gnu.org/software/libc/manual/html_node/File-Status-Flags.html">flags</a> controlling the operation of the file descriptor (actually there is just one such flag, the <a href="https://stackoverflow.com/questions/9583845/why-isnt-close-on-exec-the-default-configuration">close-on-exec flag</a></strong></li>
-<li><strong>a reference to the open file description</strong>
-<!-- raw HTML omitted --></li>
+<li><strong>a set of <a
+href="https://www.gnu.org/software/libc/manual/html_node/File-Status-Flags.html">flags</a>
+controlling the operation of the file descriptor (actually there is just
+one such flag, the <a
+href="https://stackoverflow.com/questions/9583845/why-isnt-close-on-exec-the-default-configuration">close-on-exec
+flag</a></strong></li>
+<li><strong>a reference to the open file description</strong> <br></li>
 </ul>
-<h4>The system-wide table of open file descriptions</h4>
-<p><strong>An open file description stores all information relating an open file. It's also called open file table or open file handles. Information includes:</strong></p>
+<h4 id="the-system-wide-table-of-open-file-descriptions">The system-wide
+table of open file descriptions</h4>
+<p><strong>An open file description stores all information relating an
+open file. It’s also called open file table or open file handles.
+Information includes:</strong> * <strong>the current file offset (as
+updated by <code>read()</code> and <code>write()</code>, or explicitly
+modified using <code>lseek()</code>)</strong> * <strong>status flags
+specified when opening the file (i.e, the flags argument to
+<code>open()</code>)</strong> * <strong>the file access mode (read-only,
+write-only, or read-write, as specified in <code>open()</code>)</strong>
+* <strong>setting relating to signal-driven I/O</strong> * <strong>a
+reference to the i-node object for this file</strong></p>
+<p><strong>For more details. I will make a conclution when learning
+implementation of File system</strong> <br></p>
+<h4 id="the-file-system-i-node-table">The file system <a
+href="https://en.wikipedia.org/wiki/Inode">i-node</a> table</h4>
 <ul>
-<li><strong>the current file offset (as updated by <code>read()</code> and <code>write()</code>, or explicitly modified using <code>lseek()</code>)</strong></li>
-<li><strong>status flags specified when opening the file (i.e, the flags argument to <code>open()</code>)</strong></li>
-<li><strong>the file access mode (read-only, write-only, or read-write, as specified in <code>open()</code>)</strong></li>
-<li><strong>setting relating to signal-driven I/O</strong></li>
-<li><strong>a reference to the i-node object for this file</strong></li>
+<li><strong>file type (e.g, regular file, socket or FIFO) and
+permission</strong></li>
+<li><strong>a pointer to a list of blocks held on this
+file</strong></li>
+<li><strong>various properties of this file, including its size and time
+stamps, etc.</strong></li>
 </ul>
-<p><strong>For more details. I will make a conclution when learning implementation of File system</strong>
-<!-- raw HTML omitted --></p>
-<h4>The file system <a href="https://en.wikipedia.org/wiki/Inode">i-node</a> table</h4>
+<p><br></p>
+<p><strong>Here is a picture taken from the book The <a
+href="https://man7.org/tlpi/">Linux Programming Interface</a>, which
+clearly depicts the relationship between file descriptors, open file
+descriptions and i-nodes. In this situation, two processes have a number
+of open file descriptors.</strong><br></p>
+<figure>
+<img src="Sources/3tables.png" alt="3tables" />
+<figcaption aria-hidden="true">3tables</figcaption>
+</figure>
+<p><strong>Let us do a little analysis on this diagram:<br></strong> *
+<strong>In this diagram, descriptors 1 and 20 of process A both refer to
+the same open file description (labeled 23). This situation may arise as
+a result of a call the <code>dup()</code> , <code>dup2()</code> or
+<code>fcntl()</code> (which I will metioned later)</strong> *
+<strong>Descriptor 2 of process A and descriptor 2 of process B refer to
+a single open file description(73). This scenario could occur after a
+call to <code>fork()</code>(i.e, process A is the parent of process B,
+or vice versa), or if one process passes an open file descriptor to
+another process using a UNIX domain socket.</strong> * <strong>Finally,
+we see that descriptor 0 of process A and descriptor 3 of process B
+refer to different open file descriptions, but that these descriptions
+refer to the same i-node table entry (1976) – in other words, to the
+same file. A similar situation could occur if a single process open the
+same file twice.</strong></p>
+<p><br></p>
+<p><strong>After that conclution above: let’s see another
+question:<br></strong> <strong>Why does unix need these 3
+tables?</strong><br></p>
+<p><strong>See another example, then maybe we will get the key of the
+implementation of Unix file system:<br></strong></p>
+<figure>
+<img src="Sources/samefile.png" alt="samefile" />
+<figcaption aria-hidden="true">samefile</figcaption>
+</figure>
+<p><strong>From that i-node table in that figure below: it is clear that
+these two processes opened the same file.</strong><br> <strong>But due
+to the difference file table – these two processes don’t read the file
+with same offset and other permissions (read write etc.)</strong><br>
+<strong>In my case. This arrangement has these
+advantages:<br></strong></p>
 <ul>
-<li><strong>file type (e.g, regular file, socket or FIFO) and permission</strong></li>
-<li><strong>a pointer to a list of blocks held on this file</strong></li>
-<li><strong>various properties of this file, including its size and time stamps, etc.</strong></li>
+<li><strong>This arrangement achieved independence between different
+processes by making file table<br></strong></li>
+<li><strong>In this arrangement, users can flexibly choose the mode of
+opening multiple files with different progress or the same
+progress.<br></strong></li>
+<li><strong>Because of the file descripter. The processes just need to
+pass the fd to the kernel to open files among the massive files. That
+helps the process more efficient<br></strong></li>
 </ul>
-<!-- raw HTML omitted -->
-<p><strong>Here is a picture taken from the book The <a href="https://man7.org/tlpi/">Linux Programming Interface</a>, which clearly depicts the relationship between file descriptors, open file descriptions and i-nodes. In this situation, two processes have a number of open file descriptors.</strong><!-- raw HTML omitted --></p>
-<p><img src="Sources/3tables.png" alt="3tables"></p>
-<p><strong>Let us do a little analysis on this diagram:<!-- raw HTML omitted --></strong></p>
-<ul>
-<li><strong>In this diagram, descriptors 1 and 20 of process A both refer to the same open file description (labeled 23). This situation may arise as a result of a call the <code>dup()</code> , <code>dup2()</code> or <code>fcntl()</code> (which I will metioned later)</strong></li>
-<li><strong>Descriptor 2 of process A and descriptor 2 of process B refer to a single open file description(73). This scenario could occur after a call to <code>fork()</code>(i.e, process A is the parent of process B, or vice versa), or if one process passes an open file descriptor to another process using a UNIX domain socket.</strong></li>
-<li><strong>Finally, we see that descriptor 0 of process A and descriptor 3 of process B refer to different open file descriptions, but that these descriptions refer to the same i-node table entry (1976) -- in other words, to the same file. A similar situation could occur if a single process open the same file twice.</strong></li>
-</ul>
-<!-- raw HTML omitted -->
-<p><strong>After that conclution above: let's see another question:<!-- raw HTML omitted --></strong>
-<strong>Why does unix need these 3 tables?</strong><!-- raw HTML omitted --></p>
-<p><strong>See another example, then maybe we will get the key of the implementation of Unix file system:<!-- raw HTML omitted --></strong></p>
-<p><img src="Sources/samefile.png" alt="samefile"></p>
-<p><strong>From that i-node table in that figure below: it is clear that these two processes opened the same file.</strong><!-- raw HTML omitted -->
-<strong>But due to the difference file table -- these two processes don't read the file with same offset and other permissions (read write etc.)</strong><!-- raw HTML omitted -->
-<strong>In my case. This arrangement has these advantages:<!-- raw HTML omitted --></strong></p>
-<ul>
-<li><strong>This arrangement achieved independence between different processes by making file table<!-- raw HTML omitted --></strong></li>
-<li><strong>In this arrangement, users can flexibly choose the mode of opening multiple files with different progress or the same progress.<!-- raw HTML omitted --></strong></li>
-<li><strong>Because of the file descripter. The processes just need to pass the fd to the kernel to open files among the massive files. That helps the process more efficient<!-- raw HTML omitted --></strong></li>
-</ul>
-<!-- raw HTML omitted -->
-<h2>System Calls for File Management</h2>
-<h3>creat -- create a file with name and protection mode</h3>
-<p><strong>int <a href="https://man7.org/linux/man-pages/man2/creat.2.html">creat</a> (const char pathname(pointer), mode_t mode);</strong><!-- raw HTML omitted --></p>
-<pre><code>fd = creat(&quot;abc&quot;, 0751)
-</code></pre>
-<p><strong>creates a file called abc with mode 0751 octal (in C, a leading zero means that a constant is in octal). The low-order 9 bits of 0751 specify the rwx bits for the owner (7 means read-write-execute permission), his group (5 means read- execute), and others (1 means execute only).<!-- raw HTML omitted --></strong>
-<strong>Creat not only creates a new file but also opens it for writing, regardless of the file’s mode. The file descriptor returned, fd, can be used to write the file. If a creat is done on an existing file, that file is truncated to length 0, provided, of course, that the permissions are all right. The creat call is obsolete, as open can now create new files, but it has been included for backward compatibility.</strong>
-<!-- raw HTML omitted --></p>
-<h3>mknod -- create a special or ordinary file</h3>
-<p><strong>int <a href="https://man7.org/linux/man-pages/man2/mknod.2.html">mknod</a> (const char pathname (pointer), mode_t mode, dev_t dev);</strong><!-- raw HTML omitted -->
-<strong>The system call mknod() creates a filesystem node (file, device special file, or named pipe) named pathname, with attributes specified by mode and dev.</strong><!-- raw HTML omitted --></p>
-<p><strong>Special files are created using mknod rather than creat. A typical call is:</strong></p>
-<pre><code>fd = mknod(′′/dev/ttyc2′′, 020744, 0x0402);
-</code></pre>
-<p><strong>which creates a file named /dev/ttyc2 (the usual name for console 2) and gives it mode 020744 octal (a character special file with protection bits rwxr--r--). The third parameter contains the major device (4) in the high-order byte and the minor device (2) in the low-order byte. The major device could have been anything, but a file named <code>/dev/ttyc2</code> ought to be minor device 2. Calls to mknod fail unless the caller is the superuser.</strong>
-<!-- raw HTML omitted --></p>
-<h3>open -- open file relative to directory file descriptor</h3>
-<p><strong>int <a href="https://man7.org/linux/man-pages/man3/open.3p.html">open</a> (const char path (pointer), int oflag, ...);</strong><!-- raw HTML omitted -->
-<strong>The<code>open()</code> function shall establish the connection between a file and a file descriptor. It shall create an open file description that refers to a file and a file descriptor that refers to that open file description. The file descriptor is used by other I/O functions to refer to that file. The path argument points to a pathname naming the file.</strong><!-- raw HTML omitted --></p>
-<p><strong>To read or write an existing file, the file must first be opened using <code>open</code>. This call specifies the file name to be opened, either as an absolute path name or relative to the working directory, and a code of ORDONLY, OWRONLY, or ORDWR, meaning open for reading, writing, or both. The file descriptor returned can then be used for reading or writing.</strong>
-<!-- raw HTML omitted --></p>
-<h3>close -- close a file descriptor</h3>
-<p><strong>int <a href="https://www.man7.org/linux/man-pages/man2/close.2.html">close</a> (int fd);</strong><!-- raw HTML omitted -->
-<strong><code>close()</code> closes a file descriptor, so that it no longer refers to any file and may be reused.</strong><!-- raw HTML omitted -->
-<strong>After open a file, the file can be closed by close, which makes the file descriptor available for reuse on a subsequent creat or open.</strong>
-<!-- raw HTML omitted --></p>
-<h3>read -- read from a file descriptor</h3>
-<p><strong>ssize_t <a href="https://man7.org/linux/man-pages//man2/read.2.html">read</a> (int fd, void buf (pointer), size_t count);</strong><!-- raw HTML omitted -->
-<strong><code>read()</code> attempts to read up to count bytes from file descriptor fd into the buffer starting at buf.</strong>
-<!-- raw HTML omitted --></p>
-<h3>write -- write to a file descriptor</h3>
-<p><strong>ssize_t <a href="https://www.man7.org/linux/man-pages/man2/write.2.html">write</a> (int fd, const void buf (pointer), size_t count);</strong><!-- raw HTML omitted -->
-<strong><code>write()</code> writes up to count bytes from the buffer starting at buf to the file referred to by the file descriptor fd.</strong><!-- raw HTML omitted -->
-<strong>On success, the number of bytes written is returned.  On error, -1 is returned, and errno is set to indicate the cause of the error.</strong>
-<!-- raw HTML omitted --></p>
-<h3>lseek -- reposition read/write file offset</h3>
-<p><strong>off_t <a href="https://www.man7.org/linux/man-pages/man2/lseek.2.html">lseek</a> (int fd, off_t offset, int whence);</strong><!-- raw HTML omitted -->
-<strong><code>lseek</code> has three parameters: the first is the file descriptor for the file, the second is a file position, and the third tells whether the file position is relative to the beginning of the file, the current position, or the end of the file. The value returned by lseek is the absolute position in the file after changing the pointer.</strong></p>
-<h3>stat, fstat -- get file status</h3>
-<p><strong>int <a href="https://man7.org/linux/man-pages/man2/fstat.2.html">stat</a> (const char pathname (pointer), struct stat statbuf (pointer));</strong><!-- raw HTML omitted -->
-<strong>int fstat (int fd, struct stat statbuf(pointer));</strong><!-- raw HTML omitted -->
-<strong><code>stat()</code> retrieves information about the file pointed to by pathname;<code>fstat()</code> is identical to <code>stat()</code>, except that the file about which information is to be retrieved is specified by the file descriptor fd.</strong><!-- raw HTML omitted --></p>
-<p><strong>The stat structure<!-- raw HTML omitted --> All of these system calls return a stat structure, which contains the following fields:</strong><!-- raw HTML omitted --></p>
-<pre><code class="language-c">struct stat {
-       dev_t     st_dev;         /* ID of device containing file */
-       ino_t     st_ino;         /* Inode number */
-       mode_t    st_mode;        /* File type and mode */
-       nlink_t   st_nlink;       /* Number of hard links */
-       uid_t     st_uid;         /* User ID of owner */
-       gid_t     st_gid;         /* Group ID of owner */
-       dev_t     st_rdev;        /* Device ID (if special file) */
-       off_t     st_size;        /* Total size, in bytes */
-       blksize_t st_blksize;     /* Block size for filesystem I/O */
-       blkcnt_t  st_blocks;      /* Number of 512B blocks allocated */
-
-       /* Since Linux 2.6, the kernel supports nanosecond
-          precision for the following timestamp fields.
-          For the details before Linux 2.6, see NOTES. */
-
-       struct timespec st_atim;  /* Time of last access */
-       struct timespec st_mtim;  /* Time of last modification */
-       struct timespec st_ctim;  /* Time of last status change */
-
-   #define st_atime st_atim.tv_sec      /* Backward compatibility */
-   #define st_mtime st_mtim.tv_sec
-   #define st_ctime st_ctim.tv_sec
-   };
-</code></pre>
-<p><img src="Sources/stat.png" alt="stat">
-<!-- raw HTML omitted --></p>
-<h3>dup, dup2 -- duplicate a file descriptor</h3>
-<pre><code class="language-c">#include &lt;unistd.h&gt;
-</code></pre>
-<p><strong>int <a href="https://man7.org/linux/man-pages/man2/dup.2.html">dup</a> (int oldfd);</strong><!-- raw HTML omitted -->
-<strong>int dup2 (int oldfd, int newfd);</strong><!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<strong>The <code>dup()</code> system call creates a copy of the file descriptor oldfd, using the lowest-numbered unused file descriptor for the new descriptor.</strong><!-- raw HTML omitted -->
-<strong>The <code>dup2()</code> system call performs the same task as <code>dup()</code>, but instead of using the lowest-numbered unused file descriptor, it uses the file descriptor number specified in newfd.  If the file descriptor newfd was previously open, it is silently closed before being reused.</strong><!-- raw HTML omitted -->
-<strong>Please notice that after <code>dup</code> and <code>dup2</code>: two fd were both refer to the same file in the file table.</strong>
-<!-- raw HTML omitted --></p>
-<h3>pipe -- create pipe</h3>
-<p><strong>int <a href="https://man7.org/linux/man-pages/man2/pipe.2.html">pipe</a> (int pipefd[2]);</strong><!-- raw HTML omitted -->
-<strong>pipe() creates a pipe, a unidirectional data channel that can be used for interprocess communication.  The array pipefd is used to return two file descriptors referring to the ends of the pipe.  pipefd[0] refers to the read end of the pipe.  pipefd[1] refers to the write end of the pipe.  Data written to the write end of the pipe is buffered by the kernel until it is read from the read end of the pipe.</strong><!-- raw HTML omitted --></p>
-<p><strong>pipe system call creates a pipe and returns two file descriptors, one for writing and one for reading.</strong><!-- raw HTML omitted -->
-<strong>Where fd is an array of two integers and fd[0] is the file descriptor for reading and fd[1] is the one for writing.</strong>
-<!-- raw HTML omitted -->
-<strong>Typically, a fork comes next, and the parent closes the file descriptor for reading and the child closes the file descriptor for writing (or vice versa), so when they are done, one process can read the pipe and the other can write on it.</strong><!-- raw HTML omitted --></p>
-<p><strong>Let us see an <a href="https://www.geeksforgeeks.org/pipe-system-call/">example</a> below:</strong><!-- raw HTML omitted --></p>
+<p><br></p>
+<h2 id="system-calls-for-file-management">System Calls for File
+Management</h2>
+<h3 id="creat-create-a-file-with-name-and-protection-mode">creat –
+create a file with name and protection mode</h3>
+<p><strong>int <a
+href="https://man7.org/linux/man-pages/man2/creat.2.html">creat</a>
+(const char pathname(pointer), mode_t mode);</strong><br></p>
+<pre><code>fd = creat(&quot;abc&quot;, 0751)</code></pre>
+<p><strong>creates a file called abc with mode 0751 octal (in C, a
+leading zero means that a constant is in octal). The low-order 9 bits of
+0751 specify the rwx bits for the owner (7 means read-write-execute
+permission), his group (5 means read- execute), and others (1 means
+execute only).<br></strong> <strong>Creat not only creates a new file
+but also opens it for writing, regardless of the file’s mode. The file
+descriptor returned, fd, can be used to write the file. If a creat is
+done on an existing file, that file is truncated to length 0, provided,
+of course, that the permissions are all right. The creat call is
+obsolete, as open can now create new files, but it has been included for
+backward compatibility.</strong> <br></p>
+<h3 id="mknod-create-a-special-or-ordinary-file">mknod – create a
+special or ordinary file</h3>
+<p><strong>int <a
+href="https://man7.org/linux/man-pages/man2/mknod.2.html">mknod</a>
+(const char pathname (pointer), mode_t mode, dev_t dev);</strong><br>
+<strong>The system call mknod() creates a filesystem node (file, device
+special file, or named pipe) named pathname, with attributes specified
+by mode and dev.</strong><br></p>
+<p><strong>Special files are created using mknod rather than creat. A
+typical call is:</strong></p>
+<pre><code>fd = mknod(′′/dev/ttyc2′′, 020744, 0x0402);</code></pre>
+<p><strong>which creates a file named /dev/ttyc2 (the usual name for
+console 2) and gives it mode 020744 octal (a character special file with
+protection bits rwxr–r–). The third parameter contains the major device
+(4) in the high-order byte and the minor device (2) in the low-order
+byte. The major device could have been anything, but a file named
+<code>/dev/ttyc2</code> ought to be minor device 2. Calls to mknod fail
+unless the caller is the superuser.</strong> <br></p>
+<h3 id="open-open-file-relative-to-directory-file-descriptor">open –
+open file relative to directory file descriptor</h3>
+<p><strong>int <a
+href="https://man7.org/linux/man-pages/man3/open.3p.html">open</a>
+(const char path (pointer), int oflag, …);</strong><br>
+<strong>The<code>open()</code> function shall establish the connection
+between a file and a file descriptor. It shall create an open file
+description that refers to a file and a file descriptor that refers to
+that open file description. The file descriptor is used by other I/O
+functions to refer to that file. The path argument points to a pathname
+naming the file.</strong><br></p>
+<p><strong>To read or write an existing file, the file must first be
+opened using <code>open</code>. This call specifies the file name to be
+opened, either as an absolute path name or relative to the working
+directory, and a code of ORDONLY, OWRONLY, or ORDWR, meaning open for
+reading, writing, or both. The file descriptor returned can then be used
+for reading or writing.</strong> <br></p>
+<h3 id="close-close-a-file-descriptor">close – close a file
+descriptor</h3>
+<p><strong>int <a
+href="https://www.man7.org/linux/man-pages/man2/close.2.html">close</a>
+(int fd);</strong><br> <strong><code>close()</code> closes a file
+descriptor, so that it no longer refers to any file and may be
+reused.</strong><br> <strong>After open a file, the file can be closed
+by close, which makes the file descriptor available for reuse on a
+subsequent creat or open.</strong> <br></p>
+<h3 id="read-read-from-a-file-descriptor">read – read from a file
+descriptor</h3>
+<p><strong>ssize_t <a
+href="https://man7.org/linux/man-pages//man2/read.2.html">read</a> (int
+fd, void buf (pointer), size_t count);</strong><br>
+<strong><code>read()</code> attempts to read up to count bytes from file
+descriptor fd into the buffer starting at buf.</strong> <br></p>
+<h3 id="write-write-to-a-file-descriptor">write – write to a file
+descriptor</h3>
+<p><strong>ssize_t <a
+href="https://www.man7.org/linux/man-pages/man2/write.2.html">write</a>
+(int fd, const void buf (pointer), size_t count);</strong><br>
+<strong><code>write()</code> writes up to count bytes from the buffer
+starting at buf to the file referred to by the file descriptor
+fd.</strong><br> <strong>On success, the number of bytes written is
+returned. On error, -1 is returned, and errno is set to indicate the
+cause of the error.</strong> <br></p>
+<h3 id="lseek-reposition-readwrite-file-offset">lseek – reposition
+read/write file offset</h3>
+<p><strong>off_t <a
+href="https://www.man7.org/linux/man-pages/man2/lseek.2.html">lseek</a>
+(int fd, off_t offset, int whence);</strong><br>
+<strong><code>lseek</code> has three parameters: the first is the file
+descriptor for the file, the second is a file position, and the third
+tells whether the file position is relative to the beginning of the
+file, the current position, or the end of the file. The value returned
+by lseek is the absolute position in the file after changing the
+pointer.</strong></p>
+<h3 id="stat-fstat-get-file-status">stat, fstat – get file status</h3>
+<p><strong>int <a
+href="https://man7.org/linux/man-pages/man2/fstat.2.html">stat</a>
+(const char pathname (pointer), struct stat statbuf
+(pointer));</strong><br> <strong>int fstat (int fd, struct stat
+statbuf(pointer));</strong><br> <strong><code>stat()</code> retrieves
+information about the file pointed to by pathname;<code>fstat()</code>
+is identical to <code>stat()</code>, except that the file about which
+information is to be retrieved is specified by the file descriptor
+fd.</strong><br></p>
+<p><strong>The stat structure<br> All of these system calls return a
+stat structure, which contains the following fields:</strong><br></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> stat <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       dev_t     st_dev<span class="op">;</span>         <span class="co">/* ID of device containing file */</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>       ino_t     st_ino<span class="op">;</span>         <span class="co">/* Inode number */</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>       mode_t    st_mode<span class="op">;</span>        <span class="co">/* File type and mode */</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>       nlink_t   st_nlink<span class="op">;</span>       <span class="co">/* Number of hard links */</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>       uid_t     st_uid<span class="op">;</span>         <span class="co">/* User ID of owner */</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>       gid_t     st_gid<span class="op">;</span>         <span class="co">/* Group ID of owner */</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>       dev_t     st_rdev<span class="op">;</span>        <span class="co">/* Device ID (if special file) */</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>       off_t     st_size<span class="op">;</span>        <span class="co">/* Total size, in bytes */</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>       blksize_t st_blksize<span class="op">;</span>     <span class="co">/* Block size for filesystem I/O */</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>       blkcnt_t  st_blocks<span class="op">;</span>      <span class="co">/* Number of 512B blocks allocated */</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>       <span class="co">/* Since Linux 2.6, the kernel supports nanosecond</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">          precision for the following timestamp fields.</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">          For the details before Linux 2.6, see NOTES. */</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>       <span class="kw">struct</span> timespec st_atim<span class="op">;</span>  <span class="co">/* Time of last access */</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>       <span class="kw">struct</span> timespec st_mtim<span class="op">;</span>  <span class="co">/* Time of last modification */</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>       <span class="kw">struct</span> timespec st_ctim<span class="op">;</span>  <span class="co">/* Time of last status change */</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>   <span class="pp">#define st_atime st_atim.tv_sec      </span><span class="co">/* Backward compatibility */</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>   <span class="pp">#define st_mtime st_mtim.tv_sec</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>   <span class="pp">#define st_ctime st_ctim.tv_sec</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>   <span class="op">};</span></span></code></pre></div>
+<p><img src="Sources/stat.png" alt="stat" /> <br></p>
+<h3 id="dup-dup2-duplicate-a-file-descriptor">dup, dup2 – duplicate a
+file descriptor</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span></code></pre></div>
+<p><strong>int <a
+href="https://man7.org/linux/man-pages/man2/dup.2.html">dup</a> (int
+oldfd);</strong><br> <strong>int dup2 (int oldfd, int
+newfd);</strong><br> <br> <strong>The <code>dup()</code> system call
+creates a copy of the file descriptor oldfd, using the lowest-numbered
+unused file descriptor for the new descriptor.</strong><br> <strong>The
+<code>dup2()</code> system call performs the same task as
+<code>dup()</code>, but instead of using the lowest-numbered unused file
+descriptor, it uses the file descriptor number specified in newfd. If
+the file descriptor newfd was previously open, it is silently closed
+before being reused.</strong><br> <strong>Please notice that after
+<code>dup</code> and <code>dup2</code>: two fd were both refer to the
+same file in the file table.</strong> <br></p>
+<h3 id="pipe-create-pipe">pipe – create pipe</h3>
+<p><strong>int <a
+href="https://man7.org/linux/man-pages/man2/pipe.2.html">pipe</a> (int
+pipefd[2]);</strong><br> <strong>pipe() creates a pipe, a unidirectional
+data channel that can be used for interprocess communication. The array
+pipefd is used to return two file descriptors referring to the ends of
+the pipe. pipefd[0] refers to the read end of the pipe. pipefd[1] refers
+to the write end of the pipe. Data written to the write end of the pipe
+is buffered by the kernel until it is read from the read end of the
+pipe.</strong><br></p>
+<p><strong>pipe system call creates a pipe and returns two file
+descriptors, one for writing and one for reading.</strong><br>
+<strong>Where fd is an array of two integers and fd[0] is the file
+descriptor for reading and fd[1] is the one for writing.</strong> <br>
+<strong>Typically, a fork comes next, and the parent closes the file
+descriptor for reading and the child closes the file descriptor for
+writing (or vice versa), so when they are done, one process can read the
+pipe and the other can write on it.</strong><br></p>
+<p><strong>Let us see an <a
+href="https://www.geeksforgeeks.org/pipe-system-call/">example</a>
+below:</strong><br> &gt; <strong>Conceptually, a pipe is a connection
+between two processes, such that the standard output from one process
+becomes the standard input of the other process. In UNIX Operating
+System, Pipes are useful for communication between related
+processes(inter-process communication).</strong></p>
 <blockquote>
-<p><strong>Conceptually, a pipe is a connection between two processes, such that the standard output from one process becomes the standard input of the other process. In UNIX Operating System, Pipes are useful for communication between related processes(inter-process communication).</strong></p>
+<p><strong>The pipe can be used by the creating process, as well as all
+its child processes, for reading and writing. One process can write to
+this “virtual file” or pipe and another related process can read from
+it.<br>If a process tries to read before something is written to the
+pipe, the process is suspended until something is written.</strong></p>
 </blockquote>
 <blockquote>
-<p><strong>The pipe can be used by the creating process, as well as all its child processes, for reading and writing. One process can write to this “virtual file” or pipe and another related process can read from it.<!-- raw HTML omitted -->If a process tries to read before something is written to the pipe, the process is suspended until something is written.</strong></p>
+<p><strong>Pipe is one-way communication only i.e we can use a pipe such
+that One process write to the pipe, and the other process reads from the
+pipe. It opens a pipe, which is an area of main memory that is treated
+as a “virtual file”.</strong></p>
 </blockquote>
-<blockquote>
-<p><strong>Pipe is one-way communication only i.e we can use a pipe such that One process write to the pipe, and the other process reads from the pipe. It opens a pipe, which is an area of main memory that is treated as a “virtual file”.</strong></p>
-</blockquote>
-<p><img src="Sources/pipe.jpg" alt="pipe"></p>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;unistd.h&gt;
-#define MSGSIZE 16
-char* msg1 = &quot;hello, world #1&quot;;
-char* msg2 = &quot;hello, world #2&quot;;
-char* msg3 = &quot;hello, world #3&quot;;
-
-int main()
-{
-    char inbuf[MSGSIZE];
-    int p[2], i;
-
-    if (pipe(p) &lt; 0)
-        exit(1);
-
-    /* continued */
-    /* write pipe */
-
-    write(p[1], msg1, MSGSIZE);
-    write(p[1], msg2, MSGSIZE);
-    write(p[1], msg3, MSGSIZE);
-
-    for (i = 0; i &lt; 3; i++) {
-        /* read pipe */
-        read(p[0], inbuf, MSGSIZE);
-        printf(&quot;% s\n&quot;, inbuf);
-    }
-    return 0;
-}
-</code></pre>
-<p><strong>output:</strong><!-- raw HTML omitted --></p>
+<figure>
+<img src="Sources/pipe.jpg" alt="pipe" />
+<figcaption aria-hidden="true">pipe</figcaption>
+</figure>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define MSGSIZE 16</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span><span class="op">*</span> msg1 <span class="op">=</span> <span class="st">&quot;hello, world #1&quot;</span><span class="op">;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span><span class="op">*</span> msg2 <span class="op">=</span> <span class="st">&quot;hello, world #2&quot;</span><span class="op">;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span><span class="op">*</span> msg3 <span class="op">=</span> <span class="st">&quot;hello, world #3&quot;</span><span class="op">;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> inbuf<span class="op">[</span>MSGSIZE<span class="op">];</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> p<span class="op">[</span><span class="dv">2</span><span class="op">],</span> i<span class="op">;</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>pipe<span class="op">(</span>p<span class="op">)</span> <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* continued */</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* write pipe */</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    write<span class="op">(</span>p<span class="op">[</span><span class="dv">1</span><span class="op">],</span> msg1<span class="op">,</span> MSGSIZE<span class="op">);</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    write<span class="op">(</span>p<span class="op">[</span><span class="dv">1</span><span class="op">],</span> msg2<span class="op">,</span> MSGSIZE<span class="op">);</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    write<span class="op">(</span>p<span class="op">[</span><span class="dv">1</span><span class="op">],</span> msg3<span class="op">,</span> MSGSIZE<span class="op">);</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">3</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* read pipe */</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>        read<span class="op">(</span>p<span class="op">[</span><span class="dv">0</span><span class="op">],</span> inbuf<span class="op">,</span> MSGSIZE<span class="op">);</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;% s</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> inbuf<span class="op">);</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>output:</strong><br></p>
+<pre><code>hello, world #1
+hello, world #2
+hello, world #3</code></pre>
+<p><strong>In this figure below:<br>we create a pipe (line 15) and write
+messages into it, then read them from the pipe and lead them to
+stdout.</strong><br> <strong>Pipes behave FIFO(First in First out), Pipe
+behave like a queue data structure.</strong><br></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define MSGSIZE 16</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span><span class="op">*</span> msg1 <span class="op">=</span> <span class="st">&quot;hello, world #1&quot;</span><span class="op">;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span><span class="op">*</span> msg2 <span class="op">=</span> <span class="st">&quot;hello, world #2&quot;</span><span class="op">;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span><span class="op">*</span> msg3 <span class="op">=</span> <span class="st">&quot;hello, world #3&quot;</span><span class="op">;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> inbuf<span class="op">[</span>MSGSIZE<span class="op">];</span>  </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> p<span class="op">[</span><span class="dv">2</span><span class="op">],</span> pid<span class="op">,</span> nbytes<span class="op">;</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>pipe<span class="op">(</span>p<span class="op">)</span> <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span>                <span class="co">/* create pipe */</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">((</span>pid <span class="op">=</span> fork<span class="op">())</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* parent process */</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        write<span class="op">(</span>p<span class="op">[</span><span class="dv">1</span><span class="op">],</span> msg1<span class="op">,</span> MSGSIZE<span class="op">);</span> <span class="co">/* write into pipe */</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        write<span class="op">(</span>p<span class="op">[</span><span class="dv">1</span><span class="op">],</span> msg2<span class="op">,</span> MSGSIZE<span class="op">);</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>        write<span class="op">(</span>p<span class="op">[</span><span class="dv">1</span><span class="op">],</span> msg3<span class="op">,</span> MSGSIZE<span class="op">);</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* close(p[1]);*/</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>        wait<span class="op">(</span>NULL<span class="op">);</span>                 <span class="co">/* hang the current process and wait the child process finish */</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>                                    <span class="co">/* if finished </span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="co">    }</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="co">    else {</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co">        /* child process */</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* close(p[1]) */</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">((</span>nbytes <span class="op">=</span> read<span class="op">(</span>p<span class="op">[</span><span class="dv">0</span><span class="op">],</span> inbuf<span class="op">,</span> MSGSIZE<span class="op">))</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;% s</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> inbuf<span class="op">);</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>nbytes <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>            exit<span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;Finished reading</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>output:</strong><br></p>
 <pre><code>hello, world #1
 hello, world #2
 hello, world #3
-</code></pre>
-<p><strong>In this figure below:<!-- raw HTML omitted -->we create a pipe (line 15) and write messages into it, then read them from the pipe and lead them to stdout.</strong><!-- raw HTML omitted -->
-<strong>Pipes behave FIFO(First in First out), Pipe behave like a queue data structure.</strong><!-- raw HTML omitted --></p>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;unistd.h&gt;
-#define MSGSIZE 16
-char* msg1 = &quot;hello, world #1&quot;;
-char* msg2 = &quot;hello, world #2&quot;;
-char* msg3 = &quot;hello, world #3&quot;;
-
-int main()
-{
-    char inbuf[MSGSIZE];  
-    int p[2], pid, nbytes;
-
-    if (pipe(p) &lt; 0)                /* create pipe */
-        exit(1);
-
-    if ((pid = fork()) &gt; 0) {
-        /* parent process */
-
-        write(p[1], msg1, MSGSIZE); /* write into pipe */
-        write(p[1], msg2, MSGSIZE);
-        write(p[1], msg3, MSGSIZE);
-
-        /* close(p[1]);*/
-        wait(NULL);                 /* hang the current process and wait the child process finish */
-                                    /* if finished 
-    }
-
-    else {
-        /* child process */
-
-        /* close(p[1]) */
-        while ((nbytes = read(p[0], inbuf, MSGSIZE)) &gt; 0)
-            printf(&quot;% s\n&quot;, inbuf);
-        if (nbytes != 0)
-            exit(2);
-        printf(&quot;Finished reading\n&quot;);
-    }
-    return 0;
-}
-</code></pre>
-<p><strong>output:</strong><!-- raw HTML omitted --></p>
+(hangs)         //program does not terminate but hangs</code></pre>
+<p><strong>Here, In this code After finishing reading/writing, both
+parent and child block instead of terminating the process and that’s why
+program hangs.</strong><br> <strong>But if we add two line codes: two
+annotated<code>close(p[1])</code> In code block below (line 26 and 33),
+the output will be:</strong><br></p>
 <pre><code>hello, world #1
 hello, world #2
 hello, world #3
-(hangs)         //program does not terminate but hangs
-</code></pre>
-<p><strong>Here, In this code After finishing reading/writing, both parent and child block instead of terminating the process and that’s why program hangs.</strong><!-- raw HTML omitted -->
-<strong>But if we add two line codes:  two annotated<code>close(p[1])</code> In code block below (line 26 and 33), the output will be:</strong><!-- raw HTML omitted --></p>
-<pre><code>hello, world #1
-hello, world #2
-hello, world #3
-Finished reading
-</code></pre>
-<p><strong>In Unix-like System: <!-- raw HTML omitted --></strong></p>
+Finished reading</code></pre>
+<p><strong>In Unix-like System: <br></strong> * <strong>If pipe is empty
+and we call read system call then Reads on the pipe will return EOF
+(return value 0) if no process has the write end open.</strong> *
+<strong>If some other process has the pipe open for writing, read will
+block in anticipation of new data.</strong><br> <img
+src="Sources/sharingpipe.jpg" alt="sharingpipe" /></p>
 <ul>
-<li>
-<p><strong>If pipe is empty and we call read system call then Reads on the pipe will return EOF (return value 0) if no process has the write end open.</strong></p>
-</li>
-<li>
-<p><strong>If some other process has the pipe open for writing, read will block in anticipation of new data.</strong><!-- raw HTML omitted -->
-<img src="Sources/sharingpipe.jpg" alt="sharingpipe"></p>
-</li>
-<li>
-<p><strong>Once a process write something into the pipe finished, remember to close the p[1].</strong></p>
-</li>
-<li>
-<p><strong>Samely. Before a process read someting from the pipe, remember to close the p[1].</strong></p>
-</li>
+<li><strong>Once a process write something into the pipe finished,
+remember to close the p[1].</strong></li>
+<li><strong>Samely. Before a process read someting from the pipe,
+remember to close the p[1].</strong></li>
 </ul>
-<!-- raw HTML omitted -->
-<p><strong>About the difference between Pipe and File:<!-- raw HTML omitted --></strong>
-<strong>In Question12 this Chapter: there is an interesting question</strong></p>
-<blockquote>
-<p><strong>If there is no pipe in linux. Can two processes communicate?</strong>
-<!-- raw HTML omitted --></p>
-</blockquote>
-<p><strong>The answer absolutely is Yes. Because we can Let two processes I/O with a file to achieve inter-process communication, but it seems not efficient.<!-- raw HTML omitted --></strong></p>
-<p><strong>The Pipe we talked about is called Unnamed Pipe. There really excist many common grounds between Pipe and file, such as Both of them are the storiage in memory, and both of them can communicate with processes.</strong><!-- raw HTML omitted -->
-<strong>The difference between pipe and file:<!-- raw HTML omitted --></strong></p>
+<p><br></p>
+<p><strong>About the difference between Pipe and File:<br></strong>
+<strong>In Question12 this Chapter: there is an interesting
+question</strong> &gt; <strong>If there is no pipe in linux. Can two
+processes communicate?</strong> <br></p>
+<p><strong>The answer absolutely is Yes. Because we can Let two
+processes I/O with a file to achieve inter-process communication, but it
+seems not efficient.<br></strong></p>
+<p><strong>The Pipe we talked about is called Unnamed Pipe. There really
+excist many common grounds between Pipe and file, such as Both of them
+are the storiage in memory, and both of them can communicate with
+processes.</strong><br> <strong>The difference between pipe and
+file:<br></strong> * <strong>A pipe is a special file. The purpose of
+inter-process communication is achieved by sharing the page pointed to
+by the same inode. The pipe(file) does not exist in the real file
+system.</strong></p>
 <ul>
-<li>
-<p><strong>A pipe is a special file. The purpose of inter-process communication is achieved by sharing the page pointed to by the same inode. The pipe(file) does not exist in the real file system.</strong></p>
-</li>
-<li>
-<p><strong>The commonality of pipelines is exclusivity, and only one process has the right to use the pipeline at the moment.</strong></p>
-</li>
+<li><strong>The commonality of pipelines is exclusivity, and only one
+process has the right to use the pipeline at the moment.</strong></li>
 </ul>
-<!-- raw HTML omitted -->
-<h3>ioctl - control device</h3>
-<pre><code class="language-c">#include &lt;sys/ioctl.h&gt;
-</code></pre>
-<p><strong><a href="https://en.wikipedia.org/wiki/Ioctl">ioctl</a> (fd, TCSETS, &amp;termios);</strong><!-- raw HTML omitted -->
-<strong><code>Ioctl</code> is the device control interface function in the device driver. A character device driver usually implements functions such as device opening, closing, reading, and writing. In some situations that need to be segmented, if you need to expand new functions, you usually add <code>ioctl()</code> Implementation of the command.</strong><!-- raw HTML omitted --></p>
+<p><br></p>
+<h3 id="ioctl---control-device">ioctl - control device</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/ioctl.h&gt;</span></span></code></pre></div>
+<p><strong><a href="https://en.wikipedia.org/wiki/Ioctl">ioctl</a> (fd,
+TCSETS, &amp;termios);</strong><br> <strong><code>Ioctl</code> is the
+device control interface function in the device driver. A character
+device driver usually implements functions such as device opening,
+closing, reading, and writing. In some situations that need to be
+segmented, if you need to expand new functions, you usually add
+<code>ioctl()</code> Implementation of the command.</strong><br></p>
 <ul>
-<li><strong>The first argument <code>fd</code> represent to a file</strong></li>
-<li><strong>The second argument <code>TCSETS</code> indicates the protocol used for the opration</strong></li>
-<li><strong>The third variable parameter is a pointer type, pointing to a custom structure struct msg.</strong></li>
+<li><strong>The first argument <code>fd</code> represent to a
+file</strong></li>
+<li><strong>The second argument <code>TCSETS</code> indicates the
+protocol used for the opration</strong></li>
+<li><strong>The third variable parameter is a pointer type, pointing to
+a custom structure struct msg.</strong></li>
 </ul>
-<p><strong>Let us see an example to understand this system call:</strong><!-- raw HTML omitted --></p>
-<pre><code class="language-c">/* test_cmd.h  */
-1 #ifndef _TEST_CMD_H
-2 #define _TEST_CMD_H
-3
-4 #define TEST_MAGIC 'x' //define magic number
-5 #define TEST_MAX_NR 2 //define maximum arg ordinal
-6
-7 #define TEST_CLEAR _IO(TEST_MAGIC, 1)   // a cmd switch case
-8 #define TEST_OFFSET _IO(TEST_MAGIC, 2)  // another cmd switch case
-9
-10 #endif /*_TEST_CMD_H*/
-</code></pre>
-<p><strong>The meaning of magic number and these marco above I will metioned later</strong><!-- raw HTML omitted --></p>
-<pre><code class="language-c">/* the device program */
-/* test_ioctl.c */
-int test_ioctl (struct inode *node, struct file *filp, unsigned int cmd, uns igned long arg)
-{
-int ret = 0;
-struct _test_t *dev = filp-&gt;private_data;
-
-if(_IOC_TYPE(cmd) != TEST_MAGIC) return - EINVAL;
-if(_IOC_NR(cmd) &gt; TEST_MAX_NR) return - EINVAL;
-
-switch(cmd){
-case TEST_CLEAR:
-memset(dev-&gt;kbuf, 0, DEV_SIZE);
-dev-&gt;cur_size = 0;
-filp-&gt;f_pos = 0;
-ret = 0;
-break;
-case TEST_OFFSET:
-filp-&gt;f_pos += (int)arg;   // change buffset with size(int arg)
-P_DEBUG(&quot;change offset!\n&quot;);
-ret = 0;
-break;
-default: /*when error*/
-P_DEBUG(&quot;error cmd!\n&quot;);
-ret = - EINVAL;
-break;
-}
-
-return ret;
-}
-</code></pre>
-<pre><code class="language-c">/* Application program */
-1 #include &lt;stdio.h&gt;
-2 #include &lt;sys/types.h&gt;
-3 #include &lt;sys/stat.h&gt;
-4 #include &lt;fcntl.h&gt;
-5 #include &lt;sys/ioctl.h&gt;
-6
-7 #include &quot;test_cmd.h&quot;
-8
-9 int main(void)
-10 {
-11 char buf[20];
-12 int fd;
-13 int ret;
-14
-15 fd = open(&quot;/dev/test&quot;, O_RDWR);
-16 if(fd &lt; 0)
-17 {
-18 perror(&quot;open&quot;);
-19 return -1;
-20 }
-21
-22 write(fd, &quot;test&quot;, 10); //write first
-23
-24 ioctl(fd, TEST_OFFSET, -10); //change the offset
-25
-26 ret = read(fd, buf, 10); //read data
-27 printf(&quot;&lt;app&gt; buf is [%s]\n&quot;, buf);
-28 if(ret &lt; 0)
-29 {
-30 perror(&quot;read&quot;);
-31 }
-32
-33 close(fd);
-34 return 0;
-</code></pre>
-<!-- raw HTML omitted -->
-<h4>cmd</h4>
-<p><strong>Please consider that: If there are two different devices, but the cmd of their <code>ioctl</code> is the same, someone accidentally opens the wrong device and calls ioctl, and it's done. Because this file also has cmd corresponding implementation.</strong><!-- raw HTML omitted -->
-<strong>In order to prevent this from happening, the kernel has a new definition of cmd, which stipulates that cmd should be different</strong><!-- raw HTML omitted -->
-<strong>A cmd is divided into 4 segments, each of which has its own meaning:</strong><!-- raw HTML omitted --></p>
+<p><strong>Let us see an example to understand this system
+call:</strong><br></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* test_cmd.h  */</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> #ifndef _TEST_CMD_H</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> #define _TEST_CMD_H</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> #define TEST_MAGIC <span class="ch">&#39;x&#39;</span> <span class="co">//define magic number</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> #define TEST_MAX_NR <span class="dv">2</span> <span class="co">//define maximum arg ordinal</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> #define TEST_CLEAR _IO<span class="op">(</span>TEST_MAGIC<span class="op">,</span> <span class="dv">1</span><span class="op">)</span>   <span class="co">// a cmd switch case</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> #define TEST_OFFSET _IO<span class="op">(</span>TEST_MAGIC<span class="op">,</span> <span class="dv">2</span><span class="op">)</span>  <span class="co">// another cmd switch case</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> #endif <span class="co">/*_TEST_CMD_H*/</span></span></code></pre></div>
+<p><strong>The meaning of magic number and these marco above I will
+metioned later</strong><br></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* the device program */</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">/* test_ioctl.c */</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> test_ioctl <span class="op">(</span><span class="kw">struct</span> inode <span class="op">*</span>node<span class="op">,</span> <span class="kw">struct</span> file <span class="op">*</span>filp<span class="op">,</span> <span class="dt">unsigned</span> <span class="dt">int</span> cmd<span class="op">,</span> uns igned <span class="dt">long</span> arg<span class="op">)</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> ret <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> _test_t <span class="op">*</span>dev <span class="op">=</span> filp<span class="op">-&gt;</span>private_data<span class="op">;</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span>_IOC_TYPE<span class="op">(</span>cmd<span class="op">)</span> <span class="op">!=</span> TEST_MAGIC<span class="op">)</span> <span class="cf">return</span> <span class="op">-</span> EINVAL<span class="op">;</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span>_IOC_NR<span class="op">(</span>cmd<span class="op">)</span> <span class="op">&gt;</span> TEST_MAX_NR<span class="op">)</span> <span class="cf">return</span> <span class="op">-</span> EINVAL<span class="op">;</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="cf">switch</span><span class="op">(</span>cmd<span class="op">){</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> TEST_CLEAR<span class="op">:</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>memset<span class="op">(</span>dev<span class="op">-&gt;</span>kbuf<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> DEV_SIZE<span class="op">);</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>dev<span class="op">-&gt;</span>cur_size <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>filp<span class="op">-&gt;</span>f_pos <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>ret <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="cf">break</span><span class="op">;</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> TEST_OFFSET<span class="op">:</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>filp<span class="op">-&gt;</span>f_pos <span class="op">+=</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>arg<span class="op">;</span>   <span class="co">// change buffset with size(int arg)</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>P_DEBUG<span class="op">(</span><span class="st">&quot;change offset!</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>ret <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="cf">break</span><span class="op">;</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="cf">default</span><span class="op">:</span> <span class="co">/*when error*/</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>P_DEBUG<span class="op">(</span><span class="st">&quot;error cmd!</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>ret <span class="op">=</span> <span class="op">-</span> EINVAL<span class="op">;</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="cf">break</span><span class="op">;</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> ret<span class="op">;</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Application program */</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> #include <span class="op">&lt;</span>stdio<span class="op">.</span>h<span class="op">&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> #include <span class="op">&lt;</span>sys<span class="op">/</span>types<span class="op">.</span>h<span class="op">&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> #include <span class="op">&lt;</span>sys<span class="op">/</span>stat<span class="op">.</span>h<span class="op">&gt;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> #include <span class="op">&lt;</span>fcntl<span class="op">.</span>h<span class="op">&gt;</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> #include <span class="op">&lt;</span>sys<span class="op">/</span>ioctl<span class="op">.</span>h<span class="op">&gt;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> #include <span class="st">&quot;test_cmd.h&quot;</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span> <span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="op">{</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span> <span class="dt">char</span> buf<span class="op">[</span><span class="dv">20</span><span class="op">];</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span> <span class="dt">int</span> fd<span class="op">;</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span> <span class="dt">int</span> ret<span class="op">;</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="dv">15</span> fd <span class="op">=</span> open<span class="op">(</span><span class="st">&quot;/dev/test&quot;</span><span class="op">,</span> O_RDWR<span class="op">);</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span> <span class="cf">if</span><span class="op">(</span>fd <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span> <span class="op">{</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="dv">18</span> perror<span class="op">(</span><span class="st">&quot;open&quot;</span><span class="op">);</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="dv">19</span> <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span> <span class="op">}</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="dv">21</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="dv">22</span> write<span class="op">(</span>fd<span class="op">,</span> <span class="st">&quot;test&quot;</span><span class="op">,</span> <span class="dv">10</span><span class="op">);</span> <span class="co">//write first</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="dv">23</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span> ioctl<span class="op">(</span>fd<span class="op">,</span> TEST_OFFSET<span class="op">,</span> <span class="op">-</span><span class="dv">10</span><span class="op">);</span> <span class="co">//change the offset</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="dv">26</span> ret <span class="op">=</span> read<span class="op">(</span>fd<span class="op">,</span> buf<span class="op">,</span> <span class="dv">10</span><span class="op">);</span> <span class="co">//read data</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span> printf<span class="op">(</span><span class="st">&quot;&lt;app&gt; buf is [%s]</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> buf<span class="op">);</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="dv">28</span> <span class="cf">if</span><span class="op">(</span>ret <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="dv">29</span> <span class="op">{</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="dv">30</span> perror<span class="op">(</span><span class="st">&quot;read&quot;</span><span class="op">);</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="dv">31</span> <span class="op">}</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="dv">32</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="dv">33</span> close<span class="op">(</span>fd<span class="op">);</span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="dv">34</span> <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span></code></pre></div>
+<p><br></p>
+<h4 id="cmd">cmd</h4>
+<p><strong>Please consider that: If there are two different devices, but
+the cmd of their <code>ioctl</code> is the same, someone accidentally
+opens the wrong device and calls ioctl, and it’s done. Because this file
+also has cmd corresponding implementation.</strong><br> <strong>In order
+to prevent this from happening, the kernel has a new definition of cmd,
+which stipulates that cmd should be different</strong><br> <strong>A cmd
+is divided into 4 segments, each of which has its own
+meaning:</strong><br></p>
 <pre><code>----------------------------------------------------
 |   type   |   number   |   direction   |   size   |
 ----------------------------------------------------
 |   8bit   |   8bit     |     2bit      |   14bit  |
-----------------------------------------------------
-</code></pre>
+----------------------------------------------------</code></pre>
 <pre><code>1. A Magic number - 8 bits
 2. A sequence number - 8 bits
 3. Argument type (typically 14 bits), if any.
-4. Direction of data transfer (2 bits).
-</code></pre>
+4. Direction of data transfer (2 bits).</code></pre>
 <p><strong>1. type ( magic number )</strong></p>
-<p><strong>The magic number is a number between 0x00 to 0xff, This number is used to distinguish between different drivers. Like the device number application, the kernel has a document that gives some recommended or used magic numbers:</strong><!-- raw HTML omitted --></p>
+<p><strong>The magic number is a number between 0x00 to 0xff, This
+number is used to distinguish between different drivers. Like the device
+number application, the kernel has a document that gives some
+recommended or used magic numbers:</strong><br></p>
 <pre><code>/*Documentation/ioctl/ioctl-number.txt*/
-'w' all CERN SCI driver
-'y' 00-1F packet based user level communications
-'z' 00-3F CAN bus card
-'z' 40-7F CAN bus card
-</code></pre>
-<p><strong>In this example. We use 'x' to define our test device magic number</strong></p>
+&#39;w&#39; all CERN SCI driver
+&#39;y&#39; 00-1F packet based user level communications
+&#39;z&#39; 00-3F CAN bus card
+&#39;z&#39; 40-7F CAN bus card</code></pre>
+<p><strong>In this example. We use ‘x’ to define our test device magic
+number</strong></p>
 <pre><code>/* test_cmd.h  */
-4 #define TEST_MAGIC 'x' //define magic number
-</code></pre>
-<!-- raw HTML omitted -->
-<p><strong>2. number</strong><!-- raw HTML omitted -->
-<strong>Use this number to give your own command number, which occupies 8bit (IOC_NRBITS).</strong>
-<!-- raw HTML omitted --></p>
-<p><strong>3. direction -- data transmission direction</strong><!-- raw HTML omitted -->
-<strong>2bit(IOC_DIRBITS). If it involves passing parameters, the kernel requires a description of the direction of transmission, which is described from the perspective of the application layer.</strong></p>
+4 #define TEST_MAGIC &#39;x&#39; //define magic number</code></pre>
+<p><br></p>
+<p><strong>2. number</strong><br> <strong>Use this number to give your
+own command number, which occupies 8bit (IOC_NRBITS).</strong> <br></p>
+<p><strong>3. direction – data transmission direction</strong><br>
+<strong>2bit(IOC_DIRBITS). If it involves passing parameters, the kernel
+requires a description of the direction of transmission, which is
+described from the perspective of the application layer.</strong></p>
 <pre><code>1) _IOC_NONE: The value is 0, no data transmission.
 2) _IOC_READ: Value is 1, read data from the device driver.
 3) _IOC_WRITE: The value is 2, write data to the device driver.
-4)_IOC_READ|_IOC_WRITE: Two-way data transmission.
-</code></pre>
-<!-- raw HTML omitted -->
-<p><strong>4. Data size:</strong><!-- raw HTML omitted -->
-<strong>It is related to the architecture. ARM occupies 14bit (IOC_SIZEBITS). If the data is int, the value assigned by the kernel is sizeof(int).</strong>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
-<h4>the usage of ioctl</h4>
+4)_IOC_READ|_IOC_WRITE: Two-way data transmission.</code></pre>
+<p><br></p>
+<p><strong>4. Data size:</strong><br> <strong>It is related to the
+architecture. ARM occupies 14bit (IOC_SIZEBITS). If the data is int, the
+value assigned by the kernel is sizeof(int).</strong> <br> <br></p>
+<h4 id="the-usage-of-ioctl">the usage of ioctl</h4>
 <blockquote>
-<p><strong>from <a href="https://stackoverflow.com/questions/15807846/ioctl-linux-device-driver">stackoverflow</a>:<!-- raw HTML omitted -->
-An ioctl, which means &quot;input-output control&quot; is a kind of device-specific system call. There are only a few system calls in Linux (300-400), which are not enough to express all the unique functions devices may have.</strong><!-- raw HTML omitted --></p>
+<p><strong>from <a
+href="https://stackoverflow.com/questions/15807846/ioctl-linux-device-driver">stackoverflow</a>:<br>
+An ioctl, which means “input-output control” is a kind of
+device-specific system call. There are only a few system calls in Linux
+(300-400), which are not enough to express all the unique functions
+devices may have.</strong><br></p>
 </blockquote>
 <blockquote>
-<p><strong>e.g. a printer that has configuration options to check and set the font family, font size etc. ioctl could be used to get the current font as well as set the font to a new one. A user application uses ioctl to send a code to a printer telling it to return the current font or to set the font to a new one.</strong><!-- raw HTML omitted --></p>
+<p><strong>e.g. a printer that has configuration options to check and
+set the font family, font size etc. ioctl could be used to get the
+current font as well as set the font to a new one. A user application
+uses ioctl to send a code to a printer telling it to return the current
+font or to set the font to a new one.</strong><br></p>
 </blockquote>
-<p><strong>In these program below: <!-- raw HTML omitted -->We archieve a communication among User Space, Kernel Space and External Device Space by using <code>ioctl</code></strong><!-- raw HTML omitted -->
-<img src="Sources/3layers.png" alt="3layers">
-<strong>As we can see that: After User call <code>ioctl</code>, the kenel just do these things:</strong><!-- raw HTML omitted --></p>
-<ul>
-<li><strong>find the correspound <code>inode</code> and <code>file</code> of the <code>fd</code></strong></li>
-<li><strong>process the cmd by divide them (4 parts)</strong></li>
-<li><strong>take the argument</strong></li>
-<li><strong>Passing all of them to the specific location of the device space</strong>
-<!-- raw HTML omitted --></li>
-</ul>
-<h3>fcntl -- manipulate file descriptor</h3>
-<p><strong>The <a href="https://man7.org/linux/man-pages/man2/fcntl.2.html">fcntl</a> is pretty same like <code>ioctl</code>, further difference we will metioned when I learn more details of it in further study</strong><!-- raw HTML omitted --></p>
-<h3>access -- check user's permissions for a file</h3>
-<p><strong>int <a href="https://man7.org/linux/man-pages/man2/access.2.html">access</a> (const char pathname(pointer), int mode);</strong><!-- raw HTML omitted -->
-<strong>The access system call is used to determine whether a certain file access is permitted by the protection system,<code>access()</code> checks whether the calling process can access the file pathname.</strong><!-- raw HTML omitted --></p>
-<p><strong>The mode specifies the accessibility check(s) to be performed, and is either the value <code>F_OK</code>, or a mask consisting of the bitwise OR of one or more of <code>R_OK</code>, <code>W_OK</code>, and <code>X_OK</code>.  <code>F_OK</code> tests for the existence of the file.  <code>R_OK</code>, <code>W_OK</code>, and <code>X_OK</code> test whether the file exists and grants read, write, and execute permissions, respectively.</strong><!-- raw HTML omitted --></p>
-<p><strong>On success (all requested permissions granted, or mode is F_OK and the file exists), zero is returned.  On error (at least one bit in mode asked for a permission that is denied, or mode is F_OK and the file does not exist, or some other error occurred), -1 is returned, and errno is set appropriately.</strong>
-<!-- raw HTML omitted --></p>
-<h3>rename -- change the name or location of a file</h3>
-<p><strong>int <a href="https://man7.org/linux/man-pages/man2/rename.2.html">rename</a> (const char oldpath(pointer), const char newpath(pointer));</strong></p>
-<p><strong><code>rename()</code> renames a file, moving it between directories if required.  Any other hard links to the file (as created using link()) are unaffected.  Open file descriptors for oldpath are also unaffected.</strong></p>
-<p><strong>Here are some things need to be noticed (from <a href="https://man7.org/linux/man-pages/man2/rename.2.html">man7.org</a>)</strong><!-- raw HTML omitted -->
-<img src="Sources/rename.png" alt="rename"></p>
+<p><strong>In these program below: <br>We archieve a communication among
+User Space, Kernel Space and External Device Space by using
+<code>ioctl</code></strong><br> <img src="Sources/3layers.png"
+alt="3layers" /> <strong>As we can see that: After User call
+<code>ioctl</code>, the kenel just do these things:</strong><br> *
+<strong>find the correspound <code>inode</code> and <code>file</code> of
+the <code>fd</code></strong> * <strong>process the cmd by divide them (4
+parts)</strong> * <strong>take the argument</strong> * <strong>Passing
+all of them to the specific location of the device space</strong>
+<br></p>
+<h3 id="fcntl-manipulate-file-descriptor">fcntl – manipulate file
+descriptor</h3>
+<p><strong>The <a
+href="https://man7.org/linux/man-pages/man2/fcntl.2.html">fcntl</a> is
+pretty same like <code>ioctl</code>, further difference we will metioned
+when I learn more details of it in further study</strong><br></p>
+<h3 id="access-check-users-permissions-for-a-file">access – check user’s
+permissions for a file</h3>
+<p><strong>int <a
+href="https://man7.org/linux/man-pages/man2/access.2.html">access</a>
+(const char pathname(pointer), int mode);</strong><br> <strong>The
+access system call is used to determine whether a certain file access is
+permitted by the protection system,<code>access()</code> checks whether
+the calling process can access the file pathname.</strong><br></p>
+<p><strong>The mode specifies the accessibility check(s) to be
+performed, and is either the value <code>F_OK</code>, or a mask
+consisting of the bitwise OR of one or more of <code>R_OK</code>,
+<code>W_OK</code>, and <code>X_OK</code>. <code>F_OK</code> tests for
+the existence of the file. <code>R_OK</code>, <code>W_OK</code>, and
+<code>X_OK</code> test whether the file exists and grants read, write,
+and execute permissions, respectively.</strong><br></p>
+<p><strong>On success (all requested permissions granted, or mode is
+F_OK and the file exists), zero is returned. On error (at least one bit
+in mode asked for a permission that is denied, or mode is F_OK and the
+file does not exist, or some other error occurred), -1 is returned, and
+errno is set appropriately.</strong> <br></p>
+<h3 id="rename-change-the-name-or-location-of-a-file">rename – change
+the name or location of a file</h3>
+<p><strong>int <a
+href="https://man7.org/linux/man-pages/man2/rename.2.html">rename</a>
+(const char oldpath(pointer), const char newpath(pointer));</strong></p>
+<p><strong><code>rename()</code> renames a file, moving it between
+directories if required. Any other hard links to the file (as created
+using link()) are unaffected. Open file descriptors for oldpath are also
+unaffected.</strong></p>
+<p><strong>Here are some things need to be noticed (from <a
+href="https://man7.org/linux/man-pages/man2/rename.2.html">man7.org</a>)</strong><br>
+<img src="Sources/rename.png" alt="rename" /></p>
 	</section>
 	</div>
     </div>
@@ -714,6 +1155,10 @@ this.page.identifier = "OSDI/Chapter/Chapter1/6Syscall-2.html"
    </div>
 </footer>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <script src="../../../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->

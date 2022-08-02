@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="../../../images/favicon.png" rel="icon">
-
 <link rel="canonical" href=".">
         <meta name="author" content="Angold Wang" />
 
@@ -26,6 +25,128 @@
 
     <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+  <style>
+
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+
+    li {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    a {
+      font-size: 18px;
+    }
+
+    k
+
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+    {   }
+
+    @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 
 </head>
 <body>
@@ -64,75 +185,167 @@
     <div class="row">
         <div class="col-lg-12">
 	<section id="content" class="body">
-
-
-
-<h2>Operating Systems Design and Implementation Notes</h2>
-<h1>7. System Task</h1>
-<h5>By Jiawei Wang</h5>
-<p>Back to Chapter1, we use three notes to introduce 53 <strong>system calls</strong> of POSIX.<!-- raw HTML omitted --></p>
-<p>In a <strong>conventional operating system with a monolithic kernel</strong>, the term <strong>system call</strong> is used to refer to all calls for services provided by the kernel.<!-- raw HTML omitted --> In a sense, making a system call is like making a special kind of procedure call, <strong>only system calls enter the kernel (space) or other privileged operating system components and procedure calls do not.</strong><!-- raw HTML omitted --></p>
-<p>Unlike in a modern UNIX-like operating system the POSIX standard describes the system calls available to processes. In Minix3 components of the operating system run in user space -- <strong>they are forbidden from doing actual I/O, manipulating kernel tables and doing other things operating system functions normally do.</strong></p>
-<p><strong>To make the kernel as simple as possible.</strong> Minx3 only compile 28 nessary <strong>&quot;System Call&quot;</strong> in the kernel binary program. Which is shown in layer in Fig. 2-29, we call them <strong>System Task</strong>.</p>
-<p><img src="Sources/layer.png" alt="layer"></p>
-<h2>1. Calls in Minx3</h2>
-<p>Generally speaking. There are three kinds of <strong>&quot;Calls&quot;</strong> in Minix3:</p>
-<h3>System Call</h3>
-<p>We will still use the name <strong>&quot;system call&quot;</strong> for any of the POSIX-defined system calls (and a few MINIX extensions) listed in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/5Syscall-1.md">Fig. 1-9</a></strong>, but since <strong>user processes do not request services directly of the kernel</strong>. In MINIX 3, system calls by user processes are <strong>transformed into messages to server processes.</strong></p>
-<p>On the other words. Minix3 is still compatible with <strong>POSIX System Calls</strong>. But since most of the system components are running in kernel mode <strong>(Micro-Kernel)</strong>, the kernel cannot put these 58 system calls into its binary program. The way that Minix3 do is: <strong>It create two more layers between user process and kernel. - Server Processes and Device Drivers.</strong><!-- raw HTML omitted --></p>
-<h3>System Task (Kernel Call)</h3>
-<p><strong>Kernel calls</strong> cannot be made by user processes. In many cases a <strong>system call</strong> that originates with a user process results in a <strong>kernel call</strong> with a similar name being made by a <strong>server</strong>.<!-- raw HTML omitted --></p>
-<p>For instance, a <strong><code>fork</code></strong> system call by a user process goes to the <strong>process manager</strong>, which does some of the work. But a <strong><code>fork</code></strong> requires changes in the kernel part of the process table, and to complete the action the process manager makes a <strong><code>sys_fork</code></strong> call to the <strong>system task</strong>, which can manipulate data in kernel space.<!-- raw HTML omitted --></p>
-<p>The system task accepts 28 kinds of messages, shown in Fig. 2-45. Each of these can be considered a kernel call.
-All 28 <strong>kernel calls</strong> were complied into <strong><a href="https://github.com/Angold-4/OSDI/tree/master/Minix3/kernel/system">kernel/system</a></strong> directory.<!-- raw HTML omitted --></p>
-<p><img src="Sources/syscall.png" alt="syscall"></p>
-<h3>IPC primitive (Trap)</h3>
-<p>Technically speaking, a third category of calls (besides <strong>system calls</strong> and <strong>kernel calls</strong>) should be distinguished. The <strong>message primitives</strong> used for interprocess communication such as <strong><code>send</code></strong>, <strong><code>receive</code></strong>, and <strong><code>notify</code></strong> can be thought of as system-call-like.<!-- raw HTML omitted --></p>
-<p>In MINIX 3 system calls by user processes are transformed into messages to server processes. <strong>Server processes communicate with each other, with device drivers, and with the kernel by messages.</strong></p>
-<h2>2. Implementation of System Task</h2>
-<p>As you may have noticed in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/5Scheduler.md#1-scheduling-in-minix3">Fig. 2-43</a></strong>, when MINIX 3 starts up, the system task is at the head of the highest priority queue. So after the first <strong><code>restart()</code></strong>, the <strong><code>sys_task()</code></strong> function will be executed.<!-- raw HTML omitted -->
-All functions related to <strong>System Task</strong> were in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/system.c">kernel/system.c</a></strong><!-- raw HTML omitted --></p>
-<pre><code class="language-c">PUBLIC void sys_task()
-{
-/* Main entry point of sys_task.  Get the message and dispatch on type. */
-  static message m;
-  register int result;
-  register struct proc *caller_ptr;
-  int s;
-  int call_nr;
-  int n = 0;
-
-  /* Initialize the system task. */
-  initialize();
-
-
-  while (TRUE) {
-      struct proc *restarting;
-
-      restarting = vmrestart_check(&amp;m);
-
-      if(!restarting) {
-          int r;
-          /* Get work. Block and wait until a request message arrives. */
-          if((r=receive(ANY, &amp;m)) != OK)
-            minix_panic(&quot;receive() failed&quot;, r);
-      } 
-
-      sys_call_code = (unsigned) m.m_type;
-      call_nr = sys_call_code - KERNEL_CALL;	
-      who_e = m.m_source;
-      okendpt(who_e, &amp;who_p);
-      caller_ptr = proc_addr(who_p);
-
-      else {
-          result = (*call_vec[call_nr])(&amp;m); /* handle the system call */
-      }
-
-</code></pre>
-<p>Just as the <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#3-implementation-of-clock-driver-in-minix3">clock_task</a></strong>, the <strong>sys_task</strong> is also waiting for a message from other server or driver. Then do some verification. after that it will execute them by calling the functions (<strong><code>system task</code></strong>) in the <strong><code>call_vec</code></strong>.</p>
-<p>Although this chapter's name is <strong>Process</strong>. Actually, we talked about the things of the <strong>system</strong>. Many of them will be used in the future chapters.<!-- raw HTML omitted -->
-Like I said before. Each part of the system is indivisible. <strong>Therefore, to understand a part of the hole system, we must have the corresponding knowledge in other part of this system.</strong></p>
-<p>The other part, which is the implementation of these <strong>Kernel Calls</strong>, we will discuss them in the future chapters. Since some of them related to the <strong>Process Manager</strong>, which we will introduce its implementation in Chapter4. Some of them were called by the <strong>File System</strong>, which is the content of Chapter5.</p>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#operating-systems-design-and-implementation-notes"
+id="toc-operating-systems-design-and-implementation-notes">Operating
+Systems Design and Implementation Notes</a></li>
+<li><a href="#system-task" id="toc-system-task">7. System Task</a>
+<ul>
+<li><a href="#calls-in-minx3" id="toc-calls-in-minx3">1. Calls in
+Minx3</a>
+<ul>
+<li><a href="#system-call" id="toc-system-call">System Call</a></li>
+<li><a href="#system-task-kernel-call"
+id="toc-system-task-kernel-call">System Task (Kernel Call)</a></li>
+<li><a href="#ipc-primitive-trap" id="toc-ipc-primitive-trap">IPC
+primitive (Trap)</a></li>
+</ul></li>
+<li><a href="#implementation-of-system-task"
+id="toc-implementation-of-system-task">2. Implementation of System
+Task</a></li>
+</ul></li>
+</ul>
+</nav>
+<h2 id="operating-systems-design-and-implementation-notes">Operating
+Systems Design and Implementation Notes</h2>
+<h1 id="system-task">7. System Task</h1>
+<h5 id="by-jiawei-wang">By Jiawei Wang</h5>
+<p>Back to Chapter1, we use three notes to introduce 53 <strong>system
+calls</strong> of POSIX.<br></p>
+<p>In a <strong>conventional operating system with a monolithic
+kernel</strong>, the term <strong>system call</strong> is used to refer
+to all calls for services provided by the kernel.<br> In a sense, making
+a system call is like making a special kind of procedure call,
+<strong>only system calls enter the kernel (space) or other privileged
+operating system components and procedure calls do not.</strong><br></p>
+<p>Unlike in a modern UNIX-like operating system the POSIX standard
+describes the system calls available to processes. In Minix3 components
+of the operating system run in user space – <strong>they are forbidden
+from doing actual I/O, manipulating kernel tables and doing other things
+operating system functions normally do.</strong></p>
+<p><strong>To make the kernel as simple as possible.</strong> Minx3 only
+compile 28 nessary <strong>“System Call”</strong> in the kernel binary
+program. Which is shown in layer in Fig. 2-29, we call them
+<strong>System Task</strong>.</p>
+<figure>
+<img src="Sources/layer.png" alt="layer" />
+<figcaption aria-hidden="true">layer</figcaption>
+</figure>
+<h2 id="calls-in-minx3">1. Calls in Minx3</h2>
+<p>Generally speaking. There are three kinds of <strong>“Calls”</strong>
+in Minix3:</p>
+<h3 id="system-call">System Call</h3>
+<p>We will still use the name <strong>“system call”</strong> for any of
+the POSIX-defined system calls (and a few MINIX extensions) listed in
+<strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/5Syscall-1.md">Fig.
+1-9</a></strong>, but since <strong>user processes do not request
+services directly of the kernel</strong>. In MINIX 3, system calls by
+user processes are <strong>transformed into messages to server
+processes.</strong></p>
+<p>On the other words. Minix3 is still compatible with <strong>POSIX
+System Calls</strong>. But since most of the system components are
+running in kernel mode <strong>(Micro-Kernel)</strong>, the kernel
+cannot put these 58 system calls into its binary program. The way that
+Minix3 do is: <strong>It create two more layers between user process and
+kernel. - Server Processes and Device Drivers.</strong><br></p>
+<h3 id="system-task-kernel-call">System Task (Kernel Call)</h3>
+<p><strong>Kernel calls</strong> cannot be made by user processes. In
+many cases a <strong>system call</strong> that originates with a user
+process results in a <strong>kernel call</strong> with a similar name
+being made by a <strong>server</strong>.<br></p>
+<p>For instance, a <strong><code>fork</code></strong> system call by a
+user process goes to the <strong>process manager</strong>, which does
+some of the work. But a <strong><code>fork</code></strong> requires
+changes in the kernel part of the process table, and to complete the
+action the process manager makes a
+<strong><code>sys_fork</code></strong> call to the <strong>system
+task</strong>, which can manipulate data in kernel space.<br></p>
+<p>The system task accepts 28 kinds of messages, shown in Fig. 2-45.
+Each of these can be considered a kernel call. All 28 <strong>kernel
+calls</strong> were complied into <strong><a
+href="https://github.com/Angold-4/OSDI/tree/master/Minix3/kernel/system">kernel/system</a></strong>
+directory.<br></p>
+<figure>
+<img src="Sources/syscall.png" alt="syscall" />
+<figcaption aria-hidden="true">syscall</figcaption>
+</figure>
+<h3 id="ipc-primitive-trap">IPC primitive (Trap)</h3>
+<p>Technically speaking, a third category of calls (besides
+<strong>system calls</strong> and <strong>kernel calls</strong>) should
+be distinguished. The <strong>message primitives</strong> used for
+interprocess communication such as <strong><code>send</code></strong>,
+<strong><code>receive</code></strong>, and
+<strong><code>notify</code></strong> can be thought of as
+system-call-like.<br></p>
+<p>In MINIX 3 system calls by user processes are transformed into
+messages to server processes. <strong>Server processes communicate with
+each other, with device drivers, and with the kernel by
+messages.</strong></p>
+<h2 id="implementation-of-system-task">2. Implementation of System
+Task</h2>
+<p>As you may have noticed in <strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/5Scheduler.md#1-scheduling-in-minix3">Fig.
+2-43</a></strong>, when MINIX 3 starts up, the system task is at the
+head of the highest priority queue. So after the first
+<strong><code>restart()</code></strong>, the
+<strong><code>sys_task()</code></strong> function will be executed.<br>
+All functions related to <strong>System Task</strong> were in <strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/system.c">kernel/system.c</a></strong><br></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>PUBLIC <span class="dt">void</span> sys_task<span class="op">()</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* Main entry point of sys_task.  Get the message and dispatch on type. */</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">static</span> message m<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">register</span> <span class="dt">int</span> result<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">*</span>caller_ptr<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> s<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> call_nr<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Initialize the system task. */</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  initialize<span class="op">();</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span>TRUE<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      <span class="kw">struct</span> proc <span class="op">*</span>restarting<span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      restarting <span class="op">=</span> vmrestart_check<span class="op">(&amp;</span>m<span class="op">);</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span><span class="op">(!</span>restarting<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>          <span class="dt">int</span> r<span class="op">;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>          <span class="co">/* Get work. Block and wait until a request message arrives. */</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span><span class="op">((</span>r<span class="op">=</span>receive<span class="op">(</span>ANY<span class="op">,</span> <span class="op">&amp;</span>m<span class="op">))</span> <span class="op">!=</span> OK<span class="op">)</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>            minix_panic<span class="op">(</span><span class="st">&quot;receive() failed&quot;</span><span class="op">,</span> r<span class="op">);</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span> </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>      sys_call_code <span class="op">=</span> <span class="op">(</span><span class="dt">unsigned</span><span class="op">)</span> m<span class="op">.</span>m_type<span class="op">;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>      call_nr <span class="op">=</span> sys_call_code <span class="op">-</span> KERNEL_CALL<span class="op">;</span>    </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>      who_e <span class="op">=</span> m<span class="op">.</span>m_source<span class="op">;</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>      okendpt<span class="op">(</span>who_e<span class="op">,</span> <span class="op">&amp;</span>who_p<span class="op">);</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>      caller_ptr <span class="op">=</span> proc_addr<span class="op">(</span>who_p<span class="op">);</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>          result <span class="op">=</span> <span class="op">(*</span>call_vec<span class="op">[</span>call_nr<span class="op">])(&amp;</span>m<span class="op">);</span> <span class="co">/* handle the system call */</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span></code></pre></div>
+<p>Just as the <strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#3-implementation-of-clock-driver-in-minix3">clock_task</a></strong>,
+the <strong>sys_task</strong> is also waiting for a message from other
+server or driver. Then do some verification. after that it will execute
+them by calling the functions
+(<strong><code>system task</code></strong>) in the
+<strong><code>call_vec</code></strong>.</p>
+<p>Although this chapter’s name is <strong>Process</strong>. Actually,
+we talked about the things of the <strong>system</strong>. Many of them
+will be used in the future chapters.<br> Like I said before. Each part
+of the system is indivisible. <strong>Therefore, to understand a part of
+the hole system, we must have the corresponding knowledge in other part
+of this system.</strong></p>
+<p>The other part, which is the implementation of these <strong>Kernel
+Calls</strong>, we will discuss them in the future chapters. Since some
+of them related to the <strong>Process Manager</strong>, which we will
+introduce its implementation in Chapter4. Some of them were called by
+the <strong>File System</strong>, which is the content of Chapter5.</p>
 	</section>
 	</div>
     </div>
@@ -172,6 +385,10 @@ this.page.identifier = "OSDI/Chapter/Chapter2/7Systask.html"
    </div>
 </footer>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <script src="../../../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->

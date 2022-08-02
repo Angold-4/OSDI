@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="../../../images/favicon.png" rel="icon">
-
 <link rel="canonical" href=".">
         <meta name="author" content="Angold Wang" />
 
@@ -26,6 +25,128 @@
 
     <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+  <style>
+
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+
+    li {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    a {
+      font-size: 18px;
+    }
+
+    k
+
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+    {   }
+
+    @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 
 </head>
 <body>
@@ -64,404 +185,564 @@
     <div class="row">
         <div class="col-lg-12">
 	<section id="content" class="body">
-
-
-
-<h2>Operating Systems Design and Implementation Notes</h2>
-<h1>6. Interrupt</h1>
-<h5>By Jiawei Wang</h5>
-<p>In the previous two notes (<strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md">4. Inside a Hole Clock Tick</a></strong> and <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/5Scheduler.md">5. Process Scheduler</a></strong>) we focus on the implementation of <strong>clock</strong> and <strong>process scheduler</strong>. These components help us understand the OS concretly.<!-- raw HTML omitted --></p>
-<p>But there are also a lot of things we didn't considered, like <strong>Interprocess Communication</strong> and how a process do <strong>System Call</strong> to apply for a service from os that we metioned in Chapter1, or what would happen when there comes an interrupt and so on...  These are also in the field of <strong>Process</strong>.<!-- raw HTML omitted --></p>
-<p>Since each part of the OS was <strong>indivisible</strong>. We should admit that <strong>it impossible to understand a hole part without the understanding of the other parts.</strong><!-- raw HTML omitted --></p>
-<h2>1. Interrupts</h2>
-<p><img src="Sources/interrupts.png" alt="interrupts"></p>
-<h3>Hardware Interrupt</h3>
-<p>In <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#interrupt-request-irq">4. Inside a Hole Clock Tick</a></strong> we talked about the <strong>Hardware Interrupt</strong>:<!-- raw HTML omitted -->There are 15 different <strong><code>IRQ</code></strong> lines in the 8259 interrupt controller, each line connect with one or more hardware device(s) that genarate electrical signals. <!-- raw HTML omitted --></p>
-<p><img src="Sources/interrupt.png" alt="interrupt">
-When user input something at the connected devices like keyboard <strong><code>(IRQ1)</code></strong>, it will cause a <strong>Hardware Interrupt</strong> through the IRQ line and then the 8259 interrupt controller will expand the coorespond assembly marco <strong><code>hwint_master(i)</code></strong> or <strong><code>hwint_slave(i)</code></strong> and execute it.<!-- raw HTML omitted --></p>
-<p>It will call the corresponding <strong><code>irq_handler(hook)</code></strong> which be placed into the interrupt table at initialization <strong><code>put_irq_handler(hook)</code></strong> is called for each process(driver) that must respond to an interrupt(<code>sys_irqctl</code>).</p>
-<pre><code class="language-c">PUBLIC void irq_handle(irq)
-irq_hook_t *hook;
-{
-/* Call the interrupt handlers for an interrupt with the given hook list.
- * The assembly part of the handler has already masked the IRQ, reenabled the
- * controller(s) and enabled interrupts.
- */
-
-  /* Call list of handlers for an IRQ. */
-  while (hook != NULL) {
-      /* For each handler in the list, mark it active by setting its ID bit,
-       * call the function, and unmark it if the function returns true.
-       */
-      irq_actids[hook-&gt;irq] |= hook-&gt;id;
-      if ((*hook-&gt;handler)(hook)) irq_actids[hook-&gt;irq] &amp;= ~hook-&gt;id;
-      hook = hook-&gt;next;
-  }
-
-  /* The assembly code will now disable interrupts, unmask the IRQ if and only
-   * if all active ID bits are cleared, and restart a process.
-   */
-}
-</code></pre>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#operating-systems-design-and-implementation-notes"
+id="toc-operating-systems-design-and-implementation-notes">Operating
+Systems Design and Implementation Notes</a></li>
+<li><a href="#interrupt" id="toc-interrupt">6. Interrupt</a>
+<ul>
+<li><a href="#interrupts" id="toc-interrupts">1. Interrupts</a>
+<ul>
+<li><a href="#hardware-interrupt" id="toc-hardware-interrupt">Hardware
+Interrupt</a></li>
+<li><a href="#software-interrupt" id="toc-software-interrupt">Software
+Interrupt</a></li>
+<li><a href="#summary" id="toc-summary">Summary</a></li>
+</ul></li>
+<li><a href="#interprocess-communication"
+id="toc-interprocess-communication">2. Interprocess Communication</a>
+<ul>
+<li><a href="#mini_send"
+id="toc-mini_send"><code>mini_send()</code></a></li>
+<li><a href="#mini_notify"
+id="toc-mini_notify"><code>mini_notify()</code></a></li>
+<li><a href="#mini_receive"
+id="toc-mini_receive"><code>mini_receive()</code></a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h2 id="operating-systems-design-and-implementation-notes">Operating
+Systems Design and Implementation Notes</h2>
+<h1 id="interrupt">6. Interrupt</h1>
+<h5 id="by-jiawei-wang">By Jiawei Wang</h5>
+<p>In the previous two notes (<strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md">4.
+Inside a Hole Clock Tick</a></strong> and <strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/5Scheduler.md">5.
+Process Scheduler</a></strong>) we focus on the implementation of
+<strong>clock</strong> and <strong>process scheduler</strong>. These
+components help us understand the OS concretly.<br></p>
+<p>But there are also a lot of things we didn’t considered, like
+<strong>Interprocess Communication</strong> and how a process do
+<strong>System Call</strong> to apply for a service from os that we
+metioned in Chapter1, or what would happen when there comes an interrupt
+and so on… These are also in the field of
+<strong>Process</strong>.<br></p>
+<p>Since each part of the OS was <strong>indivisible</strong>. We should
+admit that <strong>it impossible to understand a hole part without the
+understanding of the other parts.</strong><br></p>
+<h2 id="interrupts">1. Interrupts</h2>
+<figure>
+<img src="Sources/interrupts.png" alt="interrupts" />
+<figcaption aria-hidden="true">interrupts</figcaption>
+</figure>
+<h3 id="hardware-interrupt">Hardware Interrupt</h3>
+<p>In <strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#interrupt-request-irq">4.
+Inside a Hole Clock Tick</a></strong> we talked about the
+<strong>Hardware Interrupt</strong>:<br>There are 15 different
+<strong><code>IRQ</code></strong> lines in the 8259 interrupt
+controller, each line connect with one or more hardware device(s) that
+genarate electrical signals. <br></p>
+<p><img src="Sources/interrupt.png" alt="interrupt" /> When user input
+something at the connected devices like keyboard
+<strong><code>(IRQ1)</code></strong>, it will cause a <strong>Hardware
+Interrupt</strong> through the IRQ line and then the 8259 interrupt
+controller will expand the coorespond assembly marco
+<strong><code>hwint_master(i)</code></strong> or
+<strong><code>hwint_slave(i)</code></strong> and execute it.<br></p>
+<p>It will call the corresponding
+<strong><code>irq_handler(hook)</code></strong> which be placed into the
+interrupt table at initialization
+<strong><code>put_irq_handler(hook)</code></strong> is called for each
+process(driver) that must respond to an
+interrupt(<code>sys_irqctl</code>).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>PUBLIC <span class="dt">void</span> irq_handle<span class="op">(</span>irq<span class="op">)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>irq_hook_t <span class="op">*</span>hook<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">/* Call the interrupt handlers for an interrupt with the given hook list.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * The assembly part of the handler has already masked the IRQ, reenabled the</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"> * controller(s) and enabled interrupts.</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Call list of handlers for an IRQ. */</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span>hook <span class="op">!=</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      <span class="co">/* For each handler in the list, mark it active by setting its ID bit,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">       * call the function, and unmark it if the function returns true.</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">       */</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      irq_actids<span class="op">[</span>hook<span class="op">-&gt;</span>irq<span class="op">]</span> <span class="op">|=</span> hook<span class="op">-&gt;</span>id<span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> <span class="op">((*</span>hook<span class="op">-&gt;</span>handler<span class="op">)(</span>hook<span class="op">))</span> irq_actids<span class="op">[</span>hook<span class="op">-&gt;</span>irq<span class="op">]</span> <span class="op">&amp;=</span> <span class="op">~</span>hook<span class="op">-&gt;</span>id<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      hook <span class="op">=</span> hook<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* The assembly code will now disable interrupts, unmask the IRQ if and only</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">   * if all active ID bits are cleared, and restart a process.</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <blockquote>
-<p>For example: In the figure 2-39, interrupt signals arrive on the various IRQ n lines shown at the right. The connection to the CPU’s <strong>INT</strong> pin tells the processor that an <strong>interrupt has occurred</strong>. The <strong>INTA</strong> (interrupt acknowledge) signal from the CPU causes the controller responsible for the interrupt to <strong>put data on the system data bus telling the processor which service routine(handler) to execute.</strong></p>
+<p>For example: In the figure 2-39, interrupt signals arrive on the
+various IRQ n lines shown at the right. The connection to the CPU’s
+<strong>INT</strong> pin tells the processor that an <strong>interrupt
+has occurred</strong>. The <strong>INTA</strong> (interrupt acknowledge)
+signal from the CPU causes the controller responsible for the interrupt
+to <strong>put data on the system data bus telling the processor which
+service routine(handler) to execute.</strong></p>
 </blockquote>
-<h3>Software Interrupt</h3>
-<p>There are more cases that a running <strong>process wants to cause an interrupt</strong>.<!-- raw HTML omitted -->
-Actually, in Minix3, all <strong>Interprocess Communication</strong> were done by <strong>software interrupt</strong>.<!-- raw HTML omitted --></p>
-<p>If a process wants to send a message to <strong><code>dst_ptr</code></strong> with message <strong><code>m</code></strong>. it will use this statement:<!-- raw HTML omitted --></p>
-<pre><code class="language-c">send(*dst_ptr, &amp;m);
-</code></pre>
-<p>And <strong><code>send</code></strong> function was a asssembly marco which was defined in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/include/minix/ipc.h#L143">include/minix/ipc.h line143</a>:</strong><!-- raw HTML omitted --></p>
-<pre><code class="language-c">#define send		_send
-</code></pre>
-<p>The hole assembly code are in the <a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/lib/i386/rts/_ipc.s#L20">lib/i386/rts/ipc.s line20</a>:</p>
-<pre><code class="language-assembly">__send:
-	push	ebp
-	mov	ebp, esp
-	push	ebx
-	mov	eax, SRC_DST(ebp)	! eax = dest-src
-	mov	ebx, MESSAGE(ebp)	! ebx = message pointer
-	mov	ecx, SEND		! _send(dest, ptr)
-	int	SYSVEC			! trap to the kernel
-	pop	ebx
-	pop	ebp
-	ret
-</code></pre>
-<p>This piece of assembly code <code>_send</code> put the <strong><code>dst</code></strong> and <strong><code>m</code></strong> arguments into register.<!-- raw HTML omitted -->And then cause a software interrupt <strong><code>int SYSVEC</code></strong>.</p>
-<h4><code>_s_call</code></h4>
-<p><strong><code>s_call</code></strong> is the system call counterpart of the interrupt-handling mechanism. Control arrives at s call following a software interrupt, that is, execution of an <strong><code>int &lt;nnn&gt;</code></strong> instruction.</p>
-<pre><code class="language-assembly">/*===========================================================================*/
-/*				_s_call					     */
+<h3 id="software-interrupt">Software Interrupt</h3>
+<p>There are more cases that a running <strong>process wants to cause an
+interrupt</strong>.<br> Actually, in Minix3, all <strong>Interprocess
+Communication</strong> were done by <strong>software
+interrupt</strong>.<br></p>
+<p>If a process wants to send a message to
+<strong><code>dst_ptr</code></strong> with message
+<strong><code>m</code></strong>. it will use this statement:<br></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>send<span class="op">(*</span>dst_ptr<span class="op">,</span> <span class="op">&amp;</span>m<span class="op">);</span></span></code></pre></div>
+<p>And <strong><code>send</code></strong> function was a asssembly marco
+which was defined in <strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Minix3/include/minix/ipc.h#L143">include/minix/ipc.h
+line143</a>:</strong><br></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define send        _send</span></span></code></pre></div>
+<p>The hole assembly code are in the <a
+href="https://github.com/Angold-4/OSDI/blob/master/Minix3/lib/i386/rts/_ipc.s#L20">lib/i386/rts/ipc.s
+line20</a>:</p>
+<pre class="assembly"><code>__send:
+    push    ebp
+    mov ebp, esp
+    push    ebx
+    mov eax, SRC_DST(ebp)   ! eax = dest-src
+    mov ebx, MESSAGE(ebp)   ! ebx = message pointer
+    mov ecx, SEND       ! _send(dest, ptr)
+    int SYSVEC          ! trap to the kernel
+    pop ebx
+    pop ebp
+    ret</code></pre>
+<p>This piece of assembly code <code>_send</code> put the
+<strong><code>dst</code></strong> and <strong><code>m</code></strong>
+arguments into register.<br>And then cause a software interrupt
+<strong><code>int SYSVEC</code></strong>.</p>
+<h4 id="s_call"><code>_s_call</code></h4>
+<p><strong><code>s_call</code></strong> is the system call counterpart
+of the interrupt-handling mechanism. Control arrives at s call following
+a software interrupt, that is, execution of an
+<strong><code>int &lt;nnn&gt;</code></strong> instruction.</p>
+<pre class="assembly"><code>/*===========================================================================*/
+/*              _s_call                      */
 /*===========================================================================*/
-.balign	16
+.balign 16
 s_call:
 p_s_call:
-	cld	/* set direction flag to a known value */
-	sub	$4, %esp	/* skip RETADR */
-	pusha			/* save &quot;general&quot; registers */
-	pushw	%ds
-	pushw	%es
-	pushw	%fs
-	pushw	%gs
+    cld /* set direction flag to a known value */
+    sub $4, %esp    /* skip RETADR */
+    pusha           /* save &quot;general&quot; registers */
+    pushw   %ds
+    pushw   %es
+    pushw   %fs
+    pushw   %gs
 
-	mov	%ss, %si	/* ss is kernel data segment */
-	mov	%si, %ds	/* load rest of kernel segments */
-	mov	%si, %es	/* kernel does not use fs, gs */
-	incb	k_reenter	/* increment kernel entry count */
-	mov	%esp, %esi	/* assumes P_STACKBASE == 0 */
-	mov	$k_stktop, %esp
-	xor	%ebp, %ebp	/* for stacktrace */
+    mov %ss, %si    /* ss is kernel data segment */
+    mov %si, %ds    /* load rest of kernel segments */
+    mov %si, %es    /* kernel does not use fs, gs */
+    incb    k_reenter   /* increment kernel entry count */
+    mov %esp, %esi  /* assumes P_STACKBASE == 0 */
+    mov $k_stktop, %esp
+    xor %ebp, %ebp  /* for stacktrace */
 /* end of inline save */
 /* now set up parameters for sys_call() */
-	push	%edx	/* event set or flags bit map  */
-	push	%ebx	/* pointer to user message */
-	push	%eax	/* source / destination */
-	push	%ecx	/* call number (ipc primitive to use) */
+    push    %edx    /* event set or flags bit map  */
+    push    %ebx    /* pointer to user message */
+    push    %eax    /* source / destination */
+    push    %ecx    /* call number (ipc primitive to use) */
 
-	call	sys_call	/* sys_call(call_nr, src_dst, m_ptr, bit_map) */
+    call    sys_call    /* sys_call(call_nr, src_dst, m_ptr, bit_map) */
 /* caller is now explicitly in proc_ptr */
-	mov	%eax, AXREG(%esi)
+    mov %eax, AXREG(%esi)
 
 /* Fall into code to restart proc/task running. */
-
 </code></pre>
 <ul>
-<li>The first part of the <strong><code>s_call</code></strong> code resembles an inline expansion of save and saves the additional registers that must be preserved.</li>
-<li>Just as in <strong><code>save</code></strong>, a <strong><code>mov esp, k_stktop</code></strong> instruction then switches to the <strong>kernel stack</strong>.</li>
-<li>The similarity of a software interrupt to a hardware interrupt extends to <strong>both disabling all interrupts</strong></li>
-<li>Following this comes a call to <strong><code>sys_call</code></strong>, which we will discuss in the next section. It causes a message to be delivered, and that this in turn causes the <strong>process scheduler</strong> to call <strong><code>enqueue(dst_ptr)</code></strong> to set the <strong><code>next_ptr</code></strong>.</li>
-<li>Since the <strong><code>restart</code></strong> function is in the next line of <strong><code>s_call</code></strong>, after <strong><code>sys_call</code></strong> return, it will pick another process to run.</li>
+<li>The first part of the <strong><code>s_call</code></strong> code
+resembles an inline expansion of save and saves the additional registers
+that must be preserved.</li>
+<li>Just as in <strong><code>save</code></strong>, a
+<strong><code>mov esp, k_stktop</code></strong> instruction then
+switches to the <strong>kernel stack</strong>.</li>
+<li>The similarity of a software interrupt to a hardware interrupt
+extends to <strong>both disabling all interrupts</strong></li>
+<li>Following this comes a call to
+<strong><code>sys_call</code></strong>, which we will discuss in the
+next section. It causes a message to be delivered, and that this in turn
+causes the <strong>process scheduler</strong> to call
+<strong><code>enqueue(dst_ptr)</code></strong> to set the
+<strong><code>next_ptr</code></strong>.</li>
+<li>Since the <strong><code>restart</code></strong> function is in the
+next line of <strong><code>s_call</code></strong>, after
+<strong><code>sys_call</code></strong> return, it will pick another
+process to run.</li>
 </ul>
-<h4><code>restart</code></h4>
-<p><strong><code>restart</code></strong> is an assembly language routine in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/arch/i386/mpx386.S#L436">kernel/arch/i386/mpx386.s line436</a></strong>.<!-- raw HTML omitted -->
-It causes a <strong>context switch</strong>, so the process pointed to by <strong>next_ptr</strong> will run.<!-- raw HTML omitted -->
-<strong><code>restart</code> is executed again and again as tasks, servers, and user processes are given their opportunities to run and then are suspended, either to wait for input or to give other processes their turns.</strong></p>
-<pre><code class="language-assembly">/*===========================================================================*/
-/*				restart					     */
+<h4 id="restart"><code>restart</code></h4>
+<p><strong><code>restart</code></strong> is an assembly language routine
+in <strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/arch/i386/mpx386.S#L436">kernel/arch/i386/mpx386.s
+line436</a></strong>.<br> It causes a <strong>context switch</strong>,
+so the process pointed to by <strong>next_ptr</strong> will run.<br>
+<strong><code>restart</code> is executed again and again as tasks,
+servers, and user processes are given their opportunities to run and
+then are suspended, either to wait for input or to give other processes
+their turns.</strong></p>
+<pre class="assembly"><code>/*===========================================================================*/
+/*              restart                      */
 /*===========================================================================*/
 restart:
 
 /* Restart the current process or the next process if it is set.  */
 
-	cli
-	call	schedcheck
-	movl	proc_ptr, %esp	/* will assume P_STACKBASE == 0 */
-	lldt	P_LDT_SEL(%esp)	/* enable process' segment descriptors  */
-	cmpl	$0, P_CR3(%esp)
-	jz	0f
-	mov	P_CR3(%esp), %eax
-	cmpl	loadedcr3, %eax
-	jz	0f
-	mov	%eax, %cr3
-	mov	%eax, loadedcr3
-	mov	proc_ptr, %eax
-	mov	%eax, ptproc
-	movl	$0, dirtypde
+    cli
+    call    schedcheck
+    movl    proc_ptr, %esp  /* will assume P_STACKBASE == 0 */
+    lldt    P_LDT_SEL(%esp) /* enable process&#39; segment descriptors  */
+    cmpl    $0, P_CR3(%esp)
+    jz  0f
+    mov P_CR3(%esp), %eax
+    cmpl    loadedcr3, %eax
+    jz  0f
+    mov %eax, %cr3
+    mov %eax, loadedcr3
+    mov proc_ptr, %eax
+    mov %eax, ptproc
+    movl    $0, dirtypde
 0:
-	lea	P_STACKTOP(%esp), %eax	/* arrange for next interrupt */
-	movl	%eax, tss+TSS3_S_SP0	/* to save state in process table */
+    lea P_STACKTOP(%esp), %eax  /* arrange for next interrupt */
+    movl    %eax, tss+TSS3_S_SP0    /* to save state in process table */
 restart1:
-	decb	k_reenter
-	popw	%gs
-	popw	%fs
-	popw	%es
-	popw	%ds
-	popal
-	add	$4, %esp	/* skip return adr */
-	iret	/* continue process */
-
+    decb    k_reenter
+    popw    %gs
+    popw    %fs
+    popw    %es
+    popw    %ds
+    popal
+    add $4, %esp    /* skip return adr */
+    iret    /* continue process */
 </code></pre>
 <ul>
-<li>When <strong><code>restart</code></strong> is reached, interrupts are disabled, so the <strong><code>next_ptr</code></strong> (mostly assign by <strong>process scheduler</strong> <strong><code>pick_proc()</code></strong>) cannot be changed.</li>
-<li>The process table was carefully constructed so it begins with a stack frame, and the instruction on this line <strong><code>movl    proc_ptr, %esp</code></strong> points the CPU’s stack pointer register at the stack frame.</li>
-<li><strong><code>lldt    P_LDT_SEL(%esp) </code></strong>: this instruction then loads the processor’s local descriptor table register from the stack frame. This prepares the processor to use the memory segments belonging to the next process to be run.<!-- raw HTML omitted --></li>
+<li>When <strong><code>restart</code></strong> is reached, interrupts
+are disabled, so the <strong><code>next_ptr</code></strong> (mostly
+assign by <strong>process scheduler</strong>
+<strong><code>pick_proc()</code></strong>) cannot be changed.</li>
+<li>The process table was carefully constructed so it begins with a
+stack frame, and the instruction on this line
+<strong><code>movl    proc_ptr, %esp</code></strong> points the CPU’s
+stack pointer register at the stack frame.</li>
+<li><strong><code>lldt    P_LDT_SEL(%esp)</code></strong>: this
+instruction then loads the processor’s local descriptor table register
+from the stack frame. This prepares the processor to use the memory
+segments belonging to the next process to be run.<br></li>
 </ul>
-<h3>Summary</h3>
-<p><strong>Up to so far. In the Previous Notes of this <a href="https://github.com/Angold-4/OSDI/tree/master/Chapter/Chapter2">Chapter2 Process</a>. <!-- raw HTML omitted -->
-We've seen that <code>restart</code> is reached in several ways:</strong><!-- raw HTML omitted --></p>
-<ol>
-<li>By a call from main when the system <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#kernelmainc">starts</a> (cold boot) (<a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/main.c#L211">kernel/main.c</a>).</strong></li>
-<li>By a jump from <strong><code>hwint_master</code></strong> or <strong><code>hwint_slave</code></strong> after a <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#hwint_master0">hardware interrupt</a></strong>.</li>
-<li>By falling through from s call after a <strong><a href="">system call</a></strong>.</li>
-</ol>
-<p><img src="Sources/restart.png" alt="restart">
-Fig. 2-41 is a simplified summary of how control passes back and forth between processes and the kernel via <strong><code>restart</code></strong>.<!-- raw HTML omitted --></p>
-<h2>2. Interprocess Communication</h2>
-<p>Processes in MINIX 3 communicate by <strong>messages</strong>, using the <strong>rendezvous</strong> principle. <!-- raw HTML omitted -->
-The high-level code for <strong>interprocess communication</strong> is found in <strong><a href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/proc.c#L220">proc.c</a></strong><!-- raw HTML omitted --></p>
-<p><strong>The kernel’s job is to translate either a hardware interrupt or a software interrupt into a message.</strong><!-- raw HTML omitted --></p>
+<h3 id="summary">Summary</h3>
+<p><strong>Up to so far. In the Previous Notes of this <a
+href="https://github.com/Angold-4/OSDI/tree/master/Chapter/Chapter2">Chapter2
+Process</a>. <br> We’ve seen that <code>restart</code> is reached in
+several ways:</strong><br> 1. By a call from main when the system
+<strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#kernelmainc">starts</a>
+(cold boot) (<a
+href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/main.c#L211">kernel/main.c</a>).</strong>
+2. By a jump from <strong><code>hwint_master</code></strong> or
+<strong><code>hwint_slave</code></strong> after a <strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md#hwint_master0">hardware
+interrupt</a></strong>. 3. By falling through from s call after a
+<strong><a href="">system call</a></strong>.</p>
+<p><img src="Sources/restart.png" alt="restart" /> Fig. 2-41 is a
+simplified summary of how control passes back and forth between
+processes and the kernel via
+<strong><code>restart</code></strong>.<br></p>
+<h2 id="interprocess-communication">2. Interprocess Communication</h2>
+<p>Processes in MINIX 3 communicate by <strong>messages</strong>, using
+the <strong>rendezvous</strong> principle. <br> The high-level code for
+<strong>interprocess communication</strong> is found in <strong><a
+href="https://github.com/Angold-4/OSDI/blob/master/Minix3/kernel/proc.c#L220">proc.c</a></strong><br></p>
+<p><strong>The kernel’s job is to translate either a hardware interrupt
+or a software interrupt into a message.</strong><br> * <strong>Hardware
+Interrupt:</strong> Ask the <strong>interrupt controller</strong> to put
+data on the system data bus and telling the processor which service
+routine to execute <strong>(interrupt handler) (drivers)</strong>. *
+<strong>Software Interrupt:</strong> The
+<strong><code>sys_call(call_nr, src_dst, m_ptr)</code></strong> function
+in <strong><code>s_call</code></strong> converts a software interrupt
+into a message. After all the tests have been passed, one of the
+functions <strong><code>mini_send()</code></strong>,
+<strong><code>mini receive()</code></strong>, or
+<strong><code>mini notify()</code></strong> is called to do the real
+work.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Now check if the call is known and try to perform the request. The only</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">   * system calls that exist in MINIX are sending and receiving messages.</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">   *   - SENDREC: combines SEND and RECEIVE in a single system call</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">   *   - SEND:    sender blocks until its message has been delivered</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">   *   - RECEIVE: receiver blocks until an acceptable message has arrived</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">   *   - NOTIFY:  asynchronous call; deliver notification or mark pending</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">   *   - SENDA:   list of asynchronous send requests</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span><span class="op">(</span>call_nr<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> SENDREC<span class="op">:</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* A flag is set so that notifications cannot interrupt SENDREC. */</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    caller_ptr<span class="op">-&gt;</span>p_misc_flags <span class="op">|=</span> MF_REPLY_PEND<span class="op">;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* fall through */</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> SEND<span class="op">:</span>            </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> mini_send<span class="op">(</span>caller_ptr<span class="op">,</span> src_dst_e<span class="op">,</span> m_ptr<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>call_nr <span class="op">==</span> SEND <span class="op">||</span> result <span class="op">!=</span> OK<span class="op">)</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span><span class="op">;</span>              <span class="co">/* done, or SEND failed */</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* fall through for SENDREC */</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> RECEIVE<span class="op">:</span>         </span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>call_nr <span class="op">==</span> RECEIVE<span class="op">)</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        caller_ptr<span class="op">-&gt;</span>p_misc_flags <span class="op">&amp;=</span> <span class="op">~</span>MF_REPLY_PEND<span class="op">;</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> mini_receive<span class="op">(</span>caller_ptr<span class="op">,</span> src_dst_e<span class="op">,</span> m_ptr<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> NOTIFY<span class="op">:</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> mini_notify<span class="op">(</span>caller_ptr<span class="op">,</span> src_dst_e<span class="op">);</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> SENDNB<span class="op">:</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> mini_send<span class="op">(</span>caller_ptr<span class="op">,</span> src_dst_e<span class="op">,</span> m_ptr<span class="op">,</span> NON_BLOCKING<span class="op">);</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">case</span> SENDA<span class="op">:</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> mini_senda<span class="op">(</span>caller_ptr<span class="op">,</span> <span class="op">(</span>asynmsg_t <span class="op">*)</span>m_ptr<span class="op">,</span> <span class="op">(</span><span class="dt">size_t</span><span class="op">)</span>src_dst_e<span class="op">);</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  <span class="cf">default</span><span class="op">:</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> EBADCALL<span class="op">;</span>          <span class="co">/* illegal system call */</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span></code></pre></div>
+<p>The functions <strong><code>mini_send()</code></strong>,
+<strong><code>mini_receive()</code></strong>, and
+<strong><code>mini_notify()</code></strong> are the heart of the normal
+message passing mechanism of MINIX 3 and deserve careful study.<br>
+<strong>NOTE:</strong> I use Minix 3.1 version of these three functions,
+you can find them through the link: <strong><a
+href="https://elixir.ortiz.sh/minix/v3.1.0/source/kernel/proc.c#L200">Bootlin
+Minix V3.1.0</a></strong><br></p>
+<h3 id="mini_send"><code>mini_send()</code></h3>
+<p>When a process does a <strong><code>send()</code>.</strong>
+<strong>The lowest layer of the kernel checks to see if the destination
+is waiting for a message from the sender</strong>(or from ANY
+sender).<br>If so, the message is copied from the blocked sender to the
+receiver, and <strong>both are marked as runnable</strong>. If the
+destination is not waiting for a message from the sender, <strong>the
+sender is marked as blocked</strong> and put onto a <strong>queue of
+processes</strong> waiting to send to the receiver.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>PRIVATE <span class="dt">int</span> mini_send<span class="op">(</span>caller_ptr<span class="op">,</span> dst<span class="op">,</span> m_ptr<span class="op">,</span> flags<span class="op">)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">*</span>caller_ptr<span class="op">;</span>   <span class="co">/* who is trying to send a message? */</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> dst<span class="op">;</span>                <span class="co">/* to whom is message being sent? */</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>message <span class="op">*</span>m_ptr<span class="op">;</span>             <span class="co">/* pointer to message buffer */</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> flags<span class="op">;</span>             <span class="co">/* system call flags */</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">/* Send a message from &#39;caller_ptr&#39; to &#39;dst&#39;. If &#39;dst&#39; is blocked waiting</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"> * for this message, copy the message to it and unblock &#39;dst&#39;. If &#39;dst&#39; is</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"> * not waiting at all, or is waiting for another source, queue &#39;caller_ptr&#39;.</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">*</span>dst_ptr <span class="op">=</span> proc_addr<span class="op">(</span>dst<span class="op">);</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">**</span>xpp<span class="op">;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">*</span>xp<span class="op">;</span></span></code></pre></div>
 <ul>
-<li><strong>Hardware Interrupt:</strong> Ask the <strong>interrupt controller</strong> to put data on the system data bus and telling the processor which service routine to execute <strong>(interrupt handler) (drivers)</strong>.</li>
-<li><strong>Software Interrupt:</strong> The <strong><code>sys_call(call_nr, src_dst, m_ptr)</code></strong> function in <strong><code>s_call</code></strong> converts a software interrupt into a message. After all the tests have been passed, one of the functions <strong><code>mini_send()</code></strong>, <strong><code>mini receive()</code></strong>, or <strong><code>mini notify()</code></strong> is called to do the real work.</li>
+<li><strong>deadlock:</strong> the caller and destination are trying to
+send to each other.</li>
 </ul>
-<pre><code class="language-c">  /* Now check if the call is known and try to perform the request. The only
-   * system calls that exist in MINIX are sending and receiving messages.
-   *   - SENDREC: combines SEND and RECEIVE in a single system call
-   *   - SEND:    sender blocks until its message has been delivered
-   *   - RECEIVE: receiver blocks until an acceptable message has arrived
-   *   - NOTIFY:  asynchronous call; deliver notification or mark pending
-   *   - SENDA:   list of asynchronous send requests
-   */
-  switch(call_nr) {
-  case SENDREC:
-	/* A flag is set so that notifications cannot interrupt SENDREC. */
-	caller_ptr-&gt;p_misc_flags |= MF_REPLY_PEND;
-	/* fall through */
-  case SEND:			
-	result = mini_send(caller_ptr, src_dst_e, m_ptr, 0);
-	if (call_nr == SEND || result != OK)
-		break;				/* done, or SEND failed */
-	/* fall through for SENDREC */
-  case RECEIVE:			
-	if (call_nr == RECEIVE)
-		caller_ptr-&gt;p_misc_flags &amp;= ~MF_REPLY_PEND;
-	result = mini_receive(caller_ptr, src_dst_e, m_ptr, 0);
-	break;
-  case NOTIFY:
-	result = mini_notify(caller_ptr, src_dst_e);
-	break;
-  case SENDNB:
-        result = mini_send(caller_ptr, src_dst_e, m_ptr, NON_BLOCKING);
-        break;
-  case SENDA:
-	result = mini_senda(caller_ptr, (asynmsg_t *)m_ptr, (size_t)src_dst_e);
-	break;
-  default:
-	result = EBADCALL;			/* illegal system call */
-  }
-
-</code></pre>
-<p>The functions <strong><code>mini_send()</code></strong>, <strong><code>mini_receive()</code></strong>, and <strong><code>mini_notify()</code></strong> are the heart of the normal message passing mechanism of MINIX 3 and deserve careful study.<!-- raw HTML omitted -->
-<strong>NOTE:</strong> I use Minix 3.1 version of these three functions, you can find them through the link: <strong><a href="https://elixir.ortiz.sh/minix/v3.1.0/source/kernel/proc.c#L200">Bootlin Minix V3.1.0</a></strong><!-- raw HTML omitted --></p>
-<h3><code>mini_send()</code></h3>
-<p>When a process does a <strong><code>send()</code>.</strong> <strong>The lowest layer of the kernel checks to see if the destination is waiting for a message from the sender</strong>(or from ANY sender).<!-- raw HTML omitted -->If so, the message is copied from the blocked sender to the receiver, and <strong>both are marked as runnable</strong>. If the destination is not waiting for a message from the sender, <strong>the sender is marked as blocked</strong> and put onto a <strong>queue of processes</strong> waiting to send to the receiver.</p>
-<pre><code class="language-c">PRIVATE int mini_send(caller_ptr, dst, m_ptr, flags)
-register struct proc *caller_ptr;	/* who is trying to send a message? */
-int dst;				/* to whom is message being sent? */
-message *m_ptr;				/* pointer to message buffer */
-unsigned flags;				/* system call flags */
-{
-/* Send a message from 'caller_ptr' to 'dst'. If 'dst' is blocked waiting
- * for this message, copy the message to it and unblock 'dst'. If 'dst' is
- * not waiting at all, or is waiting for another source, queue 'caller_ptr'.
- */
-  register struct proc *dst_ptr = proc_addr(dst);
-  register struct proc **xpp;
-  register struct proc *xp;
-
-</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Check for deadlock by &#39;caller_ptr&#39; and &#39;dst&#39; sending to each other. */</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  xp <span class="op">=</span> dst_ptr<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span>xp<span class="op">-&gt;</span>p_rts_flags <span class="op">&amp;</span> SENDING<span class="op">)</span> <span class="op">{</span>       <span class="co">/* check while sending */</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    xp <span class="op">=</span> proc_addr<span class="op">(</span>xp<span class="op">-&gt;</span>p_sendto<span class="op">);</span>       <span class="co">/* get xp&#39;s destination */</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>xp <span class="op">==</span> caller_ptr<span class="op">)</span> <span class="cf">return</span><span class="op">(</span>ELOCKED<span class="op">);</span>  <span class="co">/* deadlock if cyclic */</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span></code></pre></div>
 <ul>
-<li><strong>deadlock:</strong> the caller and destination are trying to send to each other.</li>
+<li>The key test in <strong><code>mini send</code></strong> is a check
+is made to see if the destination is blocked on a
+<strong><code>receive</code></strong>, as shown by the
+<strong><code>RECEIVING</code></strong> bit in the
+<strong><code>p_rts</code></strong> flags field of its process table
+entry.</li>
+<li>If it is waiting, then the next question is: <strong>“Who is it
+waiting for?”</strong> If it is waiting for the sender, or for ANY, the
+<strong><code>CopyMess</code></strong> macro is used to copy the message
+and the receiver is unblocked by resetting its
+<strong><code>RECEIVING</code></strong> bit. Then
+<strong><code>enqueue</code></strong> is called to give the receiver an
+opportunity to the receiver an opportunity to run.</li>
 </ul>
-<pre><code class="language-c">  /* Check for deadlock by 'caller_ptr' and 'dst' sending to each other. */
-  xp = dst_ptr;
-  while (xp-&gt;p_rts_flags &amp; SENDING) {		/* check while sending */
-  	xp = proc_addr(xp-&gt;p_sendto);		/* get xp's destination */
-  	if (xp == caller_ptr) return(ELOCKED);	/* deadlock if cyclic */
-  }
-
-</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Check if &#39;dst&#39; is blocked waiting for this message. The destination&#39;s </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">   * SENDING flag may be set when its SENDREC call blocked while sending.  </span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span> <span class="op">(</span>dst_ptr<span class="op">-&gt;</span>p_rts_flags <span class="op">&amp;</span> <span class="op">(</span>RECEIVING <span class="op">|</span> SENDING<span class="op">))</span> <span class="op">==</span> RECEIVING <span class="op">&amp;&amp;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>       <span class="op">(</span>dst_ptr<span class="op">-&gt;</span>p_getfrom <span class="op">==</span> ANY <span class="op">||</span> dst_ptr<span class="op">-&gt;</span>p_getfrom <span class="op">==</span> caller_ptr<span class="op">-&gt;</span>p_nr<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Destination is indeed waiting for this message. */</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    CopyMess<span class="op">(</span>caller_ptr<span class="op">-&gt;</span>p_nr<span class="op">,</span> caller_ptr<span class="op">,</span> m_ptr<span class="op">,</span> dst_ptr<span class="op">,</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>         dst_ptr<span class="op">-&gt;</span>p_messbuf<span class="op">);</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">((</span>dst_ptr<span class="op">-&gt;</span>p_rts_flags <span class="op">&amp;=</span> <span class="op">~</span>RECEIVING<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> enqueue<span class="op">(</span>dst_ptr<span class="op">);</span></span></code></pre></div>
 <ul>
-<li>The key test in <strong><code>mini send</code></strong> is a check is made to see if the destination is blocked on a <strong><code>receive</code></strong>, as shown by the <strong><code>RECEIVING</code></strong> bit in the <strong><code>p_rts</code></strong> flags field of its process table entry.</li>
-<li>If it is waiting, then the next question is: <strong>&quot;Who is it waiting for?&quot;</strong> If it is waiting for the sender, or for ANY, the <strong><code>CopyMess</code></strong> macro is used to copy the message and the receiver is unblocked by resetting its <strong><code>RECEIVING</code></strong> bit. Then <strong><code>enqueue</code></strong> is called to give the receiver an opportunity to the receiver an opportunity to run.</li>
+<li>If, on the other hand, the receiver is not blocked, or is blocked
+but waiting for a message from someone else. then the caller will be
+blocked and <strong><code>mini_receive()</code></strong> will put it
+into the destination’s queue.</li>
+<li>All processes wanting to send to a given destination are strung
+together on a <strong>linked list</strong>, with the destination’s
+<strong><code>p_callerq</code></strong> field pointing to the process
+table entry of the process at the head of the queue.</li>
 </ul>
-<pre><code class="language-c">  /* Check if 'dst' is blocked waiting for this message. The destination's 
-   * SENDING flag may be set when its SENDREC call blocked while sending.  
-   */
-  if ( (dst_ptr-&gt;p_rts_flags &amp; (RECEIVING | SENDING)) == RECEIVING &amp;&amp;
-       (dst_ptr-&gt;p_getfrom == ANY || dst_ptr-&gt;p_getfrom == caller_ptr-&gt;p_nr)) {
-	/* Destination is indeed waiting for this message. */
-	CopyMess(caller_ptr-&gt;p_nr, caller_ptr, m_ptr, dst_ptr,
-		 dst_ptr-&gt;p_messbuf);
-	if ((dst_ptr-&gt;p_rts_flags &amp;= ~RECEIVING) == 0) enqueue(dst_ptr);
-</code></pre>
-<ul>
-<li>If, on the other hand, the receiver is not blocked, or is blocked but waiting for a message from someone else. then the caller will be blocked and <strong><code>mini_receive()</code></strong> will put it into the destination's queue.</li>
-<li>All processes wanting to send to a given destination are strung together on a <strong>linked list</strong>, with the destination’s <strong><code>p_callerq</code></strong> field pointing to the process table entry of the process at the head of the queue.</li>
-</ul>
-<pre><code class="language-c">  } else if ( ! (flags &amp; NON_BLOCKING)) {
-	/* Destination is not waiting.  Block and dequeue caller. */
-	caller_ptr-&gt;p_messbuf = m_ptr;
-	if (caller_ptr-&gt;p_rts_flags == 0) dequeue(caller_ptr);
-	caller_ptr-&gt;p_rts_flags |= SENDING;
-	caller_ptr-&gt;p_sendto = dst;
-
-	/* Process is now blocked.  Put in on the destination's queue. */
-	xpp = &amp;dst_ptr-&gt;p_caller_q;		/* find end of list */
-	while (*xpp != NIL_PROC) xpp = &amp;(*xpp)-&gt;p_q_link;	
-	*xpp = caller_ptr;			/* add caller to end */
-	caller_ptr-&gt;p_q_link = NIL_PROC;	/* mark new end of list */
-  } else {
-	return(ENOTREADY);
-  }
-  return(OK);
-}
-</code></pre>
-<p><img src="Sources/queue.png" alt="queue"></p>
-<h3><code>mini_notify()</code></h3>
-<p><strong><code>mini_notify</code></strong> is used to effectuate a notification.<!-- raw HTML omitted -->
-Just as its name implies, a notification is a message which have a higher priority than ordinary messages. <!-- raw HTML omitted -->
-Another difference is that: <strong>If the sender send the notification to the reciever. He do not wish to get reply immediately, on the other words, the sender would not blocked after realize that the reciever is not waiting for it.</strong></p>
-<pre><code class="language-c">PRIVATE int mini_notify(caller_ptr, dst)
-register struct proc *caller_ptr;	/* sender of the notification */
-int dst;				/* which process to notify */
-{
-  register struct proc *dst_ptr = proc_addr(dst);
-  int src_id;				/* source id for late delivery */
-  message m;				/* the notification message */
-</code></pre>
-<p>If the target is also waiting for this message, then like <strong><code>mini_send()</code></strong>, it will build the message and then call <strong><code>enqueue()</code></strong> to change the <strong><code>next_ptr</code></strong> and then return to run it.</p>
-<pre><code class="language-c">  /* Check to see if target is blocked waiting for this message. A process 
-   * can be both sending and receiving during a SENDREC system call.
-   */
-  if ((dst_ptr-&gt;p_rts_flags &amp; (RECEIVING|SENDING)) == RECEIVING &amp;&amp;
-      ! (priv(dst_ptr)-&gt;s_flags &amp; SENDREC_BUSY) &amp;&amp;
-      (dst_ptr-&gt;p_getfrom == ANY || dst_ptr-&gt;p_getfrom == caller_ptr-&gt;p_nr)) {
-
-      /* Destination is indeed waiting for a message. Assemble a notification 
-       * message and deliver it. Copy from pseudo-source HARDWARE, since the
-       * message is in the kernel's address space.
-       */ 
-      BuildMess(&amp;m, proc_nr(caller_ptr), dst_ptr);
-      CopyMess(proc_nr(caller_ptr), proc_addr(HARDWARE), &amp;m, 
-          dst_ptr, dst_ptr-&gt;p_messbuf);
-      dst_ptr-&gt;p_rts_flags &amp;= ~RECEIVING;	/* deblock destination */
-      if (dst_ptr-&gt;p_rts_flags == 0) enqueue(dst_ptr);
-      return(OK);
-  } 
-</code></pre>
-<p>To store a notification, all that is required is a <strong>bitmap</strong> in which each bit corresponds to a process that can send a notification. When a notification cannot be sent, the bit corresponding to the sender is set in the recipient’s bitmap.</p>
-<pre><code class="language-c">  /* Destination is not ready to receive the notification. Add it to the 
-   * bit map with pending notifications. Note the indirectness: the system id 
-   * instead of the process number is used in the pending bit map.
-   */ 
-  src_id = priv(caller_ptr)-&gt;s_id;
-  set_sys_bit(priv(dst_ptr)-&gt;s_notify_pending, src_id); 
-  return(OK);
-}
-</code></pre>
-<h3><code>mini_receive()</code></h3>
-<p><strong><code>mini_recieve()</code></strong> first checking the bitmap of every waiting notifications (if any), if there isn't any, then check if there are any process is blocked and waiting for the reply. If still not, then the caller process just blocked and waiting for the messages or notifications.</p>
-<pre><code class="language-c">PRIVATE int mini_receive(caller_ptr, src, m_ptr, flags)
-register struct proc *caller_ptr;	/* process trying to get message */
-int src;				/* which message source is wanted */
-message *m_ptr;				/* pointer to message buffer */
-unsigned flags;				/* system call flags */
-{
-/* A process or task wants to get a message.  If a message is already queued,
- * acquire it and deblock the sender.  If no message from the desired source
- * is available block the caller, unless the flags don't allow blocking.  
- */
-  register struct proc **xpp;
-  register struct notification **ntf_q_pp;
-  message m;
-  int bit_nr;
-  sys_map_t *map;
-  bitchunk_t *chunk;
-  int i, src_id, src_proc_nr;
-</code></pre>
-<p>Check whether <strong>there are any notifications.</strong><!-- raw HTML omitted -->If yes, then build the message and copy it to the caller's message buffer.</p>
-<pre><code class="language-c">  /* Check to see if a message from desired source is already available.
-   * The caller's SENDING flag may be set if SENDREC couldn't send. If it is
-   * set, the process should be blocked.
-   */
-  if (!(caller_ptr-&gt;p_rts_flags &amp; SENDING)) {
-
-    /* Check if there are pending notifications, except for SENDREC. */
-    if (! (priv(caller_ptr)-&gt;s_flags &amp; SENDREC_BUSY)) {
-
-        map = &amp;priv(caller_ptr)-&gt;s_notify_pending;
-        for (chunk=&amp;map-&gt;chunk[0]; chunk&lt;&amp;map-&gt;chunk[NR_SYS_CHUNKS]; chunk++) {
-
-            /* Find a pending notification from the requested source. */ 
-            if (! *chunk) continue; 			/* no bits in chunk */
-            for (i=0; ! (*chunk &amp; (1&lt;&lt;i)); ++i) {} 	/* look up the bit */
-            src_id = (chunk - &amp;map-&gt;chunk[0]) * BITCHUNK_BITS + i;
-            if (src_id &gt;= NR_SYS_PROCS) break;		/* out of range */
-            src_proc_nr = id_to_nr(src_id);		/* get source proc */
-            if (src!=ANY &amp;&amp; src!=src_proc_nr) continue;	/* source not ok */
-            *chunk &amp;= ~(1 &lt;&lt; i);			/* no longer pending */
-
-            /* Found a suitable source, deliver the notification message. */
-            BuildMess(&amp;m, src_proc_nr, caller_ptr);	/* assemble message */
-            CopyMess(src_proc_nr, proc_addr(HARDWARE), &amp;m, caller_ptr, m_ptr);
-            return(OK);					/* report success */
-        }
-    }
-</code></pre>
-<p>Check whether <strong>there are any pending process waiting for its reply</strong><!-- raw HTML omitted -->If yes, then copy message to the message buffer and call <strong><code>enqueue()</code></strong> to awake this pending process.</p>
-<pre><code class="language-c">    /* Check caller queue. Use pointer pointers to keep code simple. */
-    xpp = &amp;caller_ptr-&gt;p_caller_q;
-    while (*xpp != NIL_PROC) {
-        if (src == ANY || src == proc_nr(*xpp)) {
-	    /* Found acceptable message. Copy it and update status. */
-	    CopyMess((*xpp)-&gt;p_nr, *xpp, (*xpp)-&gt;p_messbuf, caller_ptr, m_ptr);
-            if (((*xpp)-&gt;p_rts_flags &amp;= ~SENDING) == 0) enqueue(*xpp);
-            *xpp = (*xpp)-&gt;p_q_link;		/* remove from queue */
-            return(OK);				/* report success */
-	}
-	xpp = &amp;(*xpp)-&gt;p_q_link;		/* proceed to next */
-    }
-  }
-</code></pre>
-<p>If there <strong>don't have any message or notification.</strong><!-- raw HTML omitted -->
-Call <strong><code>dequeue(caller_ptr)</code></strong> to block the caller, and set the <strong><code>p_rts_flags = RECEIVCING</code></strong>. Waiting for the message and notifications. <!-- raw HTML omitted -->
-( waiting for a <strong><code>enqueue(dst_ptr)</code></strong> to wake it )</p>
-<pre><code class="language-c">  /* No suitable message is available or the caller couldn't send in SENDREC. 
-   * Block the process trying to receive, unless the flags tell otherwise.
-   */
-  if ( ! (flags &amp; NON_BLOCKING)) {
-      caller_ptr-&gt;p_getfrom = src;		
-      caller_ptr-&gt;p_messbuf = m_ptr;
-      if (caller_ptr-&gt;p_rts_flags == 0) dequeue(caller_ptr);
-      caller_ptr-&gt;p_rts_flags |= RECEIVING;		
-      return(OK);
-  } else {
-      return(ENOTREADY);
-  }
-}
-</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span> <span class="op">!</span> <span class="op">(</span>flags <span class="op">&amp;</span> NON_BLOCKING<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Destination is not waiting.  Block and dequeue caller. */</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    caller_ptr<span class="op">-&gt;</span>p_messbuf <span class="op">=</span> m_ptr<span class="op">;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>caller_ptr<span class="op">-&gt;</span>p_rts_flags <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> dequeue<span class="op">(</span>caller_ptr<span class="op">);</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    caller_ptr<span class="op">-&gt;</span>p_rts_flags <span class="op">|=</span> SENDING<span class="op">;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    caller_ptr<span class="op">-&gt;</span>p_sendto <span class="op">=</span> dst<span class="op">;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Process is now blocked.  Put in on the destination&#39;s queue. */</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    xpp <span class="op">=</span> <span class="op">&amp;</span>dst_ptr<span class="op">-&gt;</span>p_caller_q<span class="op">;</span>     <span class="co">/* find end of list */</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(*</span>xpp <span class="op">!=</span> NIL_PROC<span class="op">)</span> xpp <span class="op">=</span> <span class="op">&amp;(*</span>xpp<span class="op">)-&gt;</span>p_q_link<span class="op">;</span>   </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>xpp <span class="op">=</span> caller_ptr<span class="op">;</span>          <span class="co">/* add caller to end */</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    caller_ptr<span class="op">-&gt;</span>p_q_link <span class="op">=</span> NIL_PROC<span class="op">;</span>    <span class="co">/* mark new end of list */</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">(</span>ENOTREADY<span class="op">);</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span><span class="op">(</span>OK<span class="op">);</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<figure>
+<img src="Sources/queue.png" alt="queue" />
+<figcaption aria-hidden="true">queue</figcaption>
+</figure>
+<h3 id="mini_notify"><code>mini_notify()</code></h3>
+<p><strong><code>mini_notify</code></strong> is used to effectuate a
+notification.<br> Just as its name implies, a notification is a message
+which have a higher priority than ordinary messages. <br> Another
+difference is that: <strong>If the sender send the notification to the
+reciever. He do not wish to get reply immediately, on the other words,
+the sender would not blocked after realize that the reciever is not
+waiting for it.</strong></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>PRIVATE <span class="dt">int</span> mini_notify<span class="op">(</span>caller_ptr<span class="op">,</span> dst<span class="op">)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">*</span>caller_ptr<span class="op">;</span>   <span class="co">/* sender of the notification */</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> dst<span class="op">;</span>                <span class="co">/* which process to notify */</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">*</span>dst_ptr <span class="op">=</span> proc_addr<span class="op">(</span>dst<span class="op">);</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> src_id<span class="op">;</span>               <span class="co">/* source id for late delivery */</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  message m<span class="op">;</span>                <span class="co">/* the notification message */</span></span></code></pre></div>
+<p>If the target is also waiting for this message, then like
+<strong><code>mini_send()</code></strong>, it will build the message and
+then call <strong><code>enqueue()</code></strong> to change the
+<strong><code>next_ptr</code></strong> and then return to run it.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Check to see if target is blocked waiting for this message. A process </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">   * can be both sending and receiving during a SENDREC system call.</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">((</span>dst_ptr<span class="op">-&gt;</span>p_rts_flags <span class="op">&amp;</span> <span class="op">(</span>RECEIVING<span class="op">|</span>SENDING<span class="op">))</span> <span class="op">==</span> RECEIVING <span class="op">&amp;&amp;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>      <span class="op">!</span> <span class="op">(</span>priv<span class="op">(</span>dst_ptr<span class="op">)-&gt;</span>s_flags <span class="op">&amp;</span> SENDREC_BUSY<span class="op">)</span> <span class="op">&amp;&amp;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>      <span class="op">(</span>dst_ptr<span class="op">-&gt;</span>p_getfrom <span class="op">==</span> ANY <span class="op">||</span> dst_ptr<span class="op">-&gt;</span>p_getfrom <span class="op">==</span> caller_ptr<span class="op">-&gt;</span>p_nr<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>      <span class="co">/* Destination is indeed waiting for a message. Assemble a notification </span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">       * message and deliver it. Copy from pseudo-source HARDWARE, since the</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">       * message is in the kernel&#39;s address space.</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">       */</span> </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>      BuildMess<span class="op">(&amp;</span>m<span class="op">,</span> proc_nr<span class="op">(</span>caller_ptr<span class="op">),</span> dst_ptr<span class="op">);</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>      CopyMess<span class="op">(</span>proc_nr<span class="op">(</span>caller_ptr<span class="op">),</span> proc_addr<span class="op">(</span>HARDWARE<span class="op">),</span> <span class="op">&amp;</span>m<span class="op">,</span> </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>          dst_ptr<span class="op">,</span> dst_ptr<span class="op">-&gt;</span>p_messbuf<span class="op">);</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>      dst_ptr<span class="op">-&gt;</span>p_rts_flags <span class="op">&amp;=</span> <span class="op">~</span>RECEIVING<span class="op">;</span>   <span class="co">/* deblock destination */</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> <span class="op">(</span>dst_ptr<span class="op">-&gt;</span>p_rts_flags <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> enqueue<span class="op">(</span>dst_ptr<span class="op">);</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span><span class="op">(</span>OK<span class="op">);</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> </span></code></pre></div>
+<p>To store a notification, all that is required is a
+<strong>bitmap</strong> in which each bit corresponds to a process that
+can send a notification. When a notification cannot be sent, the bit
+corresponding to the sender is set in the recipient’s bitmap.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Destination is not ready to receive the notification. Add it to the </span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">   * bit map with pending notifications. Note the indirectness: the system id </span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">   * instead of the process number is used in the pending bit map.</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  src_id <span class="op">=</span> priv<span class="op">(</span>caller_ptr<span class="op">)-&gt;</span>s_id<span class="op">;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  set_sys_bit<span class="op">(</span>priv<span class="op">(</span>dst_ptr<span class="op">)-&gt;</span>s_notify_pending<span class="op">,</span> src_id<span class="op">);</span> </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span><span class="op">(</span>OK<span class="op">);</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="mini_receive"><code>mini_receive()</code></h3>
+<p><strong><code>mini_recieve()</code></strong> first checking the
+bitmap of every waiting notifications (if any), if there isn’t any, then
+check if there are any process is blocked and waiting for the reply. If
+still not, then the caller process just blocked and waiting for the
+messages or notifications.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>PRIVATE <span class="dt">int</span> mini_receive<span class="op">(</span>caller_ptr<span class="op">,</span> src<span class="op">,</span> m_ptr<span class="op">,</span> flags<span class="op">)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">*</span>caller_ptr<span class="op">;</span>   <span class="co">/* process trying to get message */</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> src<span class="op">;</span>                <span class="co">/* which message source is wanted */</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>message <span class="op">*</span>m_ptr<span class="op">;</span>             <span class="co">/* pointer to message buffer */</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> flags<span class="op">;</span>             <span class="co">/* system call flags */</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">/* A process or task wants to get a message.  If a message is already queued,</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"> * acquire it and deblock the sender.  If no message from the desired source</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"> * is available block the caller, unless the flags don&#39;t allow blocking.  </span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">register</span> <span class="kw">struct</span> proc <span class="op">**</span>xpp<span class="op">;</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">register</span> <span class="kw">struct</span> notification <span class="op">**</span>ntf_q_pp<span class="op">;</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  message m<span class="op">;</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> bit_nr<span class="op">;</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  sys_map_t <span class="op">*</span>map<span class="op">;</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  bitchunk_t <span class="op">*</span>chunk<span class="op">;</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> i<span class="op">,</span> src_id<span class="op">,</span> src_proc_nr<span class="op">;</span></span></code></pre></div>
+<p>Check whether <strong>there are any notifications.</strong><br>If
+yes, then build the message and copy it to the caller’s message
+buffer.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Check to see if a message from desired source is already available.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">   * The caller&#39;s SENDING flag may be set if SENDREC couldn&#39;t send. If it is</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">   * set, the process should be blocked.</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!(</span>caller_ptr<span class="op">-&gt;</span>p_rts_flags <span class="op">&amp;</span> SENDING<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Check if there are pending notifications, except for SENDREC. */</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span> <span class="op">(</span>priv<span class="op">(</span>caller_ptr<span class="op">)-&gt;</span>s_flags <span class="op">&amp;</span> SENDREC_BUSY<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        map <span class="op">=</span> <span class="op">&amp;</span>priv<span class="op">(</span>caller_ptr<span class="op">)-&gt;</span>s_notify_pending<span class="op">;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>chunk<span class="op">=&amp;</span>map<span class="op">-&gt;</span>chunk<span class="op">[</span><span class="dv">0</span><span class="op">];</span> chunk<span class="op">&lt;&amp;</span>map<span class="op">-&gt;</span>chunk<span class="op">[</span>NR_SYS_CHUNKS<span class="op">];</span> chunk<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>            <span class="co">/* Find a pending notification from the requested source. */</span> </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(!</span> <span class="op">*</span>chunk<span class="op">)</span> <span class="cf">continue</span><span class="op">;</span>             <span class="co">/* no bits in chunk */</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span>i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> <span class="op">!</span> <span class="op">(*</span>chunk <span class="op">&amp;</span> <span class="op">(</span><span class="dv">1</span><span class="op">&lt;&lt;</span>i<span class="op">));</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{}</span>  <span class="co">/* look up the bit */</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>            src_id <span class="op">=</span> <span class="op">(</span>chunk <span class="op">-</span> <span class="op">&amp;</span>map<span class="op">-&gt;</span>chunk<span class="op">[</span><span class="dv">0</span><span class="op">])</span> <span class="op">*</span> BITCHUNK_BITS <span class="op">+</span> i<span class="op">;</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>src_id <span class="op">&gt;=</span> NR_SYS_PROCS<span class="op">)</span> <span class="cf">break</span><span class="op">;</span>      <span class="co">/* out of range */</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>            src_proc_nr <span class="op">=</span> id_to_nr<span class="op">(</span>src_id<span class="op">);</span>     <span class="co">/* get source proc */</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>src<span class="op">!=</span>ANY <span class="op">&amp;&amp;</span> src<span class="op">!=</span>src_proc_nr<span class="op">)</span> <span class="cf">continue</span><span class="op">;</span> <span class="co">/* source not ok */</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>            <span class="op">*</span>chunk <span class="op">&amp;=</span> <span class="op">~(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> i<span class="op">);</span>            <span class="co">/* no longer pending */</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>            <span class="co">/* Found a suitable source, deliver the notification message. */</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>            BuildMess<span class="op">(&amp;</span>m<span class="op">,</span> src_proc_nr<span class="op">,</span> caller_ptr<span class="op">);</span> <span class="co">/* assemble message */</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>            CopyMess<span class="op">(</span>src_proc_nr<span class="op">,</span> proc_addr<span class="op">(</span>HARDWARE<span class="op">),</span> <span class="op">&amp;</span>m<span class="op">,</span> caller_ptr<span class="op">,</span> m_ptr<span class="op">);</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span><span class="op">(</span>OK<span class="op">);</span>                 <span class="co">/* report success */</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Check whether <strong>there are any pending process waiting for its
+reply</strong><br>If yes, then copy message to the message buffer and
+call <strong><code>enqueue()</code></strong> to awake this pending
+process.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* Check caller queue. Use pointer pointers to keep code simple. */</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    xpp <span class="op">=</span> <span class="op">&amp;</span>caller_ptr<span class="op">-&gt;</span>p_caller_q<span class="op">;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(*</span>xpp <span class="op">!=</span> NIL_PROC<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>src <span class="op">==</span> ANY <span class="op">||</span> src <span class="op">==</span> proc_nr<span class="op">(*</span>xpp<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* Found acceptable message. Copy it and update status. */</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        CopyMess<span class="op">((*</span>xpp<span class="op">)-&gt;</span>p_nr<span class="op">,</span> <span class="op">*</span>xpp<span class="op">,</span> <span class="op">(*</span>xpp<span class="op">)-&gt;</span>p_messbuf<span class="op">,</span> caller_ptr<span class="op">,</span> m_ptr<span class="op">);</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(((*</span>xpp<span class="op">)-&gt;</span>p_rts_flags <span class="op">&amp;=</span> <span class="op">~</span>SENDING<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> enqueue<span class="op">(*</span>xpp<span class="op">);</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>            <span class="op">*</span>xpp <span class="op">=</span> <span class="op">(*</span>xpp<span class="op">)-&gt;</span>p_q_link<span class="op">;</span>        <span class="co">/* remove from queue */</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span><span class="op">(</span>OK<span class="op">);</span>             <span class="co">/* report success */</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    xpp <span class="op">=</span> <span class="op">&amp;(*</span>xpp<span class="op">)-&gt;</span>p_q_link<span class="op">;</span>        <span class="co">/* proceed to next */</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span></code></pre></div>
+<p>If there <strong>don’t have any message or notification.</strong><br>
+Call <strong><code>dequeue(caller_ptr)</code></strong> to block the
+caller, and set the
+<strong><code>p_rts_flags = RECEIVCING</code></strong>. Waiting for the
+message and notifications. <br> ( waiting for a
+<strong><code>enqueue(dst_ptr)</code></strong> to wake it )</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* No suitable message is available or the caller couldn&#39;t send in SENDREC. </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">   * Block the process trying to receive, unless the flags tell otherwise.</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">   */</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span> <span class="op">!</span> <span class="op">(</span>flags <span class="op">&amp;</span> NON_BLOCKING<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>      caller_ptr<span class="op">-&gt;</span>p_getfrom <span class="op">=</span> src<span class="op">;</span>      </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>      caller_ptr<span class="op">-&gt;</span>p_messbuf <span class="op">=</span> m_ptr<span class="op">;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> <span class="op">(</span>caller_ptr<span class="op">-&gt;</span>p_rts_flags <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> dequeue<span class="op">(</span>caller_ptr<span class="op">);</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>      caller_ptr<span class="op">-&gt;</span>p_rts_flags <span class="op">|=</span> RECEIVING<span class="op">;</span>     </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span><span class="op">(</span>OK<span class="op">);</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span><span class="op">(</span>ENOTREADY<span class="op">);</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 	</section>
 	</div>
     </div>
@@ -501,6 +782,10 @@ this.page.identifier = "OSDI/Chapter/Chapter2/6Interrupt.html"
    </div>
 </footer>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <script src="../../../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->

@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="../../../images/favicon.png" rel="icon">
-
 <link rel="canonical" href=".">
         <meta name="author" content="Angold Wang" />
 
@@ -26,6 +25,128 @@
 
     <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+  <style>
+
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+
+    li {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    a {
+      font-size: 18px;
+    }
+
+    k
+
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+    {   }
+
+    @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 
 </head>
 <body>
@@ -64,93 +185,229 @@
     <div class="row">
         <div class="col-lg-12">
 	<section id="content" class="body">
-
-
-
-<h3>Operating Systerms Design and Implementation Notes</h3>
-<h1>2. The History of Oprating Systerm(Early)</h1>
-<h5>By Jiawei Wang</h5>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#1-the-first-generation-194555-vacuum-tubes-and-plugboards">1. The First Generation (1945–55) Vacuum Tubes and Plugboards</a></li>
-<li><a href="#2-the-second-generation-195565-transistors-and-batch-systems">2. The Second Generation (1955–65) Transistors and Batch Systems</a>
+<li><a href="#operating-systerms-design-and-implementation-notes"
+id="toc-operating-systerms-design-and-implementation-notes">Operating
+Systerms Design and Implementation Notes</a></li>
+<li><a href="#the-history-of-oprating-systermearly"
+id="toc-the-history-of-oprating-systermearly">2. The History of Oprating
+Systerm(Early)</a>
 <ul>
-<li><a href="#3-the-third-generation-19651980-ics-and-multiprogramming">3. The Third Generation (1965–1980) ICs and Multiprogramming</a></li>
-</ul>
-</li>
-</ul>
-<!-- raw HTML omitted -->
-<p><img src="Sources/bbg.jpeg" alt="Charles Babbage"><!-- raw HTML omitted -->
-<strong>Operating systems have been evolving through the years.</strong><!-- raw HTML omitted -->
-<strong>The first true digital computer was designed by the English mathematician Charles Babbage (1792–1871).<!-- raw HTML omitted --> Although Babbage spent most of his life and for trying to build his ‘‘analytical engine,’’ he never got it working properly because it was purely mechanical, and the technology of his day could not produce the required wheels, gears, and cogs to the high precision that he needed.<!-- raw HTML omitted -->Needless to say, the analytical engine did not have an operating system.</strong><!-- raw HTML omitted --></p>
-<h2>1. The First Generation (1945–55) Vacuum Tubes and Plugboards</h2>
-<p><img src="Sources/VTP.jpg" alt="VTP"><!-- raw HTML omitted -->
-<strong>After Babbage’s unsuccessful efforts, little progress was made in constructing digital computers until World War II. Around the mid-1940s, Howard Aiken at Harvard University, John von Neumann at the Institute for Advanced Study in Princeton, J. Presper Eckert and John Mauchley at the University of Pennsylvania, and Konrad Zuse in Germany, among others, all succeeded in building calculating engines.</strong>
-<strong>The Calculating Engines used mechanical relays but were very slow, with cycle times measured in seconds.</strong><!-- raw HTML omitted --><!-- raw HTML omitted -->
-<strong>Then were replaced by vancuum tubes. These machines were enormous, filling up entire rooms with tens of thousands of vacuum tubes, but they were still millions of times slower than even the cheapest personal computers available today.</strong></p>
-<p><strong>In these early days, a single group of people designed, built, programmed, operated, and maintained each machine. All programming was done in absolute machine language, often by wiring up plugboards to control the machine’s basic functions. At that time. Programming languages were unknown (even assembly language was unknown). Operating systems were unheard of!</strong></p>
-<blockquote>
-<p>The usual mode of operation was for the programmer to sign up for a block of time on the signup sheet on the wall, then come down to the machine room, insert his or her plugboard into the computer, and spend the next few hours hoping that none of the 20,000 or so vacuum tubes would burn out during the run. Virtually all the problems were straightforward numerical calculations, such as grinding out tables of sines, cosines, and logarithms.</p>
-</blockquote>
-<h2>2. The Second Generation (1955–65) Transistors and Batch Systems</h2>
-<p><img src="Sources/IBM7094.jpg" alt="IBM7094">
-<a href="http://www.columbia.edu/cu/computinghistory/7094.html">IBM7094 from colunbia.edu</a><!-- raw HTML omitted -->
-<strong>The introduction of the transistor in the mid-1950s changed the picture radically.</strong><!-- raw HTML omitted -->
-<strong>At that time Computers became reliable enough that they could be manufactured and sold to paying customers with the expectation that they would continue to function long enough to get some useful work done.</strong><!-- raw HTML omitted -->
-<strong>And that is the first time, there was a clear separation between designers, builders, operators, programmers, and maintenance personnel.</strong><!-- raw HTML omitted --></p>
-<blockquote>
-<p><strong>These machines, now called mainframes, were locked away in specially air-conditioned computer rooms, with staffs of specially-trained professional operators to run them. Only big corporations or major government agencies or univer- sities could afford their multimillion dollar price tags. To run a job (i.e., a pro- gram or set of programs), a programmer would first write the program on paper (in FORTRAN or possibly even in assembly language), then punch it on cards. He would then bring the card deck down to the input room and hand it to one of the operators and go drink coffee until the output was ready.</strong></p>
-</blockquote>
-<blockquote>
-<p><strong>When the computer finished whatever job it was currently running, an operator would go over to the printer and tear off the output and carry it over to the out- put room, so that the programmer could collect it later. Then he would take one of the card decks that had been brought from the input room and read it in. If the FORTRAN compiler was needed, the operator would have to get it from a file cabinet and read it in.</strong></p>
-</blockquote>
-<p><strong>Much computer time was wasted while operators were walking around the machine room.</strong>
-<!-- raw HTML omitted -->
-<strong>To save time and the Computing sources(Computer is a high cost equipment). The solution generally adopted was the <!-- raw HTML omitted -->batch system<!-- raw HTML omitted --></strong>
-<!-- raw HTML omitted -->
-<strong>The idea behind it was to collect a tray full of jobs in the input room and then read them onto a magnetic tape using a small (relatively) inexpensive computer, such as the IBM 1401, which was very good at reading cards, copying tapes, and printing output, but not at all good at numerical calculations. Other, much more expensive machines, such as the IBM 7094, were used for the real computing.</strong>
-<!-- raw HTML omitted -->
-<strong>Here are the Process:</strong><!-- raw HTML omitted --></p>
-<p><img src="Sources/batch.png" alt="batch"><!-- raw HTML omitted --></p>
-<blockquote>
-<p><strong>After about an hour of collecting a batch of jobs, the tape was rewound and brought into the machine room, where it was mounted on a tape drive. The opera- tor then loaded a special program (the ancestor of today’s operating system), which read the first job from tape and ran it. The output was written onto a second tape, instead of being printed.</strong></p>
-</blockquote>
-<blockquote>
-<p><strong>After each job finished, the operating system automatically read the next job from the tape and began running it. When the whole batch was done, the operator removed the input and output tapes, replaced the input tape with the next batch, and brought the output tape to a 1401 for printing off line (i.e., not connected to the main computer).</strong>
-<!-- raw HTML omitted --></p>
-</blockquote>
-<p><strong>To make a better understand. Let's see more details of the input job:</strong><!-- raw HTML omitted --></p>
+<li><a href="#the-first-generation-194555-vacuum-tubes-and-plugboards"
+id="toc-the-first-generation-194555-vacuum-tubes-and-plugboards">1. The
+First Generation (1945–55) Vacuum Tubes and Plugboards</a></li>
+<li><a
+href="#the-second-generation-195565-transistors-and-batch-systems"
+id="toc-the-second-generation-195565-transistors-and-batch-systems">2.
+The Second Generation (1955–65) Transistors and Batch Systems</a>
 <ul>
-<li><strong>It started out with a $JOB card, specifying the maximum run time in minutes, the account number to be charged, and the programmer’s name.</strong></li>
-<li><strong>Then came a $FORTRAN card, telling the operating system to load the FORTRAN compiler from the system tape. It was followed by the program to be compiled.<!-- raw HTML omitted --></strong></li>
-<li><strong>Then a $LOAD card, directing the operating system to load the object program just compiled. (Compiled programs were often written on scratch tapes and had to be loaded explicitly.)</strong><!-- raw HTML omitted --></li>
-<li><strong>Next came the $RUN card, telling the operating system to run the program with the data following it.</strong></li>
-<li><strong>Finally, the $END card marked the end of the job.</strong></li>
+<li><a href="#the-third-generation-19651980-ics-and-multiprogramming"
+id="toc-the-third-generation-19651980-ics-and-multiprogramming">3. The
+Third Generation (1965–1980) ICs and Multiprogramming</a></li>
+</ul></li>
+</ul></li>
 </ul>
-<p><img src="Sources/FMS.png" alt="FMS"></p>
-<p><strong>These primitive control cards were the forerunners of modern job control languages and command interpreters.</strong><!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
-<p><strong>Large second-generation computers were used mostly for scientific and engineering calculations, such as solving the partial differential equations that often occur in physics and engineering. They were largely programmed in FORTRAN and assembly language. Typical operating systems were FMS (the Fortran Monitor System) and IBSYS, IBM’s operating system for the 7094.</strong>
-<!-- raw HTML omitted --></p>
-<h3>3. The Third Generation (1965–1980) ICs and Multiprogramming</h3>
-<p><strong>By the early 1960s, most computer manufacturers had two distinct, and totally incompatible, product lines. On the one hand there were the word-oriented, large-scale scientific computers, such as the 7094, which were used for numerical calculations in science and engineering. On the other hand, there were the character-oriented, commercial computers, such as the 1401, which were widely used for tape sorting and printing by banks and insurance companies.</strong><!-- raw HTML omitted --></p>
-<p><strong>Developing, maintaining, and marketing two completely different product lines was an expensive proposition for the computer manufacturers. In addition, many new computer customers initially needed a small machine but later outgrew it and wanted a bigger machine that had the same architectures as their current one so it could run all their old programs, but faster.</strong><!-- raw HTML omitted --></p>
-<p><strong>The advent of System/360 means that computers in the world have a common way of interacting. They all share the operating system codenamed OS/360, and not all other products have replaced the customized operating system. Applying a single operating system to the entire series of products is the key to System/360's success. And because of that: Application-level compatibility (with some restrictions) for System/360 software is maintained to the present day with the System z mainframe servers.</strong>
-<!-- raw HTML omitted --></p>
-<p><img src="Sources/IBMSYS360M65.jpg" alt="IBMSYS360M65.jpg">
-<a href="http://www.corestore.org">IBM Systerm 360 Model 65 upload by Michael J.Ross</a></p>
+</nav>
+<h3 id="operating-systerms-design-and-implementation-notes">Operating
+Systerms Design and Implementation Notes</h3>
+<h1 id="the-history-of-oprating-systermearly">2. The History of Oprating
+Systerm(Early)</h1>
+<h5 id="by-jiawei-wang">By Jiawei Wang</h5>
+<p><br></p>
+<!-- vim-markdown-toc GFM -->
+<ul>
+<li><a
+href="#1-the-first-generation-194555-vacuum-tubes-and-plugboards">1. The
+First Generation (1945–55) Vacuum Tubes and Plugboards</a></li>
+<li><a
+href="#2-the-second-generation-195565-transistors-and-batch-systems">2.
+The Second Generation (1955–65) Transistors and Batch Systems</a>
+<ul>
+<li><a
+href="#3-the-third-generation-19651980-ics-and-multiprogramming">3. The
+Third Generation (1965–1980) ICs and Multiprogramming</a></li>
+</ul></li>
+</ul>
+<!-- vim-markdown-toc -->
+<p><img src="Sources/bbg.jpeg" alt="Charles Babbage" /><br>
+<strong>Operating systems have been evolving through the
+years.</strong><br> <strong>The first true digital computer was designed
+by the English mathematician Charles Babbage (1792–1871).<br> Although
+Babbage spent most of his life and for trying to build his ‘‘analytical
+engine,’’ he never got it working properly because it was purely
+mechanical, and the technology of his day could not produce the required
+wheels, gears, and cogs to the high precision that he
+needed.<br>Needless to say, the analytical engine did not have an
+operating system.</strong><br></p>
+<h2 id="the-first-generation-194555-vacuum-tubes-and-plugboards">1. The
+First Generation (1945–55) Vacuum Tubes and Plugboards</h2>
+<p><img src="Sources/VTP.jpg" alt="VTP" /><br> <strong>After Babbage’s
+unsuccessful efforts, little progress was made in constructing digital
+computers until World War II. Around the mid-1940s, Howard Aiken at
+Harvard University, John von Neumann at the Institute for Advanced Study
+in Princeton, J. Presper Eckert and John Mauchley at the University of
+Pennsylvania, and Konrad Zuse in Germany, among others, all succeeded in
+building calculating engines.</strong> <strong>The Calculating Engines
+used mechanical relays but were very slow, with cycle times measured in
+seconds.</strong><br><br> <strong>Then were replaced by vancuum tubes.
+These machines were enormous, filling up entire rooms with tens of
+thousands of vacuum tubes, but they were still millions of times slower
+than even the cheapest personal computers available today.</strong></p>
+<p><strong>In these early days, a single group of people designed,
+built, programmed, operated, and maintained each machine. All
+programming was done in absolute machine language, often by wiring up
+plugboards to control the machine’s basic functions. At that time.
+Programming languages were unknown (even assembly language was unknown).
+Operating systems were unheard of!</strong></p>
 <blockquote>
-<p><strong>The development process of System/360 is regarded as the biggest gamble in the history of computer development. In order to develop System/360, a large computer, IBM decided to recruit more than 60,000 new employees and establish five new factories.</strong></p>
+<p>The usual mode of operation was for the programmer to sign up for a
+block of time on the signup sheet on the wall, then come down to the
+machine room, insert his or her plugboard into the computer, and spend
+the next few hours hoping that none of the 20,000 or so vacuum tubes
+would burn out during the run. Virtually all the problems were
+straightforward numerical calculations, such as grinding out tables of
+sines, cosines, and logarithms.</p>
+</blockquote>
+<h2 id="the-second-generation-195565-transistors-and-batch-systems">2.
+The Second Generation (1955–65) Transistors and Batch Systems</h2>
+<p><img src="Sources/IBM7094.jpg" alt="IBM7094" /> <a
+href="http://www.columbia.edu/cu/computinghistory/7094.html">IBM7094
+from colunbia.edu</a><br> <strong>The introduction of the transistor in
+the mid-1950s changed the picture radically.</strong><br> <strong>At
+that time Computers became reliable enough that they could be
+manufactured and sold to paying customers with the expectation that they
+would continue to function long enough to get some useful work
+done.</strong><br> <strong>And that is the first time, there was a clear
+separation between designers, builders, operators, programmers, and
+maintenance personnel.</strong><br> &gt; <strong>These machines, now
+called mainframes, were locked away in specially air-conditioned
+computer rooms, with staffs of specially-trained professional operators
+to run them. Only big corporations or major government agencies or
+univer- sities could afford their multimillion dollar price tags. To run
+a job (i.e., a pro- gram or set of programs), a programmer would first
+write the program on paper (in FORTRAN or possibly even in assembly
+language), then punch it on cards. He would then bring the card deck
+down to the input room and hand it to one of the operators and go drink
+coffee until the output was ready.</strong></p>
+<blockquote>
+<p><strong>When the computer finished whatever job it was currently
+running, an operator would go over to the printer and tear off the
+output and carry it over to the out- put room, so that the programmer
+could collect it later. Then he would take one of the card decks that
+had been brought from the input room and read it in. If the FORTRAN
+compiler was needed, the operator would have to get it from a file
+cabinet and read it in.</strong></p>
+</blockquote>
+<p><strong>Much computer time was wasted while operators were walking
+around the machine room.</strong> <br> <strong>To save time and the
+Computing sources(Computer is a high cost equipment). The solution
+generally adopted was the <u>batch system</u></strong> <br> <strong>The
+idea behind it was to collect a tray full of jobs in the input room and
+then read them onto a magnetic tape using a small (relatively)
+inexpensive computer, such as the IBM 1401, which was very good at
+reading cards, copying tapes, and printing output, but not at all good
+at numerical calculations. Other, much more expensive machines, such as
+the IBM 7094, were used for the real computing.</strong> <br>
+<strong>Here are the Process:</strong><br></p>
+<p><img src="Sources/batch.png" alt="batch" /><br> &gt; <strong>After
+about an hour of collecting a batch of jobs, the tape was rewound and
+brought into the machine room, where it was mounted on a tape drive. The
+opera- tor then loaded a special program (the ancestor of today’s
+operating system), which read the first job from tape and ran it. The
+output was written onto a second tape, instead of being
+printed.</strong></p>
+<blockquote>
+<p><strong>After each job finished, the operating system automatically
+read the next job from the tape and began running it. When the whole
+batch was done, the operator removed the input and output tapes,
+replaced the input tape with the next batch, and brought the output tape
+to a 1401 for printing off line (i.e., not connected to the main
+computer).</strong> <br></p>
+</blockquote>
+<p><strong>To make a better understand. Let’s see more details of the
+input job:</strong><br> + <strong>It started out with a $JOB card,
+specifying the maximum run time in minutes, the account number to be
+charged, and the programmer’s name.</strong> + <strong>Then came a
+$FORTRAN card, telling the operating system to load the FORTRAN compiler
+from the system tape. It was followed by the program to be
+compiled.<br></strong> + <strong>Then a $LOAD card, directing the
+operating system to load the object program just compiled. (Compiled
+programs were often written on scratch tapes and had to be loaded
+explicitly.)</strong><br> + <strong>Next came the $RUN card, telling the
+operating system to run the program with the data following it.</strong>
++ <strong>Finally, the $END card marked the end of the job.</strong></p>
+<figure>
+<img src="Sources/FMS.png" alt="FMS" />
+<figcaption aria-hidden="true">FMS</figcaption>
+</figure>
+<p><strong>These primitive control cards were the forerunners of modern
+job control languages and command interpreters.</strong><br> <br></p>
+<p><strong>Large second-generation computers were used mostly for
+scientific and engineering calculations, such as solving the partial
+differential equations that often occur in physics and engineering. They
+were largely programmed in FORTRAN and assembly language. Typical
+operating systems were FMS (the Fortran Monitor System) and IBSYS, IBM’s
+operating system for the 7094.</strong> <br></p>
+<h3 id="the-third-generation-19651980-ics-and-multiprogramming">3. The
+Third Generation (1965–1980) ICs and Multiprogramming</h3>
+<p><strong>By the early 1960s, most computer manufacturers had two
+distinct, and totally incompatible, product lines. On the one hand there
+were the word-oriented, large-scale scientific computers, such as the
+7094, which were used for numerical calculations in science and
+engineering. On the other hand, there were the character-oriented,
+commercial computers, such as the 1401, which were widely used for tape
+sorting and printing by banks and insurance companies.</strong><br></p>
+<p><strong>Developing, maintaining, and marketing two completely
+different product lines was an expensive proposition for the computer
+manufacturers. In addition, many new computer customers initially needed
+a small machine but later outgrew it and wanted a bigger machine that
+had the same architectures as their current one so it could run all
+their old programs, but faster.</strong><br></p>
+<p><strong>The advent of System/360 means that computers in the world
+have a common way of interacting. They all share the operating system
+codenamed OS/360, and not all other products have replaced the
+customized operating system. Applying a single operating system to the
+entire series of products is the key to System/360’s success. And
+because of that: Application-level compatibility (with some
+restrictions) for System/360 software is maintained to the present day
+with the System z mainframe servers.</strong> <br></p>
+<p><img src="Sources/IBMSYS360M65.jpg" alt="IBMSYS360M65.jpg" /> <a
+href="http://www.corestore.org">IBM Systerm 360 Model 65 upload by
+Michael J.Ross</a></p>
+<blockquote>
+<p><strong>The development process of System/360 is regarded as the
+biggest gamble in the history of computer development. In order to
+develop System/360, a large computer, IBM decided to recruit more than
+60,000 new employees and establish five new factories.</strong></p>
 </blockquote>
 <blockquote>
-<p><strong>Gene Amdal is the chief architect of the system, and then the project manager Frederick P. Brooks (Jr.) later wrote <a href="https://en.wikipedia.org/wiki/The_Mythical_Man-Month">&quot;The Mythical Man-Month: The Way of Software Project Management&quot;</a> based on the development experience of this project</strong></p>
+<p><strong>Gene Amdal is the chief architect of the system, and then the
+project manager Frederick P. Brooks (Jr.) later wrote <a
+href="https://en.wikipedia.org/wiki/The_Mythical_Man-Month">“The
+Mythical Man-Month: The Way of Software Project Management”</a> based on
+the development experience of this project</strong></p>
 </blockquote>
 <blockquote>
-<p><strong>The 360 was a series of software-compatible machines ranging from 1401-sized to much more powerful than the 7094. The machines dif- fered only in price and performance (maximum memory, processor speed, number of I/O devices permitted, and so forth). Since all the machines had the same architecture and instruction set, programs written for one machine could run on all the others, at least in theory. Furthermore, the 360 was designed to handle both scientific (i.e., numerical) and commercial computing. Thus a single family of machines could satisfy the needs of all customers. In subsequent years, IBM has come out with compatible successors to the 360 line, using more modern technology, known as the 370, 4300, 3080, 3090, and Z series.</strong></p>
+<p><strong>The 360 was a series of software-compatible machines ranging
+from 1401-sized to much more powerful than the 7094. The machines dif-
+fered only in price and performance (maximum memory, processor speed,
+number of I/O devices permitted, and so forth). Since all the machines
+had the same architecture and instruction set, programs written for one
+machine could run on all the others, at least in theory. Furthermore,
+the 360 was designed to handle both scientific (i.e., numerical) and
+commercial computing. Thus a single family of machines could satisfy the
+needs of all customers. In subsequent years, IBM has come out with
+compatible successors to the 360 line, using more modern technology,
+known as the 370, 4300, 3080, 3090, and Z series.</strong></p>
 </blockquote>
-<!-- raw HTML omitted -->
-<p><strong>The 360 was the first major computer line to use (small-scale) Integrated Circuits (ICs), thus providing a major price/performance advantage over the second generation machines, which were built up from individual transistors. It was an immediate success, and the idea of a family of compatible computers was soon adopted by all the other major manufacturers.</strong></p>
+<p><br></p>
+<p><strong>The 360 was the first major computer line to use
+(small-scale) Integrated Circuits (ICs), thus providing a major
+price/performance advantage over the second generation machines, which
+were built up from individual transistors. It was an immediate success,
+and the idea of a family of compatible computers was soon adopted by all
+the other major manufacturers.</strong></p>
 	</section>
 	</div>
     </div>
@@ -190,6 +447,10 @@ this.page.identifier = "OSDI/Chapter/Chapter1/2HSE.html"
    </div>
 </footer>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <script src="../../../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->

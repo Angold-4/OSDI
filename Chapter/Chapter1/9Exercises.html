@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="../../../images/favicon.png" rel="icon">
-
 <link rel="canonical" href=".">
         <meta name="author" content="Angold Wang" />
 
@@ -26,6 +25,128 @@
 
     <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+  <style>
+
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+
+    li {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    a {
+      font-size: 18px;
+    }
+
+    k
+
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+    {   }
+
+    @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 
 </head>
 <body>
@@ -64,123 +185,242 @@
     <div class="row">
         <div class="col-lg-12">
 	<section id="content" class="body">
-
-
-
-<h3>Operating Systerms Design and Implementation Notes</h3>
-<h5>By Jiawei Wang</h5>
-<h1>9. Exercises for Chapter 1</h1>
-<!-- raw HTML omitted -->
-<h3>Question1</h3>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#operating-systerms-design-and-implementation-notes"
+id="toc-operating-systerms-design-and-implementation-notes">Operating
+Systerms Design and Implementation Notes</a></li>
+<li><a href="#exercises-for-chapter-1"
+id="toc-exercises-for-chapter-1">9. Exercises for Chapter 1</a>
+<ul>
+<li><a href="#question1" id="toc-question1">Question1</a></li>
+<li><a href="#question2" id="toc-question2">Question2</a></li>
+<li><a href="#question3" id="toc-question3">Question3</a></li>
+<li><a href="#question4" id="toc-question4">Question4</a></li>
+<li><a href="#question5" id="toc-question5">Question5</a></li>
+<li><a href="#question6" id="toc-question6">Question6</a></li>
+<li><a href="#question7" id="toc-question7">Question7</a></li>
+<li><a href="#question8" id="toc-question8">Question8</a></li>
+<li><a href="#question9" id="toc-question9">Question9</a></li>
+<li><a href="#question10" id="toc-question10">Question10</a></li>
+<li><a href="#question11" id="toc-question11">Question11</a></li>
+<li><a href="#question12" id="toc-question12">Question12</a></li>
+<li><a href="#question13" id="toc-question13">Question13</a></li>
+<li><a href="#question14" id="toc-question14">Question14</a></li>
+<li><a href="#question15" id="toc-question15">Question15</a></li>
+<li><a href="#question16" id="toc-question16">Question16</a></li>
+</ul></li>
+</ul>
+</nav>
+<h3 id="operating-systerms-design-and-implementation-notes">Operating
+Systerms Design and Implementation Notes</h3>
+<h5 id="by-jiawei-wang">By Jiawei Wang</h5>
+<h1 id="exercises-for-chapter-1">9. Exercises for Chapter 1</h1>
+<p><br></p>
+<h3 id="question1">Question1</h3>
 <blockquote>
-<p><strong>What are the two main functions of an operating system?</strong><!-- raw HTML omitted --></p>
+<p><strong>What are the two main functions of an operating
+system?</strong><br></p>
 </blockquote>
-<ol>
-<li><strong>Provide the users with an extended (i.e., virtual) machine</strong></li>
-<li><strong>Manage the I/O devices and other system resources.</strong></li>
+<ol type="1">
+<li><strong>Provide the users with an extended (i.e., virtual)
+machine</strong></li>
+<li><strong>Manage the I/O devices and other system
+resources.</strong></li>
 </ol>
-<h3>Question2</h3>
+<h3 id="question2">Question2</h3>
 <blockquote>
-<p><strong>What is the difference between kernel mode and user mode? <!-- raw HTML omitted -->Why is the difference important to an operating system?</strong></p>
+<p><strong>What is the difference between kernel mode and user mode?
+<br>Why is the difference important to an operating system?</strong></p>
 </blockquote>
-<p><strong>In kernel mode, every machine instruction is allowed, as is access to all the I/O devices. In user mode, many sensitive instructions are prohibited.</strong><!-- raw HTML omitted -->
-<strong>Operating systems use these two modes to encapsulate user programs. Running user programs in user mode keeps them from doing I/O and prevents them from interfering with each other and with the kernel.</strong></p>
-<h3>Question3</h3>
+<p><strong>In kernel mode, every machine instruction is allowed, as is
+access to all the I/O devices. In user mode, many sensitive instructions
+are prohibited.</strong><br> <strong>Operating systems use these two
+modes to encapsulate user programs. Running user programs in user mode
+keeps them from doing I/O and prevents them from interfering with each
+other and with the kernel.</strong></p>
+<h3 id="question3">Question3</h3>
 <blockquote>
 <p><strong>What is multiprogramming?</strong></p>
 </blockquote>
-<p><strong>Multiprogramming is the rapid switching of the CPU between multiple processes in memory. It is commonly used to keep the CPU busy while one or more processes are doing I/O.</strong></p>
-<h3>Question4</h3>
+<p><strong>Multiprogramming is the rapid switching of the CPU between
+multiple processes in memory. It is commonly used to keep the CPU busy
+while one or more processes are doing I/O.</strong></p>
+<h3 id="question4">Question4</h3>
 <blockquote>
-<p><strong>What is spooling? Do you think that advanced personal computers will have spooling as a standard feature in the future?</strong></p>
+<p><strong>What is spooling? Do you think that advanced personal
+computers will have spooling as a standard feature in the
+future?</strong></p>
 </blockquote>
-<p><strong>First Please check the <a href="https://en.wikipedia.org/wiki/Spooling">Spooling</a>.it is to use software to simulate offline technology</strong><!-- raw HTML omitted -->
-<strong>the &quot;Spool&quot; stands for Simultaneous Peripheral Operations On-Line, which I've be metioned in the history of OS.</strong><!-- raw HTML omitted --></p>
+<p><strong>First Please check the <a
+href="https://en.wikipedia.org/wiki/Spooling">Spooling</a>.it is to use
+software to simulate offline technology</strong><br> <strong>the “Spool”
+stands for Simultaneous Peripheral Operations On-Line, which I’ve be
+metioned in the history of OS.</strong><br></p>
 <ul>
-<li><strong><!-- raw HTML omitted -->Input spooling<!-- raw HTML omitted --> is the technique of reading in jobs, for example, from cards, onto the disk, so that when the currently executing processes are finished, there will be work waiting for the CPU.</strong></li>
-<li><strong><!-- raw HTML omitted -->Output spooling<!-- raw HTML omitted --> consists of first copying printable files to disk before printing them, rather than printing directly as the output is generated</strong>
-<!-- raw HTML omitted --></li>
+<li><strong><u>Input spooling</u> is the technique of reading in jobs,
+for example, from cards, onto the disk, so that when the currently
+executing processes are finished, there will be work waiting for the
+CPU.</strong></li>
+<li><strong><u>Output spooling</u> consists of first copying printable
+files to disk before printing them, rather than printing directly as the
+output is generated</strong> <br></li>
 </ul>
-<p><strong>Input spooling on a personal computer is not very likely, but output spooling is widely used in nowadays computers.</strong></p>
-<h3>Question5</h3>
+<p><strong>Input spooling on a personal computer is not very likely, but
+output spooling is widely used in nowadays computers.</strong></p>
+<h3 id="question5">Question5</h3>
 <blockquote>
-<p><strong>On early computers, every byte of data read or written was directly handled by the CPU (i.e., there was no DMA—Direct Memory Access). What implications does this organization have for multiprogramming?</strong></p>
+<p><strong>On early computers, every byte of data read or written was
+directly handled by the CPU (i.e., there was no DMA—Direct Memory
+Access). What implications does this organization have for
+multiprogramming?</strong></p>
 </blockquote>
-<p><strong>The DMA(Direct Memory Access):<!-- raw HTML omitted -->First, In early CPU, when data from I/O wants to access the memory, it need to go through the CPU then to the Memory.</strong><!-- raw HTML omitted -->
-<strong>This bring these actions not very effecient. By using DMA, which means add a DMA Controller between I/O and Memory and the CPU don't need to wait while sending the data:<!-- raw HTML omitted --></strong></p>
-<p><img src="Sources/DMA.png" alt="DMA">
-<!-- raw HTML omitted --></p>
-<p><strong>The prime reason for multiprogramming is to give the CPU something to do while waiting for I/O to complete. If there is no DMA, the CPU is fully occupied doing I/O, so there is nothing to be gained (at least in terms of CPU utilization) by multiprogramming.</strong></p>
-<h3>Question6</h3>
+<p><strong>The DMA(Direct Memory Access):<br>First, In early CPU, when
+data from I/O wants to access the memory, it need to go through the CPU
+then to the Memory.</strong><br> <strong>This bring these actions not
+very effecient. By using DMA, which means add a DMA Controller between
+I/O and Memory and the CPU don’t need to wait while sending the
+data:<br></strong></p>
+<p><img src="Sources/DMA.png" alt="DMA" /> <br></p>
+<p><strong>The prime reason for multiprogramming is to give the CPU
+something to do while waiting for I/O to complete. If there is no DMA,
+the CPU is fully occupied doing I/O, so there is nothing to be gained
+(at least in terms of CPU utilization) by multiprogramming.</strong></p>
+<h3 id="question6">Question6</h3>
 <blockquote>
-<p><strong>List some differences between personal computer operating systems and mainframe operating systems.</strong></p>
+<p><strong>List some differences between personal computer operating
+systems and mainframe operating systems.</strong></p>
 </blockquote>
 <ul>
-<li><strong>Personal computer systems are always interactive, often with only a single user.</strong></li>
-<li><strong>Mainframe systems nearly always emphasize batch or timesharing with many users</strong></li>
-<li><strong>On Mainframe systems: Protection is much more a issue as well as the efficient use of all resources</strong></li>
+<li><strong>Personal computer systems are always interactive, often with
+only a single user.</strong></li>
+<li><strong>Mainframe systems nearly always emphasize batch or
+timesharing with many users</strong></li>
+<li><strong>On Mainframe systems: Protection is much more a issue as
+well as the efficient use of all resources</strong></li>
 </ul>
-<h3>Question7</h3>
+<h3 id="question7">Question7</h3>
 <blockquote>
-<p><strong>Give one reason why a closed-source proprietary operating system like Windows should have better quality than an open-source operating system like Linux. Now give one reason why an open-source operating system like Linux should have better quality than a closed-source proprietary operating system like Windows.</strong></p>
+<p><strong>Give one reason why a closed-source proprietary operating
+system like Windows should have better quality than an open-source
+operating system like Linux. Now give one reason why an open-source
+operating system like Linux should have better quality than a
+closed-source proprietary operating system like Windows.</strong></p>
 </blockquote>
 <ul>
-<li>
-<p><strong>Closed Source: Company can vet the programmers, establish programming standards, and enforce a development and testing methodology, also the Closed Source means can help to protect the core technology for big company</strong></p>
-</li>
-<li>
-<p><strong>Open Source: more people look at the code, so there is a form of peer review and the odds of a bug slipping in are much smaller with so much more inspection.</strong></p>
-</li>
+<li><p><strong>Closed Source: Company can vet the programmers, establish
+programming standards, and enforce a development and testing
+methodology, also the Closed Source means can help to protect the core
+technology for big company</strong></p></li>
+<li><p><strong>Open Source: more people look at the code, so there is a
+form of peer review and the odds of a bug slipping in are much smaller
+with so much more inspection.</strong></p></li>
 </ul>
-<h3>Question8</h3>
+<h3 id="question8">Question8</h3>
 <blockquote>
-<p><strong>In view of the fact that the mere existence of a superuser can lead to all kinds of security problems, why does such a concept exist?</strong></p>
+<p><strong>In view of the fact that the mere existence of a superuser
+can lead to all kinds of security problems, why does such a concept
+exist?</strong></p>
 </blockquote>
-<p><strong>It is often essential to have someone who can do things that are normally forbidden. For example, a user starts up a job that generates an infinite amount of output. The user then logs out and goes on a three-week vacation to London. Sooner or later the disk will fill up, and the superuser will have to manu- ally kill the process and remove the output file. Many other such examples exist.</strong></p>
-<h3>Question9</h3>
+<p><strong>It is often essential to have someone who can do things that
+are normally forbidden. For example, a user starts up a job that
+generates an infinite amount of output. The user then logs out and goes
+on a three-week vacation to London. Sooner or later the disk will fill
+up, and the superuser will have to manu- ally kill the process and
+remove the output file. Many other such examples exist.</strong></p>
+<h3 id="question9">Question9</h3>
 <blockquote>
-<p><strong>Why is the process table needed in a timesharing system? Is it also needed in personal computer systems in which only one process exists, that process taking over the entire machine until it is finished?</strong></p>
+<p><strong>Why is the process table needed in a timesharing system? Is
+it also needed in personal computer systems in which only one process
+exists, that process taking over the entire machine until it is
+finished?</strong></p>
 </blockquote>
-<p><strong>The process table is needed to store the state of a process that is currently suspended, either ready or blocked. It is not needed in a single process system because the single process is never suspended.</strong></p>
-<h3>Question10</h3>
+<p><strong>The process table is needed to store the state of a process
+that is currently suspended, either ready or blocked. It is not needed
+in a single process system because the single process is never
+suspended.</strong></p>
+<h3 id="question10">Question10</h3>
 <blockquote>
-<p><strong>What is the essential difference between a block special file and a character special file?</strong></p>
+<p><strong>What is the essential difference between a block special file
+and a character special file?</strong></p>
 </blockquote>
-<p><strong>Block special files consist of numbered blocks, each of which can be read or written independently of all the other ones. It is possible to seek to any block and start reading or writing. This is not possible with character special files.</strong></p>
-<p><strong>The name “block device” comes from the fact that the corresponding hardware typically reads and writes a whole block at a time</strong><!-- raw HTML omitted --></p>
-<p><strong>The name “character device” comes from the fact that each character is handled individually. Writing a byte to a character device might cause it to be displayed on screen, output on a serial port, converted into a sound, ...<!-- raw HTML omitted --></strong></p>
-<p><strong>For more, see <a href="https://unix.stackexchange.com/questions/60034/what-are-character-special-and-block-special-files-in-a-unix-system">Unix.stackexchange.com</a>:<!-- raw HTML omitted --></strong></p>
-<h3>Question11</h3>
+<p><strong>Block special files consist of numbered blocks, each of which
+can be read or written independently of all the other ones. It is
+possible to seek to any block and start reading or writing. This is not
+possible with character special files.</strong></p>
+<p><strong>The name “block device” comes from the fact that the
+corresponding hardware typically reads and writes a whole block at a
+time</strong><br></p>
+<p><strong>The name “character device” comes from the fact that each
+character is handled individually. Writing a byte to a character device
+might cause it to be displayed on screen, output on a serial port,
+converted into a sound, …<br></strong></p>
+<p><strong>For more, see <a
+href="https://unix.stackexchange.com/questions/60034/what-are-character-special-and-block-special-files-in-a-unix-system">Unix.stackexchange.com</a>:<br></strong></p>
+<h3 id="question11">Question11</h3>
 <blockquote>
-<p><strong>In MINIX 3 if user 2 links to a file owned by user 1, then user 1 removes the file, what happens when user 2 tries to read the file?</strong></p>
+<p><strong>In MINIX 3 if user 2 links to a file owned by user 1, then
+user 1 removes the file, what happens when user 2 tries to read the
+file?</strong></p>
 </blockquote>
-<p><strong>The read works normally. User 2’s directory entry contains a pointer (fd) to the i-node of the file, and the reference count in the i-node was incremented when user 2 linked to it. So the reference count will be nonzero and the file itself will not be removed when user 1 removes his directory entry for it. Only when all directory entries for a file have been removed will its i-node and data actually vanish.</strong></p>
-<h3>Question12</h3>
+<p><strong>The read works normally. User 2’s directory entry contains a
+pointer (fd) to the i-node of the file, and the reference count in the
+i-node was incremented when user 2 linked to it. So the reference count
+will be nonzero and the file itself will not be removed when user 1
+removes his directory entry for it. Only when all directory entries for
+a file have been removed will its i-node and data actually
+vanish.</strong></p>
+<h3 id="question12">Question12</h3>
 <blockquote>
-<p><strong>Are pipes an essential facility? Would major functionality be lost if they were not available?</strong></p>
+<p><strong>Are pipes an essential facility? Would major functionality be
+lost if they were not available?</strong></p>
 </blockquote>
-<p><strong>No, they are not so essential. In the absence of pipes, program 1 could write its output to a file and program 2 could read the file. While this is less efficient than using a pipe between them, and uses unnecessary disk space, in most circumstances it would work adequately.</strong><!-- raw HTML omitted -->
-<strong>If you want to see the difference between pipe and file. Please check this <a href="https://github.com/Angold-4/OSDI/blob/master/Chapters/Chapter1/6Syscall-2.md#pipe----create-pipe">Note</a>.</strong></p>
-<h3>Question13</h3>
+<p><strong>No, they are not so essential. In the absence of pipes,
+program 1 could write its output to a file and program 2 could read the
+file. While this is less efficient than using a pipe between them, and
+uses unnecessary disk space, in most circumstances it would work
+adequately.</strong><br> <strong>If you want to see the difference
+between pipe and file. Please check this <a
+href="https://github.com/Angold-4/OSDI/blob/master/Chapters/Chapter1/6Syscall-2.md#pipe----create-pipe">Note</a>.</strong></p>
+<h3 id="question13">Question13</h3>
 <blockquote>
-<p><strong>Windows does not have a <code>fork()</code> system call, yet it is able to create new processes. Make an educated guess about the semantics of the system call Windows uses to create new processes.</strong></p>
+<p><strong>Windows does not have a <code>fork()</code> system call, yet
+it is able to create new processes. Make an educated guess about the
+semantics of the system call Windows uses to create new
+processes.</strong></p>
 </blockquote>
-<p><strong>Windows has a call <code>spawn()</code> that creates a new process and starts a specific program in it. It is effectively a combination of <code>fork()</code> and <code>exec()</code>.</strong></p>
-<h3>Question14</h3>
+<p><strong>Windows has a call <code>spawn()</code> that creates a new
+process and starts a specific program in it. It is effectively a
+combination of <code>fork()</code> and <code>exec()</code>.</strong></p>
+<h3 id="question14">Question14</h3>
 <blockquote>
-<p><strong>Why is the chroot system call limited to the superuser?</strong></p>
+<p><strong>Why is the chroot system call limited to the
+superuser?</strong></p>
 </blockquote>
-<p><strong>If an ordinary user could set the root directory anywhere in the tree, he could create a file etc/passwd in his home directory, and then make that the root directory. He could then execute some command, such as su or login that reads the password file, and trick the system into using his password file, instead of the real one.</strong></p>
-<h3>Question15</h3>
+<p><strong>If an ordinary user could set the root directory anywhere in
+the tree, he could create a file etc/passwd in his home directory, and
+then make that the root directory. He could then execute some command,
+such as su or login that reads the password file, and trick the system
+into using his password file, instead of the real one.</strong></p>
+<h3 id="question15">Question15</h3>
 <blockquote>
-<p><strong>Why does MINIX 3 have the program update running in the background all the time?</strong></p>
+<p><strong>Why does MINIX 3 have the program update running in the
+background all the time?</strong></p>
 </blockquote>
-<p><strong>When a user program writes on a file, the data does not really go to the disk. It goes to the buffer cache(not fast enough). The update program issues SYNC calls every 30 seconds to force the dirty blocks in the cache onto the disk, in order to limit the potential damage that a system crash could cause.</strong></p>
-<h3>Question16</h3>
+<p><strong>When a user program writes on a file, the data does not
+really go to the disk. It goes to the buffer cache(not fast enough). The
+update program issues SYNC calls every 30 seconds to force the dirty
+blocks in the cache onto the disk, in order to limit the potential
+damage that a system crash could cause.</strong></p>
+<h3 id="question16">Question16</h3>
 <blockquote>
-<p><strong>In this Chapter1, we learned many System Calls in Minix3. Which call do you think is likely to execute most quickly. Explain your answer.</strong></p>
+<p><strong>In this Chapter1, we learned many System Calls in Minix3.
+Which call do you think is likely to execute most quickly. Explain your
+answer.</strong></p>
 </blockquote>
-<p><strong>The getpid, getuid, getgid, and getpgrp, calls just extract a word from the pro- cess table and return it. They will execute very quickly. They are all equally fast.</strong></p>
+<p><strong>The getpid, getuid, getgid, and getpgrp, calls just extract a
+word from the pro- cess table and return it. They will execute very
+quickly. They are all equally fast.</strong></p>
 	</section>
 	</div>
     </div>
@@ -220,6 +460,10 @@ this.page.identifier = "OSDI/Chapter/Chapter1/9Exercises.html"
    </div>
 </footer>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <script src="../../../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
