@@ -1,11 +1,19 @@
-# "Operating System Design and Implementation" Notes
+# "Operating System Design and Implementation"
 
-* **Notes since Aug 27, 2020**
-* **Still on progress**
+* **Notes related to Operating Systems since Aug 27, 2020**
 * **I don't have copyright**
 * **[Pdf Book download](https://github.com/Angold-4/OSDI/raw/master/Operating%20Systems%20Design%20and%20Implementation%2C%203rd%20Edition.pdf)** Just for learning
 
+
 # Contents
+* **[1. Introduction](docs/lectures/1Introduction.md)**
+* **[2. Virtual Memory](docs/lectures/2VirtualMemory.md)**
+* **[3. Special Topic: Traps](docs/lectures/3Traps.md)**
+* **[4. Interrupts](docs/lectures/4Interrupts.md)**
+* **[5. Scheduler](docs/lectures/5Scheduler.md)**
+* **[6. File System - Part i](docs/lectures/6FS.md)**
+* **[7. File System - Part ii](docs/lectures/7FSii.md)**
+
 ## 1. Introduction
 * **1. [Introduction to Operating Systerm](Chapter/Chapter1/1OS.html)**
 * **2. [The History of Oprating Systerm(Early)](Chapter/Chapter1/2HSE.html)**
