@@ -1,21 +1,13 @@
-## "Operating System Design and Implementation" Notes
+## Operating System Design and Implementation Notes
 
 <img src="Chapter/Sources/TitleOSDI.png" align="right" weight="300" height="400"/>
 
-> **Notes since Aug 27, 2020**<br>
+> **OS Notes since Aug 27, 2020**<br>
 > **I don't have copyright**<br>
-> **You can find the web version at [angold4.org/OSDI](https://angold4.org/OSDI/) and [angold4.org/os](https://angold4.org/os/).<br>
-> **[Pdf Book download](https://github.com/Angold-4/OSDI/raw/master/Operating%20Systems%20Design%20and%20Implementation%2C%203rd%20Edition.pdf)** Just for learning<br>
+> **Web version at [angold4.org/OSDI](https://angold4.org/OSDI/) and [angold4.org/os](https://angold4.org/os/).**<br>
+> **[Pdf Book download](https://github.com/Angold-4/OSDI/raw/master/Operating%20Systems%20Design%20and%20Implementation%2C%203rd%20Edition.pdf)**<br>
 
 ## Contents
-xv6 Operating System Notes<br>
-	1. **[Introduction](docs/lectures/1Introduction.md)**<br>
-	2. **[Virtual Memory](docs/lectures/2VirtualMemory.md)**<br>
-	3. **[Special Topic: Traps](docs/lectures/3Traps.md)**<br>
-	4. **[Interrupts](docs/lectures/4Interrupts.md)**<br>
-	5. **[Scheduler](docs/lectures/5Scheduler.md)**<br>
-	6. **[6. File System - Part i](docs/lectures/6FS.md)**<br>
-	7. **[7. File System - Part ii](docs/lectures/7FSii.md)**<br>
 
 1. Introduction<br>
     **1. [Introduction to Operating Systerm](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter1/1OS.md)<br>**
@@ -34,8 +26,18 @@ xv6 Operating System Notes<br>
     **2. [Interprocess Communication](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/2Communication.md)<br>**
     **3. [Semaphore and IPC Problems](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/3Semaphore.md)<br>**
     **4. [Inside a Whole Clock Tick](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/4ClockTick.md)<br>**
-    **5. [Process Scheduler](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/5Scheduler.md)<br>**
+    **5. [Process Scheduler](https://github.com/Angoldj4/OSDI/blob/master/Chapter/Chapter2/5Scheduler.md)<br>**
     **6. [Interrupt](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/6Interrupt.md)<br>**
     **7. [System Task](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/7Systask.md)<br>**
     **8. [Problems for Chapter 2](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/8Problems.md)<br>**
     **Topic: [Interrupt implementation in Minix3](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/Interruptii.md)<br>**
+
+* *xv6* Notes<br>
+[xv6](https://pdos.csail.mit.edu/6.828/2024/xv6/book-riscv-rev4.pdf) is a simple, Unix-like teaching operating system.<br>
+	1. **[Introduction](os/1Introduction.md)**<br>
+	2. **[Virtual Memory](os/2VirtualMemory.md)**<br>
+	3. **[Special Topic: Traps](os/3Traps.md)**<br>
+	4. **[Interrupts](os/4Interrupts.md)**<br>
+	5. **[Scheduler](os/5Scheduler.md)**<br>
+	6. **[6. File System - Part i](os/6FS.md)**<br>
+	7. **[7. File System - Part ii](os/7FSii.md)**<br>
