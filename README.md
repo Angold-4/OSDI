@@ -2,7 +2,7 @@
 
 <img src="Chapter/Sources/TitleOSDI.png" align="right" weight="300" height="400"/>
 
-> **OS Notes since Aug 27, 2020**<br>
+> **OS notes since Aug 27, 2020**<br>
 > **I don't have copyright**<br>
 > **Web version at [angold4.org/OSDI](https://angold4.org/OSDI/) and [angold4.org/os](https://angold4.org/os/).**<br>
 > **[Pdf Book download](https://github.com/Angold-4/OSDI/raw/master/Operating%20Systems%20Design%20and%20Implementation%2C%203rd%20Edition.pdf)**<br>
@@ -33,11 +33,11 @@
     **Topic: [Interrupt implementation in Minix3](https://github.com/Angold-4/OSDI/blob/master/Chapter/Chapter2/Interruptii.md)<br>**
 
 * *xv6* Notes<br>
-[xv6](https://pdos.csail.mit.edu/6.828/2024/xv6/book-riscv-rev4.pdf) is a simple, Unix-like teaching operating system.<br>
+[**xv6**](https://pdos.csail.mit.edu/6.828/2024/xv6/book-riscv-rev4.pdf) is a simple, Unix-like teaching operating system.<br>
 	1. **[Introduction](os/1Introduction.md)**<br>
 	2. **[Virtual Memory](os/2VirtualMemory.md)**<br>
 	3. **[Special Topic: Traps](os/3Traps.md)**<br>
 	4. **[Interrupts](os/4Interrupts.md)**<br>
 	5. **[Scheduler](os/5Scheduler.md)**<br>
-	6. **[6. File System - Part i](os/6FS.md)**<br>
-	7. **[7. File System - Part ii](os/7FSii.md)**<br>
+	6. **[File System - Part i](os/6FS.md)**<br>
+	7. **[File System - Part ii](os/7FSii.md)**<br>
